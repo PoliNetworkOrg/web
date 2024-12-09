@@ -1,59 +1,57 @@
-import { auth, signIn, signOut } from "@/server/auth";
-import Link from "next/link";
+import Image from 'next/image'
+import { MoonIcon, SunIcon, GlobeIcon } from 'lucide-react'
+import Link from 'next/link'
 
-export default async function HomePage() {
-  const session = await auth();
+export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+      <header className="bg-white dark:bg-gray-800 shadow-md">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-4">
+            <Image src="https://raw.githubusercontent.com/PoliNetworkOrg/Logo/refs/heads/master/Logo.svg" alt="PoliNetwork Logo" width={40} height={40} />
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">PoliNetwork</h1>
+          </div>
+          <nav className="flex items-center space-x-4">
+            <Link href="/admin" className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+              Admin
+            </Link>
+            <button className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+              <MoonIcon className="h-6 w-6 hidden dark:block" />
+              <SunIcon className="h-6 w-6 block dark:hidden" />
+            </button>
+            <button className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+              <GlobeIcon className="h-6 w-6" />
+            </button>
+          </nav>
         </div>
-      </div>
-      {session ? (
-        <form
-          action={async () => {
-            "use server";
-            await signOut();
-          }}
-        >
-          <p>Logged in as {session.user.email}</p>
-          <button type="submit">Logout</button>
-        </form>
-      ) : (
-        <form
-          action={async () => {
-            "use server";
-            await signIn();
-          }}
-        >
-          <button type="submit">Sign in</button>
-        </form>
-      )}
-    </main>
-  );
+      </header>
+      <main className="container mx-auto px-4 py-8">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">Welcome to PoliNetwork</h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          PoliNetwork is a student association dedicated to connecting and supporting students at Politecnico.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Add more content sections here */}
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Our Mission</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              To foster a collaborative and supportive community among Politecnico students.
+            </p>
+          </div>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Upcoming Events</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Stay tuned for our exciting events and workshops!
+            </p>
+          </div>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Get Involved</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Join our community and make a difference in student life at Politecnico.
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
 }
