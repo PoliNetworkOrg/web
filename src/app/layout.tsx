@@ -57,7 +57,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${GeistSans.variable}`}
     >
-      <body>
+      <body className="overflow-y-scroll">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
