@@ -6,9 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const SIGNIN_ERROR_URL = "/api/auth/error";
 
-export default async function SignInPage(props: {
-  searchParams: { callbackUrl: string | undefined };
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl?: string }>;
 }) {
+  const { callbackUrl } = await searchParams;
+
   const session = await auth();
   if (session?.user) redirect("/admin");
 
@@ -26,7 +30,7 @@ export default async function SignInPage(props: {
                 "use server";
                 try {
                   await signIn(provider.id, {
-                    redirectTo: props.searchParams?.callbackUrl ?? "",
+                    redirectTo: callbackUrl ?? "",
                   });
                 } catch (error) {
                   // Signin can fail for a number of reasons, such as the user
@@ -50,7 +54,12 @@ export default async function SignInPage(props: {
             </form>
           ))}
 
-          <Button type="submit" variant="outline" disabled className="w-72 py-6">
+          <Button
+            type="submit"
+            variant="outline"
+            disabled
+            className="w-72 py-6"
+          >
             <span>Sign in with ... (coming soon)</span>
           </Button>
         </CardContent>
