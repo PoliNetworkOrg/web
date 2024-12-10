@@ -10,6 +10,7 @@ import {
 } from "@/server/db/schema";
 import MicrosoftEntraID from "next-auth/providers/microsoft-entra-id";
 import { env } from "@/env";
+import type { Provider } from "next-auth/providers";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -32,26 +33,29 @@ declare module "next-auth" {
   // }
 }
 
+const providers: Provider[] = [
+  /* @see https://next-auth.js.org/providers/ */
+  MicrosoftEntraID({
+    clientId: env.AUTH_AZURE_CLIENT_ID,
+    clientSecret: env.AUTH_AZURE_CLIENT_SECRET,
+    issuer: `https://login.microsoftonline.com/${env.AUTH_AZURE_TENANT_ID}/v2.0`,
+  }),
+];
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
-  providers: [
-    /* @see https://next-auth.js.org/providers/ */
-    MicrosoftEntraID({
-      clientId: env.AUTH_AZURE_CLIENT_ID,
-      clientSecret: env.AUTH_AZURE_CLIENT_SECRET,
-      issuer: `https://login.microsoftonline.com/${env.AUTH_AZURE_TENANT_ID}/v2.0`,
-    }),
-  ],
+  providers,
   adapter: DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,
     sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
   }),
+  pages: { signIn: "/login" },
   callbacks: {
     session: ({ session, user }) => ({
       ...session,
@@ -60,5 +64,19 @@ export const authConfig = {
         id: user.id,
       },
     }),
+    authorized: ({ auth }) => {
+      return !!auth?.user;
+    },
   },
 } satisfies NextAuthConfig;
+
+export const providerMap = authConfig.providers
+  .map((provider) => {
+    if (typeof provider === "function") {
+      const providerData = provider();
+      return { id: providerData.id, name: providerData.name };
+    } else {
+      return { id: provider.id, name: provider.name };
+    }
+  })
+  .filter((provider) => provider.id !== "credentials");
