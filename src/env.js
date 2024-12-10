@@ -14,6 +14,9 @@ export const env = createEnv({
     AUTH_AZURE_CLIENT_ID: z.string(),
     AUTH_AZURE_CLIENT_SECRET: z.string(),
     AUTH_AZURE_TENANT_ID: z.string(),
+    AUTH_GITHUB_CLIENT_ID: z.string(),
+    AUTH_GITHUB_CLIENT_SECRET: z.string(),
+    ADMIN_ORG_EMAIL: z.string().describe("Email address of admin Azure account."),
     DATABASE_URL: z.string().url(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
@@ -38,6 +41,9 @@ export const env = createEnv({
     AUTH_AZURE_CLIENT_ID: process.env.AUTH_AZURE_CLIENT_ID,
     AUTH_AZURE_CLIENT_SECRET: process.env.AUTH_AZURE_CLIENT_SECRET,
     AUTH_AZURE_TENANT_ID: process.env.AUTH_AZURE_TENANT_ID,
+    AUTH_GITHUB_CLIENT_ID: process.env.AUTH_GITHUB_CLIENT_ID,
+    AUTH_GITHUB_CLIENT_SECRET: process.env.AUTH_GITHUB_CLIENT_SECRET,
+    ADMIN_ORG_EMAIL: process.env.ADMIN_ORG_EMAIL,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
   },

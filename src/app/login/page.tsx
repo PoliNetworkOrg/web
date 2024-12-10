@@ -3,6 +3,7 @@ import { signIn, providerMap, auth } from "@/server/auth";
 import { AuthError } from "next-auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from "next/image";
 
 const SIGNIN_ERROR_URL = "/api/auth/error";
 
@@ -17,7 +18,7 @@ export default async function SignInPage({
   if (session?.user) redirect("/admin");
 
   return (
-    <main className="container mx-auto flex grow flex-col items-center justify-center px-4 py-8">
+    <main className="container mx-auto flex grow flex-col items-center justify-center px-4 py-8 text-accent">
       <Card>
         <CardHeader className="items-center py-8">
           <CardTitle>Login</CardTitle>
@@ -48,22 +49,27 @@ export default async function SignInPage({
                 }
               }}
             >
-              <Button type="submit" variant="outline" className="w-72 py-6">
-                <span>Sign in with {provider.name}</span>
-              </Button>
+              <BasicLoginButton id={provider.id} name={provider.name} />
             </form>
           ))}
-
-          <Button
-            type="submit"
-            variant="outline"
-            disabled
-            className="w-72 py-6"
-          >
-            <span>Sign in with ... (coming soon)</span>
-          </Button>
         </CardContent>
       </Card>
     </main>
+  );
+}
+
+function BasicLoginButton({ id, name }: { id: string; name: string }) {
+  return (
+    <Button type="submit" variant="outline" className="w-full py-6 grid grid-cols-[auto_1fr] grid-rows-1 space-x-2 min-w-60">
+      <Image
+        className="justify-self-end"
+        src={`https://authjs.dev/img/providers/${id}.svg`}
+        unoptimized
+        alt={`logo of ${name}`}
+        width={24}
+        height={24}
+      />
+      <span className="justify-self-start text-accent-foreground">{name}</span>
+    </Button>
   );
 }
