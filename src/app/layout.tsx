@@ -60,7 +60,7 @@ export default function RootLayout({
           storageKey="polinetwork_darkmode"
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen flex-col items-center justify-start bg-gray-100 dark:bg-gray-900">
+          <div className="flex min-h-screen flex-col items-center justify-start">
             <Header />
             {children}
           </div>

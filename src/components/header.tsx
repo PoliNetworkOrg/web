@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 export async function Header() {
   const session = await auth();
   return (
-    <header className="w-full bg-white shadow-md dark:bg-gray-800">
+    <header className="w-full bg-card shadow-md">
       <div className="container mx-auto flex items-center justify-center space-x-6 px-4 py-4">
         <Link href="/">
           <div className="flex items-center space-x-4">
@@ -19,13 +19,13 @@ export async function Header() {
               width={40}
               height={40}
             />
-            <h1 className="text-2xl font-bold">PoliNetwork</h1>
+            <h1 className="text-2xl font-bold text-accent-foreground">PoliNetwork</h1>
           </div>
         </Link>
         <nav className="flex grow items-center justify-end space-x-8">
           <Link
             href="/"
-            className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white"
+            className="hover:text-accent-foreground"
           >
             Home
           </Link>
@@ -38,12 +38,12 @@ export async function Header() {
               if (session?.user) await signOut();
               else redirect("/login?callbackUrl=/admin");
             }}
-            className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white"
+            className="text-foreground hover:text-accent-foreground"
           >
             {session?.user ? <LogOut /> : <LogIn />}
           </button>
           <ThemeButton />
-          <button className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+          <button className="hover:text-accent-foreground">
             <GlobeIcon className="h-6 w-6" />
           </button>
         </nav>
