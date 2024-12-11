@@ -18,6 +18,34 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const createTable = pgTableCreator((name) => `${name}`);
 
+export const departments = createTable("department", {
+  id: varchar("id", { length: 255 })
+    .notNull()
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: varchar("name", { length: 255 }).notNull(),
+  shortName: varchar("short_name", { length: 32 }),
+});
+
+export const departmentsUser = createTable(
+  "department_users",
+  {
+    departmentId: varchar("department_id", { length: 255 })
+      .notNull()
+      .references(() => departments.id),
+    userId: varchar("user_id", { length: 255 })
+      .notNull()
+      .references(() => users.id),
+    role: varchar("department_role", { length: 255 }).notNull(),
+  },
+  (row) => ({
+    pk: primaryKey({ columns: [row.departmentId, row.userId] }),
+  }),
+);
+
+/**
+ * AUTH SCHEMAS
+ */
 export const users = createTable("user", {
   id: varchar("id", { length: 255 })
     .notNull()
