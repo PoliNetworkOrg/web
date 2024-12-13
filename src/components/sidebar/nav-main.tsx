@@ -72,8 +72,8 @@ export function NavMain({ items }: { items: MenuItem[] }) {
               </SidebarMenuItem>
             </Collapsible>
           ) : (
-            <Link href={item.url} key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
+            <Link href={item.url} key={item.title} onClick={() => setActiveMenu("")}>
+              <SidebarMenuButton tooltip={item.title} >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
               </SidebarMenuButton>
