@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -25,6 +18,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 export function NavUser({
   user,
@@ -69,7 +64,9 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.image} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">{}</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {getInitials(user.name)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{user.name}</span>
@@ -79,28 +76,21 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
+              <Link href="/admin/account">
+                <DropdownMenuItem>
+                  <Settings />
+                  Account
+                </DropdownMenuItem>
+              </Link>
+              {/*
               <DropdownMenuItem>
                 <Bell />
                 Notifications
               </DropdownMenuItem>
+              */}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOut()}>
               <LogOut />
               Log out
             </DropdownMenuItem>
