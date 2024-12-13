@@ -1,15 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { auth, signOut } from "@/server/auth";
-import { LogOut } from "lucide-react";
-
-async function logout() {
-  "use server";
-
-  await signOut({
-    redirect: true,
-    redirectTo: "/",
-  });
-}
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { auth } from "@/server/auth";
+import Link from "next/link";
 
 export default async function AdminHome() {
   const session = await auth();
@@ -17,23 +8,41 @@ export default async function AdminHome() {
     session && (
       <main className="container mx-auto px-4 py-8">
         <h2 className="mb-4 text-3xl font-bold text-accent-foreground">
-          Admin page
+          Home
         </h2>
 
-        <form
-          action={logout}
-          className="mb-4 flex items-center justify-between rounded-lg border-2 p-4"
-        >
-          <p>
-            Benvenuto{" "}
-            <span className="ml-0.5 text-accent-foreground">{session.user.name}</span>{" "}
-            {`<${session.user.email}>`}
-          </p>
-          <Button variant="destructive" type="submit">
-            <LogOut />
-            Logout
-          </Button>
-        </form>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <Link href="/admin/hr">
+          <Card className="hover:bg-accent transition-colors">
+            <CardHeader>
+              <CardTitle>HR</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Manage users, admins, memebers.</p>
+            </CardContent>
+          </Card>
+        </Link>
+        <Link href="/admin/management">
+          <Card className="hover:bg-accent transition-colors">
+          <CardHeader>
+            <CardTitle>Management</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Manage internal settings.</p>
+          </CardContent>
+        </Card>
+        </Link>
+        <Link href="/admin/website">
+          <Card className="hover:bg-accent transition-colors">
+          <CardHeader>
+            <CardTitle>Website Data</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Manage content of our website pages.</p>
+          </CardContent>
+        </Card>
+        </Link>
+      </div>
       </main>
     )
   );

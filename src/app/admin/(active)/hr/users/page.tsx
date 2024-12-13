@@ -4,6 +4,7 @@ import { columns, type User } from "./columns";
 import { db } from "@/server/db";
 import { providerMap } from "@/server/auth/config";
 import { USER_ROLE } from "@/constants";
+import Link from "next/link";
 
 export default async function HRUsers() {
   const users = await db.query.users.findMany({ with: { accounts: true } });
@@ -28,7 +29,10 @@ export default async function HRUsers() {
   return (
     <main className="container mx-auto px-4 py-8">
       <h2 className="mb-4 flex items-center gap-2 text-3xl font-bold text-accent-foreground">
-        <span className="opacity-50">HR</span> <ArrowRight /> Users
+        <Link href="/admin/hr" className="opacity-50">
+          HR
+        </Link>
+        <ArrowRight /> Users
       </h2>
 
       <DataTable columns={columns} data={usersWithProviders} />
