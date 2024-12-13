@@ -11,6 +11,7 @@ export default async function AdminLayout({
 }) {
   const session = await auth();
   if (session?.user.role === USER_ROLE.INACTIVE) redirect("/admin/inactive");
+  if (session?.user.role === USER_ROLE.DISABLED) redirect("/admin/disabled");
 
   return session && (
     <>
