@@ -4,6 +4,10 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { USER_ROLE, type TUserRole } from "@/constants";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Ban, Check, Pen } from "lucide-react";
+import { useTransition } from "react";
+import { changeUserRole } from "@/server/actions/users";
 
 // removed field we don't want
 
@@ -54,7 +58,8 @@ export const columns: ColumnDef<User>[] = [
     header: "Role",
     cell: (cell) => {
       const role = cell.getValue<TUserRole>();
-      if (role === USER_ROLE.ADMIN_ORG) return <span className="font-bold">Owner</span>
+      if (role === USER_ROLE.ADMIN_ORG)
+        return <span className="font-bold">Owner</span>;
       if (role === USER_ROLE.MEMBER) return "Member";
       if (role === USER_ROLE.INACTIVE)
         return (
@@ -64,17 +69,63 @@ export const columns: ColumnDef<User>[] = [
         return <span className="text-destructive">Disabled</span>;
     },
   },
-  // {
-  //   id: "actions",
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="flex w-full items-center justify-end gap-2">
-  //         <Button size="icon" variant="outline">
-  //           <Pen />
-  //         </Button>
-  //         <Delete data={row.original} />
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    id: "role-actions",
+    cell: ({ row }) => {
+      const role: TUserRole = row.original.role;
+      if (role === USER_ROLE.ADMIN_ORG) return <></>;
+
+      return (
+        <div className="flex w-full items-center justify-end gap-2">
+          <AllowUser data={row.original} disabled={role === USER_ROLE.MEMBER} />
+          <DisableUser
+            data={row.original}
+            disabled={role === USER_ROLE.DISABLED}
+          />
+        </div>
+      );
+    },
+  },
 ];
+
+function AllowUser({ data, disabled }: { data: User; disabled: boolean }) {
+  const [isPending, startTransition] = useTransition();
+
+  function handleDisable() {
+    startTransition(() =>
+      changeUserRole({ id: data.id, newRole: USER_ROLE.MEMBER }),
+    );
+  }
+
+  return (
+    <Button
+      onClick={handleDisable}
+      disabled={disabled || isPending}
+      size="icon"
+      variant="success"
+    >
+      <Check />
+    </Button>
+  );
+}
+
+function DisableUser({ data, disabled }: { data: User; disabled: boolean }) {
+  const [isPending, startTransition] = useTransition();
+
+  function handleDisable() {
+    startTransition(() =>
+      changeUserRole({ id: data.id, newRole: USER_ROLE.DISABLED }),
+    );
+  }
+
+  return (
+    <Button
+      onClick={handleDisable}
+      disabled={disabled || isPending}
+      size="icon"
+      variant="destructive"
+    >
+      <Ban />
+    </Button>
+  );
+}
