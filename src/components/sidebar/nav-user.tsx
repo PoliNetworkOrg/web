@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/sidebar";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { getInitials } from "@/lib/utils";
 
 export function NavUser({
   user,
@@ -99,14 +100,4 @@ export function NavUser({
       </SidebarMenuItem>
     </SidebarMenu>
   );
-}
-
-function getInitials(name: string): string {
-  const [first, second] = name.split(" ");
-  if (first?.[0] && second?.[0])
-    return first[0].toLowerCase() + second[0].toUpperCase();
-  if (first?.[0] && !second?.[0] && first?.[1])
-    return first[0].toUpperCase() + first[1].toLowerCase();
-
-  return name.slice(0, 2); // fallback
 }

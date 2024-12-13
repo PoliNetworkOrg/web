@@ -1,3 +1,4 @@
+import { TUserRole, USER_ROLE } from "@/constants";
 import { relations, sql } from "drizzle-orm";
 import {
   index,
@@ -51,9 +52,12 @@ export const users = createTable("user", {
     .notNull()
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  name: varchar("name", { length: 255 }),
+  name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
-  role: varchar("role", { length: 128 }),
+  role: varchar("role", { length: 128 })
+    .$type<TUserRole>()
+    .default(USER_ROLE.INACTIVE)
+    .notNull(),
   image: varchar("image", { length: 255 }),
   emailVerified: timestamp("email_verified", {
     mode: "date",
