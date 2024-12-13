@@ -26,6 +26,9 @@ declare module "next-auth" {
     user: {
       id: string;
       role: TUserRole;
+      name: string;
+      email: string;
+      image?: string;
     } & DefaultSession["user"];
   }
 
@@ -44,17 +47,17 @@ const providers: Provider[] = [
       // https://learn.microsoft.com/en-us/graph/api/profilephoto-get?view=graph-rest-1.0&tabs=http#examples
       const response = await fetch(
         `https://graph.microsoft.com/v1.0/me/photos/${this.profilePhotoSize}x${this.profilePhotoSize}/$value`,
-        { headers: { Authorization: `Bearer ${tokens.access_token}` } }
-      )
+        { headers: { Authorization: `Bearer ${tokens.access_token}` } },
+      );
 
       // Confirm that profile photo was returned
-      let image
+      let image;
       // TODO: Do this without Buffer
       if (response.ok && typeof Buffer !== "undefined") {
         try {
-          const pictureBuffer = await response.arrayBuffer()
-          const pictureBase64 = Buffer.from(pictureBuffer).toString("base64")
-          image = `data:image/jpeg;base64, ${pictureBase64}`
+          const pictureBuffer = await response.arrayBuffer();
+          const pictureBase64 = Buffer.from(pictureBuffer).toString("base64");
+          image = `data:image/jpeg;base64, ${pictureBase64}`;
         } catch {}
       }
 
@@ -65,7 +68,7 @@ const providers: Provider[] = [
         email: profile.email,
         image: image ?? null,
         role: isAdminOrg ? USER_ROLE.ADMIN_ORG : USER_ROLE.MEMBER,
-      }
+      };
     },
   }),
   GitHub({
@@ -78,9 +81,9 @@ const providers: Provider[] = [
         email: profile.email,
         image: profile.avatar_url,
         role: USER_ROLE.INACTIVE,
-      }
-    }
-  })
+      };
+    },
+  }),
 ];
 
 /**

@@ -1,5 +1,6 @@
-import { Header } from "@/components/header";
+import { Header, HEADER_HEIGHT } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import "@/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
@@ -52,7 +53,14 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${GeistSans.variable}`}
     >
-      <body className="overflow-y-scroll">
+      <body
+        className="overflow-y-scroll"
+        style={
+          {
+            "--header-height": HEADER_HEIGHT,
+          } as React.CSSProperties
+        }
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -60,9 +68,9 @@ export default function RootLayout({
           storageKey="polinetwork_darkmode"
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen flex-col items-center justify-start">
+          <div className="flex min-h-screen w-full flex-col items-center justify-start">
             <Header />
-            {children}
+            <SidebarProvider>{children}</SidebarProvider>
           </div>
         </ThemeProvider>
       </body>
