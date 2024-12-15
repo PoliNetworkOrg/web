@@ -28,7 +28,11 @@ export const departments = createTable("department", {
   shortName: varchar("short_name", { length: 32 }),
 });
 
-export const departmentsUser = createTable(
+export const departmentsRelations = relations(departments, ({ many }) => ({
+  departmentUsers: many(departmentUsers)
+}));
+
+export const departmentUsers = createTable(
   "department_users",
   {
     departmentId: varchar("department_id", { length: 255 })
@@ -43,6 +47,17 @@ export const departmentsUser = createTable(
     pk: primaryKey({ columns: [row.departmentId, row.userId] }),
   }),
 );
+
+export const departmentUsersRelations = relations(departmentUsers, ({ one }) => ({
+  department: one(departments, {
+    fields: [departmentUsers.departmentId],
+    references: [departments.id],
+  }),
+  user: one(users, {
+    fields: [departmentUsers.userId],
+    references: [users.id],
+  }),
+}));
 
 /**
  * AUTH SCHEMAS
@@ -67,6 +82,7 @@ export const users = createTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
+  departmentUsers: many(departmentUsers)
 }));
 
 export const accounts = createTable(
