@@ -10,10 +10,11 @@ import {
 } from "@/server/actions/departments";
 import { getUsers } from "@/server/actions/users";
 import { db } from "@/server/db";
-import { TUser } from "@/server/db/schema";
+import type { TUser } from "@/server/db/schema";
 import { ArrowRight, XIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import RenameDepartment from "./rename";
 
 export default async function Page({
   params,
@@ -134,7 +135,10 @@ export default async function Page({
         <ArrowRight /> {department.name}{" "}
         {department.shortName && <span>({department.shortName})</span>}
       </h2>
-      <div className="mb-4 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-start justify-start space-x-8">
+
+      <RenameDepartment id={department.id} name={department.name} shortName={department.shortName} />
+
+      <div className="mt-16 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-start justify-start space-x-8">
         <div className="grid grid-cols-1 justify-start space-y-4">
           <div className="flex w-full items-center justify-between">
             <h3 className="text-xl font-bold">Head</h3>

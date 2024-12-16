@@ -20,6 +20,23 @@ export async function createDepartment(values: {
   redirect("/admin/management/departments");
 }
 
+export async function renameDepartment(values: {
+  id: string;
+  name: string;
+  shortName: string;
+}) {
+  await db
+    .update(departments)
+    .set({
+      name: values.name,
+      shortName: values.shortName.length > 0 ? values.shortName : null,
+    })
+    .where(eq(departments.id, values.id));
+
+  revalidatePath("/admin/management/departments");
+  revalidatePath(`/admin/management/departments/${values.id}`);
+}
+
 export async function deleteDepartment(values: { id: string }) {
   await db.delete(departments).where(eq(departments.id, values.id));
 
