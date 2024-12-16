@@ -8,7 +8,7 @@ export type TUserRole = typeof USER_ROLE[keyof typeof USER_ROLE]
 
 export const DEP_ROLE = {
   HEAD: "head",
-  DEPUTY_HEAD: "head",
+  DEPUTY_HEAD: "deputy_head",
   MEMBER: "member"
 } as const;
 export type TDepRole = typeof DEP_ROLE[keyof typeof DEP_ROLE]

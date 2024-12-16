@@ -1,4 +1,9 @@
-import { TUserRole, USER_ROLE } from "@/constants";
+import {
+  DEP_ROLE,
+  type TDepRole,
+  type TUserRole,
+  USER_ROLE,
+} from "@/constants";
 import { relations, sql } from "drizzle-orm";
 import {
   index,
@@ -29,7 +34,7 @@ export const departments = createTable("department", {
 });
 
 export const departmentsRelations = relations(departments, ({ many }) => ({
-  departmentUsers: many(departmentUsers)
+  departmentUsers: many(departmentUsers),
 }));
 
 export const departmentUsers = createTable(
@@ -41,23 +46,29 @@ export const departmentUsers = createTable(
     userId: varchar("user_id", { length: 255 })
       .notNull()
       .references(() => users.id),
-    role: varchar("department_role", { length: 255 }).notNull(),
+    role: varchar("department_role", { length: 255 })
+      .$type<TDepRole>()
+      .default(DEP_ROLE.MEMBER)
+      .notNull(),
   },
   (row) => ({
     pk: primaryKey({ columns: [row.departmentId, row.userId] }),
   }),
 );
 
-export const departmentUsersRelations = relations(departmentUsers, ({ one }) => ({
-  department: one(departments, {
-    fields: [departmentUsers.departmentId],
-    references: [departments.id],
+export const departmentUsersRelations = relations(
+  departmentUsers,
+  ({ one }) => ({
+    department: one(departments, {
+      fields: [departmentUsers.departmentId],
+      references: [departments.id],
+    }),
+    user: one(users, {
+      fields: [departmentUsers.userId],
+      references: [users.id],
+    }),
   }),
-  user: one(users, {
-    fields: [departmentUsers.userId],
-    references: [users.id],
-  }),
-}));
+);
 
 /**
  * AUTH SCHEMAS
@@ -80,9 +91,11 @@ export const users = createTable("user", {
   }).default(sql`CURRENT_TIMESTAMP`),
 });
 
+export type TUser = typeof users.$inferSelect; 
+
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
-  departmentUsers: many(departmentUsers)
+  departmentUsers: many(departmentUsers),
 }));
 
 export const accounts = createTable(

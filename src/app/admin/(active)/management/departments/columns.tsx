@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState, useTransition } from "react";
 import { deleteDepartment } from "@/server/actions/departments";
+import Link from "next/link";
 
 export type Department = {
   id: string;
@@ -30,16 +31,19 @@ export const columns: ColumnDef<Department>[] = [
   {
     accessorKey: "shortName",
     header: "Short Name",
-    cell: (cell) => cell.getValue() ?? <span className="italic opacity-50">undefined</span>,
+    cell: (cell) =>
+      cell.getValue() ?? <span className="italic opacity-50">undefined</span>,
   },
   {
     id: "actions",
     cell: ({ row }) => {
       return (
         <div className="flex w-full items-center justify-end gap-2">
-          <Button size="icon" variant="outline">
-            <Pen />
-          </Button>
+          <Link href={`/admin/management/departments/${row.original.id}`}>
+            <Button size="icon" variant="outline">
+              <Pen />
+            </Button>
+          </Link>
           <Delete data={row.original} />
         </div>
       );

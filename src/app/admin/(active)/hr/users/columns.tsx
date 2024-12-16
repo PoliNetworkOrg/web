@@ -5,20 +5,9 @@ import { USER_ROLE, type TUserRole } from "@/constants";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Ban, Check, Pen } from "lucide-react";
+import { Ban, Check } from "lucide-react";
 import { useTransition } from "react";
-import { changeUserRole } from "@/server/actions/users";
-
-// removed field we don't want
-
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  role: TUserRole;
-  image: string | null;
-  accountProviders: string[];
-};
+import { changeUserRole, type UserWithAccountProviders as User } from "@/server/actions/users";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -46,11 +35,11 @@ export const columns: ColumnDef<User>[] = [
     header: "Email",
   },
   {
-    accessorKey: "accountProviders",
+    accessorKey: "accounts",
     header: "Account Provider(s)",
     cell: (cell) => {
-      const accounts = cell.getValue<string[]>();
-      return accounts.join(", ");
+      const accounts = cell.getValue<{ provider: string}[]>();
+      return accounts.map(a => a.provider).join(", ");
     },
   },
   {
