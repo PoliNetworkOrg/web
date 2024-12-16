@@ -136,7 +136,11 @@ export default async function Page({
         {department.shortName && <span>({department.shortName})</span>}
       </h2>
 
-      <RenameDepartment id={department.id} name={department.name} shortName={department.shortName} />
+      <RenameDepartment
+        id={department.id}
+        name={department.name}
+        shortName={department.shortName}
+      />
 
       <div className="mt-16 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-start justify-start space-x-8">
         <div className="grid grid-cols-1 justify-start space-y-4">
@@ -149,7 +153,7 @@ export default async function Page({
             />
           </div>
           {head ? (
-            <UserCard user={head.user} />
+            <UserCard user={head.user} departmentId={departmentId} />
           ) : (
             <span className="italic opacity-50">undefined</span>
           )}
@@ -168,7 +172,13 @@ export default async function Page({
             />
           </div>
           {deputyHeads.length > 0 ? (
-            deputyHeads.map((m) => <UserCard user={m.user} key={m.userId} />)
+            deputyHeads.map((m) => (
+              <UserCard
+                user={m.user}
+                key={m.userId}
+                departmentId={departmentId}
+              />
+            ))
           ) : (
             <span className="italic opacity-50">undefined</span>
           )}
@@ -187,7 +197,13 @@ export default async function Page({
             />
           </div>
           {members.length > 0 ? (
-            members.map((m) => <UserCard user={m.user} key={m.userId} />)
+            members.map((m) => (
+              <UserCard
+                user={m.user}
+                key={m.userId}
+                departmentId={departmentId}
+              />
+            ))
           ) : (
             <span className="italic opacity-50">undefined</span>
           )}
@@ -197,7 +213,18 @@ export default async function Page({
   );
 }
 
-function UserCard({ user }: { user: TUser }) {
+function UserCard({
+  user,
+  departmentId,
+}: {
+  user: TUser;
+  departmentId: string;
+}) {
+  async function handleDelete() {
+    "use server";
+    await unassignUserFromDepartment({ userId: user.id, departmentId });
+  }
+
   return (
     <div className="flex w-full items-center gap-2">
       <Avatar className="h-8 w-8 rounded-lg">
@@ -210,7 +237,7 @@ function UserCard({ user }: { user: TUser }) {
       </Avatar>
       <p className="grow">{user.name}</p>
       <p className="truncate">{user.email}</p>
-      <Button size="icon" variant="outline">
+      <Button onClick={handleDelete} size="icon" variant="outline">
         <XIcon />
       </Button>
     </div>
