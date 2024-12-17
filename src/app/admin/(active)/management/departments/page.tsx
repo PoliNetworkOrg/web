@@ -11,7 +11,7 @@ export default async function ManagementDepartments() {
   return (
     <main className="container mx-auto px-4 py-8">
       <h2 className="mb-8 flex items-center gap-2 text-3xl font-bold text-accent-foreground">
-        <span className="opacity-50">Management</span> <ArrowRight />{" "}
+        <Link href="/admin/management" className="opacity-50">Management</Link> <ArrowRight />{" "}
         Departments
       </h2>
       <div className="mb-4 flex items-center justify-between">
