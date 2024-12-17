@@ -19,17 +19,16 @@ export default async function ManagementBoard() {
         Board
       </h2>
 
-      {uniqueMembers.length < 5 ||
-        (uniqueMembers.length > 9 && (
-          <Alert variant="warning">
-            <TriangleAlert className="h-4 w-4" />
-            <AlertTitle>Attention</AlertTitle>
-            <AlertDescription>
-              This configuration of the board is not permitted by the statue.
-              Please adjust it to reach a number of members 5 &le; n &le; 9.
-            </AlertDescription>
-          </Alert>
-        ))}
+      {(uniqueMembers.length < 5 || uniqueMembers.length > 9) && (
+        <Alert variant="warning">
+          <TriangleAlert className="h-4 w-4" />
+          <AlertTitle>Attention</AlertTitle>
+          <AlertDescription>
+            This configuration of the board is not permitted by the statue.
+            Please adjust it to reach a number of members 5 &le; n &le; 9.
+          </AlertDescription>
+        </Alert>
+      )}
 
       <div className="grid grid-cols-1 justify-start space-y-4">
         <div className="flex w-full items-center justify-between">
