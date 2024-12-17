@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { GlobeIcon, LayoutDashboard, LogIn, LogOut } from "lucide-react";
+import { GlobeIcon, LayoutDashboard, LogIn } from "lucide-react";
 import Link from "next/link";
 import { ThemeButton } from "@/components/theme-button";
 import { Separator } from "@/components/ui/separator";
-import { auth, signOut } from "@/server/auth";
-import { redirect } from "next/navigation";
+import { auth } from "@/server/auth";
 
 export const HEADER_HEIGHT = "4.5rem";
 

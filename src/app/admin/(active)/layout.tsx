@@ -13,10 +13,12 @@ export default async function AdminLayout({
   if (session?.user.role === USER_ROLE.INACTIVE) redirect("/admin/inactive");
   if (session?.user.role === USER_ROLE.DISABLED) redirect("/admin/disabled");
 
-  return session && (
-    <>
-      <AdminSidebar user={session.user} />
-      <SidebarInset>{children}</SidebarInset>
-    </>
+  return (
+    session && (
+      <>
+        <AdminSidebar user={session.user} />
+        <SidebarInset>{children}</SidebarInset>
+      </>
+    )
   );
 }

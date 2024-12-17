@@ -60,7 +60,11 @@ export default async function SignInPage({
 
 function BasicLoginButton({ id, name }: { id: string; name: string }) {
   return (
-    <Button type="submit" variant="outline" className="w-full py-6 grid grid-cols-[auto_1fr] grid-rows-1 space-x-2 min-w-60">
+    <Button
+      type="submit"
+      variant="outline"
+      className="grid w-full min-w-60 grid-cols-[auto_1fr] grid-rows-1 space-x-2 py-6"
+    >
       <Image
         className="justify-self-end"
         src={`https://authjs.dev/img/providers/${id}.svg`}

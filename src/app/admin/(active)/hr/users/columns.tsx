@@ -7,7 +7,10 @@ import { getInitials } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Ban, Check } from "lucide-react";
 import { useTransition } from "react";
-import { changeUserRole, type UserWithAccountProviders as User } from "@/server/actions/users";
+import {
+  changeUserRole,
+  type UserWithAccountProviders as User,
+} from "@/server/actions/users";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -38,8 +41,8 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "accounts",
     header: "Account Provider(s)",
     cell: (cell) => {
-      const accounts = cell.getValue<{ provider: string}[]>();
-      return accounts.map(a => a.provider).join(", ");
+      const accounts = cell.getValue<{ provider: string }[]>();
+      return accounts.map((a) => a.provider).join(", ");
     },
   },
   {

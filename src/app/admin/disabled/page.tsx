@@ -17,7 +17,7 @@ async function logout() {
 
 export default async function AdminInactive() {
   const session = await auth();
-  if (session?.user.role !== USER_ROLE.DISABLED) redirect("/admin")
+  if (session?.user.role !== USER_ROLE.DISABLED) redirect("/admin");
   return (
     session && (
       <main className="container mx-auto flex grow flex-col items-center justify-center px-4 py-8">
@@ -29,10 +29,12 @@ export default async function AdminInactive() {
             alt="illustration of disabled account"
           />
           <h3 className="text-3xl text-accent-foreground">
-            Il tuo account è stato disabilitato<br />
+            Il tuo account è stato disabilitato
+            <br />
           </h3>
           <p className="max-w-[30rem]">
-            Il tuo account è stato disabilitato in quanto non sei un membro riconosciuto di PoliNetwork.
+            Il tuo account è stato disabilitato in quanto non sei un membro
+            riconosciuto di PoliNetwork.
           </p>
           <p className="max-w-[30rem]">
             Se credi che sia un errore, manda una richiesta di rivalutazione.

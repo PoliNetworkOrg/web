@@ -7,7 +7,7 @@ export default async function HRHome() {
       <h2 className="mb-4 text-3xl font-bold text-accent-foreground">HR</h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Link href="/admin/hr/users">
-          <Card className="hover:bg-accent/80 transition-colors">
+          <Card className="transition-colors hover:bg-accent/80">
             <CardHeader>
               <CardTitle>Users</CardTitle>
             </CardHeader>
@@ -17,14 +17,14 @@ export default async function HRHome() {
           </Card>
         </Link>
         <Link href="/admin/hr/admins">
-          <Card className="hover:bg-accent transition-colors">
-          <CardHeader>
-            <CardTitle>Admins</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Manage admins in telegram.</p>
-          </CardContent>
-        </Card>
+          <Card className="transition-colors hover:bg-accent">
+            <CardHeader>
+              <CardTitle>Admins</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Manage admins in telegram.</p>
+            </CardContent>
+          </Card>
         </Link>
       </div>
     </main>

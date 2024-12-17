@@ -7,8 +7,10 @@ export default async function NotFound() {
         Not Found
       </h2>
 
-      <p className="mb-4">This page doesn&apos;t exist or is not available yet.</p>
-      
+      <p className="mb-4">
+        This page doesn&apos;t exist or is not available yet.
+      </p>
+
       <Link href="/">Go to homepage</Link>
     </main>
   );

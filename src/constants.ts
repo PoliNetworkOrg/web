@@ -4,14 +4,14 @@ export const USER_ROLE = {
   INACTIVE: "inactive",
   DISABLED: "disabled",
 } as const;
-export type TUserRole = typeof USER_ROLE[keyof typeof USER_ROLE]
+export type TUserRole = (typeof USER_ROLE)[keyof typeof USER_ROLE];
 
 export const DEP_ROLE = {
   HEAD: "head",
   DEPUTY_HEAD: "deputy_head",
-  MEMBER: "member"
+  MEMBER: "member",
 } as const;
-export type TDepRole = typeof DEP_ROLE[keyof typeof DEP_ROLE]
+export type TDepRole = (typeof DEP_ROLE)[keyof typeof DEP_ROLE];
 
 export const BOARD_ROLE = {
   PRESIDENT: "president",

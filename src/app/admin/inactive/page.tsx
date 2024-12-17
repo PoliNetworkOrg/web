@@ -17,7 +17,7 @@ async function logout() {
 
 export default async function AdminInactive() {
   const session = await auth();
-  if (session?.user.role !== USER_ROLE.INACTIVE) redirect("/admin")
+  if (session?.user.role !== USER_ROLE.INACTIVE) redirect("/admin");
   return (
     session && (
       <main className="container mx-auto flex grow flex-col items-center justify-center px-4 py-8">
