@@ -24,7 +24,7 @@ export default async function ManagementBoard() {
           <TriangleAlert className="h-4 w-4" />
           <AlertTitle>Attention</AlertTitle>
           <AlertDescription>
-            This configuration of the board is not permitted by the statue.
+            This configuration of the board is not permitted by the statute.
             Please adjust it to reach a number of members 5 &le; n &le; 9.
           </AlertDescription>
         </Alert>
