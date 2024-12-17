@@ -1,7 +1,9 @@
 import {
-  DEP_ROLE,
+  type TBoardRole,
   type TDepRole,
   type TUserRole,
+  BOARD_ROLE,
+  DEP_ROLE,
   USER_ROLE,
 } from "@/constants";
 import { relations, sql } from "drizzle-orm";
@@ -23,6 +25,29 @@ import { type AdapterAccount } from "next-auth/adapters";
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
 export const createTable = pgTableCreator((name) => `${name}`);
+
+export const board = createTable(
+  "board",
+  {
+    userId: varchar("user_id", { length: 255 })
+      .notNull()
+      .references(() => users.id),
+    role: varchar("role", { length: 255 })
+      .$type<TBoardRole>()
+      .default(BOARD_ROLE.MEMBER)
+      .notNull(),
+  },
+  (row) => ({
+    pk: primaryKey({ columns: [row.userId, row.role] }),
+  }),
+);
+
+export const boardRelations = relations(board, ({ one }) => ({
+  user: one(users, {
+    fields: [board.userId],
+    references: [users.id],
+  }),
+}));
 
 export const departments = createTable("department", {
   id: varchar("id", { length: 255 })
@@ -91,11 +116,15 @@ export const users = createTable("user", {
   }).default(sql`CURRENT_TIMESTAMP`),
 });
 
-export type TUser = typeof users.$inferSelect; 
+export type TUser = typeof users.$inferSelect;
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
   departmentUsers: many(departmentUsers),
+  board: one(board, {
+    fields: [users.id],
+    references: [board.userId],
+  }),
 }));
 
 export const accounts = createTable(

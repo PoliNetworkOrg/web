@@ -43,7 +43,7 @@ export async function deleteDepartment(values: { id: string }) {
   revalidatePath("/admin/management/departments");
 }
 
-export async function assignUserToDepartment(values: {
+export async function assignDepartmentRole(values: {
   userId: string;
   departmentId: string;
   role: TDepRole;
@@ -69,7 +69,7 @@ export async function assignUserToDepartment(values: {
   revalidatePath(`/admin/management/departments/${values.departmentId}`);
 }
 
-export async function unassignUserFromDepartment(values: {
+export async function unassignDepartmentRole(values: {
   userId: string;
   departmentId: string;
 }) {

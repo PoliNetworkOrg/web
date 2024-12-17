@@ -12,3 +12,18 @@ export const DEP_ROLE = {
   MEMBER: "member"
 } as const;
 export type TDepRole = typeof DEP_ROLE[keyof typeof DEP_ROLE]
+
+export const BOARD_ROLE = {
+  PRESIDENT: "president",
+  VICE_PRESIDENT: "vice_president",
+  SECRETARY: "secretary",
+  TREASURER: "treasurer",
+  MEMBER: "member",
+} as const;
+export type TBoardRole = (typeof BOARD_ROLE)[keyof typeof BOARD_ROLE];
+
+export const INCOMPATIBLE_BOARD_ROLES: TBoardRole[] = [
+  BOARD_ROLE.PRESIDENT,
+  BOARD_ROLE.VICE_PRESIDENT,
+  BOARD_ROLE.SECRETARY,
+] as const;

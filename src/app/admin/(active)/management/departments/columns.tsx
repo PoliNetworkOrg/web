@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Pen, Trash } from "lucide-react";
+import { Eye, Trash } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -41,7 +41,7 @@ export const columns: ColumnDef<Department>[] = [
         <div className="flex w-full items-center justify-end gap-2">
           <Link href={`/admin/management/departments/${row.original.id}`}>
             <Button size="icon" variant="outline">
-              <Pen />
+              <Eye />
             </Button>
           </Link>
           <Delete data={row.original} />

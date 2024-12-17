@@ -3,6 +3,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -17,7 +18,8 @@ type Props = {
   users: UserWithAccountProviders[];
   allowMultipleSelection?: boolean;
   initialSelectedIds?: string[];
-  selectAction?: (users: string[]) => Promise<void>; // must end with "Action"
+  selectAction?: (userIds: string[]) => Promise<void>; // must end with "Action"
+  max?: number;
 };
 
 export function SelectUsers({
@@ -25,14 +27,17 @@ export function SelectUsers({
   allowMultipleSelection,
   selectAction,
   initialSelectedIds = [],
+  max,
 }: Props) {
   const [selectedIds, setSelectedIds] = useState<string[]>(initialSelectedIds);
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState<boolean>(false);
 
+  max = allowMultipleSelection ? max : 1;
+
   useEffect(() => {
     setSelectedIds(initialSelectedIds);
-  }, [initialSelectedIds])
+  }, [initialSelectedIds]);
 
   async function handleConfirm() {
     startTransition(async () => {
@@ -66,6 +71,7 @@ export function SelectUsers({
           <SheetTitle>
             Select {allowMultipleSelection ? "User(s)" : "User"}
           </SheetTitle>
+          {max && <SheetDescription> Max {max} selection(s)</SheetDescription>}
         </SheetHeader>
         <div className="grid gap-4 py-4">
           {users.map((u) => (

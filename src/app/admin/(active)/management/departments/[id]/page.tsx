@@ -1,20 +1,18 @@
 import { SelectUsers } from "@/components/select-users";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { DEP_ROLE } from "@/constants";
-import { getInitials } from "@/lib/utils";
 import {
-  assignUserToDepartment,
-  unassignUserFromDepartment,
+  assignDepartmentRole,
+  unassignDepartmentRole,
 } from "@/server/actions/departments";
 import { getUsers } from "@/server/actions/users";
 import { db } from "@/server/db";
 import type { TUser } from "@/server/db/schema";
-import { ArrowRight, XIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import RenameDepartment from "./rename";
+import { UserCard } from "@/components/user-card";
 
 export default async function Page({
   params,
@@ -64,7 +62,7 @@ export default async function Page({
     const userId = ids[0];
 
     if (head)
-      await unassignUserFromDepartment({
+      await unassignDepartmentRole({
         userId: head.userId,
         departmentId: head.departmentId,
       });
@@ -73,7 +71,7 @@ export default async function Page({
       return;
     }
 
-    await assignUserToDepartment({ userId, departmentId, role: DEP_ROLE.HEAD });
+    await assignDepartmentRole({ userId, departmentId, role: DEP_ROLE.HEAD });
   }
 
   async function handleDeputyHeadSelect(ids: string[]) {
@@ -81,7 +79,7 @@ export default async function Page({
 
     for (const dh of deputyHeads) {
       if (!ids.includes(dh.userId)) {
-        await unassignUserFromDepartment({
+        await unassignDepartmentRole({
           userId: dh.userId,
           departmentId: dh.departmentId,
         });
@@ -91,7 +89,7 @@ export default async function Page({
     }
 
     for (const userId of ids) {
-      await assignUserToDepartment({
+      await assignDepartmentRole({
         userId,
         departmentId,
         role: DEP_ROLE.DEPUTY_HEAD,
@@ -104,7 +102,7 @@ export default async function Page({
 
     for (const m of members) {
       if (!ids.includes(m.userId)) {
-        await unassignUserFromDepartment({
+        await unassignDepartmentRole({
           userId: m.userId,
           departmentId: m.departmentId,
         });
@@ -114,12 +112,17 @@ export default async function Page({
     }
 
     for (const userId of ids) {
-      await assignUserToDepartment({
+      await assignDepartmentRole({
         userId,
         departmentId,
         role: DEP_ROLE.MEMBER,
       });
     }
+  }
+
+  async function handleUnassignUser(user: TUser) {
+    "use server";
+    await unassignDepartmentRole({ userId: user.id, departmentId });
   }
 
   return (
@@ -153,7 +156,7 @@ export default async function Page({
             />
           </div>
           {head ? (
-            <UserCard user={head.user} departmentId={departmentId} />
+            <UserCard user={head.user} buttonAction={handleUnassignUser} />
           ) : (
             <span className="italic opacity-50">undefined</span>
           )}
@@ -176,7 +179,7 @@ export default async function Page({
               <UserCard
                 user={m.user}
                 key={m.userId}
-                departmentId={departmentId}
+                buttonAction={handleUnassignUser}
               />
             ))
           ) : (
@@ -201,7 +204,7 @@ export default async function Page({
               <UserCard
                 user={m.user}
                 key={m.userId}
-                departmentId={departmentId}
+                buttonAction={handleUnassignUser}
               />
             ))
           ) : (
@@ -210,36 +213,5 @@ export default async function Page({
         </div>
       </div>
     </main>
-  );
-}
-
-function UserCard({
-  user,
-  departmentId,
-}: {
-  user: TUser;
-  departmentId: string;
-}) {
-  async function handleDelete() {
-    "use server";
-    await unassignUserFromDepartment({ userId: user.id, departmentId });
-  }
-
-  return (
-    <div className="flex w-full items-center gap-2">
-      <Avatar className="h-8 w-8 rounded-lg">
-        {user.image && (
-          <AvatarImage src={user.image} alt={`propic of ${user.name}`} />
-        )}
-        <AvatarFallback className="rounded-lg">
-          {getInitials(user.name)}
-        </AvatarFallback>
-      </Avatar>
-      <p className="grow">{user.name}</p>
-      <p className="truncate">{user.email}</p>
-      <Button onClick={handleDelete} size="icon" variant="outline">
-        <XIcon />
-      </Button>
-    </div>
   );
 }
