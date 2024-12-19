@@ -48,7 +48,7 @@ export default function RenameDepartment({ id, name, shortName }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid w-full grid-cols-3 items-center space-x-8"
+        className="grid w-full grid-cols-[1fr_1fr_auto] items-center space-x-8"
       >
         <FormField
           control={form.control}

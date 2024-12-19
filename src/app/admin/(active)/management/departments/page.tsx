@@ -1,8 +1,7 @@
 import { DataTable } from "@/components/data-table";
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { columns } from "./columns";
 import { db } from "@/server/db";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default async function ManagementDepartments() {
@@ -16,11 +15,6 @@ export default async function ManagementDepartments() {
       </h2>
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-lg text-accent-foreground">Department List</h3>
-        <Link href="/admin/management/departments/new">
-          <Button>
-            <Plus /> New
-          </Button>
-        </Link>
       </div>
       <DataTable columns={columns} data={departments} />
     </main>

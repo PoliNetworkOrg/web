@@ -6,6 +6,16 @@ export const USER_ROLE = {
 } as const;
 export type TUserRole = (typeof USER_ROLE)[keyof typeof USER_ROLE];
 
+export const DEPARTMENT_ID = {
+  IT: "it",
+  SOCIAL: "social",
+  HR: "hr",
+  INST_RELATIONS: "institutional_relations",
+  EVENTS: "events",
+}
+export type TDepartmentId = (typeof DEPARTMENT_ID)[keyof typeof DEPARTMENT_ID];
+
+// department roles
 export const DEP_ROLE = {
   HEAD: "head",
   DEPUTY_HEAD: "deputy_head",

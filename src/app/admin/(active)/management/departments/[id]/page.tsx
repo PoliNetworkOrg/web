@@ -135,8 +135,8 @@ export default async function Page({
         <Link href="/admin/management/departments" className="opacity-50">
           Departments
         </Link>{" "}
-        <ArrowRight /> {department.name}{" "}
-        {department.shortName && <span>({department.shortName})</span>}
+        <ArrowRight /> 
+        <span>{department.shortName ?? department.name}</span>
       </h2>
 
       <RenameDepartment
