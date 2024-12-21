@@ -3,22 +3,8 @@
 import { departments, departmentUsers } from "../db/schema";
 import { db } from "../db";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { and, eq } from "drizzle-orm";
 import type { TDepRole } from "@/constants";
-
-export async function createDepartment(values: {
-  name: string;
-  shortName: string;
-}) {
-  await db.insert(departments).values({
-    name: values.name,
-    shortName: values.shortName.length > 0 ? values.shortName : null,
-  });
-
-  revalidatePath("/admin/management/departments");
-  redirect("/admin/management/departments");
-}
 
 export async function renameDepartment(values: {
   id: string;

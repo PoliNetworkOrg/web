@@ -25,6 +25,41 @@ export type Department = {
 
 export const columns: ColumnDef<Department>[] = [
   {
+    accessorKey: "id",
+    header: "ID",
+  },
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "shortName",
+    header: "Short Name",
+    cell: (cell) =>
+      cell.getValue() ?? <span className="italic opacity-50">undefined</span>,
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      return (
+        <div className="flex w-full items-center justify-end gap-2">
+          <Link href={`/admin/management/departments/${row.original.id}`}>
+            <Button size="icon" variant="outline">
+              <Eye />
+            </Button>
+          </Link>
+        </div>
+      );
+    },
+  },
+];
+
+export const orphanColumns: ColumnDef<Department>[] = [
+  {
+    accessorKey: "id",
+    header: "ID",
+  },
+  {
     accessorKey: "name",
     header: "Name",
   },
