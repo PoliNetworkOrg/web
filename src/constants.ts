@@ -12,7 +12,7 @@ export const DEPARTMENT_ID = {
   HR: "hr",
   INST_RELATIONS: "institutional_relations",
   EVENTS: "events",
-}
+} as const;
 export type TDepartmentId = (typeof DEPARTMENT_ID)[keyof typeof DEPARTMENT_ID];
 
 // department roles
