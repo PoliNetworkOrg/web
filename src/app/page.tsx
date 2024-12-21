@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,7 +12,13 @@ export default function Home() {
         PoliNetwork is a student association dedicated to connecting and
         supporting students at Politecnico.
       </p>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <Link href="/about">
+        <Button>
+          About
+        </Button>
+      </Link>
+
+      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Add more content sections here */}
         <Card>
           <CardHeader>
