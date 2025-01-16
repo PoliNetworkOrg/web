@@ -31,9 +31,11 @@ export const aboutBoards = createTable("about_board", {
     .notNull()
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
+  iterationNum: integer("iterationNum"),
   nominatedOn: timestamp("nominated_on", { mode: "date" }).notNull(),
-  endedOn: timestamp("nominated_on", { mode: "date" }),
+  endedOn: timestamp("ended_on", { mode: "date" }),
 });
+export type TAboutBoard = typeof aboutBoards.$inferSelect;
 
 export const aboutBoardRelations = relations(aboutBoards, ({ many }) => ({
   members: many(aboutBoardMembers)
@@ -95,6 +97,8 @@ export const tgUsers = createTable("tg_user", {
   name: varchar("name", { length: 255 }).notNull(),
   tgUsername: varchar("tg_username", { length: 255 }).unique().notNull(),
 });
+
+export type TTGUser = typeof tgUsers.$inferSelect;
 
 export const tgUserRelations = relations(tgUsers, ({ many }) => ({
   aboutBoards: many(aboutBoardMembers),

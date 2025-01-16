@@ -1,0 +1,1 @@
+ALTER TABLE "about_board" ADD COLUMN "iterationNum" integer;

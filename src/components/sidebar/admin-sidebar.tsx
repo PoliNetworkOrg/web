@@ -42,14 +42,6 @@ const data = {
       url: "/admin/management",
       icon: Wrench,
       items: [
-        {
-          title: "Board",
-          url: "/admin/management/board",
-        },
-        {
-          title: "Departments",
-          url: "/admin/management/departments",
-        },
       ],
     },
     {
@@ -57,6 +49,10 @@ const data = {
       url: "/admin/website",
       icon: Compass,
       items: [
+        {
+          title: "TG Users",
+          url: "/admin/website/tg-users",
+        },
         {
           title: "Groups",
           url: "/admin/website/groups",
