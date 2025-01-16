@@ -13,6 +13,12 @@ CREATE TABLE IF NOT EXISTS "account" (
 	CONSTRAINT "account_provider_provider_account_id_pk" PRIMARY KEY("provider","provider_account_id")
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "department" (
+	"id" varchar(255) PRIMARY KEY NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"short_name" varchar(32)
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
 	"session_token" varchar(255) PRIMARY KEY NOT NULL,
 	"user_id" varchar(255) NOT NULL,
@@ -21,9 +27,9 @@ CREATE TABLE IF NOT EXISTS "session" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" varchar(255) PRIMARY KEY NOT NULL,
-	"name" varchar(255),
+	"name" varchar(255) NOT NULL,
 	"email" varchar(255) NOT NULL,
-	"role" varchar(128),
+	"role" varchar(128) DEFAULT 'inactive' NOT NULL,
 	"image" varchar(255),
 	"email_verified" timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );

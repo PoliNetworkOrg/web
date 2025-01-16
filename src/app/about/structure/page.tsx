@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { DEP_ROLE, DEPARTMENT_ID, type TDepRole } from "@/constants";
+import { DEPARTMENT_ID } from "@/constants";
 import { getBoardRoleString, getDepartmentRoleString } from "@/lib/i18n";
 import { getBoardUniqueMembers } from "@/server/actions/board";
 import { db } from "@/server/db";
@@ -8,23 +8,6 @@ import { getInitials } from "@/lib/utils";
 import { NavigateBack } from "@/components/navigate-back";
 
 export default async function AboutStructurePage() {
-  const board = await getBoardUniqueMembers();
-  const departments = await db.query.departments.findMany({
-    where: (t, { inArray }) => inArray(t.id, Object.values(DEPARTMENT_ID)),
-    with: {
-      departmentUsers: {
-        with: {
-          user: {
-            columns: {
-              name: true,
-              image: true,
-            },
-          },
-        },
-      },
-    },
-  });
-
   return (
     <main className="container mx-auto px-4 py-8">
       <h2 className="mb-8 flex items-center gap-2 text-3xl font-bold text-accent-foreground">

@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1733945864350,
-      "tag": "0000_sturdy_fenris",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1733946621668,
-      "tag": "0001_red_the_fallen",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1734108883684,
-      "tag": "0002_sleepy_annihilus",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1734394066105,
-      "tag": "0003_nervous_squadron_supreme",
+      "when": 1737045405570,
+      "tag": "0000_aberrant_bulldozer",
       "breakpoints": true
     }
   ]

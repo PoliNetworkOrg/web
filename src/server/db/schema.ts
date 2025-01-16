@@ -1,9 +1,5 @@
 import {
-  type TBoardRole,
-  type TDepRole,
   type TUserRole,
-  BOARD_ROLE,
-  DEP_ROLE,
   USER_ROLE,
 } from "@/constants";
 import { relations, sql } from "drizzle-orm";
@@ -26,29 +22,6 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const createTable = pgTableCreator((name) => `${name}`);
 
-export const board = createTable(
-  "board",
-  {
-    userId: varchar("user_id", { length: 255 })
-      .notNull()
-      .references(() => users.id),
-    role: varchar("role", { length: 255 })
-      .$type<TBoardRole>()
-      .default(BOARD_ROLE.MEMBER)
-      .notNull(),
-  },
-  (row) => ({
-    pk: primaryKey({ columns: [row.userId, row.role] }),
-  }),
-);
-
-export const boardRelations = relations(board, ({ one }) => ({
-  user: one(users, {
-    fields: [board.userId],
-    references: [users.id],
-  }),
-}));
-
 export const departments = createTable("department", {
   id: varchar("id", { length: 255 })
     .notNull()
@@ -58,42 +31,6 @@ export const departments = createTable("department", {
   shortName: varchar("short_name", { length: 32 }),
 });
 
-export const departmentsRelations = relations(departments, ({ many }) => ({
-  departmentUsers: many(departmentUsers),
-}));
-
-export const departmentUsers = createTable(
-  "department_users",
-  {
-    departmentId: varchar("department_id", { length: 255 })
-      .notNull()
-      .references(() => departments.id),
-    userId: varchar("user_id", { length: 255 })
-      .notNull()
-      .references(() => users.id),
-    role: varchar("department_role", { length: 255 })
-      .$type<TDepRole>()
-      .default(DEP_ROLE.MEMBER)
-      .notNull(),
-  },
-  (row) => ({
-    pk: primaryKey({ columns: [row.departmentId, row.userId] }),
-  }),
-);
-
-export const departmentUsersRelations = relations(
-  departmentUsers,
-  ({ one }) => ({
-    department: one(departments, {
-      fields: [departmentUsers.departmentId],
-      references: [departments.id],
-    }),
-    user: one(users, {
-      fields: [departmentUsers.userId],
-      references: [users.id],
-    }),
-  }),
-);
 
 /**
  * AUTH SCHEMAS
@@ -118,13 +55,8 @@ export const users = createTable("user", {
 
 export type TUser = typeof users.$inferSelect;
 
-export const usersRelations = relations(users, ({ many, one }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
-  departmentUsers: many(departmentUsers),
-  board: one(board, {
-    fields: [users.id],
-    references: [board.userId],
-  }),
 }));
 
 export const accounts = createTable(
