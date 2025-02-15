@@ -1,14 +1,12 @@
 import Image from "next/image";
-import { GlobeIcon, LayoutDashboard, LogIn } from "lucide-react";
+import { GlobeIcon } from "lucide-react";
 import Link from "next/link";
 import { ThemeButton } from "@/components/theme-button";
 import { Separator } from "@/components/ui/separator";
-import { auth } from "@/server/auth";
 
 export const HEADER_HEIGHT = "4.5rem";
 
 export async function Header() {
-  const session = await auth();
   return (
     <header className="sticky top-0 isolate z-20 flex h-[--header-height] w-full shrink-0 items-center justify-center border-b bg-card">
       <div className="container mx-auto flex items-center justify-center space-x-6 px-4">
@@ -32,12 +30,6 @@ export async function Header() {
         </nav>
         <Separator orientation="vertical" className="h-6" />
         <nav className="flex items-center space-x-6">
-          <Link
-            href={session?.user ? "/admin" : "/login?callbackUrl=/admin"}
-            className="hover:text-accent-foreground"
-          >
-            {session?.user ? <LayoutDashboard /> : <LogIn />}
-          </Link>
           <ThemeButton />
           <button className="hover:text-accent-foreground">
             <GlobeIcon className="h-6 w-6" />

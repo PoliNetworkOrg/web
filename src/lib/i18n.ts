@@ -2,7 +2,7 @@
 // HERE ARE IMPLEMENTED SOME FUNCTION THAT ARE USEFUL IN THIS EARLY STAGE
 // FOR REPLACING IDS with WORDS
 
-import { BOARD_ROLE, DEP_ROLE, TDepRole, type TBoardRole } from "@/constants";
+import { BOARD_ROLE, DEP_ROLE, type TDepRole, type TBoardRole } from "@/constants";
 
 const BOARD_ROLE_STRING_EN: Record<TBoardRole, string> = {
   [BOARD_ROLE.PRESIDENT]: "President",

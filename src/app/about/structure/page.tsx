@@ -1,10 +1,7 @@
 import { Separator } from "@/components/ui/separator";
-import { DEPARTMENT_ID } from "@/constants";
-import { getBoardRoleString, getDepartmentRoleString } from "@/lib/i18n";
-import { getBoardUniqueMembers } from "@/server/actions/board";
-import { db } from "@/server/db";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getInitials } from "@/lib/utils";
+//import { getBoardRoleString, getDepartmentRoleString } from "@/lib/i18n";
+//import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+//import { getInitials } from "@/lib/utils";
 import { NavigateBack } from "@/components/navigate-back";
 
 export default async function AboutStructurePage() {
@@ -20,7 +17,7 @@ export default async function AboutStructurePage() {
             Board members
           </h3>
           <ul className="grid space-y-3">
-            {board.map((u) => {
+            {/* board.map((u) => {
               const roles = u.roles
                 .map(getBoardRoleString)
                 .filter((s) => s.length);
@@ -55,7 +52,7 @@ export default async function AboutStructurePage() {
                   )}
                 </li>
               );
-            })}
+            }) */}
           </ul>
         </div>
         <Separator orientation="vertical" className="hidden xl:block" />
@@ -64,7 +61,7 @@ export default async function AboutStructurePage() {
           <h3 className="text-xl font-bold text-primary-foreground">
             Departments
           </h3>
-          {departments.map((d) => (
+          {/* departments.map((d) => (
             <div className="grid gap-y-2" key={d.id}>
               <h4 className="text-lg font-semibold text-primary-foreground">
                 {d.name}
@@ -100,19 +97,19 @@ export default async function AboutStructurePage() {
                   ))}
               </ul>
             </div>
-          ))}
+          )) */}
         </div>
       </div>
     </main>
   );
 }
 
-const DEP_ROLE_ORDER: TDepRole[] = [
-  DEP_ROLE.HEAD,
-  DEP_ROLE.DEPUTY_HEAD,
-] as const;
-
-const depRoleOrderMap = DEP_ROLE_ORDER.reduce(
-  (acc, role, index) => ({ ...acc, [role]: index }),
-  {} as Record<string, number>,
-);
+//const DEP_ROLE_ORDER: TDepRole[] = [
+//  DEP_ROLE.HEAD,
+//  DEP_ROLE.DEPUTY_HEAD,
+//] as const;
+//
+//const depRoleOrderMap = DEP_ROLE_ORDER.reduce(
+//  (acc, role, index) => ({ ...acc, [role]: index }),
+//  {} as Record<string, number>,
+//);
