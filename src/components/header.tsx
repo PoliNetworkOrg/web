@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { GlobeIcon } from "lucide-react";
-import Link from "next/link";
-import { ThemeButton } from "@/components/theme-button";
-import { Separator } from "@/components/ui/separator";
+import { GlobeIcon } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { ThemeButton } from "@/components/theme-button"
+import { Separator } from "@/components/ui/separator"
 
-export const HEADER_HEIGHT = "4.5rem";
+export const HEADER_HEIGHT = "4.5rem"
 
 export async function Header() {
   return (
@@ -18,9 +18,7 @@ export async function Header() {
               width={40}
               height={40}
             />
-            <h1 className="hidden text-2xl font-bold text-accent-foreground md:block">
-              PoliNetwork
-            </h1>
+            <h1 className="hidden text-2xl font-bold text-accent-foreground md:block">PoliNetwork</h1>
           </div>
         </Link>
         <nav className="flex grow items-center justify-end space-x-8">
@@ -31,11 +29,11 @@ export async function Header() {
         <Separator orientation="vertical" className="h-6" />
         <nav className="flex items-center space-x-6">
           <ThemeButton />
-          <button className="hover:text-accent-foreground">
+          <button type="button" className="hover:text-accent-foreground">
             <GlobeIcon className="h-6 w-6" />
           </button>
         </nav>
       </div>
     </header>
-  );
+  )
 }

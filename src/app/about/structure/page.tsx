@@ -1,8 +1,8 @@
-import { Separator } from "@/components/ui/separator";
 //import { getBoardRoleString, getDepartmentRoleString } from "@/lib/i18n";
 //import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 //import { getInitials } from "@/lib/utils";
-import { NavigateBack } from "@/components/navigate-back";
+import { NavigateBack } from "@/components/navigate-back"
+import { Separator } from "@/components/ui/separator"
 
 export default async function AboutStructurePage() {
   return (
@@ -13,9 +13,7 @@ export default async function AboutStructurePage() {
       </h2>
       <div className="grid grid-rows-[auto_auto_1fr] items-start gap-8 xl:grid-cols-[1fr_auto_1fr]">
         <div className="grid gap-y-4">
-          <h3 className="text-xl font-bold text-primary-foreground">
-            Board members
-          </h3>
+          <h3 className="text-xl font-bold text-primary-foreground">Board members</h3>
           <ul className="grid space-y-3">
             {/* board.map((u) => {
               const roles = u.roles
@@ -58,9 +56,7 @@ export default async function AboutStructurePage() {
         <Separator orientation="vertical" className="hidden xl:block" />
         <Separator orientation="horizontal" className="xl:hidden" />
         <div className="grid gap-y-4">
-          <h3 className="text-xl font-bold text-primary-foreground">
-            Departments
-          </h3>
+          <h3 className="text-xl font-bold text-primary-foreground">Departments</h3>
           {/* departments.map((d) => (
             <div className="grid gap-y-2" key={d.id}>
               <h4 className="text-lg font-semibold text-primary-foreground">
@@ -101,7 +97,7 @@ export default async function AboutStructurePage() {
         </div>
       </div>
     </main>
-  );
+  )
 }
 
 //const DEP_ROLE_ORDER: TDepRole[] = [

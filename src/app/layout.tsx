@@ -1,12 +1,10 @@
-import { Header, HEADER_HEIGHT } from "@/components/header";
-import { ThemeProvider } from "@/components/theme-provider";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import "@/styles/globals.css";
-import { GeistSans } from "geist/font/sans";
-import { type Metadata } from "next";
+import { HEADER_HEIGHT, Header } from "@/components/header"
+import { ThemeProvider } from "@/components/theme-provider"
+import "@/styles/globals.css"
+import { GeistSans } from "geist/font/sans"
+import type { Metadata } from "next"
 
-const desc =
-  "The online community of Politecnico di Milano brought to you by its students";
+const desc = "The online community of Politecnico di Milano brought to you by its students"
 
 export const metadata: Metadata = {
   title: {
@@ -42,17 +40,11 @@ export const metadata: Metadata = {
     ],
     site: "@PoliNetworkAPS",
   },
-};
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${GeistSans.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable}`}>
       <body
         className="overflow-y-scroll"
         style={
@@ -70,10 +62,10 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen w-full flex-col items-center justify-start">
             <Header />
-            <SidebarProvider>{children}</SidebarProvider>
+            {children}
           </div>
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

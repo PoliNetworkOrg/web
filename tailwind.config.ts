@@ -1,6 +1,6 @@
-import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
-import animate from "tailwindcss-animate";
+import type { Config } from "tailwindcss"
+import { fontFamily } from "tailwindcss/defaultTheme"
+import animate from "tailwindcss-animate"
 
 export default {
   darkMode: ["class"],
@@ -60,18 +60,8 @@ export default {
           "4": "rgb(var(--chart-4))",
           "5": "rgb(var(--chart-5))",
         },
-        sidebar: {
-          DEFAULT: "rgb(var(--sidebar-background))",
-          foreground: "rgb(var(--sidebar-foreground))",
-          primary: "rgb(var(--sidebar-primary))",
-          "primary-foreground": "rgb(var(--sidebar-primary-foreground))",
-          accent: "rgb(var(--sidebar-accent))",
-          "accent-foreground": "rgb(var(--sidebar-accent-foreground))",
-          border: "rgb(var(--sidebar-border))",
-          ring: "rgb(var(--sidebar-ring))",
-        },
       },
     },
   },
   plugins: [animate],
-} satisfies Config;
+} satisfies Config
