@@ -30,7 +30,8 @@
     "rules": {
       "recommended": true,
       "suspicious": {
-        "noVar": "error"
+        "noVar": "error",
+        "noUnknownAtRules": "off" // until fix for tailwind rules is released
       },
       "nursery": {
         "noFloatingPromises": "error",
