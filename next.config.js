@@ -12,6 +12,10 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  output: "standalone",
+  experimental: {
+    reactCompiler: true
+  }
 }
 
 export default config
