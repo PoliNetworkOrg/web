@@ -5,7 +5,7 @@ export default async function AboutPage() {
   return (
     <main className="mx-auto w-auto px-4 py-8">
       <h2 className="mb-4 text-center text-3xl font-bold text-accent-foreground">About us</h2>
-      <div className="grid max-w-[60rem] gap-y-4 text-justify">
+      <div className="grid max-w-240 gap-y-4 text-justify">
         <p>
           The PoliNetwork association is a non-profit organization that was formed with the intention of pursuing a
           series of specific objectives. The mission of the association can be fully understood by referring to the
