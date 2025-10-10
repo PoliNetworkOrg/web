@@ -6,6 +6,7 @@ export function ThemeButton() {
   const { resolvedTheme, setTheme } = useTheme()
   return (
     <button
+      type="button"
       onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
       className="text-foreground hover:text-accent-foreground"
     >

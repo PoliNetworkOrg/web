@@ -29,7 +29,7 @@ export async function Header() {
         <Separator orientation="vertical" className="h-6" />
         <nav className="flex items-center space-x-6">
           <ThemeButton />
-          <button className="hover:text-accent-foreground">
+          <button type="button" className="hover:text-accent-foreground">
             <GlobeIcon className="h-6 w-6" />
           </button>
         </nav>
