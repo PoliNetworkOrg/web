@@ -1,6 +1,5 @@
 import { HEADER_HEIGHT, Header } from "@/components/header"
 import { ThemeProvider } from "@/components/theme-provider"
-import { SidebarProvider } from "@/components/ui/sidebar"
 import "@/styles/globals.css"
 import { GeistSans } from "geist/font/sans"
 import type { Metadata } from "next"
@@ -63,7 +62,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           <div className="flex min-h-screen w-full flex-col items-center justify-start">
             <Header />
-            <SidebarProvider>{children}</SidebarProvider>
+            {children}
           </div>
         </ThemeProvider>
       </body>
