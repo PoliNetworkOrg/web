@@ -2,7 +2,6 @@ import { GlobeIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { ThemeButton } from "@/components/theme-button"
-import { Separator } from "@/components/ui/separator"
 
 export const HEADER_HEIGHT = "4.5rem"
 
@@ -26,7 +25,6 @@ export async function Header() {
             Home
           </Link>
         </nav>
-        <Separator orientation="vertical" className="h-6" />
         <nav className="flex items-center space-x-6">
           <ThemeButton />
           <button type="button" className="hover:text-accent-foreground">
