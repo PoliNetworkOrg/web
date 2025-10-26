@@ -1,1 +1,135 @@
 @import "tailwindcss";
+
+/* Light theme colors */
+:root {
+  /* ---- ColorStyles ---- */
+
+  --tw-slate-050: #f8fafc;
+  --tw-slate-050-blur: rgba(248, 250, 252, 0.4);
+  --tw-slate-100: #f1f5f9;
+  --tw-slate-200: #e2e8f0;
+  --tw-slate-300: #cad5e2;
+  --tw-slate-400: #90a1b9;
+  --tw-slate-500: #62748e;
+  --tw-slate-600: #45556c;
+  --tw-slate-700: #314158;
+  --tw-slate-800: #1d293d;
+  --tw-slate-900: #0f172b;
+  --tw-slate-950: #020618;
+
+  --tw-cyan-050: #ecfeff;
+  --tw-cyan-100: #cefafe;
+  --tw-cyan-200: #a2f4fd;
+  --tw-cyan-300: #53eafd;
+  --tw-cyan-400: #00d3f2;
+  --tw-cyan-500: #00b8db;
+  --tw-cyan-600: #0092b8;
+  --tw-cyan-700: #007595;
+  --tw-cyan-800: #005f78;
+  --tw-cyan-900: #104e64;
+  --tw-cyan-950: #053345;
+
+  --tw-sky-050: #f0f9ff;
+  --tw-sky-100: #dff2fe;
+  --tw-sky-200: #b8e6fe;
+  --tw-sky-300: #74d4ff;
+  --tw-sky-300-blur: rgba(116, 212, 255, 0.4);
+  --tw-sky-400: #00bcff;
+  --tw-sky-500: #00a6f4;
+  --tw-sky-600: #0084d1;
+  --tw-sky-700: #0069a8;
+  --tw-sky-800: #00598a;
+  --tw-sky-900: #024a70;
+  --tw-sky-950: #052f4a;
+
+  --tw-blue-050: #eff6ff;
+  --tw-blue-100: #dbeafe;
+  --tw-blue-200: #bedbff;
+  --tw-blue-300: #8ec5ff;
+  --tw-blue-400: #51a2ff;
+  --tw-blue-400-blur: rgba(81, 162, 255, 0.4);
+  --tw-blue-500: #2b7fff;
+  --tw-blue-600: #155dfc;
+  --tw-blue-700: #1447e6;
+  --tw-blue-800: #193cb8;
+  --tw-blue-900: #1c398e;
+  --tw-blue-950: #162456;
+
+  --tw-emerald-400: #00d492;
+  --tw-emerald-600: #009966;
+
+  --tw-rose-050: #fff1f2;
+  --tw-rose-100: #ffe4e6;
+  --tw-rose-200: #ffcdd3;
+  --tw-rose-300: #ffa1ad;
+  --tw-rose-400: #ff637e;
+  --tw-rose-500: #ff2056;
+  --tw-rose-600: #ec003f;
+  --tw-rose-700: #c70036;
+  --tw-rose-800: #a50036;
+  --tw-rose-900: #8b0836;
+  --tw-rose-950: #4d0218;
+
+  /* ---- Color Usage ---- */
+
+  /* Neutrals */
+  --neutrals-background: var(--tw-slate-100);
+  --neutrals-background-blur: var(--tw-slate-050-blur);
+  --neutrals-grey: var(--tw-slate-300);
+  --neutrals-text-primary: var(--tw-slate-950);
+  --neutrals-text-secondary: var(--tw-slate-500);
+  --neutrals-text-accent-darkbg: var(--tw-slate-100);
+  --neutrals-text-accent-lightbg: var(--tw-slate-900);
+
+  /* Accents */
+  --accents-red: var(--tw-rose-600);
+  --accents-green: var(--tw-emerald-400);
+  --accents-blue-primary: var(--tw-blue-400);
+  --accents-blue-primary-blur: var(--tw-blue-400-blur);
+  --accents-blue-secondary: var(--tw-sky-700);
+  --accents-blue-tertiary: var(--tw-sky-300);
+  --accents-blue-tertiary-blur: var(--tw-sky-300-blur);
+
+  /* Buttons */
+  --buttons-primary: var(--accents-blue-primary);
+  --buttons-secondary: var(--accents-blue-secondary);
+  --buttons-tertiary: var(--accents-blue-tertiary);
+  --buttons-error: var(--accents-red);
+  --buttons-disabled: var(--neutrals-grey);
+
+  /* Radius */
+  --corner-images: 10px;
+  --corner-rectangles: 20px;
+  --corner-buttonsM: 60px;
+  --corner-buttonsL: 100px;
+}
+
+/* Dark theme overrides */
+.dark {
+  /* ---- Color Usage ---- */
+
+  /* Neutrals */
+  --neutrals-background: #1f3d5a;
+  --neutrals-background-blur: rgba(2, 74, 112, 0.4);
+  --neutrals-grey: var(--tw-slate-400);
+  --neutrals-text-primary: var(--tw-slate-050);
+  --neutrals-text-secondary: var(--tw-slate-400);
+  --neutrals-text-accent-darkbg: var(--tw-slate-100);
+  --neutrals-text-accent-lightbg: var(--tw-slate-900);
+
+  /* Accents */
+  --accents-red: var(--tw-rose-800);
+  --accents-green: var(--tw-emerald-600);
+  --accents-blue-primary: var(--tw-blue-800);
+  --accents-blue-primary-blur: rgba(25, 60, 184, 0.4);
+  --accents-blue-secondary: var(--tw-sky-900);
+  --accents-blue-tertiary: var(--tw-sky-700);
+  --accents-blue-tertiary-blur: rgba(0, 105, 168, 0.4);
+
+  /* Buttons */
+  --buttons-primary: var(--accents-blue-primary);
+  --buttons-secondary: var(--accents-blue-secondary);
+  --buttons-tertiary: var(--accents-blue-tertiary);
+  --buttons-error: var(--accents-red);
+  --buttons-disabled: var(--neutrals-grey);
+}
