@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+/* Button background color design tokens (light theme = default) */
+:root {
+  --btn-bg-primary: #51A2FF;
+  --btn-bg-secondary: #0069A8;
+  --btn-bg-tertiary: #74D4FF;
+  --btn-bg-error: #EC003F;
+  --btn-bg-disabled: #CAD5E2;
+}
+
+/* Dark theme overrides */
+.dark {
+  --btn-bg-primary: #193CB8;    
+  --btn-bg-secondary: #024A70; 
+  --btn-bg-tertiary: #0069A8;
+  --btn-bg-error: #A50036;      
+  --btn-bg-disabled: #90A1B9;  
+}
