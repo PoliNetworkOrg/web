@@ -44,6 +44,9 @@ Check if we already have that UI component in the `src/components/ui` folder.
 - If it does not exist:
   1. visit [shadcn's components list](https://ui.shadcn.com/docs/components) and follow the instructions to install
   2. change the default styling using our custom theme variables based on Figma design. See [this guide](#how-to-apply-styles-based-on-figma-design)
+> [!important]
+> We are using shadcn with `"cssVariables": false` to avoid their defautl `bg-background`, `text-accent-foreground` and others.
+> So, we highly recommend to wipe the most of the pre-generated classname string and building it on your own, using our custom CSS/Tailwind variables
 
 - If the component already exists, but you need to add variants or sizes, follow the shadcn's button implementation:
   1. visit [shadcn's button page](https://ui.shadcn.com/docs/components/button#installation)   
