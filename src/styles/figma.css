@@ -1,0 +1,96 @@
+/* 
+  Figma Variables
+  figma blur variables are equivalent to 40% opacity
+  e.g. tw-slate/050-blur => color-slate-50 / 40 
+  to create a variable with defined opacity, follow the tailwind solution:
+  --<var-name>: color-mix(in oklab, var(<base-color-var>) <opacity>, transparent);
+*/
+
+:root {
+  /* neutrals */
+  --figma-background: var(--color-slate-100);
+  --figma-background-blur: color-mix(in oklab, var(--color-slate-50) 40%, transparent);
+  --figma-grey: var(--color-slate-300);
+  --figma-text-primary: var(--color-slate-950);
+  --figma-text-secondary: var(--color-slate-500);
+  --figma-text-accent-darkbg: var(--color-slate-100);
+  --figma-text-accent-lightbg: var(--color-slate-900);
+  /* accents */
+  --figma-red: var(--color-rose-600);
+  --figma-green: var(--color-emerald-400);
+  --figma-blue-primary: var(--color-blue-400);
+  --figma-blue-primary-blur: color-mix(in oklab, var(--color-slate-400) 40%, transparent); 
+  --figma-blue-secondary: var(--color-sky-700);
+  --figma-blue-tertiary: var(--color-sky-300);
+  --figma-blue-tertiary-blur: color-mix(in oklab, var(--color-sky-300) 40%, transparent); 
+  /* buttons */
+  --figma-button-primary: var(--figma-blue-primary);
+  --figma-button-secondary: var(--figma-blue-secondary);
+  --figma-button-tertiary: var(--figma-blue-tertiary);
+  --figma-button-error: var(--figma-red);
+  --figma-button-disabled: var(--figma-grey);
+  /* radius */
+  --figma-corner-images: 10px;
+  --figma-corner-rectangles: 20px;
+  --figma-corner-buttonsM: 60px;
+  --figma-corner-buttonsL: 100px;
+}
+
+.dark {
+  /* Figma Variables */
+  /* neutrals */
+  --figma-background: oklch(35.13% 0.062 249.28);
+  --figma-background-blur: oklch(39.07% 0.089 240.61 / 40%);
+  --figma-grey: var(--color-slate-400);
+  --figma-text-primary: var(--color-slate-50);
+  --figma-text-secondary: var(--color-slate-400);
+  --figma-text-accent-darkbg: var(--color-slate-100);
+  --figma-text-accent-lightbg: var(--color-slate-900);
+  /* accents */
+  --figma-red: var(--color-rose-800);
+  --figma-green: var(--color-emerald-600);
+  --figma-blue-primary: var(--color-blue-800);
+  --figma-blue-primary-blur: oklch(42.42% 0.198 265.50 / 40%); 
+  --figma-blue-secondary: var(--color-sky-900);
+  --figma-blue-tertiary: var(--color-sky-700);
+  --figma-blue-tertiary-blur: oklch(50.40% 0.128 245.46 / 40%); 
+  /* buttons and radius are the same as in the light theme */
+}
+
+
+/* 
+  Use `inline` when referencing other css variables
+  https://tailwindcss.com/docs/theme#referencing-other-variables
+*/
+@theme inline {
+  --color-background: var(--figma-background);
+  --color-text-primary: var(--figma-text-primary);
+
+  /* neutrals */
+  --color-background: var(--figma-background);
+  --color-background-blur: var(--figma-background-blur);
+  --color-grey: var(--figma-grey);
+  --color-text-primary: var(--figma-text-primary);
+  --color-text-secondary: var(--figma-text-secondary);
+  --color-text-accent-darkbg: var(--figma-text-accent-darkbg);
+  --color-text-accent-lightbg: var(--figma-text-accent-lightbg);
+  /* accents */
+  --color-red: var(--figma-red);
+  --color-green: var(--figma-green);
+  --color-blue-primary: var(--figma-blue-primary);
+  --color-blue-primary-blur: var(--figma-blue-primary-blur);
+  --color-blue-secondary: var(--figma-blue-secondary);
+  --color-blue-tertiary: var(--figma-blue-tertiary);
+  --color-blue-tertiary-blur: var(--figma-blue-tertiary-blur);
+  /* buttons */
+  --color-button-primary: var(--figma-button-primary);
+  --color-button-secondary: var(--figma-button-secondary);
+  --color-button-tertiary: var(--figma-button-tertiary);
+  --color-button-error: var(--figma-button-error);
+  --color-button-disabled: var(--figma-button-disabled);
+  /* radius */
+  --radius-images: var(--figma-corner-images);
+  --radius-rectangles: var(--figma-corner-rectangles);
+  --radius-buttonsM: var(--figma-corner-buttonsM);
+  --radius-buttonsL: var(--figma-corner-buttonsL);
+}

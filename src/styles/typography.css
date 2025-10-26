@@ -1,0 +1,78 @@
+@theme {
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-red-hat: "Red Hat Text", sans-serif;
+}
+
+/* Display */
+@utility@utility typo-display-extralarge {
+    @apply font-dm-sans font-medium text-[7.5rem]/[auto]
+}
+
+@utility typo-display-large {
+    @apply font-dm-sans font-medium text-[3.6rem]/[64px]
+}
+
+@utility typo-display-medium {
+    @apply font-dm-sans font-medium text-[2.8rem]/[52px]
+}
+
+@utility typo-display-small {
+    @apply font-dm-sans font-normal text-[2.25rem]/[44px]
+}
+
+/* Headline */
+@utility typo-headline-large {
+    @apply font-dm-sans font-normal text-[2rem]/[40px]
+}
+
+@utility typo-headline-medium {
+    @apply font-poppins font-normal text-[1.75rem]/[36px]
+}
+
+@utility typo-headline-small {
+    @apply font-poppins font-normal text-[1.5rem]/[32px]
+}
+
+/* Body */
+@utility typo-body-large {
+    @apply font-red-hat font-normal text-[1rem]/[24px]
+}
+
+@utility typo-body-medium {
+    @apply font-red-hat font-normal text-[0.875rem]/[20px]
+}
+
+@utility typo-body-small {
+    @apply font-red-hat font-normal text-[0.75rem]/[16px]
+}
+
+/* Label */
+@utility typo-label-extralarge {
+    @apply font-red-hat font-medium text-[1.25rem]/[20px]
+}
+
+@utility typo-label-large {
+    @apply font-red-hat font-medium text-[0.875rem]/[20px]
+}
+
+@utility typo-label-medium {
+    @apply font-red-hat font-medium text-[0.75rem]/[16px]
+}
+
+@utility typo-label-small {
+    @apply font-red-hat font-medium text-[0.6875rem]/[16px]
+}
+
+/* Title */
+@utility typo-title-large {
+    @apply font-poppins font-normal text-[1.375rem]/[28px]
+}
+
+@utility typo-title-medium {
+    @apply font-red-hat font-medium text-[1rem]/[24px]
+}
+
+@utility typo-title-small {
+    @apply font-red-hat font-medium text-[0.875rem]/[20px]
+}
