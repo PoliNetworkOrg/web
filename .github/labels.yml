@@ -24,10 +24,6 @@
   color: "b60205"
   description: "Work cannot proceed until another issue is resolved"
 
-- name: "status: ready for testing"
-  color: "1d76db"
-  description: "Implementation done — needs verification/testing"
-
 - name: "status: completed"
   color: "6f42c1"
   description: "Work finished and verified"
