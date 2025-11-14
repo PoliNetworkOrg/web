@@ -32,6 +32,7 @@ export function Input({
 
       <input
         {...inputProps}
+        placeholder={inputProps.placeholder ?? undefined}
         className={cn(
           "w-full bg-transparent border-none outline-none",
           "text-sm leading-5 font-normal",  // 14px / 20px / tracking 0.25
