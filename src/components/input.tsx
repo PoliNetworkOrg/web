@@ -18,11 +18,7 @@ export function Input({ icon, className, containerClassName, ...inputProps }: In
         containerClassName
       )}
     >
-      {icon && (
-        <span className="flex h-6 w-6 items-center justify-center shrink-0 text-text-primary">
-          {icon}
-        </span>
-      )}
+      {icon && <span className="flex h-6 w-6 items-center justify-center shrink-0 text-text-primary">{icon}</span>}
 
       <input
         {...inputProps}
