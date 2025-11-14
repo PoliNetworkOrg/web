@@ -16,17 +16,16 @@ export function Input({
   return (
     <Glass
       className={cn(
-        "inline-flex w-full items-center gap-2",
+        "inline-flex w-full items-center gap-2.5",  // 10 px gap
         'border border-white/50',
-        "px-6 py-3",
-        "rounded-full",
-        "bg-white/30 backdrop-blur-xl",
-        "shadow-inner-xl",
+        "px-6 py-3",  // padding 24 x - 12 y
+        "rounded-full", // 60 px border radius
+        "bg-background-blur backdrop-blur-xl",
         containerClassName
       )}
     >
       {icon && (
-        <span className="flex h-6 w-6 items-center justify-center shrink-0 text-slate-900">
+        <span className="flex h-6 w-6 items-center justify-center shrink-0 text-text-primary">
           {icon}
         </span>
       )}
@@ -35,8 +34,8 @@ export function Input({
         {...inputProps}
         className={cn(
           "w-full bg-transparent border-none outline-none",
-          "text-sm leading-5 font-normal",
-          "text-slate-900 placeholder:text-slate-500",
+          "text-sm leading-5 font-normal",  // 14px / 20px / tracking 0.25
+          "text-text-primary placeholder:text-text-secondary",
           className
         )}
       />
