@@ -13,8 +13,8 @@ export function Input({ icon, className, containerClassName, ...inputProps }: In
       className={cn(
         "inline-flex w-full items-center gap-2.5",
         "border border-white/50",
-        "px-6 py-3 rounded-full", //"rounded-buttonsM", is not working
-        "bg-background-blur backdrop-blur-xl",
+        "px-6 py-3 rounded-full", //"rounded-buttonsM" is not working
+        "bg-background-blur",
         containerClassName
       )}
     >
