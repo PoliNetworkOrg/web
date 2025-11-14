@@ -1,13 +1,13 @@
 import type * as React from "react"
 import { cn } from "@/lib/utils"
-import { Glass } from "./glass"
+import { Glass } from "../glass"
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   icon?: React.ReactNode
   containerClassName?: string
 }
 
-export function Input({ icon, className, containerClassName, ...inputProps }: InputProps) {
+function Input({ icon, className, containerClassName, ...inputProps }: InputProps) {
   return (
     <Glass
       className={cn(
@@ -18,11 +18,13 @@ export function Input({ icon, className, containerClassName, ...inputProps }: In
         containerClassName
       )}
     >
-      {icon && <span className="flex h-6 w-6 items-center justify-center shrink-0 text-text-primary">{icon}</span>}
+      {icon && <span className="flex h-6 w-6 items-center justify-center shrink-0 text-text-primary"> {icon} </span>}
 
       <input
-        {...inputProps}
+        type={inputProps.type}
         placeholder={inputProps.placeholder ?? undefined}
+        data-slot="input"
+        {...inputProps}
         className={cn(
           "w-full bg-transparent border-none outline-none",
           "typo-body-small text-text-primary placeholder:text-text-secondary",
@@ -32,3 +34,5 @@ export function Input({ icon, className, containerClassName, ...inputProps }: In
     </Glass>
   )
 }
+
+export { Input }
