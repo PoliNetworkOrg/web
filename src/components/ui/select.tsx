@@ -91,7 +91,7 @@ function SelectContent({
             // il menu matcha la larghezza del trigger
             "p-1",
             position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-[var(--radix-select-trigger-width)] scroll-my-1"
+              "h-[var(--radix-select-trigger-height)] w-[var(--radix-select-trigger-width)] scroll-my-1"
           )}
         >
           {children}
