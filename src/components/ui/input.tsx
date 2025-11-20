@@ -2,7 +2,7 @@ import type * as React from "react"
 import { cn } from "@/lib/utils"
 import { Glass } from "../glass"
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+type InputProps = React.ComponentProps<"input"> & {
   icon?: React.ReactNode
   containerClassName?: string
 }
@@ -13,7 +13,8 @@ function Input({ icon, className, containerClassName, ...inputProps }: InputProp
       className={cn(
         "inline-flex w-full items-center gap-2.5",
         "border border-white/50",
-        "px-6 py-3 rounded-full", //"rounded-buttonsM" is not working
+        icon ? "px-6 py-3" : "px-4 py-2",
+        "rounded-buttonsM",
         "bg-background-blur",
         containerClassName
       )}
@@ -27,7 +28,7 @@ function Input({ icon, className, containerClassName, ...inputProps }: InputProp
         {...inputProps}
         className={cn(
           "w-full bg-transparent border-none outline-none",
-          "typo-body-small text-text-primary placeholder:text-text-secondary",
+          "typo-body-medium text-text-primary placeholder:text-text-secondary",
           className
         )}
       />
