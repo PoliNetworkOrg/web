@@ -55,9 +55,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
-          storageKey="polinetwork_darkmode"
+          defaultTheme="light"
+          enableSystem={false} // TODO: enable when dark mode design is ready
+          // storageKey="polinetwork_darkmode_temp" // TODO: enable when dark mode design is ready
           disableTransitionOnChange
         >
           <div className="flex min-h-screen w-full flex-col items-center justify-start">
