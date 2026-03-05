@@ -31,7 +31,9 @@ export function Footer() {
           <div id="interested" className="text-center md:text-left flex flex-col gap-4">
             <h3 className="text-xl font-bold">Sei interessato?</h3>
             <div>
-              <Button variant="primary" size="lg">Unisciti a noi!</Button>
+              <Button variant="primary" size="lg">
+                Unisciti a noi!
+              </Button>
             </div>
           </div>
 
@@ -41,29 +43,29 @@ export function Footer() {
               <ButtonWithIcon icon={Github} iconPosition="left" variant="tertiary" text="Report a bug"></ButtonWithIcon>
             </div>
           </div>
-          </div>
+        </div>
 
-          <div className="flex flex-col gap-8 max-w-sm md:justify-self-end">
-            <Glass id="donation" className="w-3xs max-md:mx-auto flex justify-around items-center gap-4 md:order-2">
-              <p className="text-xl">5x1000</p>
-              <div className="flex flex-col text-sm">
-                <p className="font-bold">Sostienici!</p>
-                <p className="whitespace-nowrap">CF: 97927490157</p>
-              </div>
-            </Glass>
+        <div className="flex flex-col gap-8 max-w-sm md:justify-self-end">
+          <Glass id="donation" className="w-3xs max-md:mx-auto flex justify-around items-center gap-4 md:order-2">
+            <p className="text-xl">5x1000</p>
+            <div className="flex flex-col text-sm">
+              <p className="font-bold">Sostienici!</p>
+              <p className="whitespace-nowrap">CF: 97927490157</p>
+            </div>
+          </Glass>
 
-            <div id="sitemap" className="w-full flex flex-col gap-4">
-              <h3 className="text-xl font-bold">Visita il sito</h3>
-              <div className="grid grid-cols-2 text-gray-600 text-sm gap-2">
-                <p>Resources</p>
-                <p>Privacy Policy</p>
-                <p>Community</p>
-                <p>Terms & conditions</p>
-                <p>About</p>
-                <p>Cookie policy</p>
-              </div>
+          <div id="sitemap" className="w-full flex flex-col gap-4">
+            <h3 className="text-xl font-bold">Visita il sito</h3>
+            <div className="grid grid-cols-2 text-gray-600 text-sm gap-2">
+              <p>Resources</p>
+              <p>Privacy Policy</p>
+              <p>Community</p>
+              <p>Terms & conditions</p>
+              <p>About</p>
+              <p>Cookie policy</p>
             </div>
           </div>
+        </div>
       </div>
 
       <div id="copyright" className="text-center md:text-left text-xs text-gray-600 mt-12">
