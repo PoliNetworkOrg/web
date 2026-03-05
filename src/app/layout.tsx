@@ -1,4 +1,5 @@
 import { HEADER_HEIGHT, Header } from "@/components/header"
+import { Shape } from "@/components/shapes"
 import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
 import { GeistSans } from "geist/font/sans"
@@ -60,6 +61,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           // storageKey="polinetwork_darkmode_temp" // TODO: enable when dark mode design is ready
           disableTransitionOnChange
         >
+          <Shape variant="big-teal" className="top-2 left-1/2 -translate-x-1/2" />
+          <Shape variant="small-blue" className="top-2 left-1/4 -translate-x-1/2 translate-y-1/2" />
+          <Shape variant="big-blue" className="top-0 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+          <Shape variant="looper" className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
           <div className="flex min-h-screen w-full flex-col items-center justify-start">
             <Header />
             {children}
