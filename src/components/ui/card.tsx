@@ -1,10 +1,14 @@
 import type { LucideIcon } from "lucide-react"
-import type * as React from "react"
+import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Glass } from "../glass"
 import { Button } from "./button"
 
-function Card({ className, size = "default", ...props }: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+function Card({
+  className,
+  size = "default",
+  ...props
+}: React.ComponentProps<typeof Glass> & { size?: "default" | "sm" }) {
   return (
     <Glass
       data-slot="card"
@@ -35,7 +39,10 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-title"
-      className={cn("text-base leading-snug font-medium group-data-[size=sm]/card:text-sm", className)}
+      className={cn(
+        "text-xl leading-snug font-medium group-data-[size=sm]/card:text-base bg-linear-to-b from-blue-600 to-cyan-500 bg-clip-text text-transparent",
+        className
+      )}
       {...props}
     />
   )
@@ -46,13 +53,23 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function CardAction({ className, icon: Icon, ...props }: React.ComponentProps<"div"> & { icon: LucideIcon }) {
+  const gradientId = React.useId()
+
   return (
     <div
       data-slot="card-action"
-      className={cn("col-start-2 row-span-2 row-start-1 self-start justify-self-end", className)}
+      className={cn("col-start-2 row-span-2 row-start-1 self-start justify-self-end ", className)}
       {...props}
     >
-      <Icon />
+      <svg width="0" height="0" className="absolute">
+        <title>Icon gradient helper</title>
+        <linearGradient id={gradientId} x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" className="text-blue-600" stopColor="currentColor" />
+          <stop offset="100%" className="text-cyan-500" stopColor="currentColor" />
+        </linearGradient>
+      </svg>
+
+      <Icon size={28} stroke={`url(#${gradientId})`} />
     </div>
   )
 }
@@ -62,13 +79,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function CardBottomButton({ className, ...props }: React.ComponentProps<typeof Button>) {
-  return (
-    <Button
-      data-slot="card-footer"
-      className={cn("self-end", className)}
-      {...props}
-    />
-  )
+  return <Button data-slot="card-footer" className={cn("self-end", className)} {...props} />
 }
 
 export { Card, CardHeader, CardBottomButton, CardTitle, CardAction, CardDescription, CardContent }
