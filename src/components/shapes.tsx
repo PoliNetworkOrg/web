@@ -28,12 +28,5 @@ export const Shape: React.FC<ShapeProps> = ({ variant, className }) => {
     }
   }
 
-  return (
-    <Image
-      src={getShapeSrc()}
-      aria-hidden
-      alt={`${variant} shape`}
-      className={cn(className, "-z-10 absolute select-none")}
-    />
-  )
+  return <Image src={getShapeSrc()} aria-hidden alt="" className={cn(className, "-z-10 absolute select-none")} />
 }
