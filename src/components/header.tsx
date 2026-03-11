@@ -17,7 +17,7 @@ export async function Header() {
               width={40}
               height={40}
             />
-            <h1 className="hidden text-2xl font-bold text-accent-foreground md:block">PoliNetwork</h1>
+            <h1 className="hidden font-bold text-2xl text-accent-foreground md:block">PoliNetwork</h1>
           </div>
         </Link>
         <nav className="flex grow items-center justify-end space-x-8">

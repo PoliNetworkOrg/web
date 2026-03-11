@@ -33,7 +33,7 @@ export const Shape: React.FC<ShapeProps> = ({ variant, className }) => {
       src={getShapeSrc()}
       aria-hidden
       alt={`${variant} shape`}
-      className={cn(className, "absolute -z-10 select-none")}
+      className={cn(className, "-z-10 absolute select-none")}
     />
   )
 }
