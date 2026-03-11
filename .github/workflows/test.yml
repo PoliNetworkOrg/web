@@ -21,6 +21,8 @@ jobs:
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build with Next.js
+        run: pnpm run build
       - name: Typecheck
         run: pnpm run typecheck
       - name: Run Biome
