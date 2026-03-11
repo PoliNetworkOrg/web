@@ -1,7 +1,7 @@
 import { CropIcon, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ButtonWithIcon } from "@/components/ui/buttonWithIcon"
-import { Card, CardAction, CardBottomButton, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardAction, CardBottomButton, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Home() {
   return (
@@ -21,13 +21,16 @@ export default function Home() {
 
       <Card className="w-64">
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
+          <CardTitle>Title</CardTitle>
           <CardAction icon={CropIcon}></CardAction>
         </CardHeader>
         <CardContent>
-          <p>description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua.</p>
+          <p>
+            description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut
+            labore et dolore magna aliqua.
+          </p>
         </CardContent>
-        <CardBottomButton variant="tertiary">Button</CardBottomButton>
+        <CardBottomButton variant="tertiary">Label</CardBottomButton>
       </Card>
     </main>
   )
