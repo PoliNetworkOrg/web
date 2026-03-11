@@ -40,7 +40,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-title"
       className={cn(
-        "text-xl leading-snug font-medium group-data-[size=sm]/card:text-base bg-linear-to-b from-blue-600 to-cyan-500 bg-clip-text text-transparent",
+        "text-xl leading-snug font-medium group-data-[size=sm]/card:text-base bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent",
         className
       )}
       {...props}
@@ -64,8 +64,8 @@ function CardAction({ className, icon: Icon, ...props }: React.ComponentProps<"d
       <svg width="0" height="0" className="absolute">
         <title>Icon gradient helper</title>
         <linearGradient id={gradientId} x1="0%" y1="100%" x2="0%" y2="0%">
-          <stop offset="0%" className="text-blue-600" stopColor="currentColor" />
-          <stop offset="100%" className="text-cyan-500" stopColor="currentColor" />
+          <stop offset="0%" className="text-blue-secondary" stopColor="currentColor" />
+          <stop offset="100%" className="text-blue-primary" stopColor="currentColor" />
         </linearGradient>
       </svg>
 
