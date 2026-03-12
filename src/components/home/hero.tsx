@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 export function Hero() {
   return (
     <main className="flex w-full flex-1 justify-center px-4 py-8 sm:px-6 sm:py-12">
-      <section className="flex w-full max-w-7xl flex-col justify-between">
+      <section className="flex w-full flex-col justify-between">
         <div className="flex flex-col items-center gap-10 pt-24 text-center md:gap-16">
           <h1 className="max-w-5xl text-text-primary typo-display-medium lg:typo-display-large">
             Trova gruppi, risorse e supporto
@@ -25,14 +25,14 @@ export function Hero() {
 
             <Button variant="primary" size="sm">
               More groups
-              <Send className="h-4 w-4" />
+              <Send />
             </Button>
           </div>
         </div>
 
         <div className="flex justify-center md:justify-end">
           <Button variant="tertiaryBlur" size="lg" className="text-blue-secondary">
-            <UserPlus className="h-5 w-5" />
+            <UserPlus />
             Sei una matricola?
           </Button>
         </div>
