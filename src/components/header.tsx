@@ -1,37 +1,166 @@
-import { GlobeIcon } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { ThemeButton } from "@/components/theme-button"
+"use client";
 
-export const HEADER_HEIGHT = "4.5rem"
+import Image from "next/image";
+import Link from "next/link";
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    navigationMenuTriggerStyle,
+    NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
 
-export async function Header() {
-  return (
-    <header className="sticky top-0 isolate z-20 flex h-(--header-height) w-full shrink-0 items-center justify-center border-b bg-card">
-      <div className="container mx-auto flex items-center justify-center space-x-6 px-4">
-        <Link href="/">
-          <div className="flex items-center space-x-4">
-            <Image
-              src="https://raw.githubusercontent.com/PoliNetworkOrg/Logo/refs/heads/master/Logo.svg"
-              alt="PoliNetwork Logo"
-              width={40}
-              height={40}
-            />
-            <h1 className="hidden text-2xl font-bold text-accent-foreground md:block">PoliNetwork</h1>
-          </div>
-        </Link>
-        <nav className="flex grow items-center justify-end space-x-8">
-          <Link href="/" className="hover:text-accent-foreground">
-            Home
-          </Link>
-        </nav>
-        <nav className="flex items-center space-x-6">
-          <ThemeButton />
-          <button type="button" className="hover:text-accent-foreground">
-            <GlobeIcon className="h-6 w-6" />
-          </button>
-        </nav>
-      </div>
-    </header>
-  )
+
+const components: {
+    title: string;
+    href?: string;
+    menu: { title: string; href: string }[] | null;
+}[] = [
+    {
+        title: "Resources",
+        menu: [
+            {
+                title: "Materials",
+                href: "#",
+            },
+            {
+                title: "Guides",
+                href: "#",
+            },
+            {
+                title: "Computer Recs",
+                href: "#",
+            },
+            {
+                title: "FAQs",
+                href: "#",
+            },
+            {
+                title: "Rankings",
+                href: "#",
+            },
+            {
+                title: "Tol Project",
+                href: "#",
+            },
+        ],
+    },
+    {
+        title: "Community",
+        menu: [
+            {
+                title: "Groups",
+                href: "#",
+            },
+            {
+                title: "Projects",
+                href: "#",
+            },
+            {
+                title: "Freshman",
+                href: "#",
+            },
+            {
+                title: "Associations",
+                href: "#",
+            },
+        ],
+    },
+    {
+        title: "About",
+        menu: [
+            {
+                title: "About us",
+                href: "#",
+            },
+            {
+                title: "Join us",
+                href: "#",
+            },
+            {
+                title: "Contact us",
+                href: "#",
+            },
+        ],
+    },
+];
+
+export const HEADER_HEIGHT = "4.5rem";
+
+export function Header() {
+    return (
+        <NavigationMenu className="sticky top-0 isolate z-20 flex max-h-(--header-height) w-full shrink-0 items-center justify-center bg-card">
+            <NavigationMenuList>
+                {/* Disable hover effect on the logo */}
+                <NavigationMenuLink className="hover:bg-transparent! focus:bg-transparent! data-[active=true]:bg-transparent!">
+                    <Link href="/">
+                        <div className="flex items-center space-x-4">
+                            <Image
+                                src="/polinetwork_meta.png"
+                                alt="PoliNetwork Logo"
+                                width={24}
+                                height={24}
+                            />
+                            <h1 className="font-poppins font-normal text-[1.25rem] leading-[100%] text-[#1156AE]">
+                                PoliNetwork
+                            </h1>
+                        </div>
+                    </Link>
+                </NavigationMenuLink>
+                {components.map((component) => (
+                    <NavigationMenuItem key={component.title}>
+                        {component.menu ? (
+                            <>
+                                <NavigationMenuTrigger className="font-red-hat typo-body-medium text-text-primary">
+                                    {component.title}
+                                </NavigationMenuTrigger>
+                                <NavigationMenuContent>
+                                    <ul className="w-fit">
+                                        {component.menu.map((item) => (
+                                            <ListItem
+                                                key={item.title}
+                                                title={item.title}
+                                                href={item.href}
+                                            />
+                                        ))}
+                                    </ul>
+                                </NavigationMenuContent>
+                            </>
+                        ) : (
+                            <NavigationMenuLink asChild>
+                                <Link
+                                    href={component.href || "#"}
+                                    className={navigationMenuTriggerStyle()}
+                                >
+                                    {component.title}
+                                </Link>
+                            </NavigationMenuLink>
+                        )}
+                    </NavigationMenuItem>
+                ))}
+            </NavigationMenuList>
+            <NavigationMenuViewport />
+        </NavigationMenu>
+    );
+}
+
+function ListItem({
+    title,
+    href,
+    ...props
+}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
+    return (
+        <li {...props}>
+            <NavigationMenuLink asChild>
+                <Link href={href}>
+                    <div className="flex flex-col gap-1">
+                        <div className="font-red-hat typo-body-medium text-text-primary">{title}</div>
+                    </div>
+                </Link>
+            </NavigationMenuLink>
+        </li>
+    );
 }
