@@ -40,7 +40,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-title"
       className={cn(
-        "text-xl leading-snug font-medium group-data-[size=sm]/card:text-base bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent",
+        "text-[1.5rem] leading-snug font-medium group-data-[size=sm]/card:text-base bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent",
         className
       )}
       {...props}
@@ -84,7 +84,13 @@ function CardAction({
 }
 
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card-content" className={cn("group-data-[size=sm]/card:px-3", className)} {...props} />
+  return (
+    <div
+      data-slot="card-content"
+      className={cn("text-[.875rem] group-data-[size=sm]/card:px-3", className)}
+      {...props}
+    />
+  )
 }
 
 function CardBottomButton({ className, ...props }: React.ComponentProps<typeof Button>) {
