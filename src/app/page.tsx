@@ -1,6 +1,6 @@
 import { Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ButtonWithIcon } from "@/components/ui/buttonWithIcon"
+import { ButtonWithIcon } from "@/components/button-with-icon"
 
 export default function Home() {
   return (
