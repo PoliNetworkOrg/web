@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "npx -y only-allow pnpm",
     "build": "next build",
     "dev": "PORT=3002 next dev --turbo",
     "preview": "next build && next start",
