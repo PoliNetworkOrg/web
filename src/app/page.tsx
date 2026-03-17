@@ -1,4 +1,6 @@
 import { Users } from "lucide-react"
+import { FaBookBookmark } from "react-icons/fa6"
+import { CardCaption } from "@/components/card-caption"
 import { Button } from "@/components/ui/button"
 import { ButtonWithIcon } from "@/components/ui/buttonWithIcon"
 
@@ -16,6 +18,20 @@ export default function Home() {
         <ButtonWithIcon variant="tertiary" icon={Users} iconPosition="right" text="Diventa socio" />
         <ButtonWithIcon variant="tertiaryBlur" icon={Users} iconPosition="left" text="Diventa socio" />
         <Button variant="link">Link</Button>
+      </div>
+      <div className="flex gap-4">
+        <CardCaption
+          title="CardCaption 1"
+          caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
+          icon={FaBookBookmark}
+          iconPosition="right"
+        ></CardCaption>
+        <CardCaption
+          title="CardCaption 2"
+          caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
+          icon={FaBookBookmark}
+          iconPosition="top"
+        ></CardCaption>
       </div>
     </main>
   )
