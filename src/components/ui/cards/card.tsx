@@ -1,8 +1,8 @@
 import type { LucideIcon } from "lucide-react"
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { Glass } from "../glass"
-import { Button } from "./button"
+import { Glass } from "../../glass"
+import { Button } from "../button"
 
 function Card({
   className,
