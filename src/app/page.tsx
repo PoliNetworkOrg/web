@@ -21,7 +21,7 @@ export default function Home() {
       </div>
       <div className="flex gap-4">
         <CardCaption
-          title="CardCaption 1"
+          title="Title"
           caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
           icon={FaBookBookmark}
           iconPosition="right"
