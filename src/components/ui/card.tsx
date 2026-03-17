@@ -1,8 +1,8 @@
-import type { LucideIcon } from "lucide-react"
 import * as React from "react"
+import type { IconType } from "react-icons"
 import { cn } from "@/lib/utils"
-import { Glass } from "../../glass"
-import { Button } from "../button"
+import { Glass } from "../glass"
+import { Button } from "./button"
 
 function Card({
   className,
@@ -14,7 +14,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "ring-foreground/10 bg-card text-card-foreground gap-4 overflow-hidden rounded-xl text-sm has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col",
+        "w-78 h-66 ring-foreground/10 bg-card text-card-foreground gap-4 overflow-hidden rounded-xl text-sm has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col",
         className
       )}
       {...props}
@@ -52,7 +52,12 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="card-description" className={cn("text-muted-foreground text-sm", className)} {...props} />
 }
 
-function CardAction({ className, icon: Icon, ...props }: React.ComponentProps<"div"> & { icon: LucideIcon }) {
+function CardAction({
+  className,
+  icon: Icon,
+  iconSize = "normal",
+  ...props
+}: React.ComponentProps<"div"> & { icon: IconType; iconSize: "normal" | "large" }) {
   const gradientId = React.useId()
 
   return (
@@ -69,7 +74,11 @@ function CardAction({ className, icon: Icon, ...props }: React.ComponentProps<"d
         </linearGradient>
       </svg>
 
-      <Icon size={28} stroke={`url(#${gradientId})`} />
+      <Icon
+        size={iconSize === "normal" ? "2rem" : "3.5rem"}
+        fill={`url(#${gradientId})`}
+        stroke={`url(#${gradientId})`}
+      />
     </div>
   )
 }
