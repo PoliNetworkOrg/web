@@ -1,208 +1,158 @@
 import { ArrowRight } from "lucide-react"
-import Image from "next/image"
-import type { ComponentType, ReactNode } from "react"
+import Image, { type StaticImageData } from "next/image"
+import type { ComponentType } from "react"
 import type { IconType } from "react-icons"
 import { cn } from "@/lib/utils"
 import { Glass } from "./glass"
+import { Shape } from "./shapes"
 
-const bigTealShape = "/images/cards/big-teal-shape.png"
-const looper = "/images/cards/looper.png"
+type SchoolCardVariant = "school-side" | "school-stacked"
 
-type CardIconProps = {
+type SchoolCardProps = {
+  variant: SchoolCardVariant
   title: string
-  description?: string
+  imageSrc?: StaticImageData
   icon?: IconType | ComponentType<{ className?: string }>
-  imageSrc?: string
-  imageAlt?: string
-  media?: ReactNode
-  size?: "default" | "compact"
   href?: string
-  backgroundSrc?: string
-  backgroundAlt?: string
   showArrow?: boolean
   hoverEffect?: boolean
-  actionVariant?: "default" | "highlight"
   className?: string
-  contentClassName?: string
-  titleClassName?: string
-  descriptionClassName?: string
-  mediaClassName?: string
 }
 
-export function CardIcon({
+type MaterialCardProps = {
+  variant: "material"
+  title: string
+  description: string
+  icon: IconType | ComponentType<{ className?: string }>
+  className?: string
+}
+
+type CardIconProps = SchoolCardProps | MaterialCardProps
+
+function CardHoverBackground() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-0 transition-opacity duration-300 group-hover/card:opacity-100">
+      <Shape variant="big-teal" className="-top-16 -right-20 absolute h-40 w-40" />
+      <Shape variant="big-teal" className="-bottom-21 -left-2 absolute h-70 w-70" />
+      <div className="-top-36 -left-32 absolute h-168 w-2xl">
+        <div className="-rotate-70 relative h-full w-full origin-center">
+          <Shape variant="looper" className="absolute inset-0 h-full w-full object-contain" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CardArrow({ stacked, hoverEffect }: { stacked: boolean; hoverEffect: boolean }) {
+  return (
+    <div
+      className={cn(
+        "flex h-14 w-14 shrink-0 items-center justify-center rounded-full transition-all duration-300",
+        stacked ? "absolute right-0 bottom-1" : "mb-1",
+        hoverEffect ? "bg-button-disabled group-hover/card:bg-blue-tertiary" : "bg-button-disabled"
+      )}
+    >
+      <ArrowRight className="h-6 w-6 text-blue-secondary" strokeWidth={1.8} />
+    </div>
+  )
+}
+
+function SchoolMedia({
   title,
-  description,
-  icon: Icon,
   imageSrc,
-  imageAlt,
-  media,
-  size,
-  href,
-  backgroundSrc,
-  backgroundAlt,
-  showArrow = false,
-  hoverEffect = false,
-  actionVariant = "default",
-  className,
-  contentClassName,
-  titleClassName,
-  descriptionClassName,
-  mediaClassName,
-}: CardIconProps) {
-  const resolvedSize = size ?? (description ? "default" : "compact")
-  const hasDescription = Boolean(description)
-  const MediaIcon = Icon
+  icon: Icon,
+  stacked,
+}: {
+  title: string
+  imageSrc?: StaticImageData
+  icon?: IconType | ComponentType<{ className?: string }>
+  stacked: boolean
+}) {
+  if (imageSrc) {
+    return (
+      <Image
+        src={imageSrc}
+        alt={title}
+        width={141}
+        height={125}
+        className={cn("shrink-0 object-contain", stacked ? "h-44 w-44" : "h-36 w-40")}
+      />
+    )
+  }
+
+  if (!Icon) return null
+
+  return <Icon className={cn(stacked ? "h-28 w-28" : "h-24 w-24")} />
+}
+
+function MaterialMedia({
+  title,
+  icon: Icon,
+}: {
+  title: string
+  icon: IconType | ComponentType<{ className?: string }>
+}) {
+  return <Icon className="h-32 w-32" aria-label={title} />
+}
+
+export function CardIcon(props: CardIconProps) {
+  if (props.variant === "material") {
+    const { title, description, icon: Icon, className } = props
+
+    return (
+      <Glass className={cn("rounded-4xl border-white/50 bg-background-blur px-6 py-8 text-card-foreground", className)}>
+        <div className="flex min-h-96 flex-col gap-8">
+          <div className="mb-4 flex w-full shrink-0 items-start justify-start text-blue-primary">
+            <MaterialMedia title={title} icon={Icon} />
+          </div>
+
+          <div className="flex flex-1 flex-col items-start justify-start gap-4">
+            <h3 className="typo-headline-medium bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-left text-transparent">
+              {title}
+            </h3>
+            <p className="typo-body-medium max-w-sm text-left text-text-primary">{description}</p>
+          </div>
+        </div>
+      </Glass>
+    )
+  }
+
+  const { variant, title, imageSrc, icon, href, showArrow = false, hoverEffect = false, className } = props
+  const stacked = variant === "school-stacked"
   const Root = href ? "a" : "div"
 
   return (
-    <Glass
-      className={cn(
-        "text-card-foreground overflow-hidden p-0",
-        resolvedSize === "compact"
-          ? "rounded-rectangles border-white/50 bg-background-blur backdrop-blur-md"
-          : "rounded-4xl border-white/50 bg-background-blur backdrop-blur-md",
-        className
-      )}
-    >
+    <Glass className={cn("rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground", className)}>
       <Root
         href={href}
-        className={cn(
-          "group/card relative flex h-full flex-col",
-          resolvedSize === "compact" ? "min-h-72 justify-between gap-6 p-8 text-left" : "min-h-96 gap-8 px-6 py-6"
-        )}
+        className="group/card relative flex h-full min-h-72 flex-col justify-between gap-6 p-8 text-left"
       >
-        {backgroundSrc && (
-          <Image
-            src={backgroundSrc}
-            alt={backgroundAlt ?? ""}
-            fill
-            sizes="100vw"
-            aria-hidden={backgroundAlt ? undefined : true}
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-          />
-        )}
-
-        {resolvedSize === "compact" && hoverEffect && (
-          <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100">
-            <Image
-              src={bigTealShape}
-              alt=""
-              aria-hidden="true"
-              width={160}
-              height={160}
-              className="absolute -top-16 -right-20 h-40 w-40"
-            />
-            <Image
-              src={bigTealShape}
-              alt=""
-              aria-hidden="true"
-              width={279}
-              height={279}
-              className="absolute -bottom-20.75 -left-2.25 h-69.75 w-69.75"
-            />
-
-            <div className="absolute -top-36 -left-32 h-168 w-2xl">
-              <div className="relative h-full w-full origin-center -rotate-70">
-                <Image
-                  src={looper}
-                  alt=""
-                  aria-hidden="true"
-                  fill
-                  sizes="528px"
-                  className="absolute inset-0 h-full w-full object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        )}
+        {hoverEffect && <CardHoverBackground />}
 
         <div className="relative z-10 flex h-full flex-col">
-          {resolvedSize === "compact" ? (
+          {stacked ? (
+            <div className="relative flex flex-1 flex-col items-center justify-center gap-6 text-center">
+              <div className="flex justify-center text-blue-primary">
+                <SchoolMedia title={title} imageSrc={imageSrc} icon={icon} stacked />
+              </div>
+              <h3 className="typo-headline-medium max-w-44 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-center text-transparent">
+                {title}
+              </h3>
+              {showArrow && <CardArrow stacked hoverEffect={hoverEffect} />}
+            </div>
+          ) : (
             <>
               <div className="flex items-start">
-                <h3
-                  className={cn(
-                    "typo-headline-medium max-w-44 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-left text-transparent",
-                    titleClassName
-                  )}
-                >
+                <h3 className="typo-headline-medium max-w-44 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-left text-transparent">
                   {title}
                 </h3>
               </div>
 
               <div className="mt-auto flex items-end justify-between gap-4">
-                <div className={cn("flex flex-1 items-end text-blue-primary", mediaClassName)}>
-                  {media}
-                  {!media && imageSrc && (
-                    <Image
-                      src={imageSrc}
-                      alt={imageAlt ?? title}
-                      width={141}
-                      height={125}
-                      className="h-36 w-40 shrink-0 object-contain"
-                    />
-                  )}
-                  {!media && !imageSrc && MediaIcon && <MediaIcon className="h-24 w-24" />}
+                <div className="flex flex-1 items-end text-blue-primary">
+                  <SchoolMedia title={title} imageSrc={imageSrc} icon={icon} stacked={false} />
                 </div>
-
-                {showArrow && (
-                  <div
-                    className={cn(
-                      "mb-1 flex h-14 w-14 shrink-0 items-center justify-center rounded-full transition-all duration-300",
-                      hoverEffect
-                        ? "bg-button-disabled group-hover/card:bg-blue-tertiary"
-                        : actionVariant === "highlight"
-                          ? "bg-blue-tertiary"
-                          : "bg-button-disabled"
-                    )}
-                  >
-                    <ArrowRight className="h-6 w-6 text-blue-secondary" strokeWidth={1.8} />
-                  </div>
-                )}
-              </div>
-            </>
-          ) : (
-            <>
-              <div
-                className={cn(
-                  "flex shrink-0 items-start justify-start text-blue-primary",
-                  "w-full",
-                  mediaClassName
-                )}
-              >
-                {media}
-                {!media && imageSrc && (
-                  <Image
-                    src={imageSrc}
-                    alt={imageAlt ?? title}
-                    width={128}
-                    height={128}
-                    className="h-auto max-h-32 max-w-32 object-contain"
-                  />
-                )}
-                {!media && !imageSrc && MediaIcon && <MediaIcon className="h-32 w-32" />}
-              </div>
-
-              <div className={cn("flex flex-1 flex-col items-start justify-start gap-4", contentClassName)}>
-                <h3
-                  className={cn(
-                    "typo-headline-medium bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent",
-                    titleClassName
-                  )}
-                >
-                  {title}
-                </h3>
-
-                {hasDescription && (
-                  <p
-                    className={cn(
-                      "max-w-sm text-left typo-body-medium text-text-primary",
-                      descriptionClassName
-                    )}
-                  >
-                    {description}
-                  </p>
-                )}
+                {showArrow && <CardArrow stacked={false} hoverEffect={hoverEffect} />}
               </div>
             </>
           )}
