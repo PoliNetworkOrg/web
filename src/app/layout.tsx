@@ -2,9 +2,8 @@ import { HEADER_HEIGHT, Header } from "@/components/header"
 import { Shape } from "@/components/shapes"
 import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
-import { GeistSans } from "geist/font/sans"
 import type { Metadata } from "next"
-import { Poppins, Red_Hat_Text, DM_Sans } from "next/font/google"
+import { DM_Sans, Poppins, Red_Hat_Text } from "next/font/google"
 
 const poppinsFont400 = Poppins({
   variable: "--font-poppins",
