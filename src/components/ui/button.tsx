@@ -15,7 +15,7 @@ const buttonVariants = cva(
         tertiary:
           "bg-button-tertiary hover:bg-button-tertiary/90 text-text-accent-lightbg typo-label-large rounded-buttonsM",
         tertiaryBlur:
-          "bg-blue-tertiary-blur hover:bg-blue-tertiary-blur/90 text-text-accent-lightbg typo-label-large rounded-buttonsM",
+          "bg-blue-tertiary-blur hover:bg-blue-tertiary-blur/90 text-text-accent-lightbg typo-headline-small rounded-buttonsM",
         outline:
           "border bg-white shadow-xs hover:bg-slate-100 hover:text-slate-900 dark:bg-slate-200/30 dark:border-slate-200 dark:hover:bg-slate-200/50 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:dark:bg-slate-800/30 dark:dark:border-slate-800 dark:dark:hover:bg-slate-800/50",
         link: "text-slate-900 underline-offset-4 underline dark:text-slate-50",

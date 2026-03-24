@@ -4,6 +4,23 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
 import { GeistSans } from "geist/font/sans"
 import type { Metadata } from "next"
+import { Poppins, Red_Hat_Text, DM_Sans } from "next/font/google"
+
+const poppinsFont400 = Poppins({
+  variable: "--font-poppins",
+  weight: "400",
+  subsets: ["latin"],
+})
+const dmSansFont = DM_Sans({
+  variable: "--font-dm-sans",
+  weight: "variable",
+  subsets: ["latin"],
+})
+const redHatTextFont = Red_Hat_Text({
+  variable: "--font-red-hat",
+  weight: "variable",
+  subsets: ["latin"],
+})
 
 const desc = "The online community of Politecnico di Milano brought to you by its students"
 
@@ -45,7 +62,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${poppinsFont400.variable} ${redHatTextFont.variable} ${dmSansFont.variable}`}
+    >
       <body
         className="overflow-y-scroll"
         style={
