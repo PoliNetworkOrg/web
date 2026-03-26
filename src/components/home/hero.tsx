@@ -23,7 +23,7 @@ export function Hero() {
               className="typo-body-medium"
             />
 
-            <Button variant="primary" size="lg" className="icon-lg">
+            <Button variant="primary" size="lg">
               More groups
               <FiNavigation />
             </Button>
