@@ -1,6 +1,6 @@
 import * as SelectPrimitive from "@radix-ui/react-select"
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import type * as React from "react"
+import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import { cn } from "@/lib/utils"
 import { Glass } from "../glass"
 
@@ -47,7 +47,7 @@ function SelectTrigger({
       >
         {children}
         <SelectPrimitive.Icon asChild>
-          <ChevronDownIcon className="h-4 w-4 text-text-primary transition-transform duration-300 group-data-[state=open]:rotate-180" />
+          <FiChevronDown className="h-4 w-4 text-text-primary transition-transform duration-300 group-data-[state=open]:rotate-180" />
         </SelectPrimitive.Icon>
       </Glass>
     </SelectPrimitive.Trigger>
@@ -149,7 +149,7 @@ function SelectScrollUpButton({ className, ...props }: React.ComponentProps<type
       className={cn("flex cursor-default items-center justify-center py-1", className)}
       {...props}
     >
-      <ChevronUpIcon className="h-4 w-4 text-text-secondary" />
+      <FiChevronUp className="h-4 w-4 text-text-secondary" />
     </SelectPrimitive.ScrollUpButton>
   )
 }
@@ -164,7 +164,7 @@ function SelectScrollDownButton({
       className={cn("flex cursor-default items-center justify-center py-1", className)}
       {...props}
     >
-      <ChevronDownIcon className="h-4 w-4 text-text-secondary" />
+      <FiChevronDown className="h-4 w-4 text-text-secondary" />
     </SelectPrimitive.ScrollDownButton>
   )
 }
