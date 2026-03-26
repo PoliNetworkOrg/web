@@ -26,9 +26,9 @@ const materialCards = [
 ] as const
 
 const otherCards = [
-  { title: "   Dispense   ", icon: FiBook, size: "sm" },
-  { title: "   Appunti   ", icon: FiFileText, size: "sm" },
-  { title: "   Esami   ", icon: FiClipboard, size: "sm" },
+  { title: "Dispense", icon: FiBook, size: "sm" },
+  { title: "Appunti", icon: FiFileText, size: "sm" },
+  { title: "Esami", icon: FiClipboard, size: "sm" },
 ] as const
 
 export default function Home() {
