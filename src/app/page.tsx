@@ -33,27 +33,29 @@ const otherCards = [
 
 export default function Home() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-12 px-4 py-10 md:px-8">
+    <main className="w-full">
       <Hero />
-      <section className="pb-12">
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {schoolCards.map((card) => (
-            <CardIcon key={card.title} {...card} href="#" hoverEffect />
-          ))}
-        </div>
-      </section>
-      <section className="flex max-w-4xl flex-col gap-6">
-        <div className="grid gap-32 sm:grid-cols-2">
-          {materialCards.map((card) => (
-            <CardIcon key={card.title} {...card} href="#" />
-          ))}
-        </div>
-        <div className="grid gap-16 sm:grid-cols-3">
-          {otherCards.map((card) => (
-            <CardIcon key={card.title} {...card} href="#" />
-          ))}
-        </div>
-      </section>
+      <div className="mx-auto flex max-w-6xl flex-col gap-12">
+        <section>
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+            {schoolCards.map((card) => (
+              <CardIcon key={card.title} {...card} href="#" hoverEffect />
+            ))}
+          </div>
+        </section>
+        <section className="flex max-w-4xl flex-col gap-6">
+          <div className="grid gap-32 sm:grid-cols-2">
+            {materialCards.map((card) => (
+              <CardIcon key={card.title} {...card} href="#" />
+            ))}
+          </div>
+          <div className="grid gap-16 sm:grid-cols-3">
+            {otherCards.map((card) => (
+              <CardIcon key={card.title} {...card} href="#" />
+            ))}
+          </div>
+        </section>
+      </div>
     </main>
   )
 }
