@@ -16,7 +16,7 @@ function SelectValue({ className, ...props }: React.ComponentProps<typeof Select
   return (
     <SelectPrimitive.Value
       data-slot="select-value"
-      className={cn("typo-body-medium text-text-primary data-[placeholder]:text-text-secondary", className)}
+      className={cn("typo-body-medium text-text-primary data-placeholder:text-text-secondary", className)}
       {...props}
     />
   )
@@ -74,7 +74,7 @@ function SelectContent({
           "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
           "data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2",
 
-          "relative z-50 max-h-[var(--radix-select-content-available-height)]",
+          "relative z-50 max-h-(--radix-select-content-available-height)",
           "origin-(--radix-select-content-transform-origin) overflow-y-auto overflow-x-hidden",
           "rounded-rectangles border border-white/40",
           "bg-background-blur shadow-lg backdrop-blur-xl",
@@ -90,8 +90,7 @@ function SelectContent({
           className={cn(
             // il menu matcha la larghezza del trigger
             "p-1",
-            position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-[var(--radix-select-trigger-width)] scroll-my-1"
+            position === "popper" && "h-(--radix-select-trigger-height) w-(--radix-select-trigger-width) scroll-my-1"
           )}
         >
           {children}
@@ -121,8 +120,8 @@ function SelectItem({ className, children, ...props }: React.ComponentProps<type
         "rounded-buttonsM px-5 py-2.5",
         "typo-body-medium text-text-primary",
         "outline-none",
-        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        "data-[highlighted]:bg-blue-tertiary/10",
+        "data-disabled:pointer-events-none data-disabled:opacity-50",
+        "data-highlighted:bg-blue-tertiary/10",
         className
       )}
       {...props}
