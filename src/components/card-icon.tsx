@@ -27,6 +27,11 @@ function getIconSizeClasses(size: CardSize) {
   return "h-32 w-32"
 }
 
+function getCardPaddingClasses(size: CardSize, hasDescription: boolean) {
+  if (!hasDescription && size === "sm") return "px-8 py-4"
+  return "p-8"
+}
+
 function getContentGapClasses(size: CardSize) {
   if (size === "sm") return "gap-2"
   return "gap-6"
@@ -71,7 +76,13 @@ export function CardIcon(props: CardIconProps) {
         className
       )}
     >
-      <Root href={href} className="group/card relative flex h-full flex-col p-8 text-left">
+      <Root
+        href={href}
+        className={cn(
+          "group/card relative flex h-full flex-col text-left",
+          getCardPaddingClasses(size, isDescriptionCard)
+        )}
+      >
         {hoverEffect && <CardHoverBackground />}
 
         <div
