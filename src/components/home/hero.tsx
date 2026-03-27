@@ -1,4 +1,4 @@
-import { Search, Send, UserPlus } from "lucide-react"
+import { FiNavigation, FiSearch, FiUserPlus } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -15,7 +15,7 @@ export function Hero() {
 
           <div className="flex w-full flex-col items-center gap-8 md:gap-16">
             <Input
-              icon={<Search className="h-5 w-5" />}
+              icon={<FiSearch className="h-5 w-5" />}
               type="text"
               placeholder="Find your group"
               aria-label="Find your group"
@@ -23,16 +23,16 @@ export function Hero() {
               className="typo-body-medium"
             />
 
-            <Button variant="primary" size="sm">
+            <Button variant="primary" size="lg">
               More groups
-              <Send />
+              <FiNavigation />
             </Button>
           </div>
         </div>
 
         <div className="flex justify-center md:justify-end">
           <Button variant="tertiaryBlur" size="lg" className="text-blue-secondary">
-            <UserPlus />
+            <FiUserPlus />
             Sei una matricola?
           </Button>
         </div>
