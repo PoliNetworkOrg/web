@@ -3,6 +3,7 @@ import { FaBookBookmark } from "react-icons/fa6"
 import { CardCaption } from "@/components/card-caption"
 import { Button } from "@/components/ui/button"
 import { ButtonWithIcon } from "@/components/ui/buttonWithIcon"
+import { CardPathSelection } from "@/components/card-path-selection"
 
 export default function Home() {
   return (
@@ -32,6 +33,10 @@ export default function Home() {
           icon={FaBookBookmark}
           iconPosition="top"
         ></CardCaption>
+      </div>
+      <div>
+        <CardPathSelection caption="Triennale (o Ciclo Unico)"></CardPathSelection>
+        <CardPathSelection caption="Magistrale"></CardPathSelection>
       </div>
     </main>
   )
