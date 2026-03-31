@@ -1,6 +1,6 @@
 import type { IconType } from "react-icons"
-import { Card, CardAction, CardContent } from "./ui/card"
 import { BsBook } from "react-icons/bs"
+import { Card, CardAction, CardContent } from "./ui/card"
 
 export function CardPathSelection({ caption, icon: Icon = BsBook }: { caption: string; icon?: IconType }) {
   return (
