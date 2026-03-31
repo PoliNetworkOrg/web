@@ -3,12 +3,11 @@ import { Glass } from "./glass"
 import { GradientIcon, type GradientIconType } from "./gradient-icon"
 import { Shape } from "./shapes"
 
-type CardIconType = GradientIconType
 type CardSize = "sm" | "md" | "lg"
 
 type SharedCardProps = {
   title: string
-  icon: CardIconType
+  icon: GradientIconType
   size?: CardSize
   href?: string
   hoverEffect?: boolean
@@ -51,14 +50,14 @@ function CardHoverBackground() {
   )
 }
 
-function BasicCardMedia({ title, icon: Icon, size }: { title: string; icon: CardIconType; size: CardSize }) {
-  return <GradientIcon title={title} icon={Icon} className={getIconSizeClasses(size)} />
+function BasicCardMedia({ icon: Icon, size }: { icon: GradientIconType; size: CardSize }) {
+  return <GradientIcon icon={Icon} className={getIconSizeClasses(size)} />
 }
 
-function DescriptionCardMedia({ title, icon: Icon, size }: { title: string; icon: CardIconType; size: CardSize }) {
+function DescriptionCardMedia({ icon: Icon, size }: { icon: GradientIconType; size: CardSize }) {
   return (
     <div className={cn("relative", getIconSizeClasses(size))}>
-      <GradientIcon title={title} icon={Icon} className="h-full w-full" />
+      <GradientIcon icon={Icon} className="h-full w-full" />
     </div>
   )
 }
@@ -94,9 +93,9 @@ export function CardIcon(props: CardIconProps) {
         >
           <div className="flex justify-center">
             {isDescriptionCard ? (
-              <DescriptionCardMedia title={title} icon={icon} size={size} />
+              <DescriptionCardMedia icon={icon} size={size} />
             ) : (
-              <BasicCardMedia title={title} icon={icon} size={size} />
+              <BasicCardMedia icon={icon} size={size} />
             )}
           </div>
 
@@ -109,9 +108,9 @@ export function CardIcon(props: CardIconProps) {
             >
               {title}
             </h3>
-            {description ? (
+              {description && (
               <p className="typo-body-medium max-w-sm text-left text-text-primary">{description}</p>
-            ) : null}
+            )}
           </div>
         </div>
       </Root>
