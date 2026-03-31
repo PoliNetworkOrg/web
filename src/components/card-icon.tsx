@@ -108,9 +108,7 @@ export function CardIcon(props: CardIconProps) {
             >
               {title}
             </h3>
-              {description && (
-              <p className="typo-body-medium max-w-sm text-left text-text-primary">{description}</p>
-            )}
+            {description && <p className="typo-body-medium max-w-sm text-left text-text-primary">{description}</p>}
           </div>
         </div>
       </Root>
