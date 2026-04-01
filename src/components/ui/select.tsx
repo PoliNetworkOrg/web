@@ -39,7 +39,7 @@ function SelectTrigger({
           "group inline-flex items-center justify-center gap-1.5",
           paddingClass,
           "rounded-buttonsM",
-          "bg-background-blur border border-white/50",
+          "border border-white/50 bg-background-blur",
           "typo-body-medium text-text-primary",
           "disabled:cursor-not-allowed disabled:opacity-50",
           className
@@ -68,16 +68,16 @@ function SelectContent({
         data-slot="select-content"
         sideOffset={sideOffset}
         className={cn(
-          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:animate-out data-[state=open]:animate-in",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
           "data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2",
 
           "relative z-50 max-h-[var(--radix-select-content-available-height)]",
-          "origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto",
+          "origin-(--radix-select-content-transform-origin) overflow-y-auto overflow-x-hidden",
           "rounded-rectangles border border-white/40",
-          "bg-background-blur backdrop-blur-xl shadow-lg",
+          "bg-background-blur shadow-lg backdrop-blur-xl",
           "text-text-primary",
           className
         )}
@@ -117,7 +117,7 @@ function SelectItem({ className, children, ...props }: React.ComponentProps<type
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full select-none cursor-pointer items-center gap-1.5",
+        "relative flex w-full cursor-pointer select-none items-center gap-1.5",
         "rounded-buttonsM px-5 py-2.5",
         "typo-body-medium text-text-primary",
         "outline-none",
@@ -136,7 +136,7 @@ function SelectSeparator({ className, ...props }: React.ComponentProps<typeof Se
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("my-1 h-px bg-grey/40 pointer-events-none -mx-1", className)}
+      className={cn("-mx-1 pointer-events-none my-1 h-px bg-grey/40", className)}
       {...props}
     />
   )

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "npx -y only-allow pnpm",
     "build": "next build",
     "dev": "cross-env PORT=3002 next dev --turbo",
     "preview": "next build && next start",
@@ -24,7 +25,7 @@
     "cmdk": "1.1.1",
     "geist": "^1.5.1",
     "lucide-react": "^0.545.0",
-    "next": "^15.5.10",
+    "next": "^15.5.14",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
     "react": "^19.2.3",
