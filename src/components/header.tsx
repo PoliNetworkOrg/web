@@ -21,13 +21,11 @@ function useMediaQuery(query: string): boolean {
 
   React.useEffect(() => {
     const media = window.matchMedia(query)
-    if (media.matches !== matches) {
-      setMatches(media.matches)
-    }
+    setMatches(media.matches)
     const listener = () => setMatches(media.matches)
     media.addEventListener("change", listener)
     return () => media.removeEventListener("change", listener)
-  }, [matches, query])
+  }, [query])
 
   return matches
 }
@@ -83,9 +81,9 @@ function handleMoonIconClick() {
 
 // --- PoliNetwork Logo ---
 const Logo = () => (
-  <Link href="/" className="flex items-center space-x-[9px] h-[30px]">
+  <Link href="/" className="flex h-[30px] items-center space-x-[9px]">
     <Image src="/polinetwork_meta.png" alt="PoliNetwork Logo" width={24} height={24} />
-    <h1 className="font-poppins font-normal text-[20px] leading-[100%] text-[#1156AE]">PoliNetwork</h1>
+    <h1 className="font-normal font-poppins text-[#1156AE] text-[20px] leading-[100%]">PoliNetwork</h1>
   </Link>
 )
 
@@ -128,8 +126,8 @@ const MobileLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
 
   return (
-    <Glass className="fixed py-[20px]! px-[24px]! max-w-[354px] w-full rounded-[36px] m-auto mb-0 mt-0 top-[40px] z-20 box-border">
-      <div className="flex justify-between! items-center w-full">
+    <Glass className="fixed top-[40px] z-20 m-auto mt-0 mb-0 box-border w-full max-w-[354px] rounded-[36px] px-[24px]! py-[20px]!">
+      <div className="justify-between! flex w-full items-center">
         <Logo />
         <button
           type="button"
@@ -146,16 +144,16 @@ const MobileLayout = () => {
           <div className="mr-auto flex flex-col">
             {components.map((component) => (
               <React.Fragment key={component.title}>
-                <span className="mt-[24px] typo-title-large font-poppins bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+                <span className="typo-title-large mt-[24px] bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text font-poppins text-transparent">
                   {component.title}
                 </span>
                 {component.menu && (
                   <ul className="ml-[12px] flex flex-col gap-2">
                     {component.menu.map((item) => (
-                      <li key={item.title} className="flex items-center gap-1 mt-[12px]">
+                      <li key={item.title} className="mt-[12px] flex items-center gap-1">
                         <Link
                           href={item.href}
-                          className="typo-body-medium text-text-primary hover:underline focus:underline decoration-1 decoration-blue-secondary"
+                          className="typo-body-medium text-text-primary decoration-1 decoration-blue-secondary hover:underline focus:underline"
                         >
                           {item.title}
                         </Link>
@@ -166,7 +164,7 @@ const MobileLayout = () => {
               </React.Fragment>
             ))}
           </div>
-          <div className="flex flex-col pt-2 gap-[20px] mt-[29px]">
+          <div className="mt-[29px] flex flex-col gap-[20px] pt-2">
             <IconButtonsMobile />
           </div>
         </nav>
@@ -181,12 +179,12 @@ const DesktopLayout = () => {
   const customHoverEffectClass = "hover:underline focus:underline decoration-1 decoration-blue-secondary "
 
   return (
-    <Glass className="fixed py-[20px]! px-[70px]! max-w-[1045px] w-full rounded-full m-auto mb-0 mt-0 top-[40px] z-20 box-border">
+    <Glass className="fixed top-[40px] z-20 m-auto mt-0 mb-0 box-border w-full max-w-[1045px] rounded-full px-[70px]! py-[20px]!">
       <NavigationMenu
         viewport={false}
-        className="flex top-0 isolate [&>div]:w-full max-w-full shrink-0 items-stretch bg-card max-h-[var(--header-height)]"
+        className="top-0 isolate flex max-h-[var(--header-height)] max-w-full shrink-0 items-stretch bg-card [&>div]:w-full"
       >
-        <NavigationMenuList className="flex justify-between! w-full">
+        <NavigationMenuList className="justify-between! flex w-full">
           <NavigationMenuLink asChild className={`${removeDefaultHoverEffectClass} p-0 py-[3px]`}>
             <Logo />
           </NavigationMenuLink>
@@ -196,17 +194,17 @@ const DesktopLayout = () => {
               {component.menu ? (
                 <>
                   <NavigationMenuTrigger
-                    className={`font-red-hat typo-body-medium text-text-primary ${removeDefaultHoverEffectClass} ${customHoverEffectClass} p-0 h-fit group [&_.lucide-chevron-down]:hidden`}
+                    className={`typo-body-medium font-red-hat text-text-primary ${removeDefaultHoverEffectClass} ${customHoverEffectClass} group h-fit p-0 [&_.lucide-chevron-down]:hidden`}
                   >
                     <div className="flex flex-col gap-1">
-                      <span className="font-red-hat typo-body-medium text-text-primary">{component.title}</span>
+                      <span className="typo-body-medium font-red-hat text-text-primary">{component.title}</span>
                     </div>
                     <FiChevronDown
                       size={24}
                       className="color-text-primary relative top-[1px] ml-1 transition duration-300 group-data-[state=open]:rotate-180"
                     />
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="mt-[36px]! border-none! bg-transparent! shadow-none! data-[state=open]:bg-transparent! data-[state=closed]:bg-transparent!">
+                  <NavigationMenuContent className="mt-[36px]! border-none! bg-transparent! shadow-none! data-[state=closed]:bg-transparent! data-[state=open]:bg-transparent!">
                     <ul className="w-fit text-nowrap">
                       <Glass>
                         {component.menu.map((item) => {
@@ -215,11 +213,11 @@ const DesktopLayout = () => {
                             <NavigationMenuLink
                               asChild
                               key={item.title}
-                              className={`flex flex-row flex-nowrap justify-between items-center shrink-0 ${removeDefaultHoverEffectClass} ${customHoverEffectClass}`}
+                              className={`flex shrink-0 flex-row flex-nowrap items-center justify-between ${removeDefaultHoverEffectClass} ${customHoverEffectClass}`}
                             >
                               <Link href={item.href || "#"}>
                                 <div className="flex flex-col gap-1">
-                                  <span className="font-red-hat typo-body-medium text-text-primary">{item.title}</span>
+                                  <span className="typo-body-medium font-red-hat text-text-primary">{item.title}</span>
                                 </div>
                                 <Icon size={24} className="color-text-primary" />
                               </Link>
@@ -251,7 +249,17 @@ const DesktopLayout = () => {
 
 // --- Main Header Component ---
 export function Header() {
+  const [mounted, setMounted] = React.useState(false)
   const isMobile = useMediaQuery("(max-width: 768px)") // TODO: Adjust breakpoint
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Wait for hydration to prevent flash. Default to mobile layout under the assumption that most traffic is mobile.
+  if (!mounted) {
+    return <MobileLayout />
+  }
 
   return isMobile ? <MobileLayout /> : <DesktopLayout />
 }

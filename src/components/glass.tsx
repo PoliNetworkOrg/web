@@ -6,7 +6,7 @@ export function Glass({ children, ...props }: GlassProps) {
   return (
     <div
       {...props}
-      className={cn("backdrop-blur-md bg-white/40 rounded-lg border border-gray-200 p-4", props.className)}
+      className={cn("rounded-lg border border-gray-200 bg-white/40 p-4 backdrop-blur-md", props.className)}
     >
       {children}
     </div>
