@@ -15,7 +15,14 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
-// --- Custom Hook for Media Query ---
+/**
+ * Subscribes to a CSS media query and exposes whether it currently matches.
+ *
+ * @param query - A valid CSS media query string (e.g. `"(max-width: 768px)"`)
+ * @returns `true` if the media query currently matches, `false` otherwise
+ *
+ * Observes changes and updates the returned value when the query match state changes; listener is cleaned up on unmount or when `query` changes.
+ */
 function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = React.useState(false)
 
@@ -66,15 +73,29 @@ const components: {
   },
 ]
 
-// --- Icon Button Handlers ---
+/**
+ * Handle clicks on the user/profile icon.
+ *
+ * Logs "User icon clicked" to the console.
+ */
 function handleUserIconClick() {
   console.log("User icon clicked")
 }
 
+/**
+ * Handle clicks on the globe (language) icon.
+ *
+ * Logs "Globe icon clicked" to the console.
+ */
 function handleGlobeIconClick() {
   console.log("Globe icon clicked")
 }
 
+/**
+ * Log that the moon (theme) icon was clicked.
+ *
+ * Logs the string "Moon icon clicked" to the console.
+ */
 function handleMoonIconClick() {
   console.log("Moon icon clicked")
 }
@@ -247,7 +268,14 @@ const DesktopLayout = () => {
   )
 }
 
-// --- Main Header Component ---
+/**
+ * Render the responsive header that switches between mobile and desktop layouts.
+ *
+ * While the app hydrates, the component renders the mobile layout by default to avoid a layout flash;
+ * after mount it selects mobile or desktop based on the "(max-width: 768px)" media query.
+ *
+ * @returns A React element for the header: initially the mobile layout until hydration completes, then the mobile layout when the viewport is 768px wide or narrower, otherwise the desktop layout.
+ */
 export function Header() {
   const [mounted, setMounted] = React.useState(false)
   const isMobile = useMediaQuery("(max-width: 768px)") // TODO: Adjust breakpoint

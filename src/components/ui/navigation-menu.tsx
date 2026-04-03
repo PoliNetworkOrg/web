@@ -5,6 +5,12 @@ import type * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Root wrapper for Radix NavigationMenu that applies shared styling, data attributes, and optionally renders a viewport.
+ *
+ * @param viewport - When `true` (default), renders the associated `NavigationMenuViewport` element; when `false`, omits the viewport.
+ * @returns The rendered NavigationMenu root element with forwarded props.
+ */
 function NavigationMenu({
   className,
   children,
@@ -26,6 +32,12 @@ function NavigationMenu({
   )
 }
 
+/**
+ * Wraps Radix's `NavigationMenuPrimitive.List`, adding layout classes and a `data-slot` attribute while forwarding all other props.
+ *
+ * @param className - Additional class names to merge with the component's base layout classes
+ * @returns The rendered `NavigationMenuPrimitive.List` element with merged classes and `data-slot="navigation-menu-list"`
+ */
 function NavigationMenuList({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.List>) {
   return (
     <NavigationMenuPrimitive.List
@@ -36,6 +48,11 @@ function NavigationMenuList({ className, ...props }: React.ComponentProps<typeof
   )
 }
 
+/**
+ * Renders a NavigationMenu item wrapper that applies positioning and a `data-slot` attribute.
+ *
+ * @returns The wrapped `NavigationMenuPrimitive.Item` element with `data-slot="navigation-menu-item"` and merged `className` including `"relative"`.
+ */
 function NavigationMenuItem({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Item>) {
   return (
     <NavigationMenuPrimitive.Item data-slot="navigation-menu-item" className={cn("relative", className)} {...props} />
@@ -46,6 +63,13 @@ const navigationMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-text-primary transition-[color,box-shadow] outline-none hover:bg-grey focus:bg-grey focus-visible:ring-[3px] focus-visible:ring-text-primary/50 focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-grey/50 data-[state=open]:hover:bg-grey data-[state=open]:focus:bg-grey"
 )
 
+/**
+ * Renders a styled navigation menu trigger with a chevron icon.
+ *
+ * Renders a NavigationMenuPrimitive.Trigger element with preset styling, a `data-slot="navigation-menu-trigger"` attribute, and a down-pointing chevron that rotates when the trigger is open.
+ *
+ * @returns The rendered trigger element for the navigation menu.
+ */
 function NavigationMenuTrigger({
   className,
   children,
@@ -67,6 +91,12 @@ function NavigationMenuTrigger({
   )
 }
 
+/**
+ * Wraps Radix's `NavigationMenuPrimitive.Content`, applying layout, animation, and theme-related classes and forwarding all props.
+ *
+ * @param props - Props passed to the underlying `NavigationMenuPrimitive.Content`. The `className` prop, if provided, is merged with the component's internal classes.
+ * @returns A `NavigationMenuPrimitive.Content` element with a `data-slot="navigation-menu-content"` attribute, merged classes, and forwarded props.
+ */
 function NavigationMenuContent({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Content>) {
   return (
     <NavigationMenuPrimitive.Content
@@ -81,6 +111,11 @@ function NavigationMenuContent({ className, ...props }: React.ComponentProps<typ
   )
 }
 
+/**
+ * Renders a centered, absolutely positioned container that hosts the NavigationMenu viewport.
+ *
+ * @returns A React element containing the Radix NavigationMenu viewport wrapped in an absolutely positioned, centered container.
+ */
 function NavigationMenuViewport({
   className,
   ...props
@@ -99,6 +134,11 @@ function NavigationMenuViewport({
   )
 }
 
+/**
+ * Render a styled NavigationMenu link element with a consistent `data-slot` and utility classes.
+ *
+ * @returns A `NavigationMenuPrimitive.Link` element with base layout, typography, and state-aware styling; additional props are forwarded to the underlying element.
+ */
 function NavigationMenuLink({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Link>) {
   return (
     <NavigationMenuPrimitive.Link
@@ -112,6 +152,11 @@ function NavigationMenuLink({ className, ...props }: React.ComponentProps<typeof
   )
 }
 
+/**
+ * Renders the navigation menu indicator: an animated, diamond-shaped visual used to point to active menu content.
+ *
+ * @returns A NavigationMenuPrimitive.Indicator element containing the rotated square indicator.
+ */
 function NavigationMenuIndicator({
   className,
   ...props
