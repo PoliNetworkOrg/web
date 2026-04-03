@@ -1,6 +1,6 @@
-import { GlobeIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { FiGlobe } from "react-icons/fi"
 import { ThemeButton } from "@/components/theme-button"
 
 export const HEADER_HEIGHT = "4.5rem"
@@ -28,7 +28,7 @@ export async function Header() {
         <nav className="flex items-center space-x-6">
           <ThemeButton />
           <button type="button" className="hover:text-accent-foreground">
-            <GlobeIcon className="h-6 w-6" />
+            <FiGlobe className="h-6 w-6" />
           </button>
         </nav>
       </div>
