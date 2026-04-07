@@ -14,11 +14,13 @@ export function CardCaption({
 }) {
   return (
     <Card>
-      <CardHeader className={`flex ${iconPosition === "right" ? "justify-between" : "flex-col-reverse"}`}>
+      <CardHeader
+        className={`typo-headline-medium flex ${iconPosition === "right" ? "justify-between" : "flex-col-reverse"}`}
+      >
         <CardTitle>{title}</CardTitle>
         {icon && <CardAction icon={icon} iconSize={iconPosition === "right" ? "normal" : "large"}></CardAction>}
       </CardHeader>
-      <CardContent>
+      <CardContent className="typo-body-medium">
         <p>{caption}</p>
       </CardContent>
     </Card>
