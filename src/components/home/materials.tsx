@@ -30,7 +30,7 @@ const quickLinks = [
 export function Materials() {
   return (
     <section className="mx-auto grid gap-8 px-4 py-10 sm:px-8 sm:py-12 lg:gap-10 lg:px-12 xl:grid-cols-2 xl:items-start xl:gap-12 xl:px-16 2xl:gap-16 2xl:px-32">
-      <div className="order-2 flex flex-col gap-5 lg:gap-6 xl:order-1 xl:gap-8 xl:pt-12 2xl:pt-42">
+      <div className="order-2 flex flex-col gap-5 lg:gap-6 xl:order-1 xl:gap-8 xl:pt-12 2xl:pt-44">
         <div className="grid gap-12 md:grid-cols-2 2xl:gap-20">
           {featuredCards.map((card) => (
             <CardIcon key={card.title} {...card} className="h-full" />
