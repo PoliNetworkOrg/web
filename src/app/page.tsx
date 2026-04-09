@@ -1,5 +1,6 @@
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
+import { CardSplit } from "@/components/card-split"
 import { Hero } from "@/components/home/hero"
 
 const schoolCards = [
@@ -35,6 +36,9 @@ export default function Home() {
   return (
     <main className="w-full">
       <Hero />
+      <div className="mx-auto w-fit py-12">
+        <CardSplit textLeft="5x1000" textRight="Sostienici!" textSmall="CF: 97927490157" />
+      </div>
       <div className="mx-auto flex max-w-6xl flex-col gap-12">
         <section>
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
