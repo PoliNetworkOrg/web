@@ -14,7 +14,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex h-66 w-78 flex-col gap-4 overflow-hidden rounded-xl bg-card text-card-foreground text-sm ring-foreground/10 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        "group/card flex h-66 w-78 flex-col gap-4 overflow-hidden rounded-[1.25rem] bg-card text-card-foreground text-sm ring-foreground/10 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
         className
       )}
       {...props}
@@ -57,13 +57,13 @@ function CardAction({
   icon: Icon,
   iconSize = "normal",
   ...props
-}: React.ComponentProps<"div"> & { icon: IconType; iconSize: "normal" | "large" }) {
+}: React.ComponentProps<"div"> & { icon: IconType; iconSize: "small" | "normal" | "large" }) {
   const gradientId = React.useId()
 
   return (
     <div
       data-slot="card-action"
-      className={cn("col-start-2 row-span-2 row-start-1 self-start justify-self-end", className)}
+      className={cn("col-start-2 row-span-2 row-start-1 self-auto justify-self-end", className)}
       {...props}
     >
       <svg width="0" height="0" className="absolute">
@@ -75,7 +75,7 @@ function CardAction({
       </svg>
 
       <Icon
-        size={iconSize === "normal" ? "2rem" : "3.5rem"}
+        size={iconSize === "small" ? "1.125rem" : iconSize === "normal" ? "2rem" : "3.5rem"}
         fill={`url(#${gradientId})`}
         stroke={`url(#${gradientId})`}
       />
