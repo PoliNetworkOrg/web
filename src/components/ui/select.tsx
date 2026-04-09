@@ -1,6 +1,6 @@
 import * as SelectPrimitive from "@radix-ui/react-select"
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import type * as React from "react"
+import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import { cn } from "@/lib/utils"
 import { Glass } from "../glass"
 
@@ -16,7 +16,7 @@ function SelectValue({ className, ...props }: React.ComponentProps<typeof Select
   return (
     <SelectPrimitive.Value
       data-slot="select-value"
-      className={cn("typo-body-medium text-text-primary data-[placeholder]:text-text-secondary", className)}
+      className={cn("typo-body-medium text-text-primary data-placeholder:text-text-secondary", className)}
       {...props}
     />
   )
@@ -39,7 +39,7 @@ function SelectTrigger({
           "group inline-flex items-center justify-center gap-1.5",
           paddingClass,
           "rounded-buttonsM",
-          "bg-background-blur border border-white/50",
+          "border border-white/50 bg-background-blur",
           "typo-body-medium text-text-primary",
           "disabled:cursor-not-allowed disabled:opacity-50",
           className
@@ -47,7 +47,7 @@ function SelectTrigger({
       >
         {children}
         <SelectPrimitive.Icon asChild>
-          <ChevronDownIcon className="h-4 w-4 text-text-primary transition-transform duration-300 group-data-[state=open]:rotate-180" />
+          <FiChevronDown className="h-4 w-4 text-text-primary transition-transform duration-300 group-data-[state=open]:rotate-180" />
         </SelectPrimitive.Icon>
       </Glass>
     </SelectPrimitive.Trigger>
@@ -68,16 +68,16 @@ function SelectContent({
         data-slot="select-content"
         sideOffset={sideOffset}
         className={cn(
-          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:animate-out data-[state=open]:animate-in",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
           "data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2",
 
-          "relative z-50 max-h-[var(--radix-select-content-available-height)]",
-          "origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto",
+          "relative z-50 max-h-(--radix-select-content-available-height)",
+          "origin-(--radix-select-content-transform-origin) overflow-y-auto overflow-x-hidden",
           "rounded-rectangles border border-white/40",
-          "bg-background-blur backdrop-blur-xl shadow-lg",
+          "bg-background-blur shadow-lg backdrop-blur-xl",
           "text-text-primary",
           className
         )}
@@ -90,8 +90,7 @@ function SelectContent({
           className={cn(
             // il menu matcha la larghezza del trigger
             "p-1",
-            position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-[var(--radix-select-trigger-width)] scroll-my-1"
+            position === "popper" && "h-(--radix-select-trigger-height) w-(--radix-select-trigger-width) scroll-my-1"
           )}
         >
           {children}
@@ -117,12 +116,12 @@ function SelectItem({ className, children, ...props }: React.ComponentProps<type
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full select-none cursor-pointer items-center gap-1.5",
+        "relative flex w-full cursor-pointer select-none items-center gap-1.5",
         "rounded-buttonsM px-5 py-2.5",
         "typo-body-medium text-text-primary",
         "outline-none",
-        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        "data-[highlighted]:bg-blue-tertiary/10",
+        "data-disabled:pointer-events-none data-disabled:opacity-50",
+        "data-highlighted:bg-blue-tertiary/10",
         className
       )}
       {...props}
@@ -136,7 +135,7 @@ function SelectSeparator({ className, ...props }: React.ComponentProps<typeof Se
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("my-1 h-px bg-grey/40 pointer-events-none -mx-1", className)}
+      className={cn("-mx-1 pointer-events-none my-1 h-px bg-grey/40", className)}
       {...props}
     />
   )
@@ -149,7 +148,7 @@ function SelectScrollUpButton({ className, ...props }: React.ComponentProps<type
       className={cn("flex cursor-default items-center justify-center py-1", className)}
       {...props}
     >
-      <ChevronUpIcon className="h-4 w-4 text-text-secondary" />
+      <FiChevronUp className="h-4 w-4 text-text-secondary" />
     </SelectPrimitive.ScrollUpButton>
   )
 }
@@ -164,7 +163,7 @@ function SelectScrollDownButton({
       className={cn("flex cursor-default items-center justify-center py-1", className)}
       {...props}
     >
-      <ChevronDownIcon className="h-4 w-4 text-text-secondary" />
+      <FiChevronDown className="h-4 w-4 text-text-secondary" />
     </SelectPrimitive.ScrollDownButton>
   )
 }

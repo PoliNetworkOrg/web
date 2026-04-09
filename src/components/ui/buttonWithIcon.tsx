@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react"
+import type { IconType } from "react-icons"
 import { Button } from "./button"
 
 export function ButtonWithIcon({
@@ -8,7 +8,7 @@ export function ButtonWithIcon({
   iconPosition = "left",
 }: {
   variant?: "primary" | "tertiary" | "tertiaryBlur"
-  icon: LucideIcon
+  icon: IconType
   text: string
   iconPosition?: "left" | "right"
 }) {
