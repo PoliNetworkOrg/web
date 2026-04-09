@@ -40,7 +40,7 @@ function CardTitle({ gradient = true, className, ...props }: React.ComponentProp
     <div
       data-slot="card-title"
       className={cn(
-        `${gradient ? "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text" : ""} font-medium text-[1.5rem] leading-snug group-data-[size=sm]/card:text-base`,
+        `${gradient ? "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent" : ""} font-medium text-[1.5rem] leading-snug group-data-[size=sm]/card:text-base`,
         className
       )}
       {...props}
