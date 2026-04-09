@@ -20,7 +20,7 @@ export function CardCourse({
   iconSelect?: IconType
 }) {
   return (
-    <Card className="typo-body-large flex h-fit w-full flex-row bg-background-blur px-5 py-3.75 font-normal leading-6 tracking-[0.03125rem]">
+    <Card className="typo-body-large flex h-fit w-full flex-row px-5 py-3.75 font-normal leading-6 tracking-[0.03125rem]">
       <CardContent className="basis-1/3 truncate">{courseName}</CardContent>
       <CardContent className="flex basis-1/3 items-center gap-1.25">
         <CardAction icon={IconLocation} iconSize="small" /> {location}
