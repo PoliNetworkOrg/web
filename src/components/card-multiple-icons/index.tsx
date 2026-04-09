@@ -9,7 +9,7 @@ export function CardMultipleIcons({ icons, className }: CardMultipleIconsProps) 
   return (
     <Glass
       className={cn(
-        "inline-flex max-w-full overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground",
+        "inline-flex max-w-full overflow-hidden rounded-full border-white/50 bg-background-blur p-0 text-card-foreground",
         className
       )}
     >
