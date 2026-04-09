@@ -1,5 +1,6 @@
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
+import { CardPathSelection } from "@/components/card-path-selection"
 import { Hero } from "@/components/home/hero"
 
 const schoolCards = [
@@ -55,10 +56,10 @@ export default function Home() {
             ))}
           </div>
         </section>
-      </div>
-      <div>
-        <CardPathSelection caption="Triennale (o Ciclo Unico)"></CardPathSelection>
-        <CardPathSelection caption="Magistrale"></CardPathSelection>
+        <section className="flex flex-row gap-6">
+          <CardPathSelection caption="Triennale (o Ciclo Unico)"></CardPathSelection>
+          <CardPathSelection caption="Magistrale"></CardPathSelection>
+        </section>
       </div>
     </main>
   )
