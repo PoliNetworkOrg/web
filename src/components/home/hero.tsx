@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 export function Hero() {
   return (
     <main className="flex w-full justify-center px-4 sm:px-6">
-      <section className="flex min-h-[calc(100vh-var(--header-height))] w-full flex-col justify-between py-8 sm:py-12">
+      <section className="flex min-h-screen w-full flex-col justify-between py-8 sm:py-12">
         <div className="flex flex-1 flex-col items-center justify-center gap-10 text-center md:gap-16">
           <h1 className="typo-display-medium lg:typo-display-large max-w-5xl text-text-primary">
             Trova gruppi, risorse e supporto
