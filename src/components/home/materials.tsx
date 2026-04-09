@@ -29,8 +29,8 @@ const quickLinks = [
 
 export function Materials() {
   return (
-    <section className="mx-auto grid gap-8 px-4 py-10 sm:px-8 sm:py-12 lg:gap-10 lg:px-12 xl:grid-cols-2 xl:items-start xl:gap-12 xl:px-16 2xl:gap-16 2xl:px-32">
-      <div className="order-2 flex flex-col gap-5 lg:gap-6 xl:order-1 xl:gap-8 xl:pt-12 2xl:pt-44">
+    <section className="mx-auto flex max-w-500 flex-col-reverse gap-8 px-4 py-10 sm:px-8 sm:py-12 lg:gap-10 lg:px-12 xl:flex-row xl:items-start xl:gap-12 xl:px-16 2xl:gap-32 2xl:px-32">
+      <div className="flex grow flex-col gap-5 lg:gap-6 xl:gap-8 xl:pt-12 2xl:pt-44">
         <div className="grid gap-12 md:grid-cols-2 2xl:gap-20">
           {featuredCards.map((card) => (
             <CardIcon key={card.title} {...card} className="h-full" />
@@ -44,7 +44,7 @@ export function Materials() {
         </div>
       </div>
 
-      <div className="order-1 flex flex-col items-start gap-8 xl:order-2 xl:justify-self-end">
+      <div className="flex flex-col items-start gap-8 xl:justify-self-end">
         <h2 className="typo-display-large sm:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent">
           Materials
         </h2>
