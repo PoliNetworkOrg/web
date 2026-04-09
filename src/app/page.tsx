@@ -1,6 +1,7 @@
 import { FaBookBookmark } from "react-icons/fa6"
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
+import { CardCourse } from "@/components/card-course"
 import { CardIcon } from "@/components/card-icon"
 import { CardPathSelection } from "@/components/card-path-selection"
 import { Hero } from "@/components/home/hero"
@@ -57,6 +58,12 @@ export default function Home() {
               <CardIcon key={card.title} {...card} href="#" />
             ))}
           </div>
+        </section>
+        <section>
+          <CardCourse courseName="Ingegneria Informatica" />
+          <CardCourse courseName="Ingegneria Elettrica" />
+          <CardCourse courseName="Ingegneria Gestionale" />
+          <CardCourse courseName="Ingegneria Chimica" />
         </section>
         <section className="flex flex-row gap-6">
           <CardPathSelection caption="Triennale (o Ciclo Unico)"></CardPathSelection>
