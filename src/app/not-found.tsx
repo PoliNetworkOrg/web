@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 export default function NotFound() {
   return (
-    <main className="relative isolate flex min-h-[calc(100dvh-var(--header-height))] w-full items-center justify-center overflow-hidden bg-background">
+    <main className="relative isolate flex min-h-[calc(100dvh-var(--header-height))] w-full items-center justify-center overflow-hidden">
       <section className="relative flex h-full w-full items-center justify-center">
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <Image src={notFoundBackground} alt="" aria-hidden priority className="h-auto w-full max-w-4xl select-none" />
