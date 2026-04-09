@@ -1,5 +1,5 @@
-import type { LucideIcon } from "lucide-react"
 import * as React from "react"
+import type { IconType } from "react-icons"
 import { cn } from "@/lib/utils"
 import { Glass } from "../glass"
 import { Button } from "./button"
@@ -14,7 +14,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex flex-col gap-4 overflow-hidden rounded-xl bg-card text-card-foreground text-sm ring-foreground/10 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        "group/card flex h-66 w-78 flex-col gap-4 overflow-hidden rounded-[1.25rem] bg-card text-card-foreground text-sm ring-foreground/10 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
         className
       )}
       {...props}
@@ -40,7 +40,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-title"
       className={cn(
-        "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text font-medium text-transparent text-xl leading-snug group-data-[size=sm]/card:text-base",
+        "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text font-medium text-[1.5rem] text-transparent leading-snug group-data-[size=sm]/card:text-base",
         className
       )}
       {...props}
@@ -52,13 +52,18 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="card-description" className={cn("text-muted-foreground text-sm", className)} {...props} />
 }
 
-function CardAction({ className, icon: Icon, ...props }: React.ComponentProps<"div"> & { icon: LucideIcon }) {
+function CardAction({
+  className,
+  icon: Icon,
+  iconSize = "normal",
+  ...props
+}: React.ComponentProps<"div"> & { icon: IconType; iconSize: "small" | "normal" | "large" }) {
   const gradientId = React.useId()
 
   return (
     <div
       data-slot="card-action"
-      className={cn("col-start-2 row-span-2 row-start-1 self-start justify-self-end", className)}
+      className={cn("col-start-2 row-span-2 row-start-1 self-auto justify-self-end", className)}
       {...props}
     >
       <svg width="0" height="0" className="absolute">
@@ -69,13 +74,23 @@ function CardAction({ className, icon: Icon, ...props }: React.ComponentProps<"d
         </linearGradient>
       </svg>
 
-      <Icon size={28} stroke={`url(#${gradientId})`} />
+      <Icon
+        size={iconSize === "small" ? "1.125rem" : iconSize === "normal" ? "2rem" : "3.5rem"}
+        fill={`url(#${gradientId})`}
+        stroke={`url(#${gradientId})`}
+      />
     </div>
   )
 }
 
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card-content" className={cn("group-data-[size=sm]/card:px-3", className)} {...props} />
+  return (
+    <div
+      data-slot="card-content"
+      className={cn("text-[.875rem] group-data-[size=sm]/card:px-3", className)}
+      {...props}
+    />
+  )
 }
 
 function CardBottomButton({ className, ...props }: React.ComponentProps<typeof Button>) {
