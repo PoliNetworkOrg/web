@@ -13,7 +13,7 @@ export function CardCourseGroup({
   iconTelegram?: IconType
 }) {
   return (
-    <Card className="flex h-fit w-full flex-row items-center gap-5 bg-background-blur px-7.5 py-6.25 font-normal leading-6 tracking-[0.03125rem]">
+    <Card className="flex h-fit w-full flex-row items-center gap-5 px-7.5 py-6.25 font-normal leading-6 tracking-[0.03125rem]">
       <CardTitle gradient={false} className="typo-headline-small grow truncate">
         {groupName}
       </CardTitle>
