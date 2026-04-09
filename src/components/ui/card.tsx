@@ -35,12 +35,12 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+function CardTitle({ gradient = true, className, ...props }: React.ComponentProps<"div"> & { gradient?: boolean }) {
   return (
     <div
       data-slot="card-title"
       className={cn(
-        "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text font-medium text-[1.5rem] text-transparent leading-snug group-data-[size=sm]/card:text-base",
+        `${gradient ? "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text" : ""} font-medium text-[1.5rem] leading-snug group-data-[size=sm]/card:text-base`,
         className
       )}
       {...props}
@@ -56,8 +56,9 @@ function CardAction({
   className,
   icon: Icon,
   iconSize = "normal",
+  gradient = true,
   ...props
-}: React.ComponentProps<"div"> & { icon: IconType; iconSize: "small" | "normal" | "large" }) {
+}: React.ComponentProps<"div"> & { icon: IconType; iconSize: "small" | "normal" | "large"; gradient?: boolean }) {
   const gradientId = React.useId()
 
   return (
@@ -66,18 +67,20 @@ function CardAction({
       className={cn("col-start-2 row-span-2 row-start-1 self-auto justify-self-end", className)}
       {...props}
     >
-      <svg width="0" height="0" className="absolute">
-        <title>Icon gradient helper</title>
-        <linearGradient id={gradientId} x1="0%" y1="100%" x2="0%" y2="0%">
-          <stop offset="0%" className="text-blue-secondary" stopColor="currentColor" />
-          <stop offset="100%" className="text-blue-primary" stopColor="currentColor" />
-        </linearGradient>
-      </svg>
+      {gradient && (
+        <svg width="0" height="0" className="absolute">
+          <title>Icon gradient helper</title>
+          <linearGradient id={gradientId} x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" className="text-blue-secondary" stopColor="currentColor" />
+            <stop offset="100%" className="text-blue-primary" stopColor="currentColor" />
+          </linearGradient>
+        </svg>
+      )}
 
       <Icon
         size={iconSize === "small" ? "1.125rem" : iconSize === "normal" ? "2rem" : "3.5rem"}
-        fill={`url(#${gradientId})`}
-        stroke={`url(#${gradientId})`}
+        fill={gradient ? `url(#${gradientId})` : "currentColor"}
+        stroke={gradient ? `url(#${gradientId})` : "currentColor"}
       />
     </div>
   )
