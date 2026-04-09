@@ -1,4 +1,6 @@
+import { FaBookBookmark } from "react-icons/fa6"
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
+import { CardCaption } from "@/components/card-caption"
 import { CardIcon } from "@/components/card-icon"
 import { Hero } from "@/components/home/hero"
 
@@ -54,6 +56,20 @@ export default function Home() {
               <CardIcon key={card.title} {...card} href="#" />
             ))}
           </div>
+        </section>
+        <section className="flex gap-4">
+          <CardCaption
+            title="Title"
+            caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
+            icon={FaBookBookmark}
+            iconPosition="right"
+          ></CardCaption>
+          <CardCaption
+            title="CardCaption 2"
+            caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
+            icon={FaBookBookmark}
+            iconPosition="top"
+          ></CardCaption>
         </section>
       </div>
     </main>
