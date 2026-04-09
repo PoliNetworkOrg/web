@@ -1,7 +1,7 @@
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
+import { CardCourse } from "@/components/card-course"
 import { CardIcon } from "@/components/card-icon"
 import { Hero } from "@/components/home/hero"
-import { CardCourse } from "@/components/card-course"
 
 const schoolCards = [
   { title: "Scuola di Architettura", icon: FiTriangle, size: "md" },
