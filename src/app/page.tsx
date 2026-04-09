@@ -1,7 +1,7 @@
 import { FaBookBookmark } from "react-icons/fa6"
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
-import { CardCourse } from "@/components/card-course"
 import { CardCaption } from "@/components/card-caption"
+import { CardCourse } from "@/components/card-course"
 import { CardIcon } from "@/components/card-icon"
 import { Hero } from "@/components/home/hero"
 
