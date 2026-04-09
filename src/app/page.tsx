@@ -37,7 +37,7 @@ export default function Home() {
     <main className="w-full">
       <Hero />
       <div className="mx-auto w-fit py-12">
-        <CardSplit textLeft="5x1000" textRight="Sostienici!" textSmall="CF: 97927490157" />
+        <CardSplit textPrimary="5x1000" textSecondary="Sostienici!" textSecondarySmall="CF: 97927490157" />
       </div>
       <div className="mx-auto flex max-w-6xl flex-col gap-12">
         <section>
