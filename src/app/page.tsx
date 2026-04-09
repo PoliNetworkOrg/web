@@ -1,10 +1,5 @@
 import Image from "next/image"
-import {
-  FiFacebook,
-  FiGithub,
-  FiInstagram,
-  FiLinkedin,
-} from "react-icons/fi"
+import { FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi"
 import discord from "@/assets/icons/discord.svg"
 import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "@/components/card-multiple-icons"
