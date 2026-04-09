@@ -1,3 +1,4 @@
+import Image from "next/image"
 import {
   FiBook,
   FiBookOpen,
@@ -11,7 +12,8 @@ import {
   FiTriangle,
   FiUploadCloud,
 } from "react-icons/fi"
-import { LiaDiscord, LiaTelegram } from "react-icons/lia"
+import discord from "@/assets/icons/discord.svg"
+import telegram from "@/assets/icons/telegram.svg"
 import { CardIcon } from "@/components/card-icon"
 import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { Hero } from "@/components/home/hero"
@@ -52,11 +54,11 @@ export default function Home() {
       <div className="mx-auto w-fit py-12">
         <CardMultipleIcons
           icons={[
-            <LiaTelegram key="telegram" />,
+            <Image key="telegram" src={telegram} alt="Telegram" />,
             <FiInstagram key="instagram" />,
             <FiLinkedin key="linkedin" />,
             <FiFacebook key="facebook" />,
-            <LiaDiscord key="discord" />,
+            <Image key="discord" src={discord} alt="Discord" />,
             <FiGithub key="github" />,
           ]}
         />
