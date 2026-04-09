@@ -58,9 +58,9 @@ export default function Home() {
         </section>
         <section>
           <CardCourseGroup groupName="Ingegneria Informatica" />
-          <CardCourseGroup groupName="Ingegneria Elettronica" />
+          <CardCourseGroup groupName="Ingegneria Elettronica" secondary />
           <CardCourseGroup groupName="Ingegneria Gestionale" />
-          <CardCourseGroup groupName="Ingegneria Meccanica" />
+          <CardCourseGroup groupName="Ingegneria Meccanica" secondary />
         </section>
       </div>
     </main>
