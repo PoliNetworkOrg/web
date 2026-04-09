@@ -60,20 +60,20 @@ export default function Home() {
             ))}
           </div>
         </section>
-      </div>
-      <div className="flex gap-4">
-        <CardCaption
-          title="Title"
-          caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
-          icon={FaBookBookmark}
-          iconPosition="right"
-        ></CardCaption>
-        <CardCaption
-          title="CardCaption 2"
-          caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
-          icon={FaBookBookmark}
-          iconPosition="top"
-        ></CardCaption>
+        <section className="flex gap-4">
+          <CardCaption
+            title="Title"
+            caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
+            icon={FaBookBookmark}
+            iconPosition="right"
+          ></CardCaption>
+          <CardCaption
+            title="CardCaption 2"
+            caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
+            icon={FaBookBookmark}
+            iconPosition="top"
+          ></CardCaption>
+        </section>
       </div>
     </main>
   )
