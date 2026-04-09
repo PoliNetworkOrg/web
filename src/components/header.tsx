@@ -263,5 +263,3 @@ export function Header() {
 
   return isMobile ? <MobileLayout /> : <DesktopLayout />
 }
-
-export const HEADER_HEIGHT = "4.5rem"
