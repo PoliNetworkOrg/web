@@ -3,6 +3,7 @@ import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiU
 import { CardCaption } from "@/components/card-caption"
 import { CardCourse } from "@/components/card-course"
 import { CardIcon } from "@/components/card-icon"
+import { CardPathSelection } from "@/components/card-path-selection"
 import { Hero } from "@/components/home/hero"
 
 const schoolCards = [
@@ -64,7 +65,11 @@ export default function Home() {
           <CardCourse courseName="Ingegneria Gestionale" />
           <CardCourse courseName="Ingegneria Chimica" />
         </section>
-        <section className="flex gap-4">
+        <section className="flex flex-row gap-6">
+          <CardPathSelection caption="Triennale (o Ciclo Unico)"></CardPathSelection>
+          <CardPathSelection caption="Magistrale"></CardPathSelection>
+        </section>
+        <section className="flex flex-row gap-4">
           <CardCaption
             title="Title"
             caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
