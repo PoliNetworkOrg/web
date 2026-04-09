@@ -34,27 +34,14 @@ export function CardCourseGroup({
   hasTelegram?: boolean
   iconTelegram?: IconType
 } & VariantProps<typeof cardCourseGroupVariants>) {
+  const actionClassName = cn("rounded-full p-3.75", secondary ? "bg-[#51A2FF]" : "bg-[#74D4FF]")
   return (
     <Card className={cn(cardCourseGroupVariants({ secondary }))}>
       <CardTitle gradient={false} className="typo-headline-small grow">
         {groupName}
       </CardTitle>
-      {hasWhatsapp && (
-        <CardAction
-          gradient={false}
-          className={cn("rounded-full p-3.75", secondary ? "bg-[#51A2FF]" : "bg-[#74D4FF]")}
-          icon={IconWhatsApp}
-          iconSize="normal"
-        />
-      )}
-      {hasTelegram && (
-        <CardAction
-          gradient={false}
-          className={cn("rounded-full p-3.75", secondary ? "bg-[#51A2FF]" : "bg-[#74D4FF]")}
-          icon={IconTelegram}
-          iconSize="normal"
-        />
-      )}
+      {hasWhatsapp && <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="normal" />}
+      {hasTelegram && <CardAction gradient={false} className={actionClassName} icon={IconTelegram} iconSize="normal" />}
     </Card>
   )
 }

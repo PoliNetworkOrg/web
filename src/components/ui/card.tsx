@@ -58,7 +58,7 @@ function CardAction({
   iconSize = "normal",
   gradient = true,
   ...props
-}: React.ComponentProps<"div"> & { icon: IconType; iconSize: "small" | "normal" | "large"; gradient?: boolean }) {
+}: React.ComponentProps<"div"> & { icon: IconType; iconSize?: "small" | "normal" | "large"; gradient?: boolean }) {
   const gradientId = React.useId()
 
   return (
@@ -68,7 +68,7 @@ function CardAction({
       {...props}
     >
       {gradient && (
-        <svg width="0" height="0" className="absolute">
+        <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
           <title>Icon gradient helper</title>
           <linearGradient id={gradientId} x1="0%" y1="100%" x2="0%" y2="0%">
             <stop offset="0%" className="text-blue-secondary" stopColor="currentColor" />
