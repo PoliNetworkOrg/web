@@ -1,9 +1,6 @@
-import { Users } from "lucide-react"
 import { FaBookBookmark } from "react-icons/fa6"
-import { CardCaption } from "@/components/card-caption"
-import { Button } from "@/components/ui/button"
-import { ButtonWithIcon } from "@/components/ui/buttonWithIcon"
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
+import { CardCaption } from "@/components/card-caption"
 import { CardIcon } from "@/components/card-icon"
 import { Hero } from "@/components/home/hero"
 
