@@ -2,6 +2,7 @@ import { FaBookBookmark } from "react-icons/fa6"
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
 import { CardCourse } from "@/components/card-course"
+import { CardCourseGroup } from "@/components/card-course-group"
 import { CardIcon } from "@/components/card-icon"
 import { CardPathSelection } from "@/components/card-path-selection"
 import { Hero } from "@/components/home/hero"
@@ -60,6 +61,12 @@ export default function Home() {
           </div>
         </section>
         <section>
+          <CardCourseGroup groupName="Ingegneria Informatica" />
+          <CardCourseGroup groupName="Ingegneria Elettronica" secondary />
+          <CardCourseGroup groupName="Ingegneria Gestionale" />
+          <CardCourseGroup groupName="Ingegneria Meccanica" secondary />
+        </section>
+        <section className="flex gap-4">
           <CardCourse courseName="Ingegneria Informatica" />
           <CardCourse courseName="Ingegneria Elettrica" />
           <CardCourse courseName="Ingegneria Gestionale" />
