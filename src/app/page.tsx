@@ -56,8 +56,13 @@ export default function Home() {
             ))}
           </div>
         </section>
+        <section>
+          <CardCourseGroup groupName="Ingegneria Informatica" />
+          <CardCourseGroup groupName="Ingegneria Elettronica" />
+          <CardCourseGroup groupName="Ingegneria Gestionale" />
+          <CardCourseGroup groupName="Ingegneria Meccanica" />
+        </section>
       </div>
-      <CardCourseGroup groupName="Ingegneria Informatica" />
     </main>
   )
 }
