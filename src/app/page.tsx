@@ -2,6 +2,7 @@ import { FaBookBookmark } from "react-icons/fa6"
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
 import { CardIcon } from "@/components/card-icon"
+import { CardPathSelection } from "@/components/card-path-selection"
 import { Hero } from "@/components/home/hero"
 
 const schoolCards = [
@@ -57,7 +58,11 @@ export default function Home() {
             ))}
           </div>
         </section>
-        <section className="flex gap-4">
+        <section className="flex flex-row gap-6">
+          <CardPathSelection caption="Triennale (o Ciclo Unico)"></CardPathSelection>
+          <CardPathSelection caption="Magistrale"></CardPathSelection>
+        </section>
+        <section className="flex flex-row gap-4">
           <CardCaption
             title="Title"
             caption="Beccatevi questo lorem ipsum dolor sit amet: lorem ipsum dolor sit amet"
