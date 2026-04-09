@@ -1,6 +1,7 @@
 import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { Hero } from "@/components/home/hero"
+import { CardCourseGroup } from "@/components/card-course-group"
 
 const schoolCards = [
   { title: "Scuola di Architettura", icon: FiTriangle, size: "md" },
@@ -56,6 +57,7 @@ export default function Home() {
           </div>
         </section>
       </div>
+      <CardCourseGroup groupName="Ingegneria Informatica" />
     </main>
   )
 }
