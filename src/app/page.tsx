@@ -1,4 +1,5 @@
 import { Users } from "lucide-react"
+import { CardGroups } from "@/components/card-groups"
 import { Button } from "@/components/ui/button"
 import { ButtonWithIcon } from "@/components/ui/buttonWithIcon"
 
@@ -17,6 +18,7 @@ export default function Home() {
         <ButtonWithIcon variant="tertiaryBlur" icon={Users} iconPosition="left" text="Diventa socio" />
         <Button variant="link">Link</Button>
       </div>
+      <CardGroups courseName="Ingegneria Informatica" />
     </main>
   )
 }
