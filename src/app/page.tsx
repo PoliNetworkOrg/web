@@ -56,11 +56,13 @@ export default function Home() {
             ))}
           </div>
         </section>
+        <section>
+          <CardCourse courseName="Ingegneria Informatica" />
+          <CardCourse courseName="Ingegneria Elettrica" />
+          <CardCourse courseName="Ingegneria Gestionale" />
+          <CardCourse courseName="Ingegneria Chimica" />
+        </section>
       </div>
-      <CardCourse courseName="Ingegneria Informatica" />
-      <CardCourse courseName="Ingegneria Elettrica" />
-      <CardCourse courseName="Ingegneria Gestionale" />
-      <CardCourse courseName="Ingegneria Chimica" />
     </main>
   )
 }
