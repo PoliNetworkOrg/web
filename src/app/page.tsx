@@ -1,5 +1,19 @@
-import { FiBook, FiBookOpen, FiClipboard, FiFileText, FiPenTool, FiTriangle, FiUploadCloud } from "react-icons/fi"
+import {
+  FiBook,
+  FiBookOpen,
+  FiClipboard,
+  FiFacebook,
+  FiFileText,
+  FiGithub,
+  FiInstagram,
+  FiLinkedin,
+  FiPenTool,
+  FiTriangle,
+  FiUploadCloud,
+} from "react-icons/fi"
+import { LiaDiscord, LiaTelegram } from "react-icons/lia"
 import { CardIcon } from "@/components/card-icon"
+import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { Hero } from "@/components/home/hero"
 
 const schoolCards = [
@@ -35,6 +49,18 @@ export default function Home() {
   return (
     <main className="w-full">
       <Hero />
+      <div className="mx-auto w-fit py-12">
+        <CardMultipleIcons
+          icons={[
+            <LiaTelegram key="telegram" />,
+            <FiInstagram key="instagram" />,
+            <FiLinkedin key="linkedin" />,
+            <FiFacebook key="facebook" />,
+            <LiaDiscord key="discord" />,
+            <FiGithub key="github" />,
+          ]}
+        />
+      </div>
       <div className="mx-auto flex max-w-6xl flex-col gap-12">
         <section>
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
