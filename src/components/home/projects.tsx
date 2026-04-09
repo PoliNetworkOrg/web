@@ -21,16 +21,14 @@ const featuredCards = [
   },
   {
     title: "WiFiLinux",
-    description:
-      "Scarica ed esegui lo script Python per attivare la connessione permanente al WiFi Polimi",
+    description: "Scarica ed esegui lo script Python per attivare la connessione permanente al WiFi Polimi",
     icon: FiBookOpen,
     // buttonText: "Connetti ora",
     size: "sm",
   },
   {
     title: "The TOL Project",
-    description:
-      "Un simulatore gratuito del test di ammissione per le aspiranti matricole di Ingegneria del PoliMi.",
+    description: "Un simulatore gratuito del test di ammissione per le aspiranti matricole di Ingegneria del PoliMi.",
     icon: FiBookOpen,
     // buttonText: "Apri Simulatore",
     size: "sm",
@@ -45,10 +43,9 @@ export function Projects() {
           15+ Projects
         </h2>
         <p className="typo-body-large max-w-xl">
-          Progetti e strumenti creati dalla nostra community. Qui trovi le iniziative nate
-          dagli studenti del Politecnico per semplificare la vita universitaria e creare 
-          innovazione. Hai un'idea o un progetto? Proponilo! Puoi trovare collaboratori,
-          ricevere supporto dal nostro team e dare vita alla tua soluzione.
+          Progetti e strumenti creati dalla nostra community. Qui trovi le iniziative nate dagli studenti del
+          Politecnico per semplificare la vita universitaria e creare innovazione. Hai un'idea o un progetto? Proponilo!
+          Puoi trovare collaboratori, ricevere supporto dal nostro team e dare vita alla tua soluzione.
         </p>
         <Button variant="primary" size="lg" className="w-fit">
           Esplora la raccolta
