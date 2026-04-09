@@ -1,7 +1,7 @@
 import type { IconType } from "react-icons"
 import { FaWhatsapp } from "react-icons/fa"
 import { LiaTelegramPlane } from "react-icons/lia"
-import { Card, CardAction, CardContent, CardTitle } from "./ui/card"
+import { Card, CardAction, CardTitle } from "./ui/card"
 
 export function CardCourseGroup({
   groupName,
