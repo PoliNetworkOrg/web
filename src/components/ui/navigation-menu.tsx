@@ -46,11 +46,11 @@ const navigationMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-text-primary transition-[color,box-shadow] outline-none hover:bg-grey focus:bg-grey focus-visible:ring-[3px] focus-visible:ring-text-primary/50 focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-grey/50 data-[state=open]:hover:bg-grey data-[state=open]:focus:bg-grey"
 )
 
-function NavigationMenuTrigger({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>) {
+interface NavigationMenuTriggerProps extends React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> {
+  hideChevron?: boolean
+}
+
+function NavigationMenuTrigger({ className, children, hideChevron, ...props }: NavigationMenuTriggerProps) {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
@@ -58,11 +58,12 @@ function NavigationMenuTrigger({
       {...props}
     >
       {children}
-      {""}
-      <FiChevronDown
-        className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-        aria-hidden="true"
-      />
+      {!hideChevron && (
+        <FiChevronDown
+          className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+          aria-hidden="true"
+        />
+      )}
     </NavigationMenuPrimitive.Trigger>
   )
 }
