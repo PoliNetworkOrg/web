@@ -1,19 +1,24 @@
+"use client"
+
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import type * as React from "react"
 import { FiChevronRight } from "react-icons/fi"
+import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
 
 function Accordion({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
   return <AccordionPrimitive.Root data-slot="accordion" className={cn("flex flex-col gap-4", className)} {...props} />
 }
 
-function AccordionItem({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
+function AccordionItem({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
-    <AccordionPrimitive.Item
-      data-slot="accordion-item"
-      className={cn("rounded-3xl border border-white/40 bg-white/30 backdrop-blur-sm", className)}
-      {...props}
-    />
+    <AccordionPrimitive.Item data-slot="accordion-item" className="overflow-hidden" {...props}>
+      <Glass
+        className={cn("rounded-3xl border-white/50 bg-background-blur p-0 text-card-foreground", className)}
+      >
+        {children}
+      </Glass>
+    </AccordionPrimitive.Item>
   )
 }
 
