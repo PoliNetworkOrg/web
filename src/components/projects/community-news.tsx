@@ -38,7 +38,7 @@ const communityCards = [
 
 export function CommunityNews() {
   return (
-    <section className="mx-auto flex max-w-400 flex-col items-center gap-48 px-4 py-24">
+    <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-48 px-4 py-24">
       <div className="flex flex-col items-center gap-6">
         <h2 className="typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-14 text-transparent">
           Projects
