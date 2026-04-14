@@ -69,7 +69,6 @@ function CardAction({
     >
       {gradient && (
         <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
-          <title>Icon gradient helper</title>
           <linearGradient id={gradientId} x1="0%" y1="100%" x2="0%" y2="0%">
             <stop offset="0%" className="text-blue-secondary" stopColor="currentColor" />
             <stop offset="100%" className="text-blue-primary" stopColor="currentColor" />

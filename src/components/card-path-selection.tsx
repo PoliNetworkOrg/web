@@ -9,6 +9,5 @@ export function CardPathSelection({ caption, icon: Icon = BsBook }: { caption: s
         <CardAction icon={Icon} iconSize="small" /> {caption}
       </CardContent>
     </Card>
-    //TODO: add hover effect
   )
 }
