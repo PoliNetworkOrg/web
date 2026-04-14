@@ -73,7 +73,7 @@ const collectionCards = [
 
 export function Collection() {
   return (
-    <section className="mx-auto flex max-w-400 flex-col items-center justify-center gap-22 px-4 py-20">
+    <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-22 px-4">
       <div className="flex flex-col items-center gap-8">
         <h2 className="typo-display-medium text-center">Esplora la raccolta completa dei progetti</h2>
         <div className="flex w-full justify-center">
