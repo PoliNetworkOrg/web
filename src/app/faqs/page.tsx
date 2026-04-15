@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Item, ItemActions, ItemContent, ItemInner, ItemTitle } from "@/components/ui/item"
 
 export default function FAQsPage() {
-
   const router = useRouter()
 
   return (
