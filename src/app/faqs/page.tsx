@@ -1,8 +1,14 @@
+"use client"
+
+import { useRouter } from "next/navigation"
 import { FiArrowUpRight } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
 import { Item, ItemActions, ItemContent, ItemInner, ItemTitle } from "@/components/ui/item"
 
 export default function FAQsPage() {
+
+  const router = useRouter()
+
   return (
     <main className="w-full">
       <div className="flex flex-col items-center py-12">
@@ -12,9 +18,14 @@ export default function FAQsPage() {
               <ItemTitle>Non trovi ciò che stai cercando?</ItemTitle>
             </ItemContent>
             <ItemActions>
-              <Button variant="primary" size="lg" className="gap-8 pr-6 pl-10 has-[>svg]:pr-6 has-[>svg]:pl-10">
+              <Button
+                variant="primary"
+                size="lg"
+                className="gap-8 pr-6 pl-10 has-[>svg]:pr-6 has-[>svg]:pl-10"
+                onClick={() => router.push("/guides")}
+              >
                 Esplora le Guide
-                <FiArrowUpRight />
+                <FiArrowUpRight aria-hidden="true" />
               </Button>
             </ItemActions>
           </ItemInner>
