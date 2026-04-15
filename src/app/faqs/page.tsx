@@ -12,7 +12,7 @@ export default function FAQsPage() {
               <ItemTitle>Non trovi ciò che stai cercando?</ItemTitle>
             </ItemContent>
             <ItemActions>
-              <Button variant="primary" size="lg" className="w-fit">
+              <Button variant="primary" size="lg" className="gap-8 pr-6 pl-10 has-[>svg]:pr-6 has-[>svg]:pl-10">
                 Esplora le Guide
                 <FiArrowUpRight />
               </Button>
