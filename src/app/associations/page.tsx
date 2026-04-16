@@ -10,8 +10,13 @@ import {
   FiX,
   FiYoutube,
 } from "react-icons/fi"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/accordion-association/accordion-association"
 import { GradientIcon } from "@/components/gradient-icon"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion-association"
 import esnLogo from "../../../public/logos/esn.svg"
 
 const accordionItems = [
@@ -107,12 +112,7 @@ export default function AssociationsPage() {
                   </span>
                   <div className="flex flex-wrap gap-7">
                     {item.links.map((link) => (
-                      <a
-                        key={link.key}
-                        href={link.href}
-                        target="_blank"
-                        className="group/icon relative"
-                      >
+                      <a key={link.key} href={link.href} target="_blank" className="group/icon relative">
                         <link.icon className="size-6 transition-opacity duration-200 group-hover/icon:opacity-0" />
                         <GradientIcon
                           icon={link.icon}

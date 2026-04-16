@@ -5,6 +5,7 @@ import type * as React from "react"
 import { FiChevronDown } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
+import { AccordionBackground } from "./accordion-background"
 
 function Accordion({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
   return <AccordionPrimitive.Root data-slot="accordion" className={cn("flex flex-col gap-4", className)} {...props} />
@@ -12,9 +13,15 @@ function Accordion({ className, ...props }: React.ComponentProps<typeof Accordio
 
 function AccordionItem({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
-    <AccordionPrimitive.Item data-slot="accordion-item" className="overflow-hidden" {...props}>
-      <Glass className={cn("rounded-3xl border-white/50 bg-background-blur p-0 text-card-foreground", className)}>
-        {children}
+    <AccordionPrimitive.Item data-slot="accordion-item" className="group/accordion relative overflow-hidden" {...props}>
+      <Glass
+        className={cn(
+          "relative overflow-hidden rounded-3xl border-white/50 bg-background-blur p-0 text-card-foreground",
+          className
+        )}
+      >
+        {<AccordionBackground />}
+        <div className="relative z-10">{children}</div>
       </Glass>
     </AccordionPrimitive.Item>
   )
