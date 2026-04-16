@@ -10,6 +10,7 @@ import {
   FiX,
   FiYoutube,
 } from "react-icons/fi"
+import { GradientIcon } from "@/components/gradient-icon"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion-association"
 import esnLogo from "../../../public/logos/esn.svg"
 
@@ -101,11 +102,22 @@ export default function AssociationsPage() {
               <AccordionContent>
                 {item.content}
                 <div className="flex flex-col items-start gap-5 pt-14">
-                  <span className="typo-title-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">Segui l'associazione</span>
+                  <span className="typo-title-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+                    Segui l'associazione
+                  </span>
                   <div className="flex flex-wrap gap-7">
                     {item.links.map((link) => (
-                      <a key={link.key} href={link.href} target="_blank" rel="noopener noreferrer">
-                        <link.icon className="size-6" />
+                      <a
+                        key={link.key}
+                        href={link.href}
+                        target="_blank"
+                        className="group/icon relative"
+                      >
+                        <link.icon className="size-6 transition-opacity duration-200 group-hover/icon:opacity-0" />
+                        <GradientIcon
+                          icon={link.icon}
+                          className="absolute inset-0 size-6 opacity-0 transition-opacity duration-200 group-hover/icon:opacity-100"
+                        />
                       </a>
                     ))}
                   </div>
