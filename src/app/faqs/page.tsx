@@ -1,38 +1,57 @@
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiSend } from "react-icons/fi"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+const faqItems = [
+  {
+    value: "tab1",
+    label: "Lezioni",
+    content: "Content for Tab 1",
+    icon: FiBookOpen,
+  },
+  {
+    value: "tab2",
+    label: "Tasse",
+    content: "Content for Tab 2",
+    icon: FiDollarSign,
+  },
+  {
+    value: "tab3",
+    label: "Esami",
+    content: "Content for Tab 3",
+    icon: FiEdit,
+  },
+  {
+    value: "tab4",
+    label: "Piano di Studi",
+    content: "Content for Tab 4",
+    icon: FiFileText,
+  },
+  {
+    value: "tab5",
+    label: "Mobilitá Internazionale",
+    content: "Content for Tab 5",
+    icon: FiSend,
+  },
+]
+
 export default function FAQsPage() {
   return (
     <main className="w-full">
       <div className="mx-auto w-fit py-12">
         <Tabs defaultValue="tab1">
           <TabsList>
-            <TabsTrigger value="tab1">
-              <FiBookOpen className="size-4 shrink-0" />
-              Lezioni
-            </TabsTrigger>
-            <TabsTrigger value="tab2">
-              <FiDollarSign className="size-4 shrink-0" />
-              Tasse
-            </TabsTrigger>
-            <TabsTrigger value="tab3">
-              <FiEdit className="size-4 shrink-0" />
-              Esami
-            </TabsTrigger>
-            <TabsTrigger value="tab4">
-              <FiFileText className="size-4 shrink-0" />
-              Piano di Studi
-            </TabsTrigger>
-            <TabsTrigger value="tab5">
-              <FiSend className="size-4 shrink-0" />
-              Mobilitá Internazionale
-            </TabsTrigger>
+            {faqItems.map((item) => (
+              <TabsTrigger value={item.value} key={item.value}>
+                <item.icon className="size-4 shrink-0" />
+                {item.label}
+              </TabsTrigger>
+            ))}
           </TabsList>
-          <TabsContent value="tab1">Content for Tab 1</TabsContent>
-          <TabsContent value="tab2">Content for Tab 2</TabsContent>
-          <TabsContent value="tab3">Content for Tab 3</TabsContent>
-          <TabsContent value="tab4">Content for Tab 4</TabsContent>
-          <TabsContent value="tab5">Content for Tab 5</TabsContent>
+          {faqItems.map((item) => (
+            <TabsContent value={item.value} key={item.value}>
+              {item.content}
+            </TabsContent>
+          ))}
         </Tabs>
       </div>
     </main>
