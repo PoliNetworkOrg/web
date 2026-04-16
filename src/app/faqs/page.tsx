@@ -33,7 +33,7 @@ const accordionItems = [
   },
 ]
 
-export default function Home() {
+export default function FAQsPage() {
   return (
     <main className="w-full">
       <div className="mx-auto w-225 py-12">
