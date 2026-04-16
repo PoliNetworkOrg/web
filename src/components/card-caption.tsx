@@ -13,7 +13,7 @@ export function CardCaption({
   iconPosition?: "top" | "right"
 }) {
   return (
-    <Card>
+    <Card hoverBackground>
       <CardHeader
         className={`typo-headline-medium flex ${iconPosition === "right" ? "justify-between" : "flex-col-reverse"}`}
       >

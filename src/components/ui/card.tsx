@@ -1,14 +1,17 @@
 import * as React from "react"
 import type { IconType } from "react-icons"
 import { cn } from "@/lib/utils"
+import { CardHoverBackground } from "../card-icon/hover-background"
 import { Glass } from "../glass"
 import { Button } from "./button"
 
 function Card({
   className,
   size = "default",
+  hoverBackground = false,
+  children,
   ...props
-}: React.ComponentProps<typeof Glass> & { size?: "default" | "sm" }) {
+}: React.ComponentProps<typeof Glass> & { size?: "default" | "sm"; hoverBackground?: boolean }) {
   return (
     <Glass
       data-slot="card"
@@ -18,7 +21,10 @@ function Card({
         className
       )}
       {...props}
-    />
+    >
+      {hoverBackground && <CardHoverBackground />}
+      {children}
+    </Glass>
   )
 }
 
