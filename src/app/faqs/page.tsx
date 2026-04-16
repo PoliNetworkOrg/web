@@ -1,4 +1,4 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import AccordionList from "@/components/accordion-list"
 
 const accordionItems = [
   {
@@ -37,14 +37,7 @@ export default function FAQsPage() {
   return (
     <main className="w-full">
       <div className="mx-auto w-225 py-12">
-        <Accordion type="single" collapsible defaultValue="item-1">
-          {accordionItems.map((item) => (
-            <AccordionItem key={item.value} value={item.value}>
-              <AccordionTrigger>{item.trigger}</AccordionTrigger>
-              <AccordionContent>{item.content}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <AccordionList items={accordionItems} defaultValue="item-1" />
       </div>
     </main>
   )
