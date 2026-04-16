@@ -43,7 +43,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
 
 function CardTitle({ gradient = true, className, ...props }: React.ComponentProps<"div"> & { gradient?: boolean }) {
   return (
-    <div
+    <h3
       data-slot="card-title"
       className={cn(
         `${gradient ? "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent" : ""} font-medium text-[1.5rem] leading-snug group-data-[size=sm]/card:text-base`,
