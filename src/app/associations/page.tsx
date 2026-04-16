@@ -1,4 +1,5 @@
-import Image from "next/image"
+'use client'
+
 import {
   FiFacebook,
   FiGithub,
@@ -10,13 +11,7 @@ import {
   FiX,
   FiYoutube,
 } from "react-icons/fi"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/accordion-association/accordion-association"
-import { GradientIcon } from "@/components/gradient-icon"
+import AccordionAssociation from "@/components/accordion-association"
 import esnLogo from "../../../public/logos/esn.svg"
 
 const accordionItems = [
@@ -95,37 +90,7 @@ export default function AssociationsPage() {
   return (
     <main className="w-full">
       <div className="mx-auto w-300 py-12">
-        <Accordion type="single" collapsible defaultValue="item-1">
-          {accordionItems.map((item) => (
-            <AccordionItem key={item.value} value={item.value}>
-              <AccordionTrigger>
-                <div className="flex items-center gap-10">
-                  <Image src={item.logo} alt={item.name} width={100} height={100} className="rounded-full" />
-                  <span>{item.name}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                {item.content}
-                <div className="flex flex-col items-start gap-5 pt-14">
-                  <span className="typo-title-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
-                    Segui l'associazione
-                  </span>
-                  <div className="flex flex-wrap gap-7">
-                    {item.links.map((link) => (
-                      <a key={link.key} href={link.href} target="_blank" className="group/icon relative">
-                        <link.icon className="size-6 transition-opacity duration-200 group-hover/icon:opacity-0" />
-                        <GradientIcon
-                          icon={link.icon}
-                          className="absolute inset-0 size-6 opacity-0 transition-opacity duration-200 group-hover/icon:opacity-100"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <AccordionAssociation accordionItems={accordionItems} defaultValue="ESN - Erasmus Student Network" />
       </div>
     </main>
   )
