@@ -38,7 +38,7 @@ const communityCards = [
 
 export function CommunityNews() {
   return (
-    <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-48 px-4 py-24">
+    <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-48 px-4 py-49">
       <div className="flex flex-col items-center gap-6">
         <h2 className="typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-14 text-transparent">
           Projects
@@ -50,7 +50,6 @@ export function CommunityNews() {
         <div className="flex flex-col items-center gap-2 md:items-start">
           <h3 className="typo-display-medium text-center md:text-left">Le novità della community</h3>
           <p className="typo-body-large text-center md:text-left">
-            {/* TODO a me sembra troppo piccolo*/}
             Rimani aggiornato sulle idee appena condivise dagli studenti del Politecnico
           </p>
         </div>
