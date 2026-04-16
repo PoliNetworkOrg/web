@@ -1,5 +1,8 @@
-import { TabsList, TabsTrigger } from "@/components/ui/tabs"
+"use client"
+
 import { cn } from "@/lib/utils"
+import { TabsList } from "./tabs-list"
+import { TabsTrigger } from "./tabs-trigger"
 import type { TabsNavigationProps } from "./types"
 
 export default function TabsNavigation({ items, className }: TabsNavigationProps) {

@@ -1,6 +1,9 @@
+"use client"
+
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiSend } from "react-icons/fi"
-import TabsNavigation from "@/components/tabs-navigation"
-import { Tabs, TabsContent } from "@/components/ui/tabs"
+import TabsNavigation from "@/components/tabs"
+import { Tabs } from "@/components/tabs/tabs"
+import { TabsContent } from "@/components/tabs/tabs-content"
 
 const faqItems = [
   {
