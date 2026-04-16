@@ -1,4 +1,15 @@
 import Image from "next/image"
+import {
+  FiFacebook,
+  FiGithub,
+  FiGlobe,
+  FiInstagram,
+  FiLinkedin,
+  FiMail,
+  FiTwitch,
+  FiX,
+  FiYoutube,
+} from "react-icons/fi"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion-association"
 import esnLogo from "../../../public/logos/esn.svg"
 
@@ -13,50 +24,62 @@ const accordionItems = [
       {
         key: "Facebook",
         href: "https://www.google.com",
+        icon: FiFacebook,
       },
       {
         key: "Instagram",
         href: "https://www.google.com",
+        icon: FiInstagram,
       },
       {
         key: "Youtube",
         href: "https://www.google.com",
+        icon: FiYoutube,
       },
-      {
-        key: "Discord",
-        href: "https://www.google.com",
-      },
+      // {
+      //   key: "Discord",
+      //   href: "https://www.google.com",
+      //   icon: FiDiscord
+      // },
       {
         key: "GitHub",
         href: "https://www.google.com",
+        icon: FiGithub,
       },
-      {
-        key: "Telegram",
-        href: "https://www.google.com",
-      },
+      // {
+      //   key: "Telegram",
+      //   href: "https://www.google.com",
+      //   icon: FiTelegram
+      // },
       {
         key: "Email",
         href: "mailto:example@email.com",
+        icon: FiMail,
       },
       {
         key: "LinkedIn",
         href: "https://www.google.com",
+        icon: FiLinkedin,
       },
       {
         key: "Twitch",
         href: "https://www.google.com",
+        icon: FiTwitch,
       },
-      {
-        key: "Spotify",
-        href: "https://www.google.com",
-      },
+      // {
+      //   key: "Spotify",
+      //   href: "https://www.google.com",
+      //   icon: FiSpotify
+      // },
       {
         key: "X",
         href: "https://www.google.com",
+        icon: FiX,
       },
       {
         key: "Web",
         href: "https://www.google.com",
+        icon: FiGlobe,
       },
     ],
   },
@@ -75,7 +98,19 @@ export default function AssociationsPage() {
                   <span>{item.name}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>{item.content}</AccordionContent>
+              <AccordionContent>
+                {item.content}
+                <div className="flex flex-col items-start gap-5 pt-14">
+                  <span className="typo-title-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">Segui l'associazione</span>
+                  <div className="flex flex-wrap gap-7">
+                    {item.links.map((link) => (
+                      <a key={link.key} href={link.href} target="_blank" rel="noopener noreferrer">
+                        <link.icon className="size-6" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

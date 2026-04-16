@@ -28,7 +28,8 @@ function AccordionTrigger({ className, children, ...props }: React.ComponentProp
         className={cn(
           "flex w-full items-center justify-between gap-4 text-left",
           "typo-display-medium outline-none",
-          "transition-all duration-500 data-[state=closed]:p-6 data-[state=open]:p-16",
+          "transition-all duration-500 data-[state=closed]:p-6 data-[state=open]:px-16",
+          "data-[state=open]:pt-16 data-[state=open]:pb-8",
           "[&[data-state=open]>svg]:rotate-180",
           className
         )}
