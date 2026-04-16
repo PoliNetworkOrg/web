@@ -3,6 +3,7 @@
 @import "./figma.css";
 @import "./sidebar.css";
 @import "./charts.css";
+@import "./animation.css";
 
 @custom-variant dark (&:is(.dark *));
 
