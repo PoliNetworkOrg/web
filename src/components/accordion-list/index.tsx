@@ -1,4 +1,9 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+"use client"
+
+import { Accordion } from "./accordion"
+import { AccordionContent } from "./accordion-content"
+import { AccordionItem } from "./accordion-item"
+import { AccordionTrigger } from "./accordion-trigger"
 import type { AccordionListProps } from "./types"
 
 export default function AccordionList({ items, defaultValue, className }: AccordionListProps) {
