@@ -12,7 +12,6 @@ export default function FAQsPage() {
           buttonText="Esplora le Guide"
           className="max-w-4xl"
         />
-
       </div>
     </main>
   )
