@@ -83,7 +83,8 @@ const accordionItems = [
         icon: FiGlobe,
       },
     ],
-  }, {
+  },
+  {
     value: "Lista Aperta - Per il diritto allo studio",
     name: "Lista Aperta - Per il diritto allo studio",
     logo: esnLogo,
@@ -96,7 +97,8 @@ const accordionItems = [
         icon: FiFacebook,
       },
     ],
-  }, {
+  },
+  {
     value: "MESA - EESTEC",
     name: "MESA - EESTEC",
     logo: esnLogo,
@@ -109,7 +111,8 @@ const accordionItems = [
         icon: FiFacebook,
       },
     ],
-  }, {
+  },
+  {
     value: "Polifonia",
     name: "Polifonia",
     logo: esnLogo,
@@ -122,7 +125,8 @@ const accordionItems = [
         icon: FiFacebook,
       },
     ],
-  }, {
+  },
+  {
     value: "POLI.RADIO",
     name: "POLI.RADIO",
     logo: esnLogo,
@@ -135,7 +139,8 @@ const accordionItems = [
         icon: FiFacebook,
       },
     ],
-  }, {
+  },
+  {
     value: "Studenti Indipendenti",
     name: "Studenti Indipendenti",
     logo: esnLogo,
@@ -159,7 +164,9 @@ export default function AssociationsPage() {
           <h2 className="typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-14 text-transparent">
             Associazioni
           </h2>
-          <p className="typo-headline-small max-w-2xl text-center">Scopri le associazioni studentesche del Politecnico</p>
+          <p className="typo-headline-small max-w-2xl text-center">
+            Scopri le associazioni studentesche del Politecnico
+          </p>
         </div>
         <div className="w-full max-w-300">
           <AccordionAssociation accordionItems={accordionItems} defaultValue="ESN - Erasmus Student Network" />
