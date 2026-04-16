@@ -1,7 +1,7 @@
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiSend } from "react-icons/fi"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export default function Home() {
+export default function FAQsPage() {
   return (
     <main className="w-full">
       <div className="mx-auto w-fit py-12">
