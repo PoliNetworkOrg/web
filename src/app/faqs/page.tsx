@@ -1,5 +1,6 @@
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiSend } from "react-icons/fi"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import TabsNavigation from "@/components/tabs-navigation"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
 
 const faqItems = [
   {
@@ -29,31 +30,30 @@ const faqItems = [
   {
     value: "tab5",
     label: "Mobilitá Internazionale",
-    content: "Content for Tab 5",
+    content: (
+      <div className="flex flex-col items-start py-4">
+        <h1 className="typo-title-large">Content for Tab 5</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
+        </p>
+      </div>
+    ),
     icon: FiSend,
   },
 ]
 
 export default function FAQsPage() {
   return (
-    <main className="w-full">
-      <div className="mx-auto w-fit py-12">
-        <Tabs defaultValue="tab1">
-          <TabsList>
-            {faqItems.map((item) => (
-              <TabsTrigger value={item.value} key={item.value}>
-                <item.icon className="size-4 shrink-0" />
-                {item.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {faqItems.map((item) => (
-            <TabsContent value={item.value} key={item.value}>
-              {item.content}
-            </TabsContent>
-          ))}
-        </Tabs>
-      </div>
+    <main className="w-full py-12">
+      <Tabs defaultValue="tab5" className="flex flex-col items-center">
+        <TabsNavigation items={faqItems} />
+        {faqItems.map((item) => (
+          <TabsContent value={item.value} key={item.value}>
+            {item.content}
+          </TabsContent>
+        ))}
+      </Tabs>
     </main>
   )
 }
