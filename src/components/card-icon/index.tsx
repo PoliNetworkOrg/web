@@ -48,8 +48,7 @@ export function CardIcon(props: CardIconProps) {
               className={cn(
                 getTitleSizeClasses(size),
                 "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent",
-                isDescriptionCard ? "text-left" : "text-center",
-
+                isDescriptionCard ? "text-left" : "text-center"
               )}
             >
               {title}
