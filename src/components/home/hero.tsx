@@ -4,39 +4,33 @@ import { Input } from "@/components/ui/input"
 
 export function Hero() {
   return (
-    <main className="flex w-full justify-center px-4 sm:px-6">
-      <section className="flex min-h-screen w-full flex-col justify-between py-8 sm:py-12">
-        <div className="flex flex-1 flex-col items-center justify-center gap-10 text-center md:gap-16">
-          <h1 className="typo-display-medium lg:typo-display-large max-w-5xl text-text-primary">
-            Trova gruppi, risorse e supporto
-            <br className="hidden md:block" />
-            <span className="md:block">tra gli studenti del Polimi</span>
-          </h1>
+    <section className="flex min-h-screen flex-col gap-40 px-6 pt-24 pb-15 md:gap-70 md:px-12 md:pt-67">
+      <div className="flex flex-col items-center gap-17.5 text-center">
+        <h1 className="typo-display-medium md:typo-display-large w-fit max-w-4xl bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+          Trova gruppi, risorse e supporto tra gli studenti del Polimi
+        </h1>
 
-          <div className="flex w-full flex-col items-center gap-8 md:gap-16">
-            <Input
-              icon={<FiSearch className="h-5 w-5" />}
-              type="text"
-              placeholder="Find your group"
-              aria-label="Find your group"
-              containerClassName="max-w-xl"
-              className="typo-body-medium"
-            />
+        <Input
+          icon={<FiSearch className="h-5 w-5" />}
+          type="text"
+          placeholder="Find your group"
+          aria-label="Find your group"
+          containerClassName="max-w-lg"
+          className="typo-body-medium"
+        />
 
-            <Button variant="primary" size="lg">
-              More groups
-              <FiNavigation />
-            </Button>
-          </div>
-        </div>
+        <Button variant="primary" size="lg">
+          More groups
+          <FiNavigation />
+        </Button>
+      </div>
 
-        <div className="flex justify-center md:justify-end">
-          <Button variant="tertiaryBlur" size="lg" className="text-blue-secondary">
-            <FiUserPlus />
-            Sei una matricola?
-          </Button>
-        </div>
-      </section>
-    </main>
+      <div className="flex items-end justify-end">
+        <Button variant="tertiaryBlur" size="lg" className="text-blue-secondary">
+          <FiUserPlus />
+          Sei una matricola?
+        </Button>
+      </div>
+    </section>
   )
 }
