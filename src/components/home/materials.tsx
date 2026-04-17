@@ -22,36 +22,41 @@ const featuredCards = [
 ] as const
 
 const quickLinks = [
-  { title: "Dispense", icon: FiBook, size: "sm", href: "#" },
-  { title: "Esami", icon: FiFileText, size: "sm", href: "#" },
-  { title: "Appunti", icon: FiClipboard, size: "sm", href: "#" },
+  { title: "Dispense", icon: FiBook, size: { base: "xs", sm: "sm" }, href: "#" },
+  { title: "Esami", icon: FiFileText, size: { base: "xs", sm: "sm" }, href: "#" },
+  { title: "Appunti", icon: FiClipboard, size: { base: "xs", sm: "sm" }, href: "#" },
 ] as const
 
 export function Materials() {
   return (
-    <section className="mx-auto flex max-w-500 flex-col-reverse gap-8 px-4 py-10 sm:px-8 sm:py-12 lg:gap-10 lg:px-12 xl:flex-row xl:items-start xl:gap-12 xl:px-16 2xl:gap-32 2xl:px-32">
-      <div className="flex grow flex-col gap-5 lg:gap-6 xl:gap-8 xl:pt-12 2xl:pt-44">
-        <div className="grid gap-12 md:grid-cols-2 2xl:gap-20">
+    <section className="mx-auto flex max-w-400 flex-col-reverse gap-24 px-11 py-28 sm:px-20 2xl:flex-row 2xl:items-start 2xl:gap-32">
+      <div className="flex grow flex-col gap-5 sm:gap-6 2xl:gap-8 2xl:pt-44">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-12 2xl:gap-20">
+          {/* TODO sotto sm usare le altre card fatte da Diubi */}
           {featuredCards.map((card) => (
             <CardIcon key={card.title} {...card} className="h-full" />
           ))}
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-12 lg:grid-cols-3 2xl:gap-20">
+        <div className="grid grid-cols-3 gap-4 sm:gap-12 2xl:gap-20">
           {quickLinks.map((card) => (
             <CardIcon key={card.title} {...card} className="h-full" />
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col items-start gap-8 xl:justify-self-end">
-        <h2 className="typo-display-large sm:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent">
+      <div className="flex flex-col items-center gap-8 text-center sm:ml-auto sm:items-start sm:text-start">
+        <h2 className="typo-display-large sm:typo-display-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent sm:py-4">
           Materials
         </h2>
-        <p className="typo-body-large max-w-lg">
+        <p className="typo-body-large hidden max-w-lg sm:block">
           Il piu grande archivio didattico creato dagli studenti per gli studenti del Politecnico di Milano. Cerca tra
           migliaia di appunti, dispense, temi d'esame e molto altro. Carica i tuoi file per far crescere la community e
           trova tutto cio che ti serve, organizzato per corso di studi.
+        </p>
+        <p className="typo-body-large max-w-lg sm:hidden">
+          Il più grande archivio didattico degli studenti del Politecnico. Trova appunti, dispense ed esami, oppure
+          carica i tuoi file per far crescere la community.
         </p>
         <Button variant="primary" size="lg" className="w-fit">
           Scopri di piu

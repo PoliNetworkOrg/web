@@ -4,7 +4,7 @@ import { BasicCardMedia } from "./basic-card-media"
 import { DescriptionCardMedia } from "./description-card-media"
 import { CardHoverBackground } from "./hover-background"
 import type { CardIconProps } from "./types"
-import { getCardPaddingClasses, getContentGapClasses } from "./utils"
+import { getCardPaddingClasses, getContentGapClasses, getTitleSizeClasses } from "./utils"
 
 export function CardIcon(props: CardIconProps) {
   const { title, icon, size = "md", href, hoverEffect = false, className } = props
@@ -46,8 +46,10 @@ export function CardIcon(props: CardIconProps) {
           <div className={cn("flex flex-col", isDescriptionCard ? "gap-2 text-left" : "items-center text-center")}>
             <h3
               className={cn(
-                "typo-headline-medium bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent",
-                isDescriptionCard ? "text-left" : "text-center"
+                getTitleSizeClasses(size),
+                "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent",
+                isDescriptionCard ? "text-left" : "text-center",
+
               )}
             >
               {title}
