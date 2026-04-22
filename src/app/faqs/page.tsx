@@ -1,6 +1,7 @@
 "use client"
 
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiSend } from "react-icons/fi"
+import AccordionList from "@/components/accordion-list"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
@@ -46,17 +47,55 @@ const faqItems = [
   },
 ]
 
+const accordionItems = [
+  {
+    value: "item-1",
+    trigger: "Per le lauree le lezioni sono sospese? ",
+    content:
+      "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell’esercitatore.",
+  },
+  {
+    value: "item-2",
+    trigger: "Per le lauree le lezioni sono sospese? ",
+    content:
+      "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell’esercitatore.",
+  },
+  {
+    value: "item-3",
+    trigger: "Per le lauree le lezioni sono sospese? ",
+    content:
+      "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell’esercitatore.",
+  },
+  {
+    value: "item-4",
+    trigger: "Per le lauree le lezioni sono sospese? ",
+    content:
+      "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell’esercitatore.",
+  },
+  {
+    value: "item-5",
+    trigger: "Per le lauree le lezioni sono sospese? ",
+    content:
+      "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell’esercitatore.",
+  },
+]
+
 export default function FAQsPage() {
   return (
-    <main className="w-full py-12">
-      <Tabs defaultValue="tab5" className="flex flex-col items-center">
-        <TabsNavigation items={faqItems} />
-        {faqItems.map((item) => (
-          <TabsContent value={item.value} key={item.value}>
-            {item.content}
-          </TabsContent>
-        ))}
-      </Tabs>
+    <main className="w-full">
+      <div className="mx-auto w-225 py-12">
+        <AccordionList items={accordionItems} defaultValue="item-1" />
+      </div>
+      <div className="mx-auto w-225 py-12">
+        <Tabs defaultValue="tab5" className="flex flex-col items-center">
+          <TabsNavigation items={faqItems} />
+          {faqItems.map((item) => (
+            <TabsContent value={item.value} key={item.value}>
+              {item.content}
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
     </main>
   )
 }
