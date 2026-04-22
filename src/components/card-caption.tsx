@@ -17,7 +17,7 @@ export function CardCaption({
       <CardHeader
         className={`typo-headline-medium flex ${iconPosition === "right" ? "justify-between" : "flex-col-reverse"}`}
       >
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="typo-headline-medium">{title}</CardTitle>
         {icon && <CardAction icon={icon} iconSize={iconPosition === "right" ? "normal" : "large"}></CardAction>}
       </CardHeader>
       <CardContent className="typo-body-medium">

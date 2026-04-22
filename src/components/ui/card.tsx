@@ -46,7 +46,7 @@ function CardTitle({ gradient = true, className, ...props }: React.ComponentProp
     <h3
       data-slot="card-title"
       className={cn(
-        `${gradient ? "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent" : ""} font-medium text-[1.5rem] leading-snug group-data-[size=sm]/card:text-base`,
+        `${gradient ? "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent" : ""} font-medium leading-snug group-data-[size=sm]/card:text-base`,
         className
       )}
       {...props}
@@ -55,7 +55,7 @@ function CardTitle({ gradient = true, className, ...props }: React.ComponentProp
 }
 
 function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card-description" className={cn("text-muted-foreground text-sm", className)} {...props} />
+  return <div data-slot="card-description" className={cn("text-muted-foreground", className)} {...props} />
 }
 
 function CardAction({
@@ -92,13 +92,7 @@ function CardAction({
 }
 
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content"
-      className={cn("text-[.875rem] group-data-[size=sm]/card:px-3", className)}
-      {...props}
-    />
-  )
+  return <div data-slot="card-content" className={cn("group-data-[size=sm]/card:px-3", className)} {...props} />
 }
 
 function CardBottomButton({ className, ...props }: React.ComponentProps<typeof Button>) {
