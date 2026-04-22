@@ -1,13 +1,13 @@
-import { GlobeIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { FiGlobe } from "react-icons/fi"
 import { ThemeButton } from "@/components/theme-button"
 
 export const HEADER_HEIGHT = "4.5rem"
 
 export async function Header() {
   return (
-    <header className="sticky top-0 isolate z-20 flex h-(--header-height) w-full shrink-0 items-center justify-center border-b bg-card">
+    <header className="sticky top-0 isolate z-20 flex h-(--header-height) w-full shrink-0 items-center justify-center border-b bg-transparent">
       <div className="container mx-auto flex items-center justify-center space-x-6 px-4">
         <Link href="/">
           <div className="flex items-center space-x-4">
@@ -17,7 +17,7 @@ export async function Header() {
               width={40}
               height={40}
             />
-            <h1 className="hidden text-2xl font-bold text-accent-foreground md:block">PoliNetwork</h1>
+            <h1 className="hidden font-bold text-2xl text-accent-foreground md:block">PoliNetwork</h1>
           </div>
         </Link>
         <nav className="flex grow items-center justify-end space-x-8">
@@ -28,7 +28,7 @@ export async function Header() {
         <nav className="flex items-center space-x-6">
           <ThemeButton />
           <button type="button" className="hover:text-accent-foreground">
-            <GlobeIcon className="h-6 w-6" />
+            <FiGlobe className="h-6 w-6" />
           </button>
         </nav>
       </div>

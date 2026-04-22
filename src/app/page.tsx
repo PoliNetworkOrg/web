@@ -1,21 +1,29 @@
-import { Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ButtonWithIcon } from "@/components/ui/buttonWithIcon"
+import Image from "next/image"
+import { FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi"
+import discord from "@/assets/icons/discord.svg"
+import telegram from "@/assets/icons/telegram.svg"
+import { CardMultipleIcons } from "@/components/card-multiple-icons"
+import { AboutUs } from "@/components/home/about-us"
+import { Hero } from "@/components/home/hero"
+import { Materials } from "@/components/home/materials"
 
 export default function Home() {
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h2 className="mb-4 typo-headline-large font-bold bg">Welcome to PoliNetwork</h2>
-      <p className="mb-4">
-        PoliNetwork is a student association dedicated to connecting and supporting students at Politecnico.
-      </p>
-      <div className="bg-red rounded-rectangles w-90 py-8 flex justify-center items-center flex-col gap-2">
-        <p className="text-text-accent-darkbg typo-body-medium">Test with figma variables</p>
-        <div className="bg-background-blur w-20 h-20 rounded-images" />
-        <ButtonWithIcon variant="primary" icon={Users} iconPosition="left" text="Diventa socio" />
-        <ButtonWithIcon variant="tertiary" icon={Users} iconPosition="right" text="Diventa socio" />
-        <ButtonWithIcon variant="tertiaryBlur" icon={Users} iconPosition="left" text="Diventa socio" />
-        <Button variant="link">Link</Button>
+    <main className="w-full">
+      <Hero />
+      <Materials />
+      <AboutUs />
+      <div className="mx-auto w-fit py-12">
+        <CardMultipleIcons
+          icons={[
+            <Image key="telegram" src={telegram} alt="Telegram" />,
+            <FiInstagram key="instagram" />,
+            <FiLinkedin key="linkedin" />,
+            <FiFacebook key="facebook" />,
+            <Image key="discord" src={discord} alt="Discord" />,
+            <FiGithub key="github" />,
+          ]}
+        />
       </div>
     </main>
   )
