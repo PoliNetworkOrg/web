@@ -6,10 +6,13 @@ import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { AboutUs } from "@/components/home/about-us"
 import { Hero } from "@/components/home/hero"
 import { Materials } from "@/components/home/materials"
+import { CallToAction } from "@/components/ui/call-to-action"
+import { FaRegMap } from "react-icons/fa"
 
 export default function Home() {
   return (
     <main className="w-full">
+      <CallToAction title="Mappa Microonde" icon={FaRegMap} />
       <Hero />
       <Materials />
       <AboutUs />
