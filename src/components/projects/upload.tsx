@@ -1,23 +1,15 @@
-import { FiUploadCloud } from "react-icons/fi"
-import { CardIcon } from "@/components/card-icon"
+import { CardCaption } from "../card-caption"
 
-// TODO da sostituire con dati veri
 const collectionCards = [
   {
     title: "Contatti",
-    description: "@lorenzocorallo @toto04_1 info@polinetwork.org",
-    icon: FiUploadCloud,
-    size: "sm",
-    href: "#",
+    caption: "@lorenzocorallo @toto04_1 info@polinetwork.org",
   },
   {
     title: "Requisiti dei progetti",
-    description: `opensource
+    caption: `opensource
       utile alla community
       senza scopro di lucro`,
-    icon: FiUploadCloud,
-    size: "sm",
-    href: "#",
   },
 ] as const
 
@@ -47,9 +39,8 @@ export function Upload() {
 
       <div className="flex flex-col gap-12">
         <div className="grid gap-6">
-          {/* TODO sostituire la card con la versione corretta */}
           {collectionCards.map((card) => (
-            <CardIcon key={card.title} {...card} className="h-full" />
+            <CardCaption key={card.title} {...card} />
           ))}
         </div>
       </div>
