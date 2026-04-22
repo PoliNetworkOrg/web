@@ -41,7 +41,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardTitle({ gradient = true, className, ...props }: React.ComponentProps<"div"> & { gradient?: boolean }) {
+function CardTitle({ gradient = true, className, ...props }: React.ComponentProps<"h3"> & { gradient?: boolean }) {
   return (
     <h3
       data-slot="card-title"
