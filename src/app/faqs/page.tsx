@@ -2,6 +2,7 @@
 
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiSend } from "react-icons/fi"
 import AccordionList from "@/components/accordion-list"
+import CalloutItem from "@/components/callout-item"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
@@ -95,6 +96,14 @@ export default function FAQsPage() {
             </TabsContent>
           ))}
         </Tabs>
+      </div>
+      <div className="flex flex-col items-center py-12">
+        <CalloutItem
+          title="Non trovi ciò che stai cercando?"
+          href="/guides"
+          buttonText="Esplora le Guide"
+          className="max-w-4xl"
+        />
       </div>
     </main>
   )
