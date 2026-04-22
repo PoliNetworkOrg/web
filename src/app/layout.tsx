@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer"
 import { HEADER_HEIGHT, Header } from "@/components/header"
 import { Shape } from "@/components/shapes"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -90,6 +91,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <div className="flex min-h-screen w-full flex-col items-center justify-start">
             <Header />
             {children}
+            <Footer />
           </div>
         </ThemeProvider>
       </body>
