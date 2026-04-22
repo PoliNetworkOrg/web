@@ -61,10 +61,14 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
 function CardAction({
   className,
   icon: Icon,
-  iconSize = "normal",
+  iconSize = "md",
   gradient = true,
   ...props
-}: React.ComponentProps<"div"> & { icon: IconType; iconSize?: "small" | "normal" | "large"; gradient?: boolean }) {
+}: React.ComponentProps<"div"> & {
+  icon: IconType
+  iconSize?: "xs" | "sm" | "md" | "lg"
+  gradient?: boolean
+}) {
   const gradientId = React.useId()
 
   return (
@@ -83,9 +87,18 @@ function CardAction({
       )}
 
       <Icon
-        size={iconSize === "small" ? "1.125rem" : iconSize === "normal" ? "2rem" : "3.5rem"}
-        fill={gradient ? `url(#${gradientId})` : "currentColor"}
-        stroke={gradient ? `url(#${gradientId})` : "currentColor"}
+        size={
+          iconSize === "xs"
+            ? "1.125rem"
+            : iconSize === "sm"
+              ? "1.5rem"
+              : iconSize === "md"
+                ? "2rem"
+                : iconSize === "lg"
+                  ? "3.5rem"
+                  : iconSize
+        }
+        {...(gradient ? { fill: `url(#${gradientId})`, stroke: `url(#${gradientId})` } : { stroke: "currentColor" })}
       />
     </div>
   )
