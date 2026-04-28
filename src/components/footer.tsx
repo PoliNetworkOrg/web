@@ -139,12 +139,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-8 max-md:w-full md:max-w-md md:justify-self-end">
-          <CardSplit
-            className="md:order-2"
-            textPrimary="5x1000"
-            textSecondary="Sostienici!"
-            textSecondarySmall="CF: 97927490157"
-          />
+          <CardSplit textPrimary="5x1000" textSecondary="Sostienici!" textSecondarySmall="CF: 97927490157" />
 
           <div id="sitemap" className="flex w-full flex-col gap-4">
             <h3 className="typo-label-extralarge md:typo-headline-small">Visita il sito</h3>
