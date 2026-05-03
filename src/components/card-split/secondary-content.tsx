@@ -13,8 +13,10 @@ export function CardSplitSecondaryContent({
 }: CardSplitSecondaryContentProps) {
   return (
     <div className={cn("flex flex-col gap-1", hasPrimaryContent ? "sm:min-w-fit" : "")}>
-      {textSecondary && <p className="typo-headline-small text-text-primary">{textSecondary}</p>}
-      {textSecondarySmall && <p className="typo-body-medium text-text-primary">{textSecondarySmall}</p>}
+      {textSecondary && <p className="typo-label-large md:typo-headline-small text-text-primary">{textSecondary}</p>}
+      {textSecondarySmall && (
+        <p className="typo-body-small md:typo-body-medium text-text-primary">{textSecondarySmall}</p>
+      )}
     </div>
   )
 }
