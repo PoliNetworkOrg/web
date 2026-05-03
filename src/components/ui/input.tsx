@@ -19,7 +19,7 @@ function Input({ icon, className, containerClassName, ...inputProps }: InputProp
         containerClassName
       )}
     >
-      {icon && <span className="flex h-6 w-6 items-center justify-center shrink-0 text-text-primary"> {icon} </span>}
+      {icon && <span className="flex h-6 w-6 shrink-0 items-center justify-center text-text-primary"> {icon} </span>}
 
       <input
         type={inputProps.type}
@@ -27,7 +27,7 @@ function Input({ icon, className, containerClassName, ...inputProps }: InputProp
         data-slot="input"
         {...inputProps}
         className={cn(
-          "w-full bg-transparent border-none outline-none",
+          "w-full border-none bg-transparent outline-none",
           "typo-body-medium text-text-primary placeholder:text-text-secondary",
           className
         )}
