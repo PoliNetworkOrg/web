@@ -5,8 +5,8 @@ import { Fragment, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { headerMenuItems } from "./constants"
-import { IconButtonsMobile } from "./IconButtons"
-import { Logo } from "./Logo"
+import { IconButtonsMobile } from "./icon-buttons"
+import { Logo } from "./logo"
 
 export const MobileLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

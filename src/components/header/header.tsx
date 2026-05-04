@@ -1,7 +1,7 @@
 "use client"
 
-import { DesktopLayout } from "./DesktopLayout"
-import { MobileLayout } from "./MobileLayout"
+import { DesktopLayout } from "./desktop-layout"
+import { MobileLayout } from "./mobile-layout"
 
 export type { HeaderMenuItem, HeaderSubmenuItem } from "./types"
 

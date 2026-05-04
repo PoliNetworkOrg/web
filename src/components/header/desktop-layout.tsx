@@ -10,14 +10,14 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { cn } from "@/lib/utils"
 import { headerMenuItems } from "./constants"
-import { IconButtonsDesktop } from "./IconButtons"
-import { Logo } from "./Logo"
+import { IconButtonsDesktop } from "./icon-buttons"
+import { Logo } from "./logo"
 
 export const DesktopLayout = () => {
-  const removeDefaultHoverEffectClass = "hover:bg-transparent focus:bg-transparent bg-transparent"
+  const removeDefaultHoverEffectClass = "hover:bg-transparent focus:bg-transparent bg-transparent!"
   const customHoverEffectClass = "hover:underline focus:underline decoration-1 decoration-blue-secondary "
 
   return (
@@ -27,7 +27,7 @@ export const DesktopLayout = () => {
         className="top-0 isolate flex max-w-full shrink-0 items-stretch bg-card [&>div]:w-full"
       >
         <NavigationMenuList className="flex w-full justify-between">
-          <NavigationMenuLink asChild className={`${removeDefaultHoverEffectClass} p-0 py-0.75`}>
+          <NavigationMenuLink asChild className={cn("p-0 py-0.75", removeDefaultHoverEffectClass)}>
             <Logo />
           </NavigationMenuLink>
 
@@ -36,7 +36,11 @@ export const DesktopLayout = () => {
               {"menu" in item && item.menu ? (
                 <>
                   <NavigationMenuTrigger
-                    className={`typo-body-medium font-red-hat text-text-primary ${removeDefaultHoverEffectClass} ${customHoverEffectClass} group h-fit p-0 [&_.lucide-chevron-down]:hidden`}
+                    className={cn(
+                      "typo-body-medium group h-fit p-0 font-red-hat text-text-primary [&_.lucide-chevron-down]:hidden",
+                      removeDefaultHoverEffectClass,
+                      customHoverEffectClass
+                    )}
                     hideChevron
                   >
                     <div className="flex flex-col gap-1">
@@ -58,7 +62,11 @@ export const DesktopLayout = () => {
                               <li key={subItem.title}>
                                 <NavigationMenuLink
                                   asChild
-                                  className={`flex shrink-0 flex-row flex-nowrap items-center justify-between ${removeDefaultHoverEffectClass} ${customHoverEffectClass}`}
+                                  className={cn(
+                                    "flex shrink-0 flex-row flex-nowrap items-center justify-between",
+                                    removeDefaultHoverEffectClass,
+                                    customHoverEffectClass
+                                  )}
                                 >
                                   <Link href={subItem.href || "#"}>
                                     <div className="flex flex-col gap-1">
@@ -78,7 +86,14 @@ export const DesktopLayout = () => {
                 </>
               ) : (
                 <NavigationMenuLink asChild>
-                  <Link href={"href" in item ? item.href || "#" : "#"} className={navigationMenuTriggerStyle()}>
+                  <Link
+                    href={"href" in item ? item.href || "#" : "#"}
+                    className={cn(
+                      "typo-body-medium font-red-hat text-text-primary",
+                      removeDefaultHoverEffectClass,
+                      customHoverEffectClass
+                    )}
+                  >
                     {item.title}
                   </Link>
                 </NavigationMenuLink>

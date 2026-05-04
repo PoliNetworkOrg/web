@@ -1,4 +1,4 @@
-import { Header } from "@/components/header"
+import { Header } from "@/components/header/header"
 import { Shape } from "@/components/shapes"
 import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
