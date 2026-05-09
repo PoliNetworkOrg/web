@@ -23,7 +23,7 @@ export const IconButtonsDesktop = ({ removeHoverClass }: { removeHoverClass: str
     {iconConfigs.map(({ key, label, Icon, onClick }) => (
       <NavigationMenuLink key={key} asChild className={cn("p-0", removeHoverClass)}>
         <button type="button" onClick={onClick} aria-label={label}>
-          <Icon size={24} className="size-[20px] text-text-primary" />
+          <Icon size={24} className="size-[24px] text-text-primary" />
         </button>
       </NavigationMenuLink>
     ))}
