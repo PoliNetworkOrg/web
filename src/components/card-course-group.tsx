@@ -40,8 +40,8 @@ export function CardCourseGroup({
       <CardTitle gradient={false} className="typo-headline-small grow">
         {groupName}
       </CardTitle>
-      {hasWhatsapp && <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="normal" />}
-      {hasTelegram && <CardAction gradient={false} className={actionClassName} icon={IconTelegram} iconSize="normal" />}
+      {hasWhatsapp && <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="md" />}
+      {hasTelegram && <CardAction gradient={false} className={actionClassName} icon={IconTelegram} iconSize="md" />}
     </Card>
   )
 }

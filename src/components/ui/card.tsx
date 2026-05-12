@@ -1,9 +1,8 @@
-import type * as React from "react"
+import * as React from "react"
 import type { IconType } from "react-icons"
 import { cn } from "@/lib/utils"
 import { CardHoverBackground } from "../card-icon/hover-background"
 import { Glass } from "../glass"
-import { GradientIcon } from "../gradient-icon"
 import { Button } from "./button"
 
 function Card({
@@ -62,18 +61,35 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
 function CardAction({
   className,
   icon: Icon,
-  iconSize = "normal",
+  iconSize = "md",
   gradient = true,
   ...props
-}: React.ComponentProps<"div"> & { icon: IconType; iconSize?: "small" | "normal" | "large"; gradient?: boolean }) {
+}: React.ComponentProps<"div"> & {
+  icon: IconType
+  iconSize?: "xs" | "sm" | "md" | "lg"
+  gradient?: boolean
+}) {
+  const gradientId = React.useId()
   return (
     <div
       data-slot="card-action"
       className={cn("col-start-2 row-span-2 row-start-1 self-auto justify-self-end", className)}
       {...props}
     >
-
-      <GradientIcon icon={Icon} className={cn(iconSize === "small" ? "h-4.5 w-4.5" : iconSize === "normal" ? "h-8 w-8" : "h-14 w-14")} />
+      <Icon
+        size={
+          iconSize === "xs"
+            ? "1.125rem"
+            : iconSize === "sm"
+              ? "1.5rem"
+              : iconSize === "md"
+                ? "2rem"
+                : iconSize === "lg"
+                  ? "3.5rem"
+                  : iconSize
+        }
+        {...(gradient ? { fill: `url(#${gradientId})`, stroke: `url(#${gradientId})` } : { stroke: "currentColor" })}
+      />
     </div>
   )
 }
