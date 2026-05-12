@@ -1,33 +1,25 @@
-import { FiArrowUpRight, FiBookOpen, FiUploadCloud } from "react-icons/fi"
-import { CardIcon } from "@/components/card-icon"
+import { FiArrowUpRight } from "react-icons/fi"
+import { CardCaption } from "@/components/card-caption"
 import { Button } from "@/components/ui/button"
 
 const featuredCards = [
   {
     title: "WeBeepSync",
-    description:
+    caption:
       "WeBeep Sync è una semplice app, user-friendly e senza compromessi che serve per tenere sincronizzati tutti i tuoi file di WeBeep.",
-    icon: FiUploadCloud,
-    size: "md",
   },
   {
     title: "PolimiSchedule",
-    description:
+    caption:
       "Genera un file iCalendar (.ics) a partire dal formato testuale dell’Orario delle lezioni. Possibilità di importare su Google Calendar.",
-    icon: FiBookOpen,
-    size: "md",
   },
   {
     title: "WiFiLinux",
-    description: "Scarica ed esegui lo script Python per attivare la connessione permanente al WiFi Polimi",
-    icon: FiBookOpen,
-    size: "md",
+    caption: "Scarica ed esegui lo script Python per attivare la connessione permanente al WiFi Polimi",
   },
   {
     title: "The TOL Project",
-    description: "Un simulatore gratuito del test di ammissione per le aspiranti matricole di Ingegneria del PoliMi.",
-    icon: FiBookOpen,
-    size: "md",
+    caption: "Un simulatore gratuito del test di ammissione per le aspiranti matricole di Ingegneria del PoliMi.",
   },
 ] as const
 
@@ -56,7 +48,7 @@ export function Projects() {
       <div className="flex flex-col gap-6 lg:gap-10 2xl:pt-30">
         <div className="grid grid-cols-2 gap-6 xl:grid-cols-4 2xl:grid-cols-2">
           {featuredCards.map((card) => (
-            <CardIcon key={card.title} {...card} href="#" className="h-full" />
+            <CardCaption key={card.title} {...card} className="w-full" />
           ))}
         </div>
       </div>
