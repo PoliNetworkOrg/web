@@ -121,12 +121,7 @@ function Carousel({
         scrollSnaps,
       }}
     >
-      <section
-        onKeyDownCapture={handleKeyDown}
-        className={cn("relative", className)}
-        data-slot="carousel"
-        {...props}
-      >
+      <section onKeyDownCapture={handleKeyDown} className={cn("relative", className)} data-slot="carousel" {...props}>
         {children}
       </section>
     </CarouselContext.Provider>
@@ -162,11 +157,7 @@ function CarouselDots({ className, ...props }: React.ComponentProps<"div">) {
   if (scrollSnaps.length <= 1) return null
 
   return (
-    <div
-      data-slot="carousel-dots"
-      className={cn("flex items-center justify-center gap-3", className)}
-      {...props}
-    >
+    <div data-slot="carousel-dots" className={cn("flex items-center justify-center gap-3", className)} {...props}>
       {scrollSnaps.map((scrollSnap, index) => (
         <Button
           key={scrollSnap}
@@ -186,9 +177,8 @@ function CarouselDots({ className, ...props }: React.ComponentProps<"div">) {
           />
           <span className="sr-only">{`Slide ${index + 1}`}</span>
         </Button>
-      ))
-      }
-    </div >
+      ))}
+    </div>
   )
 }
 

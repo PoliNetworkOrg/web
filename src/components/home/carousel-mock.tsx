@@ -16,19 +16,15 @@ const mockCards = [
   },
   {
     title: "WiFiLinux",
-    caption:
-      "Scarica ed esegui lo script Python per attivare la connessione permanente al WiFi Polimi.",
-
+    caption: "Scarica ed esegui lo script Python per attivare la connessione permanente al WiFi Polimi.",
   },
   {
     title: "The TOL Project",
-    caption:
-      "Un simulatore gratuito del test di ammissione per le aspiranti matricole di Ingegneria del PoliMi.",
-
+    caption: "Un simulatore gratuito del test di ammissione per le aspiranti matricole di Ingegneria del PoliMi.",
   },
 ] as const
 
-// TODO: delete this when merging 
+// TODO: delete this when merging
 export function CarouselMock() {
   return (
     <section className="mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center gap-16 px-7.5">
