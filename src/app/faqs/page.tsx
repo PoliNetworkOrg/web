@@ -15,96 +15,96 @@ const faqItems: {
   icon: IconType
   accordionItems: AccordionListItem[]
 }[] = [
-    {
-      value: "tab1",
-      label: "Lezioni",
-      icon: FiBookOpen,
-      accordionItems: [
-        {
-          value: "item-1",
-          trigger: "Per le lauree le lezioni sono sospese?",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-      ],
-    },
-    {
-      value: "tab2",
-      label: "Tasse",
-      icon: FiDollarSign,
-      accordionItems: [
-        {
-          value: "item-1",
-          trigger: "Per le lauree le lezioni sono sospese?",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-      ],
-    },
-    {
-      value: "tab3",
-      label: "Esami",
-      icon: FiEdit,
-      accordionItems: [
-        {
-          value: "item-1",
-          trigger: "Per le lauree le lezioni sono sospese?",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-      ],
-    },
-    {
-      value: "tab4",
-      label: "Piano di Studi",
-      icon: FiFileText,
-      accordionItems: [
-        {
-          value: "item-1",
-          trigger: "Per le lauree le lezioni sono sospese?",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-      ],
-    },
-    {
-      value: "tab5",
-      label: "Mobilitá Internazionale",
-      icon: FiSend,
-      accordionItems: [
-        {
-          value: "item-1",
-          trigger: "Per le lauree le lezioni sono sospese? ",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-        {
-          value: "item-2",
-          trigger: "Per le lauree le lezioni sono sospese? ",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-        {
-          value: "item-3",
-          trigger: "Per le lauree le lezioni sono sospese? ",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-        {
-          value: "item-4",
-          trigger: "Per le lauree le lezioni sono sospese? ",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-        {
-          value: "item-5",
-          trigger: "Per le lauree le lezioni sono sospese? ",
-          content:
-            "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
-        },
-      ],
-    },
-  ]
+  {
+    value: "tab1",
+    label: "Lezioni",
+    icon: FiBookOpen,
+    accordionItems: [
+      {
+        value: "item-1",
+        trigger: "Per le lauree le lezioni sono sospese?",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+    ],
+  },
+  {
+    value: "tab2",
+    label: "Tasse",
+    icon: FiDollarSign,
+    accordionItems: [
+      {
+        value: "item-1",
+        trigger: "Per le lauree le lezioni sono sospese?",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+    ],
+  },
+  {
+    value: "tab3",
+    label: "Esami",
+    icon: FiEdit,
+    accordionItems: [
+      {
+        value: "item-1",
+        trigger: "Per le lauree le lezioni sono sospese?",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+    ],
+  },
+  {
+    value: "tab4",
+    label: "Piano di Studi",
+    icon: FiFileText,
+    accordionItems: [
+      {
+        value: "item-1",
+        trigger: "Per le lauree le lezioni sono sospese?",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+    ],
+  },
+  {
+    value: "tab5",
+    label: "Mobilitá Internazionale",
+    icon: FiSend,
+    accordionItems: [
+      {
+        value: "item-1",
+        trigger: "Per le lauree le lezioni sono sospese? ",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+      {
+        value: "item-2",
+        trigger: "Per le lauree le lezioni sono sospese? ",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+      {
+        value: "item-3",
+        trigger: "Per le lauree le lezioni sono sospese? ",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+      {
+        value: "item-4",
+        trigger: "Per le lauree le lezioni sono sospese? ",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+      {
+        value: "item-5",
+        trigger: "Per le lauree le lezioni sono sospese? ",
+        content:
+          "Spesso, la prima settimana, i Professori utilizzano le ore destinate alle esercitazioni per qualche ora di lezione in più: saranno quindi i docenti a specificare come verranno utilizzate queste ore. Dunque, le esercitazioni non sono da considerarsi annullate, salvo diversa comunicazione da parte del docente o dell'esercitatore.",
+      },
+    ],
+  },
+]
 
 export default function FAQsPage() {
   return (
