@@ -16,8 +16,8 @@ import esnLogo from "../../../public/logos/esn.svg"
 
 const accordionItems = [
   {
-    value: "ESN - Erasmus Student Network",
-    name: "ESN - Erasmus Student Network",
+    value: "ESN",
+    name: "ESN",
     logo: esnLogo,
     content:
       "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
@@ -85,8 +85,8 @@ const accordionItems = [
     ],
   },
   {
-    value: "Lista Aperta - Per il diritto allo studio",
-    name: "Lista Aperta - Per il diritto allo studio",
+    value: "Lista Aperta",
+    name: "Lista Aperta",
     logo: esnLogo,
     content:
       "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
@@ -99,8 +99,8 @@ const accordionItems = [
     ],
   },
   {
-    value: "MESA - EESTEC",
-    name: "MESA - EESTEC",
+    value: "MESA",
+    name: "MESA",
     logo: esnLogo,
     content:
       "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
@@ -159,12 +159,12 @@ const accordionItems = [
 export default function AssociationsPage() {
   return (
     <main className="w-full">
-      <div className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-39 px-4 py-49">
+      <div className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-20 px-4 py-49 md:gap-39">
         <div className="flex flex-col items-center gap-6">
-          <h2 className="typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-14 text-transparent">
+          <h2 className="typo-display-large md:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent md:py-14">
             Associazioni
           </h2>
-          <p className="typo-headline-small max-w-2xl text-center">
+          <p className="typo-title-large md:typo-headline-small max-w-2xl text-center">
             Scopri le associazioni studentesche del Politecnico
           </p>
         </div>

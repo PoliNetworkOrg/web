@@ -13,10 +13,10 @@ export function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "flex w-full items-center justify-between gap-4 text-left",
-          "typo-display-medium outline-none",
-          "transition-all duration-500 data-[state=closed]:p-6 data-[state=open]:px-16",
-          "data-[state=open]:pt-16 data-[state=open]:pb-8",
+          "flex w-full items-center justify-between gap-2 text-left md:gap-4",
+          "typo-title-large md:typo-display-medium outline-none",
+          "p-4 transition-none",
+          "md:p-0 md:transition-all md:duration-500 md:data-[state=closed]:p-6 md:data-[state=open]:px-16 md:data-[state=open]:pt-16 md:data-[state=open]:pb-8",
           "[&[data-state=open]>svg]:rotate-180",
           className
         )}
