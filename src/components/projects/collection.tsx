@@ -110,6 +110,6 @@ export function Collection() {
           <CarouselDots className="mt-8" />
         </Carousel>
       </div>
-    </section >
+    </section>
   )
 }
