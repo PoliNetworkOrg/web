@@ -79,7 +79,15 @@ function Carousel({
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === "ArrowLeft") {
+      if (orientation === "vertical") {
+        if (event.key === "ArrowUp") {
+          event.preventDefault()
+          scrollPrev()
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault()
+          scrollNext()
+        }
+      } else if (event.key === "ArrowLeft") {
         event.preventDefault()
         scrollPrev()
       } else if (event.key === "ArrowRight") {
@@ -87,7 +95,7 @@ function Carousel({
         scrollNext()
       }
     },
-    [scrollPrev, scrollNext]
+    [orientation, scrollPrev, scrollNext]
   )
 
   React.useEffect(() => {
@@ -102,7 +110,8 @@ function Carousel({
     api.on("select", onSelect)
 
     return () => {
-      api?.off("select", onSelect)
+      api.off("reInit", onSelect)
+      api.off("select", onSelect)
     }
   }, [api, onSelect])
 
@@ -162,7 +171,7 @@ function CarouselDots({ className, ...props }: React.ComponentProps<"div">) {
         <Button
           key={scrollSnap}
           type="button"
-          aria-label={`Vai alla slide ${index + 1}`}
+          aria-label={`Go to slide ${index + 1}`}
           aria-current={selectedIndex === index}
           onClick={() => api?.scrollTo(index)}
           className={cn(
