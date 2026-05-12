@@ -118,11 +118,11 @@ export default function FAQsPage() {
         </p>
       </div>
 
-      <div className="mx-auto flex w-full max-w-255 flex-col gap-79">
+      <div className="mx-auto flex w-full max-w-255 flex-col gap-68 sm:gap-79">
         <Tabs defaultValue="tab5" className="flex w-full flex-col items-center">
-          <TabsNavigation items={faqItems} className="mx-auto mb-19" />
+          <TabsNavigation items={faqItems} className="mb-19" />
           {faqItems.map((item) => (
-            <TabsContent value={item.value} key={item.value} className="w-full min-w-0 self-stretch">
+            <TabsContent value={item.value} key={item.value} className="w-full min-w-0">
               <AccordionList items={item.accordionItems} defaultValue={item.accordionItems[0]?.value} />
             </TabsContent>
           ))}
@@ -131,7 +131,12 @@ export default function FAQsPage() {
         <CalloutItem
           title="Non trovi ciò che stai cercando?"
           href="/guides"
-          buttonText="Esplora le Guide"
+          buttonText={
+            <>
+              <span className="sm:hidden">Guide</span>
+              <span className="hidden sm:inline">Esplora le Guide</span>
+            </>
+          }
           className="w-full"
         />
       </div>
