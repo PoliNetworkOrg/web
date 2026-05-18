@@ -122,7 +122,7 @@ export default function FAQsPage() {
         <Tabs defaultValue="tab5" className="flex w-full flex-col items-center">
           <TabsNavigation
             items={faqItems}
-            className="max-sm:-mx-2 mb-19 max-sm:w-[calc(100%+1rem)] max-sm:rounded-none"
+            className="max-md:-mx-2 mb-19 max-md:w-[calc(100%+1rem)] max-md:rounded-none"
           />
           {faqItems.map((item) => (
             <TabsContent value={item.value} key={item.value} className="w-full min-w-0">

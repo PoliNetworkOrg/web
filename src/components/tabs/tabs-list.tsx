@@ -14,7 +14,11 @@ export function TabsList({ className, children, ...props }: React.ComponentProps
         )}
       >
         <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <TabsPrimitive.List data-slot="tabs-list" className="flex min-w-max items-center gap-2 px-6" {...props}>
+          <TabsPrimitive.List
+            data-slot="tabs-list"
+            className="flex min-w-max items-center gap-2 px-2.5 max-md:px-10"
+            {...props}
+          >
             {children}
           </TabsPrimitive.List>
         </div>
