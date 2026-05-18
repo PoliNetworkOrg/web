@@ -9,12 +9,12 @@ export function TabsList({ className, children, ...props }: React.ComponentProps
     <div className="w-full sm:flex sm:justify-center">
       <Glass
         className={cn(
-          "w-full overflow-hidden rounded-3xl border-white/50 bg-background-blur p-2.5 text-card-foreground sm:w-fit",
+          "scroll-fade-x w-full overflow-hidden rounded-3xl border-white/50 bg-background-blur px-0 py-2.5 text-card-foreground sm:w-fit",
           className
         )}
       >
         <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <TabsPrimitive.List data-slot="tabs-list" className="flex min-w-max items-center gap-2" {...props}>
+          <TabsPrimitive.List data-slot="tabs-list" className="flex min-w-max items-center gap-2 px-6" {...props}>
             {children}
           </TabsPrimitive.List>
         </div>

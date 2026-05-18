@@ -69,7 +69,7 @@ const faqItems: {
   },
   {
     value: "tab5",
-    label: "Mobilitá Internazionale",
+    label: "Mobilità Internazionale",
     icon: FiSend,
     accordionItems: [
       {
@@ -120,7 +120,10 @@ export default function FAQsPage() {
 
       <div className="mx-auto flex w-full max-w-255 flex-col gap-68 sm:gap-79">
         <Tabs defaultValue="tab5" className="flex w-full flex-col items-center">
-          <TabsNavigation items={faqItems} className="mb-19" />
+          <TabsNavigation
+            items={faqItems}
+            className="max-sm:-mx-2 mb-19 max-sm:w-[calc(100%+1rem)] max-sm:rounded-none"
+          />
           {faqItems.map((item) => (
             <TabsContent value={item.value} key={item.value} className="w-full min-w-0">
               <AccordionList items={item.accordionItems} defaultValue={item.accordionItems[0]?.value} />
