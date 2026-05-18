@@ -19,3 +19,11 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 767px) {
+  /* max-md */
+  .scroll-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 36px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 28px), transparent);
+  }
+}
