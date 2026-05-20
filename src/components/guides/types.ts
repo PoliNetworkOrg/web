@@ -1,5 +1,5 @@
-export type GuideGeneralProps = {
-    title: string
-    description: string
-    guides: { text: string }[]
+export type GuideContentProps = {
+  title: string
+  description: string
+  guides: { text: string }[]
 }
