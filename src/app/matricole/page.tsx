@@ -37,12 +37,12 @@ const accordionItems: AccordionListItem[] = [
 
 export default function FAQsPage() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-400 flex-col items-center justify-center gap-16 px-4 py-49 sm:gap-20">
-      <h2 className="typo-headline-medium sm:typo-display-medium w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+    <main className="mx-auto flex min-h-screen w-full max-w-400 flex-col items-center justify-center gap-16 px-9 py-49 sm:gap-20">
+      <h2 className="typo-headline-medium sm:typo-display-medium text-center text-text-primary">
         Domande Frequenti tra le Matricole
       </h2>
 
-      <div className="mx-auto flex w-full max-w-255 flex-col gap-4">
+      <div className="mx-auto flex w-full max-w-255 flex-col">
         <AccordionList items={accordionItems} />
       </div>
     </main>
