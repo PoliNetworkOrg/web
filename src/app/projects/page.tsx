@@ -6,10 +6,10 @@ import { Upload } from "@/components/projects/upload"
 export default function Home() {
   return (
     <main className="w-full">
-      <Deprecated />
-      <Collection />
       <CommunityNews />
+      <Collection />
       <Upload />
+      <Deprecated />
     </main>
   )
 }
