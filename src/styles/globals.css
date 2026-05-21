@@ -7,6 +7,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --breakpoint-1xl: 85rem; /* 1360px */
+  --breakpoint-3xl: 90rem; /* 1440px */
+}
+
 @layer base {
   body {
     @apply bg-background text-text-primary typo-body-large;
