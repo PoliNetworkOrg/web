@@ -55,7 +55,7 @@ const sitemapSections = [
       { label: "FAQs", href: "/" },
     ],
   },
-  { type: "text" as const, label: "Privacy Policy" },
+  { type: "text" as const, label: "Privacy Policy", href: "/" },
   {
     type: "accordion" as const,
     title: "Community",
@@ -66,7 +66,7 @@ const sitemapSections = [
       { label: "Associations", href: "/" },
     ],
   },
-  { type: "text" as const, label: "Terms & Conditions" },
+  { type: "text" as const, label: "Terms & Conditions", href: "/" },
   {
     type: "accordion" as const,
     title: "About",
@@ -76,7 +76,7 @@ const sitemapSections = [
       { label: "Contact us", href: "/" },
     ],
   },
-  { type: "text" as const, label: "Cookie policy" },
+  { type: "text" as const, label: "Cookie policy", href: "/"},
 ]
 
 export function Footer() {
@@ -144,7 +144,9 @@ export function Footer() {
                 section.type === "accordion" ? (
                   <FooterAccordion key={section.title} title={section.title} links={section.links} />
                 ) : (
-                  <p key={section.label}>{section.label}</p>
+                  <FooterLink key={section.label} href={section.href}>
+                    {section.label}
+                  </FooterLink>
                 )
               )}
             </div>
@@ -152,7 +154,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="typo-body-small md:typo-body-large mt-36 flex w-full items-center justify-center gap-4 text-center text-text-secondary md:mx-auto md:mb-12 md:max-w-[1324] md:justify-between md:text-left">
+      <div className="typo-body-small md:typo-body-large mt-36 flex w-full items-center justify-center gap-4 text-center text-text-secondary md:mx-auto md:mb-12 md:max-w-[1324px] md:justify-between md:text-left">
         <p id="copyright">PoliNetwork 2016-2026 © All rights reserved</p>
         {/**<div id="select-language">
           <DropdownButton
