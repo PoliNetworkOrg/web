@@ -56,7 +56,7 @@ export function CommunityNews() {
         </div>
 
         {/* Desktop Grid */}
-        <div className="hidden grid-cols-2 justify-items-center gap-6 sm:grid xl:grid-cols-4">
+        <div className="hidden 1xl:grid-cols-4 justify-items-center gap-6 md:grid md:grid-cols-2">
           {communityCards.map((card) => (
             <CardCaption key={card.title} {...card} />
           ))}
