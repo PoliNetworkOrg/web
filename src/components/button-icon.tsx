@@ -8,7 +8,6 @@ export function ButtonIcon({
   children,
   iconPosition = "left",
   size,
-  className
 }: {
   variant?: "primary" | "tertiary" | "tertiaryBlur"
   icon: IconType

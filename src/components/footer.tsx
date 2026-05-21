@@ -3,11 +3,10 @@ import { FaGithub } from "react-icons/fa"
 import { FiChevronDown, FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi"
 import discord from "@/assets/icons/discord.svg"
 import telegram from "@/assets/icons/telegram.svg"
+import { ButtonIcon } from "./button-icon"
 import { CardMultipleIcons } from "./card-multiple-icons"
 import { CardSplit } from "./card-split"
 import { Button } from "./ui/button"
-import { ButtonIcon } from "./button-icon"
-import { DropdownButton } from "./button-dropdown"
 
 interface FooterLinkProps {
   href: string
@@ -100,7 +99,7 @@ export function Footer() {
         />
       </div>
 
-      <div className="flex w-full justify-evenly gap-8 max-md:gap-24 max-md:flex-col max-md:items-center">
+      <div className="flex w-full justify-evenly gap-8 max-md:flex-col max-md:items-center max-md:gap-24">
         <div className="flex w-full flex-col gap-8 max-md:gap-16 md:order-2 md:max-w-sm">
           <div id="talkwithus" className="w-full">
             <h3 className="typo-label-extralarge md:typo-headline-small">Talk with us</h3>
@@ -128,7 +127,9 @@ export function Footer() {
           <div id="problems" className="flex flex-col gap-4 text-center md:text-left">
             <h3 className="typo-label-extralarge md:typo-headline-small">Qualche problema? Segnalalo!</h3>
             <div>
-              <ButtonIcon icon={FaGithub} size="lg-wide" iconPosition="left" variant="tertiary">Report a bug</ButtonIcon>
+              <ButtonIcon icon={FaGithub} size="lg-wide" iconPosition="left" variant="tertiary">
+                Report a bug
+              </ButtonIcon>
             </div>
           </div>
         </div>
@@ -151,7 +152,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="typo-body-small md:typo-body-large mt-36 flex items-center md:justify-between justify-center gap-4 text-center text-text-secondary w-full md:mx-auto md:mb-12 md:max-w-[1324] md:text-left">
+      <div className="typo-body-small md:typo-body-large mt-36 flex w-full items-center justify-center gap-4 text-center text-text-secondary md:mx-auto md:mb-12 md:max-w-[1324] md:justify-between md:text-left">
         <p id="copyright">PoliNetwork 2016-2026 © All rights reserved</p>
         {/**<div id="select-language">
           <DropdownButton
