@@ -1,7 +1,7 @@
 import type { IconType } from "react-icons"
-import { Button } from "./button"
+import { Button } from "./ui/button"
 
-export function ButtonWithIcon({
+export function ButtonIcon({
   variant = "primary",
   icon: Icon,
   text,
