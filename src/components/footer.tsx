@@ -76,7 +76,7 @@ const sitemapSections = [
       { label: "Contact us", href: "/" },
     ],
   },
-  { type: "text" as const, label: "Cookie policy", href: "/"},
+  { type: "text" as const, label: "Cookie policy", href: "/" },
 ]
 
 export function Footer() {
