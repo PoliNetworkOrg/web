@@ -7,12 +7,14 @@ import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { AboutUs } from "@/components/home/about-us"
 import { Hero } from "@/components/home/hero"
 import { Materials } from "@/components/home/materials"
+import { Projects } from "@/components/home/projects"
 
 export default function Home() {
   return (
     <main className="w-full">
       <Hero />
       <Materials />
+      <Projects />
       <AboutUs />
       <div className="mx-auto flex w-fit flex-col items-center gap-4 py-12">
         <DropdownButton
