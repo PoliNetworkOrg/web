@@ -6,17 +6,16 @@ import { DropdownButton } from "@/components/button-dropdown"
 import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { CardSplit } from "@/components/card-split"
 import { AboutUs } from "@/components/home/about-us"
-import { CarouselMock } from "@/components/home/carousel-mock"
 import { Hero } from "@/components/home/hero"
 import { Materials } from "@/components/home/materials"
+import { Projects } from "@/components/home/projects"
 
 export default function Home() {
   return (
     <main className="w-full">
       <Hero />
       <Materials />
-      {/* TODO: delete this when merging */}
-      <CarouselMock />
+      <Projects />
       <AboutUs />
       <div className="mx-auto flex w-fit flex-col items-center gap-4 py-12">
         <DropdownButton
