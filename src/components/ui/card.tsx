@@ -70,22 +70,12 @@ function CardAction({
   gradient?: boolean
 }) {
   const gradientId = React.useId()
-
   return (
     <div
       data-slot="card-action"
       className={cn("col-start-2 row-span-2 row-start-1 self-auto justify-self-end", className)}
       {...props}
     >
-      {gradient && (
-        <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
-          <linearGradient id={gradientId} x1="0%" y1="100%" x2="0%" y2="0%">
-            <stop offset="0%" className="text-blue-secondary" stopColor="currentColor" />
-            <stop offset="100%" className="text-blue-primary" stopColor="currentColor" />
-          </linearGradient>
-        </svg>
-      )}
-
       <Icon
         size={
           iconSize === "xs"

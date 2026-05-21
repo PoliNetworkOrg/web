@@ -1,6 +1,6 @@
 import { type FunctionComponent, type SVGProps, useId } from "react"
 
-export type GradientIconType = FunctionComponent<SVGProps<SVGSVGElement>>
+export type GradientIconType = FunctionComponent<SVGProps<SVGSVGElement> & { size?: string }>
 
 type GradientIconProps = {
   icon: GradientIconType
@@ -20,7 +20,7 @@ export function GradientIcon({ icon: Icon, className }: GradientIconProps) {
           <stop offset="100%" stopColor="var(--color-blue-primary)" />
         </linearGradient>
         <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">
-          <Icon className={className} stroke="white" fill="none" />
+          <Icon stroke="white" fill="none" size="16" />
         </mask>
       </defs>
       <rect x="0" y="0" width="16" height="16" fill={`url(#${gradientId})`} mask={`url(#${maskId})`} />
