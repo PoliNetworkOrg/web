@@ -18,4 +18,11 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  body[data-scroll-locked] {
+    /* biome-ignore lint/complexity/noImportantStyles: necessary */
+    overflow-y: auto !important;
+    /* biome-ignore lint/complexity/noImportantStyles: necessary */
+    margin-right: 0px !important;
+  }
 }
