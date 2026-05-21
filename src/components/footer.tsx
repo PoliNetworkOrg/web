@@ -6,7 +6,8 @@ import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "./card-multiple-icons"
 import { CardSplit } from "./card-split"
 import { Button } from "./ui/button"
-import { ButtonWithIcon } from "./ui/buttonWithIcon"
+import { ButtonIcon } from "./button-icon"
+import { DropdownButton } from "./button-dropdown"
 
 interface FooterLinkProps {
   href: string
@@ -80,14 +81,13 @@ const sitemapSections = [
 ]
 
 export function Footer() {
-  //Icone a riga 11 in futuro per mobile
   return (
     <footer className="my-8 w-full px-8">
-      <h2 className="typo-headline-medium md:typo-display-large mb-8 text-center max-md:bg-linear-to-b max-md:from-blue-secondary max-md:to-blue-primary max-md:bg-clip-text max-md:text-transparent">
+      <h2 className="typo-headline-medium md:typo-display-large text-center max-md:bg-linear-to-b max-md:from-blue-secondary max-md:to-blue-primary max-md:bg-clip-text max-md:text-transparent">
         Keep in touch!
       </h2>
 
-      <div className="mx-auto w-fit pb-24">
+      <div className="mx-auto mt-6 mb-18 flex w-fit flex-col items-center gap-4">
         <CardMultipleIcons
           icons={[
             <Image key="telegram" src={telegram} alt="Telegram" />,
@@ -100,8 +100,8 @@ export function Footer() {
         />
       </div>
 
-      <div className="flex w-full justify-evenly gap-8 max-md:flex-col max-md:items-center">
-        <div className="flex w-full flex-col gap-8 md:order-2 md:max-w-sm">
+      <div className="flex w-full justify-evenly gap-8 max-md:gap-24 max-md:flex-col max-md:items-center">
+        <div className="flex w-full flex-col gap-8 max-md:gap-16 md:order-2 md:max-w-sm">
           <div id="talkwithus" className="w-full">
             <h3 className="typo-label-extralarge md:typo-headline-small">Talk with us</h3>
             <div id="emails" className="typo-body-medium md:typo-body-large">
@@ -119,7 +119,7 @@ export function Footer() {
           <div id="interested" className="flex flex-col gap-4 text-center md:text-left">
             <h3 className="typo-label-extralarge md:typo-headline-small">Sei interessato?</h3>
             <div>
-              <Button variant="primary" size="lg" className="typo-label-large">
+              <Button variant="primary" size="lg-wide" className="typo-label-large">
                 Unisciti a noi!
               </Button>
             </div>
@@ -128,17 +128,12 @@ export function Footer() {
           <div id="problems" className="flex flex-col gap-4 text-center md:text-left">
             <h3 className="typo-label-extralarge md:typo-headline-small">Qualche problema? Segnalalo!</h3>
             <div>
-              <ButtonWithIcon
-                icon={FaGithub}
-                iconPosition="left"
-                variant="tertiary"
-                text="Report a bug"
-              ></ButtonWithIcon>
+              <ButtonIcon icon={FaGithub} size="lg-wide" iconPosition="left" variant="tertiary">Report a bug</ButtonIcon>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-8 max-md:w-full max-md:items-center md:max-w-md md:justify-self-end">
+        <div className="flex flex-col gap-16 max-md:w-full max-md:items-center md:max-w-md md:justify-self-end">
           <CardSplit textPrimary="5x1000" textSecondary="Sostienici!" textSecondarySmall="CF: 97927490157" />
 
           <div id="sitemap" className="flex w-full flex-col gap-4">
@@ -156,11 +151,17 @@ export function Footer() {
         </div>
       </div>
 
-      <div
-        id="copyright"
-        className="typo-body-small md:typo-body-large mt-36 text-center text-text-secondary max-md:w-full md:mb-12 md:ml-36 md:text-left"
-      >
-        PoliNetwork 2016-2026 © All rights reserved
+      <div className="typo-body-small md:typo-body-large mt-36 flex items-center md:justify-between justify-center gap-4 text-center text-text-secondary w-full md:mx-auto md:mb-12 md:max-w-[1324] md:text-left">
+        <p id="copyright">PoliNetwork 2016-2026 © All rights reserved</p>
+        {/**<div id="select-language">
+          <DropdownButton
+            placeholder="Select language"
+            options={[
+              { label: "Italiano", value: "it" },
+              { label: "English", value: "en" },
+            ]}
+          />
+        </div>**/}
       </div>
     </footer>
     //TODO: dropdowns
