@@ -1,6 +1,6 @@
 import { FiLogIn } from "react-icons/fi"
-import type { CardResourceProps } from "@/components/card-resource/types"
 import { CardCaption } from "@/components/card-caption"
+import type { CardResourceProps } from "@/components/card-resource/types"
 import GuideContent from "@/components/guides/content"
 import { GuideContentMobile } from "@/components/guides/content-mobile"
 import { Hero } from "@/components/ui/hero"
@@ -40,7 +40,7 @@ const guidesInfoMobile: CardResourceProps[] = [
     description: "È un esame che tratta tutti argomenti già visti in qualsiasi liceo scientifico...",
     tag: {
       text: "Teorico",
-      variant: "primary"
+      variant: "primary",
     },
     author: "Giulia M.",
     date: "Ott 24",
@@ -52,12 +52,12 @@ const guidesInfoMobile: CardResourceProps[] = [
     tag: [
       {
         text: "Teorico",
-        variant: "primary"
+        variant: "primary",
       },
       {
         text: "2 Anno",
-        variant: "secondary"
-      }
+        variant: "secondary",
+      },
     ],
     author: "Giulia M.",
     date: "Ott 24",
@@ -68,7 +68,7 @@ const guidesInfoMobile: CardResourceProps[] = [
     description: "È un esame che tratta tutti argomenti già visti in qualsiasi liceo scientifico...",
     tag: {
       text: "Teorico",
-      variant: "primary"
+      variant: "primary",
     },
     author: "Giulia M.",
     date: "Ott 24",
@@ -96,7 +96,7 @@ export default function GuidePage() {
 
       {/* Mobile */}
       <div className="flex w-full flex-col items-center gap-32 sm:hidden">
-        <CardCaption {...guidesMobile} />
+        <CardCaption {...guidesMobile} className="p-6" />
 
         <GuideContentMobile title="Guide Generali" guides={guidesInfoMobile} />
       </div>
