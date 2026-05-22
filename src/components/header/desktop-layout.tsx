@@ -49,7 +49,7 @@ export const DesktopLayout = () => {
                       <span className="typo-body-medium font-red-hat text-text-primary">{item.title}</span>
                     </div>
                     <FiChevronDown
-                      size={24}
+                      size={16}
                       className="relative top-px ml-1 text-text-primary transition duration-300 group-data-[state=open]:rotate-180"
                     />
                   </NavigationMenuTrigger>
