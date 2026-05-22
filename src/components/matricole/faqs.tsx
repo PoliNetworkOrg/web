@@ -37,7 +37,7 @@ const accordionItems: AccordionListItem[] = [
 
 export function FAQsPage() {
   return (
-    <section className="mx-auto flex min-h-screen w-full max-w-400 flex-col items-center justify-center gap-16 px-9 py-49 sm:gap-20">
+    <section className="mx-auto flex w-full max-w-400 flex-col items-center justify-center gap-16 px-9 py-49 sm:gap-20">
       <h2 className="typo-headline-medium sm:typo-display-medium text-center text-text-primary">
         Domande Frequenti tra le Matricole
       </h2>
