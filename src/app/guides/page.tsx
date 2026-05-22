@@ -1,6 +1,7 @@
-import { FiUserPlus } from "react-icons/fi"
+import { FiLogIn } from "react-icons/fi"
+import { CardCaption } from "@/components/card-caption"
+import { CardResource } from "@/components/card-resource"
 import GuideContent from "@/components/guides/content"
-import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
 
 const guidesInfo = {
@@ -32,28 +33,62 @@ const guidesGeneral = {
   ],
 }
 
+const guidesInfoMobile = [
+  {
+    title: "Chimica Generale",
+    description: "È un esame che tratta tutti argomenti già visti in qualsiasi liceo scientifico...",
+    tag: "Teorico",
+    author: "Giulia M.",
+    date: "Ott 24",
+    href: "/guides",
+  },
+  {
+    title: "Chimica",
+    description: "È un esame che tratta tutti argomenti già visti in qualsiasi liceo scientifico...",
+    tag: ["Teorico", "2 Anno"],
+    author: "Giulia M.",
+    date: "Ott 24",
+    href: "/guides",
+  },
+  {
+    title: "Generale",
+    description: "È un esame che tratta tutti argomenti già visti in qualsiasi liceo scientifico...",
+    tag: "Teorico",
+    author: "Giulia M.",
+    date: "Ott 24",
+    href: "/guides",
+  },
+]
+
+const guidesMobile = {
+  title: "Trova le guide del tuo corso",
+  caption: "Una raccolta di guide scritte dagli studenti del tuo corso",
+  icon: FiLogIn,
+}
+
 export default function GuidePage() {
   return (
-    <section className="min-h-screen w-full">
-      <div className="mx-auto flex w-full max-w-350 flex-col gap-35 px-12 pt-58 pb-18">
-        <Hero title="Guide" description="Una raccolta di guide realizzate dai membri del Network" />
-        <GuideContent {...guidesInfo} />
-      </div>
+    <section className="flex min-h-screen w-full max-w-350 flex-col gap-32 px-12 pt-58 pb-18 sm:gap-48">
+      <Hero title="Guide" description="Una raccolta di guide realizzate dai membri del Network" />
 
       {/* Desktop */}
-      <div className="hidden w-full justify-end px-12 pb-18 sm:flex">
-        <Button variant="tertiaryBlur" size="lg" className="text-blue-secondary">
-          <FiUserPlus />
-          Sei una matricola?
-        </Button>
-      </div>
+      <div className="hidden w-full flex-col gap-28 sm:flex">
+        <GuideContent {...guidesInfo} />
 
-      <div className="mx-auto hidden w-full max-w-350 flex-col px-12 pb-18 sm:flex">
         <GuideContent {...guidesGeneral} />
       </div>
 
       {/* Mobile */}
+      <div className="flex w-full flex-col items-center gap-32 sm:hidden">
+        <CardCaption {...guidesMobile} />
 
+        <div className="flex w-full flex-col gap-5 text-start">
+          <p className="typo-title-large">Guide Generali</p>
+          {guidesInfoMobile.map((guide) => (
+            <CardResource key={guide.title} {...guide} />
+          ))}
+        </div>
+      </div>
     </section>
   )
 }
