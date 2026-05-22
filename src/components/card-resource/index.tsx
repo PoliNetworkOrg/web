@@ -25,7 +25,9 @@ export function CardResource({
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             {(Array.isArray(tag) ? tag : [tag]).map((t) => (
-              <Pill key={t.text} variant={t.variant}>{t.text}</Pill>
+              <Pill key={t.text} variant={t.variant}>
+                {t.text}
+              </Pill>
             ))}
           </div>
           <button
