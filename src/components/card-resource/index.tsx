@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { FiBookmark } from "react-icons/fi"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
+import { Pill } from "@/components/ui/pill"
 import { cn } from "@/lib/utils"
 import type { CardResourceProps } from "./types"
 
@@ -23,16 +24,8 @@ export function CardResource({
       <a href={href} className="flex h-full flex-col">
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
-            {(Array.isArray(tag) ? tag : [tag]).map((t, i) => (
-              <span
-                key={t}
-                className={cn(
-                  "typo-body-small rounded-buttonsM px-3 py-1",
-                  i === 0 ? "bg-blue-tertiary text-text-accent-lightbg" : "bg-blue-secondary text-text-accent-darkbg"
-                )}
-              >
-                {t}
-              </span>
+            {(Array.isArray(tag) ? tag : [tag]).map((t) => (
+              <Pill key={t.text} variant={t.variant}>{t.text}</Pill>
             ))}
           </div>
           <button

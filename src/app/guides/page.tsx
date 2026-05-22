@@ -1,4 +1,5 @@
 import { FiLogIn } from "react-icons/fi"
+import type { CardResourceProps } from "@/components/card-resource/types"
 import { CardCaption } from "@/components/card-caption"
 import GuideContent from "@/components/guides/content"
 import { GuideContentMobile } from "@/components/guides/content-mobile"
@@ -33,11 +34,14 @@ const guidesGeneral = {
   ],
 }
 
-const guidesInfoMobile = [
+const guidesInfoMobile: CardResourceProps[] = [
   {
     title: "Chimica Generale",
     description: "È un esame che tratta tutti argomenti già visti in qualsiasi liceo scientifico...",
-    tag: "Teorico",
+    tag: {
+      text: "Teorico",
+      variant: "primary"
+    },
     author: "Giulia M.",
     date: "Ott 24",
     href: "/guides",
@@ -45,7 +49,16 @@ const guidesInfoMobile = [
   {
     title: "Chimica",
     description: "È un esame che tratta tutti argomenti già visti in qualsiasi liceo scientifico...",
-    tag: ["Teorico", "2 Anno"],
+    tag: [
+      {
+        text: "Teorico",
+        variant: "primary"
+      },
+      {
+        text: "2 Anno",
+        variant: "secondary"
+      }
+    ],
     author: "Giulia M.",
     date: "Ott 24",
     href: "/guides",
@@ -53,7 +66,10 @@ const guidesInfoMobile = [
   {
     title: "Generale",
     description: "È un esame che tratta tutti argomenti già visti in qualsiasi liceo scientifico...",
-    tag: "Teorico",
+    tag: {
+      text: "Teorico",
+      variant: "primary"
+    },
     author: "Giulia M.",
     date: "Ott 24",
     href: "/guides",

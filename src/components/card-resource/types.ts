@@ -1,5 +1,12 @@
+import type { PillVariant } from "@/components/ui/pill"
+
+export type PillTag = {
+  text: string
+  variant: PillVariant
+}
+
 export type CardResourceProps = {
-  tag: string | string[]
+  tag: PillTag | PillTag[]
   title: string
   description: string
   author: string
