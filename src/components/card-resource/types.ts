@@ -12,6 +12,6 @@ export type CardResourceProps = {
   author: string
   date: string
   bookmarked?: boolean
-  href?: string
+  href: string
   className?: string
 }

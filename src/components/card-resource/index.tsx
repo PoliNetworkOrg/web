@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 import { FiBookmark } from "react-icons/fi"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
@@ -21,7 +22,7 @@ export function CardResource({
 
   return (
     <Card className={cn("h-fit w-full p-6", className)}>
-      <a href={href} className="flex h-full flex-col">
+      <Link href={href} className="flex h-full flex-col">
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             {(Array.isArray(tag) ? tag : [tag]).map((t) => (
@@ -32,6 +33,7 @@ export function CardResource({
           </div>
           <button
             type="button"
+            aria-label={bookmarked ? "Remove bookmark" : "Add bookmark"}
             onClick={(e) => {
               e.preventDefault()
               setBookmarked((b) => !b)
@@ -51,7 +53,7 @@ export function CardResource({
           <span>{author}</span>
           <span>{date}</span>
         </div>
-      </a>
+      </Link>
     </Card>
   )
 }
