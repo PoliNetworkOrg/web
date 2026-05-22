@@ -37,7 +37,10 @@ export function CardResource({
           </div>
           <button
             type="button"
-            onClick={(e) => { e.preventDefault(); setBookmarked((b) => !b) }}
+            onClick={(e) => {
+              e.preventDefault()
+              setBookmarked((b) => !b)
+            }}
             className={cn(bookmarked ? "text-text-secondary" : "text-text-secondary hover:text-text-primary")}
           >
             <FiBookmark className={cn("h-5 w-5", bookmarked && "fill-current")} />

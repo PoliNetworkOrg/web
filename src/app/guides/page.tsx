@@ -1,7 +1,7 @@
 import { FiLogIn } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
-import { CardResource } from "@/components/card-resource"
 import GuideContent from "@/components/guides/content"
+import { GuideContentMobile } from "@/components/guides/content-mobile"
 import { Hero } from "@/components/ui/hero"
 
 const guidesInfo = {
@@ -82,12 +82,7 @@ export default function GuidePage() {
       <div className="flex w-full flex-col items-center gap-32 sm:hidden">
         <CardCaption {...guidesMobile} />
 
-        <div className="flex w-full flex-col gap-5 text-start">
-          <p className="typo-title-large">Guide Generali</p>
-          {guidesInfoMobile.map((guide) => (
-            <CardResource key={guide.title} {...guide} />
-          ))}
-        </div>
+        <GuideContentMobile title="Guide Generali" guides={guidesInfoMobile} />
       </div>
     </section>
   )
