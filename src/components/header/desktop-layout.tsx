@@ -21,10 +21,12 @@ export const DesktopLayout = () => {
   const customHoverEffectClass = "hover:underline focus:underline decoration-1 decoration-blue-secondary "
 
   return (
-    <Glass className="fixed inset-x-6 top-10 z-20 mx-auto box-border max-w-261.25 rounded-full px-17.5 py-5">
+    <div className="fixed inset-x-6 top-10 z-20 mx-auto box-border max-w-261.25 rounded-full">
+      <Glass className="pointer-events-none absolute inset-0 rounded-full" />
+
       <NavigationMenu
         viewport={false}
-        className="top-0 isolate flex max-w-full shrink-0 items-stretch bg-card [&>div]:w-full"
+        className="relative top-0 flex max-w-full shrink-0 items-stretch bg-transparent px-17.5 py-5 [&>div]:w-full"
       >
         <NavigationMenuList className="flex w-full justify-between">
           <NavigationMenuLink asChild className={cn("p-0 py-0.75", removeDefaultHoverEffectClass)}>
@@ -106,6 +108,6 @@ export const DesktopLayout = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-    </Glass>
+    </div>
   )
 }
