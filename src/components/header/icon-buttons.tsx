@@ -12,7 +12,7 @@ export const IconButtonsMobile = () => (
   <>
     {iconConfigs.map(({ key, label, Icon, onClick }) => (
       <button key={key} type="button" onClick={onClick} aria-label={label}>
-        <Icon size={24} className="text-black" />
+        <Icon className="size-[24px] text-text-primary" />
       </button>
     ))}
   </>
@@ -23,7 +23,7 @@ export const IconButtonsDesktop = ({ removeHoverClass }: { removeHoverClass: str
     {iconConfigs.map(({ key, label, Icon, onClick }) => (
       <NavigationMenuLink key={key} asChild className={cn("p-0", removeHoverClass)}>
         <button type="button" onClick={onClick} aria-label={label}>
-          <Icon size={20} className="size-[20px] text-text-primary" />
+          <Icon className="size-[20px] text-text-primary" />
         </button>
       </NavigationMenuLink>
     ))}
