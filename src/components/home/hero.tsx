@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { FiNavigation, FiSearch, FiUserPlus } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -26,9 +27,11 @@ export function Hero() {
       </div>
 
       <div className="flex items-end justify-end">
-        <Button variant="tertiaryBlur" size="lg" className="text-blue-secondary">
-          <FiUserPlus />
-          Sei una matricola?
+        <Button variant="tertiaryBlur" size="lg" className="text-blue-secondary" asChild>
+          <Link href="/matricole">
+            <FiUserPlus />
+            Sei una matricola?
+          </Link>
         </Button>
       </div>
     </section>
