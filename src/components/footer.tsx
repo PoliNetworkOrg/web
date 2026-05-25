@@ -167,6 +167,5 @@ export function Footer() {
         </div>**/}
       </div>
     </footer>
-    //TODO: dropdowns
   )
 }
