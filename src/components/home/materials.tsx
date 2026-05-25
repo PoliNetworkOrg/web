@@ -1,12 +1,16 @@
 import { FiArrowUpRight, FiBook, FiBookOpen, FiClipboard, FiFileText, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { Button } from "@/components/ui/button"
+import { CardCaption } from "../card-caption"
 
 const featuredCards = [
   {
     title: "Carica",
     description:
       "Hai appunti, dispense o temi d'esame che vuoi condividere? Caricali qui! Il tuo contributo é prezioso per aiutare migliaia di colleghi con materiale aggiornato!",
+    caption:
+      "Hai appunti, dispense o temi d'esame che vuoi condividere? Caricali qui! Il tuo contributo è prezioso per aiutare migliaia di colleghi con materiale aggiornato!",
+
     icon: FiUploadCloud,
     size: "lg",
     href: "#",
@@ -14,6 +18,8 @@ const featuredCards = [
   {
     title: "Visualizza",
     description:
+      "Cerca cio che ti serve per il tuo prossimo esame. Naviga tra i corsi di studio e trova facilmente appunti, esercizi e dispense condivisi da altri studenti come te.",
+    caption:
       "Cerca cio che ti serve per il tuo prossimo esame. Naviga tra i corsi di studio e trova facilmente appunti, esercizi e dispense condivisi da altri studenti come te.",
     icon: FiBookOpen,
     size: "lg",
@@ -30,11 +36,18 @@ const quickLinks = [
 export function Materials() {
   return (
     <section className="mx-auto flex max-w-400 flex-col-reverse gap-24 p-11 py-28 sm:px-20 2xl:flex-row 2xl:items-start 2xl:gap-32">
-      <div className="flex grow flex-col gap-5 sm:gap-6 2xl:gap-8 2xl:pt-44">
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-12 2xl:gap-20">
-          {/* TODO sotto sm usare le altre card fatte da Diubi */}
+      <div className="flex grow flex-col gap-4 sm:gap-6 2xl:gap-8 2xl:pt-44">
+
+        {/* Desktop Cards */}
+        <div className="hidden gap-4 sm:grid sm:grid-cols-2 sm:gap-12 2xl:gap-20">
           {featuredCards.map((card) => (
             <CardIcon key={card.title} {...card} className="h-full" />
+          ))}
+        </div>
+        {/* Mobile Cards */}
+        <div className="flex flex-col items-center gap-4 sm:hidden">
+          {featuredCards.map((card) => (
+            <CardCaption key={card.title} {...card} className="h-full w-fit" />
           ))}
         </div>
 
