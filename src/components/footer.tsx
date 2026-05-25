@@ -101,7 +101,7 @@ export function Footer() {
 
       <div className="flex w-full justify-between gap-8 max-md:flex-col max-md:items-center max-md:gap-24 md:mx-auto md:max-w-7xl md:px-8">
         <div className="flex w-full flex-col gap-8 max-md:gap-16 md:order-2 md:max-w-sm">
-          <div id="talkwithus" className="w-full">
+          <div id="talkwithus" className="max-md:mx-auto max-md:text-center md:w-full">
             <h3 className="typo-label-extralarge md:typo-headline-small">Talk with us</h3>
             <div id="emails" className="typo-body-medium md:typo-body-large">
               <div id="collabs" className="my-4">
