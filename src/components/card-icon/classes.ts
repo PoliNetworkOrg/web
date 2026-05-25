@@ -1,7 +1,7 @@
 import type { SizeClassMap } from "./types"
 
 export const ICON_SIZE_CLASSES: SizeClassMap = {
-  compact: "h-8 w-8",
+  compact: "h-12 w-12",
   xs: "h-10 w-10",
   sm: "h-14 w-14",
   md: "h-32 w-32",
@@ -9,7 +9,7 @@ export const ICON_SIZE_CLASSES: SizeClassMap = {
 }
 
 export const CARD_PADDING_WITHOUT_DESCRIPTION: SizeClassMap = {
-  compact: "p-3",
+  compact: "p-6",
   xs: "p-3",
   sm: "px-8 py-4",
   md: "p-8",
@@ -17,7 +17,7 @@ export const CARD_PADDING_WITHOUT_DESCRIPTION: SizeClassMap = {
 }
 
 export const CARD_PADDING_WITH_DESCRIPTION: SizeClassMap = {
-  compact: "px-6 py-8",
+  compact: "p-8",
   xs: "p-8",
   sm: "p-8",
   md: "p-8",
@@ -33,7 +33,7 @@ export const CONTENT_GAP_CLASSES: SizeClassMap = {
 }
 
 export const TITLE_SIZE_CLASSES: SizeClassMap = {
-  compact: "typo-headline-small",
+  compact: "typo-headline-medium",
   xs: "typo-label-large",
   sm: "typo-headline-medium",
   md: "typo-headline-medium",

@@ -17,17 +17,17 @@ const resources = [
 export function MatricoleIntro() {
   return (
     <section className="flex min-h-screen w-full flex-col items-center px-6 pt-40 pb-16 sm:px-10">
-      <div className="mx-auto flex w-full max-w-275 flex-col items-center">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center">
         <div className="flex w-full max-w-200 flex-col items-center gap-6 text-center">
-          <h1 className="typo-display-large md:typo-display-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+          <h1 className="typo-display-large md:typo-display-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-8 text-transparent">
             Matricole
           </h1>
-          <p className="typo-title-large md:typo-headline-small w-full max-w-135 text-text-primary">
+          <p className="typo-title-large md:typo-headline-small w-full text-text-primary">
             Ecco una raccolta curata di risorse utili, guide e strumenti per supportare il tuo percorso.
           </p>
         </div>
 
-        <div className="mt-30 grid w-full max-w-205 gap-6 md:grid-cols-2">
+        <div className="mt-30 grid w-full gap-6 md:grid-cols-2">
           {resources.map((resource) => (
             <CardIcon key={resource.title} {...resource} align="start" className="h-full min-h-50" size="compact" />
           ))}

@@ -69,7 +69,7 @@ export function CardIcon(props: CardIconProps) {
               <p
                 className={cn(
                   "text-left text-text-primary",
-                  isCompactDescriptionCard ? "typo-body-small max-w-60" : "typo-body-medium max-w-sm"
+                  isCompactDescriptionCard ? "typo-body-large max-w-60" : "typo-body-medium max-w-sm"
                 )}
               >
                 {description}
