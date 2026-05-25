@@ -155,7 +155,7 @@ export function Footer() {
       </div>
 
       <div className="typo-body-small md:typo-body-large mx-auto mt-36 flex w-full items-center justify-center gap-4 text-center text-text-secondary md:mb-12 md:max-w-7xl md:justify-between md:px-8 md:text-left">
-        <p id="copyright">PoliNetwork 2016-2026 © All rights reserved</p>
+        <p id="copyright">PoliNetwork 2016-{new Date().getFullYear()} © All rights reserved</p>
         {/**<div id="select-language">
           <DropdownButton
             placeholder="Select language"
