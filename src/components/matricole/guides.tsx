@@ -1,5 +1,17 @@
-import { FiBook, FiDollarSign, FiMap, FiRadio } from "react-icons/fi"
+import {
+  FiBell,
+  FiBook,
+  FiDollarSign,
+  FiHome,
+  FiMap,
+  FiMonitor,
+  FiRadio,
+  FiShoppingCart,
+  FiUserCheck,
+  FiUsers,
+} from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
+import { CardGroup } from "../card-group"
 
 const guides = [
   {
@@ -29,6 +41,46 @@ const guides = [
   },
 ] as const
 
+const hub = {
+  title: "Telegram Hub",
+  description:
+    "Unisiciti alla più grande rete di studenti del Poli su Telegram. Gruppi specifici per ogni esigenza, dai libri alla ricerca della casa.",
+  cards: [
+    {
+      title: "Generale",
+      icon: FiBell,
+    },
+    {
+      title: "Matricole",
+      icon: FiUserCheck,
+    },
+    {
+      title: "Ripetizioni",
+      icon: FiUsers,
+    },
+    {
+      title: "PoliBook",
+      icon: FiBook,
+    },
+    {
+      title: "DSU",
+      icon: FiDollarSign,
+    },
+    {
+      title: "Mercatino",
+      icon: FiShoppingCart,
+    },
+    {
+      title: "Case",
+      icon: FiHome,
+    },
+    {
+      title: "Consigli PC",
+      icon: FiMonitor,
+    },
+  ],
+}
+
 export function MatricoleGuides() {
   return (
     <section className="flex min-h-screen w-full flex-col items-center px-6 sm:px-10">
@@ -43,6 +95,13 @@ export function MatricoleGuides() {
             ))}
           </div>
         </div>
+        <CardGroup title={hub.title} description={hub.description} className="w-full">
+          <div className="grid w-full grid-cols-2 gap-6 md:grid-cols-4">
+            {hub.cards.map((card) => (
+              <CardIcon key={card.title} {...card} align="inline" size="inline" />
+            ))}
+          </div>
+        </CardGroup>
       </div>
     </section>
   )
