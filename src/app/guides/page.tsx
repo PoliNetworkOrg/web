@@ -1,9 +1,15 @@
+import type { Metadata } from "next"
 import { FiLogIn } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
 import type { CardResourceProps } from "@/components/card-resource/types"
 import GuideContent from "@/components/guides/content"
 import { GuideContentMobile } from "@/components/guides/content-mobile"
 import { Hero } from "@/components/ui/hero"
+
+export const metadata: Metadata = {
+  title: "Guide",
+  description: "Una raccolta di guide realizzate dai membri del Network",
+}
 
 const guidesInfo = {
   title: "Le guide per Ingegneria Informatica",
