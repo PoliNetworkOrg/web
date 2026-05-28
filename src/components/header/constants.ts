@@ -9,8 +9,8 @@ export const headerMenuItems: HeaderMenuItem[] = [
       { title: "Guides", href: "#", icon: FiChevronRight },
       { title: "Computer Recs", href: "#", icon: FiChevronRight },
       { title: "FAQs", href: "#", icon: FiChevronRight },
-      { title: "Rankings", href: "#", icon: FiArrowUpRight },
-      { title: "Tol Project", href: "#", icon: FiArrowUpRight },
+      { title: "Rankings", href: "https://rankings.polinetwork.org/", icon: FiArrowUpRight },
+      { title: "Tol Project", href: "https://tol.polinetwork.org/", icon: FiArrowUpRight },
     ],
   },
   {
