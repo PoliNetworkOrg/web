@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
 import { Button } from "@/components/ui/button"
@@ -8,19 +9,23 @@ const featuredCards = [
     title: "WeBeepSync",
     caption:
       "WeBeep Sync è una semplice app, user-friendly e senza compromessi che serve per tenere sincronizzati tutti i tuoi file di WeBeep.",
+    href: "https://github.com/toto04/webeep-sync",
   },
   {
     title: "PolimiSchedule",
     caption:
       "Genera un file iCalendar (.ics) a partire dal formato testuale dell’Orario delle lezioni. Possibilità di importare su Google Calendar.",
+    href: "https://github.com/jacopo-j/polimi-schedule",
   },
   {
     title: "WiFiLinux",
     caption: "Scarica ed esegui lo script Python per attivare la connessione permanente al WiFi Polimi",
+    href: "https://github.com/PoliNetworkOrg/WiFiLinux",
   },
   {
     title: "The TOL Project",
     caption: "Un simulatore gratuito del test di ammissione per le aspiranti matricole di Ingegneria del PoliMi.",
+    href: "https://tol.polinetwork.org/",
   },
 ] as const
 
@@ -40,9 +45,11 @@ export function Projects() {
           Progetti e strumenti nati dalla community del Politecnico per semplificare la vita universitaria e promuovere
           l’innovazione. Hai un’idea? Proponila, trova collaboratori e realizza la tua soluzione.
         </p>
-        <Button variant="primary" size="lg" className="w-fit">
-          Esplora la raccolta
-          <FiArrowUpRight />
+        <Button variant="primary" size="lg" className="w-fit" asChild>
+          <Link href="/projects" className="flex items-center gap-2">
+            Esplora la raccolta
+            <FiArrowUpRight />
+          </Link>
         </Button>
       </div>
 
