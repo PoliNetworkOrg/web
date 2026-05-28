@@ -22,6 +22,5 @@ export function CardGroupHeader({
         </p>
       )}
     </div>
-
   )
 }

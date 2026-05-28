@@ -4,7 +4,7 @@ import { guides, hub, materiali, techTools } from "./constants"
 
 export function MatricoleGuides() {
   return (
-    <section className="flex min-h-screen w-full flex-col items-center px-6 sm:px-10">
+    <section className="flex w-full flex-col items-center px-6 sm:px-10">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 text-start sm:gap-13">
         <h3 className="typo-title-large sm:typo-display-medium">Guide e Utility</h3>
 

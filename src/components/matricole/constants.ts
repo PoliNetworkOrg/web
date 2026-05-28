@@ -48,7 +48,7 @@ export const guides = [
   },
   {
     title: "News",
-    description: "Le ultime novità dagli studenti del Politecnico..",
+    description: "Le ultime novità dagli studenti del Politecnico.",
     icon: FiRadio,
   },
   {
@@ -61,7 +61,7 @@ export const guides = [
 export const hub = {
   title: "Telegram Hub",
   description:
-    "Unisiciti alla più grande rete di studenti del Poli su Telegram. Gruppi specifici per ogni esigenza, dai libri alla ricerca della casa.",
+    "Unisciti alla più grande rete di studenti del Poli su Telegram. Gruppi specifici per ogni esigenza, dai libri alla ricerca della casa.",
   cards: [
     {
       title: "Generale",
