@@ -19,7 +19,7 @@ export const headerMenuItems: HeaderMenuItem[] = [
       { title: "Groups", href: "#", icon: FiChevronRight },
       { title: "Projects", href: "#", icon: FiChevronRight },
       { title: "Freshman", href: "/matricole", icon: FiChevronRight },
-      { title: "Associations", href: "#", icon: FiChevronRight },
+      { title: "Associations", href: "/associations", icon: FiChevronRight },
     ],
   },
   {
