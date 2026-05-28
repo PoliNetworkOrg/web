@@ -1,6 +1,7 @@
 import { FiCrop } from "react-icons/fi"
 import { CardCaption } from "../card-caption"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "../ui/carousel"
+import { Hero } from "../ui/hero"
 
 const communityCards = [
   {
@@ -36,14 +37,7 @@ const communityCards = [
 export function CommunityNews() {
   return (
     <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-48 px-4 py-49">
-      <div className="flex flex-col items-center gap-6">
-        <h2 className="typo-display-large sm:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent sm:py-14">
-          Projects
-        </h2>
-        <p className="typo-title-large sm:typo-headline-small max-w-xl text-center">
-          Esplora e contribuisci ai progetti degli studenti
-        </p>
-      </div>
+      <Hero title="Projects" description=" Esplora e contribuisci ai progetti degli studenti" />
 
       <div className="mx-auto flex w-full flex-col gap-14 sm:w-fit">
         <div className="flex flex-col items-center gap-2 sm:items-start">
