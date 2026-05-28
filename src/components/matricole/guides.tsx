@@ -1,85 +1,6 @@
-import {
-  FiBell,
-  FiBook,
-  FiDollarSign,
-  FiHome,
-  FiMap,
-  FiMonitor,
-  FiRadio,
-  FiShoppingCart,
-  FiUserCheck,
-  FiUsers,
-} from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { CardGroup } from "../card-group"
-
-const guides = [
-  {
-    title: "Guida della matricola",
-    description: "Dalla prima iscrizione alla vita in campus: il manuale completo per ogni nuovo studente.",
-    icon: FiBook,
-  },
-  {
-    title: "Mappa Microonde",
-    description: "Dove scaldare il pranzo nei vari campus.",
-    icon: FiMap,
-  },
-  {
-    title: "Corsi a Scelta",
-    description: "Consigli su come comporre il Piano di Studi.",
-    icon: FiBook,
-  },
-  {
-    title: "News",
-    description: "Le ultime novità dagli studenti del Politecnico..",
-    icon: FiRadio,
-  },
-  {
-    title: "Borsa di Studio",
-    description: "Requisiti e scadenze per le agevolazioni.",
-    icon: FiDollarSign,
-  },
-] as const
-
-const hub = {
-  title: "Telegram Hub",
-  description:
-    "Unisiciti alla più grande rete di studenti del Poli su Telegram. Gruppi specifici per ogni esigenza, dai libri alla ricerca della casa.",
-  cards: [
-    {
-      title: "Generale",
-      icon: FiBell,
-    },
-    {
-      title: "Matricole",
-      icon: FiUserCheck,
-    },
-    {
-      title: "Ripetizioni",
-      icon: FiUsers,
-    },
-    {
-      title: "PoliBook",
-      icon: FiBook,
-    },
-    {
-      title: "DSU",
-      icon: FiDollarSign,
-    },
-    {
-      title: "Mercatino",
-      icon: FiShoppingCart,
-    },
-    {
-      title: "Case",
-      icon: FiHome,
-    },
-    {
-      title: "Consigli PC",
-      icon: FiMonitor,
-    },
-  ],
-}
+import { guides, hub, materiali, techTools } from "./constants"
 
 export function MatricoleGuides() {
   return (
@@ -102,6 +23,23 @@ export function MatricoleGuides() {
             ))}
           </div>
         </CardGroup>
+
+        <div className="grid w-full gap-6 md:grid-cols-2">
+          <CardIcon key={materiali.title} {...materiali} align="start" className="h-full" size="compact" />
+          <CardGroup
+            title={techTools.title}
+            description={techTools.description}
+            icon={techTools.icon}
+            className="w-full"
+            horizontal
+          >
+            <div className="flex flex-col gap-6">
+              {techTools.cards.map((card) => (
+                <CardIcon key={card.title} {...card} align="inline" size="inline" />
+              ))}
+            </div>
+          </CardGroup>
+        </div>
       </div>
     </section>
   )

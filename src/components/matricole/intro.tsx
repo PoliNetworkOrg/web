@@ -1,18 +1,5 @@
-import { FiBarChart2, FiMonitor } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
-
-const resources = [
-  {
-    title: "Graduatorie",
-    description: "Risultati storici e soglie di accesso per i vari corsi di laurea.",
-    icon: FiBarChart2,
-  },
-  {
-    title: "Progetto TOL",
-    description: "Informazioni sul test di ingresso (TOL) e su come prepararsi al meglio.",
-    icon: FiMonitor,
-  },
-] as const
+import { resources } from "./constants"
 
 export function MatricoleIntro() {
   return (

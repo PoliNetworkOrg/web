@@ -1,15 +1,22 @@
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
+import { CardGroupHeader } from "./header"
 import type { CardGroupProps } from "./types"
 
-export function CardGroup({ title, description, children, className }: CardGroupProps) {
+export function CardGroup({ icon, title, description, children, horizontal = false, className }: CardGroupProps) {
   return (
     <Glass className={cn("w-full rounded-rectangles border-white/50 bg-background-blur p-12", className)}>
-      <h3 className="typo-headline-small sm:typo-headline-medium bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
-        {title}
-      </h3>
-      {description && <p className="typo-body-large mt-6 w-full max-w-lg text-text-primary">{description}</p>}
-      <div className="mt-12">{children}</div>
+      {horizontal ? (
+        <div className="flex flex-col gap-12 md:flex-row md:items-center">
+          <CardGroupHeader icon={icon} title={title} description={description} horizontal />
+          <div className="flex-1">{children}</div>
+        </div>
+      ) : (
+        <>
+          <CardGroupHeader icon={icon} title={title} description={description} />
+          <div className="mt-12">{children}</div>
+        </>
+      )}
     </Glass>
   )
 }
