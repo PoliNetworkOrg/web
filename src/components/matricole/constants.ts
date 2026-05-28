@@ -37,7 +37,7 @@ export const guides = [
     title: "Guida della matricola",
     description: "Dalla prima iscrizione alla vita in campus: il manuale completo per ogni nuovo studente.",
     icon: FiBook,
-    href: "/guides"
+    href: "/guides",
   },
   {
     title: "Mappa Microonde",
@@ -69,42 +69,42 @@ export const hub = {
     {
       title: "Generale",
       icon: FiBell,
-      href: "https://t.me/PoliGruppo"
+      href: "https://t.me/PoliGruppo",
     },
     {
       title: "Matricole",
       icon: FiUserCheck,
-      href: "https://t.me/polimatricole"
+      href: "https://t.me/polimatricole",
     },
     {
       title: "Ripetizioni",
       icon: FiUsers,
-      href: "https://t.me/joinchat/l10OF3vF6fEzOTRk"
+      href: "https://t.me/joinchat/l10OF3vF6fEzOTRk",
     },
     {
       title: "PoliBook",
       icon: FiBook,
-      href: "https://t.me/joinchat/6nmuXXhAOr1mYTJk"
+      href: "https://t.me/joinchat/6nmuXXhAOr1mYTJk",
     },
     {
       title: "DSU",
       icon: FiDollarSign,
-      href: "https://t.me/joinchat/4kO9DtAiTVM0NTU0"
+      href: "https://t.me/joinchat/4kO9DtAiTVM0NTU0",
     },
     {
       title: "Mercatino",
       icon: FiShoppingCart,
-      href: "https://t.me/mercatinopolimi"
+      href: "https://t.me/mercatinopolimi",
     },
     {
       title: "Case",
       icon: FiHome,
-      href: "https://t.me/joinchat/jmpNOitFNFw1MzJk"
+      href: "https://t.me/joinchat/jmpNOitFNFw1MzJk",
     },
     {
       title: "Consigli PC",
       icon: FiMonitor,
-      href: "https://t.me/joinchat/oD7NGpl0W6VjYmI0"
+      href: "https://t.me/joinchat/oD7NGpl0W6VjYmI0",
     },
   ],
 }
