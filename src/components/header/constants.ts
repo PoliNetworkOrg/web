@@ -5,10 +5,10 @@ export const headerMenuItems: HeaderMenuItem[] = [
   {
     title: "Resources",
     menu: [
-      { title: "Materials", href: "#", icon: FiChevronRight },
-      { title: "Guides", href: "#", icon: FiChevronRight },
-      { title: "Computer Recs", href: "#", icon: FiChevronRight },
-      { title: "FAQs", href: "#", icon: FiChevronRight },
+      { title: "Materials", href: "/materials", icon: FiChevronRight },
+      { title: "Guides", href: "/guides", icon: FiChevronRight },
+      { title: "Computer Recs", href: "/computer-recs", icon: FiChevronRight },
+      { title: "FAQs", href: "/faqs", icon: FiChevronRight },
       { title: "Rankings", href: "https://rankings.polinetwork.org/", icon: FiArrowUpRight },
       { title: "Tol Project", href: "https://tol.polinetwork.org/", icon: FiArrowUpRight },
     ],
@@ -16,7 +16,7 @@ export const headerMenuItems: HeaderMenuItem[] = [
   {
     title: "Community",
     menu: [
-      { title: "Groups", href: "#", icon: FiChevronRight },
+      { title: "Groups", href: "/groups", icon: FiChevronRight },
       { title: "Projects", href: "/projects", icon: FiChevronRight },
       { title: "Freshman", href: "/matricole", icon: FiChevronRight },
       { title: "Associations", href: "/associations", icon: FiChevronRight },
@@ -25,9 +25,9 @@ export const headerMenuItems: HeaderMenuItem[] = [
   {
     title: "About",
     menu: [
-      { title: "About us", href: "#", icon: FiChevronRight },
-      { title: "Join us", href: "#", icon: FiChevronRight },
-      { title: "Contact us", href: "#", icon: FiChevronRight },
+      { title: "About us", href: "/about", icon: FiChevronRight },
+      { title: "Join us", href: "/join", icon: FiChevronRight },
+      { title: "Contact us", href: "/contact", icon: FiChevronRight },
     ],
   },
 ]
