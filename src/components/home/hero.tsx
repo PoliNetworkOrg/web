@@ -1,7 +1,5 @@
 import Link from "next/link"
 import { FiNavigation, FiUserPlus } from "react-icons/fi"
-import { Input } from "@/components/ui/input"
-import { Glass } from "../glass"
 import { Button } from "../ui/button"
 import { GroupSearch } from "./group-search"
 

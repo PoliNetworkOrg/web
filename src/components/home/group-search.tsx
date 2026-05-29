@@ -30,7 +30,7 @@ export function GroupSearch() {
   useEffect(() => {
     setResults(null)
     if (query) debouncedSearch.maybeExecute(query)
-  }, [query])
+  }, [query, debouncedSearch.maybeExecute])
 
   return (
     <div className="relative w-full max-w-lg">
@@ -52,9 +52,9 @@ export function GroupSearch() {
           <div className="max-h-70 overflow-y-auto">
             {results && results.count > 0 ? (
               results?.groups
-                .filter((g) => g.link)
+                .filter((g): g is typeof g & { link: string } => !!g.link)
                 .map((g) => (
-                  <Link key={g.telegramId} href={g.link!} target="_blank">
+                  <Link key={g.telegramId} href={g.link} target="_blank">
                     <div className="flex items-center justify-start gap-3 px-4 py-3 text-start hover:bg-background-blur">
                       <Image key="telegram" src={telegram} alt="Telegram" className="size-5" />
                       {g.title}
