@@ -1,7 +1,9 @@
 import Link from "next/link"
-import { FiNavigation, FiSearch, FiUserPlus } from "react-icons/fi"
-import { Button } from "@/components/ui/button"
+import { FiNavigation, FiUserPlus } from "react-icons/fi"
 import { Input } from "@/components/ui/input"
+import { Glass } from "../glass"
+import { Button } from "../ui/button"
+import { GroupSearch } from "./group-search"
 
 export function Hero() {
   return (
@@ -11,14 +13,7 @@ export function Hero() {
           Trova gruppi, risorse e supporto tra gli studenti del Polimi
         </h1>
 
-        <Input
-          icon={<FiSearch className="h-5 w-5" />}
-          type="text"
-          placeholder="Find your group"
-          aria-label="Find your group"
-          containerClassName="max-w-lg"
-          className="typo-body-medium"
-        />
+        <GroupSearch />
 
         <Button variant="primary" size="lg">
           More groups
