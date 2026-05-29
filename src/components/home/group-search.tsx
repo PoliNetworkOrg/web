@@ -55,14 +55,14 @@ export function GroupSearch() {
                 .filter((g) => g.link)
                 .map((g) => (
                   <Link key={g.telegramId} href={g.link!} target="_blank">
-                    <div className="flex items-center justify-start gap-3 px-4 py-3 hover:bg-background-blur">
+                    <div className="flex items-center justify-start gap-3 px-4 py-3 text-start hover:bg-background-blur">
                       <Image key="telegram" src={telegram} alt="Telegram" className="size-5" />
                       {g.title}
                     </div>
                   </Link>
                 ))
             ) : (
-              <div className="flex items-center justify-center px-4 py-3">
+              <div className="flex h-12 items-center justify-center px-4">
                 {debouncedSearch.state.isLoading ? (
                   <Spinner className="fill-blue-primary text-blue-primary/20" />
                 ) : (
