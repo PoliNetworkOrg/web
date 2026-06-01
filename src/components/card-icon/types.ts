@@ -1,7 +1,8 @@
 import type { GradientIconType } from "@/components/gradient-icon"
 
-export type CardSize = "xs" | "sm" | "md" | "lg"
+export type CardSize = "compact" | "xs" | "sm" | "md" | "lg"
 export type CardBreakpoint = "base" | "sm" | "md" | "lg"
+export type CardAlign = "center" | "start"
 
 export type SizeClassMap = Record<CardSize, string>
 
@@ -18,6 +19,7 @@ export type SharedCardProps = {
   title: string
   icon: GradientIconType
   size?: ResponsiveCardSize
+  align?: CardAlign
   href?: string
   hoverEffect?: boolean
   className?: string
