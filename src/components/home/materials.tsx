@@ -41,8 +41,7 @@ export function Materials() {
         {/* Mobile Cards */}
         <div className="flex flex-col items-center gap-4 sm:hidden">
           {featuredCards.map((card) => (
-            <CardCaption key={card.title}
-              {...card} caption={card.description} className="h-full w-fit" />
+            <CardCaption key={card.title} {...card} caption={card.description} className="h-full w-fit" />
           ))}
         </div>
 
