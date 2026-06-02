@@ -83,7 +83,7 @@ export function Collection() {
       </div>
 
       <div className="hidden flex-col gap-12 sm:flex">
-        <div className="grid grid-cols-2 justify-items-center gap-6 xl:grid-cols-4">
+        <div className="grid 1xl:grid-cols-4 grid-cols-2 justify-items-center gap-6">
           {collectionCards.map((card) => (
             <CardCaption key={card.title} {...card} />
           ))}
