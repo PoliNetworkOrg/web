@@ -20,9 +20,11 @@ export function Hero() {
           className="typo-body-medium"
         />
 
-        <Button variant="primary" size="lg">
-          More groups
-          <FiNavigation />
+        <Button variant="primary" size="lg" asChild>
+          <Link href="/groups" className="flex items-center gap-2">
+            More groups
+            <FiNavigation />
+          </Link>
         </Button>
       </div>
 

@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { FiArrowUpRight, FiBook, FiBookOpen, FiClipboard, FiFileText, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { Button } from "@/components/ui/button"
@@ -58,9 +59,11 @@ export function Materials() {
           Il più grande archivio didattico degli studenti del Politecnico. Trova appunti, dispense ed esami, oppure
           carica i tuoi file per far crescere la community.
         </p>
-        <Button variant="primary" size="lg" className="w-fit">
-          Scopri di piu
-          <FiArrowUpRight />
+        <Button variant="primary" size="lg" className="w-fit" asChild>
+          <Link href="/materials" className="flex items-center gap-2">
+            Scopri di più
+            <FiArrowUpRight />
+          </Link>
         </Button>
       </div>
     </section>
