@@ -2,6 +2,7 @@ import Link from "next/link"
 import { FiArrowUpRight, FiBook, FiBookOpen, FiClipboard, FiFileText, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { Button } from "@/components/ui/button"
+import { CardCaption } from "../card-caption"
 
 const featuredCards = [
   {
@@ -31,11 +32,17 @@ const quickLinks = [
 export function Materials() {
   return (
     <section className="mx-auto flex max-w-400 flex-col-reverse gap-24 p-11 py-28 sm:px-20 2xl:flex-row 2xl:items-start 2xl:gap-32">
-      <div className="flex grow flex-col gap-5 sm:gap-6 2xl:gap-8 2xl:pt-44">
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-12 2xl:gap-20">
-          {/* TODO sotto sm usare le altre card fatte da Diubi */}
+      <div className="flex grow flex-col gap-4 sm:gap-6 2xl:gap-8 2xl:pt-44">
+        {/* Desktop Cards */}
+        <div className="hidden gap-4 sm:grid sm:grid-cols-2 sm:gap-12 2xl:gap-20">
           {featuredCards.map((card) => (
             <CardIcon key={card.title} {...card} className="h-full" />
+          ))}
+        </div>
+        {/* Mobile Cards */}
+        <div className="flex flex-col items-center gap-4 sm:hidden">
+          {featuredCards.map((card) => (
+            <CardCaption key={card.title} {...card} caption={card.description} className="h-full w-fit" />
           ))}
         </div>
 
