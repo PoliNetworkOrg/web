@@ -8,9 +8,6 @@ const featuredCards = [
     title: "Carica",
     description:
       "Hai appunti, dispense o temi d'esame che vuoi condividere? Caricali qui! Il tuo contributo é prezioso per aiutare migliaia di colleghi con materiale aggiornato!",
-    caption:
-      "Hai appunti, dispense o temi d'esame che vuoi condividere? Caricali qui! Il tuo contributo è prezioso per aiutare migliaia di colleghi con materiale aggiornato!",
-
     icon: FiUploadCloud,
     size: "lg",
     href: "#",
@@ -18,8 +15,6 @@ const featuredCards = [
   {
     title: "Visualizza",
     description:
-      "Cerca cio che ti serve per il tuo prossimo esame. Naviga tra i corsi di studio e trova facilmente appunti, esercizi e dispense condivisi da altri studenti come te.",
-    caption:
       "Cerca cio che ti serve per il tuo prossimo esame. Naviga tra i corsi di studio e trova facilmente appunti, esercizi e dispense condivisi da altri studenti come te.",
     icon: FiBookOpen,
     size: "lg",
@@ -46,7 +41,8 @@ export function Materials() {
         {/* Mobile Cards */}
         <div className="flex flex-col items-center gap-4 sm:hidden">
           {featuredCards.map((card) => (
-            <CardCaption key={card.title} {...card} className="h-full w-fit" />
+            <CardCaption key={card.title}
+              {...card} caption={card.description} className="h-full w-fit" />
           ))}
         </div>
 
