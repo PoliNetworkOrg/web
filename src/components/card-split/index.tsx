@@ -11,11 +11,11 @@ export function CardSplit({ textPrimary, textSecondary, textSecondarySmall, clas
   return (
     <Glass
       className={cn(
-        "inline-flex max-w-full overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground",
+        "inline-flex w-67 overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground md:w-full md:max-w-full",
         className
       )}
     >
-      <div className="flex flex-col gap-10 px-10 py-5 sm:grid sm:grid-cols-[auto_auto] sm:items-center">
+      <div className="flex w-full items-center justify-center gap-10 px-6 py-5 md:px-10">
         {textPrimary ? <CardSplitPrimaryContent text={textPrimary} /> : null}
 
         {hasSecondaryContent && (
