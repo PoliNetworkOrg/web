@@ -1,3 +1,5 @@
+import Link from "next/link"
+import { FiArrowUpRight } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
 
 export function AboutUs() {
@@ -7,8 +9,11 @@ export function AboutUs() {
         PoliNetwork unisce gli studenti del Poli: gruppi, risorse e supporto, tutti in un'unica community.
       </h1>
 
-      <Button variant="primary" size="lg">
-        About us
+      <Button variant="primary" size="lg" asChild>
+        <Link href="/about" className="flex items-center gap-2">
+          About us
+          <FiArrowUpRight />
+        </Link>
       </Button>
     </section>
   )
