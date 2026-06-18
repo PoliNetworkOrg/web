@@ -1,8 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { FiBookmark } from "react-icons/fi"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { Pill } from "@/components/ui/pill"
 import { cn } from "@/lib/utils"
@@ -14,11 +12,9 @@ export function CardResource({
   description,
   author,
   date,
-  bookmarked: initialBookmarked = false,
   href,
   className,
 }: CardResourceProps) {
-  const [bookmarked, setBookmarked] = useState(initialBookmarked)
 
   return (
     <Card className={cn("h-fit w-full p-6", className)}>
@@ -31,17 +27,6 @@ export function CardResource({
               </Pill>
             ))}
           </div>
-          <button
-            type="button"
-            aria-label={bookmarked ? "Remove bookmark" : "Add bookmark"}
-            onClick={(e) => {
-              e.preventDefault()
-              setBookmarked((b) => !b)
-            }}
-            className={cn(bookmarked ? "text-text-secondary" : "text-text-secondary hover:text-text-primary")}
-          >
-            <FiBookmark className={cn("h-5 w-5", bookmarked && "fill-current")} />
-          </button>
         </div>
 
         <div className="mt-5 flex flex-1 flex-col gap-2">
