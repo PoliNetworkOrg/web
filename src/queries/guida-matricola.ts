@@ -1,12 +1,10 @@
 "use server"
 
-// TODO: sostituire questo
-const LATEST_GUIDA_MATRICOLA = {
-  version: "1.0.0",
-  publishedAt: "2025-09-01",
-  url: "/guides/guida-matricola.pdf",
-}
+import { trpc } from "@/lib/backend"
 
 export async function getLatestGuidaMatricola() {
-  return LATEST_GUIDA_MATRICOLA
+  const guide = await trpc.web.guides_matricole.getLatestGuide.query()
+  if (!guide) return null
+
+  return { version: guide.version, date: guide.date, url: guide.file }
 }
