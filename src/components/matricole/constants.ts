@@ -37,7 +37,7 @@ export const guides = [
     title: "Guida della matricola",
     description: "Dalla prima iscrizione alla vita in campus: il manuale completo per ogni nuovo studente.",
     icon: FiBook,
-    href: "/guides",
+    href: "/matricole/guida",
   },
   {
     title: "Mappa Microonde",

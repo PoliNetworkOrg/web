@@ -14,7 +14,7 @@
     "check:fix": "biome check --write --unsafe"
   },
   "dependencies": {
-    "@polinetwork/backend": "^0.15.18",
+    "@polinetwork/backend": "^0.16.4",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-separator": "^1.1.8",
