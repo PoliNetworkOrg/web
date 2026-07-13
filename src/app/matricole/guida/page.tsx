@@ -9,11 +9,17 @@ export const metadata: Metadata = {
   description: "Controlla l'ultima versione disponibile e scarica il PDF.",
 }
 
+const FALLBACK_GUIDA = {
+  version: "1.0",
+  date: "2025-09-13",
+  url: "/guida-della-matricola.pdf",
+}
+
 export default async function GuidaMatricolaPage() {
-  const guida = await getLatestGuidaMatricola()
-  const formattedDate = guida
-    ? new Intl.DateTimeFormat("it-IT", { dateStyle: "long" }).format(new Date(guida.date))
-    : null
+  const guida = (await getLatestGuidaMatricola()) ?? FALLBACK_GUIDA
+  const formattedDate = new Intl.DateTimeFormat("it-IT", { dateStyle: "long" }).format(
+    new Date(guida.date),
+  )
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-500 flex-col items-center justify-center gap-10 px-4 py-49">
@@ -25,22 +31,18 @@ export default async function GuidaMatricolaPage() {
           Controlla l&apos;ultima versione disponibile e scarica il PDF aggiornato.
         </p>
       </div>
-      {guida ? (
-        <CardSplit
-          textPrimary={guida.version}
-          textSecondary="Versione Attuale"
-          textSecondarySmall={`Rilasciata il: ${formattedDate}`}
-          action={
-            <Button asChild size="icon-lg" aria-label="Scarica l'Ultima Versione">
-              <a href={guida.url} download>
-                <FiDownload />
-              </a>
-            </Button>
-          }
-        />
-      ) : (
-        <p className="typo-body-large text-text-secondary">Nessuna guida disponibile al momento.</p>
-      )}
+      <CardSplit
+        textPrimary={guida.version}
+        textSecondary="Versione Attuale"
+        textSecondarySmall={`Rilasciata il: ${formattedDate}`}
+        action={
+          <Button asChild size="icon-lg" aria-label="Scarica l'Ultima Versione">
+            <a href={guida.url} download>
+              <FiDownload />
+            </a>
+          </Button>
+        }
+      />
     </main>
   )
 }
