@@ -17,9 +17,7 @@ const FALLBACK_GUIDA = {
 
 export default async function GuidaMatricolaPage() {
   const guida = (await getLatestGuidaMatricola()) ?? FALLBACK_GUIDA
-  const formattedDate = new Intl.DateTimeFormat("it-IT", { dateStyle: "long" }).format(
-    new Date(guida.date),
-  )
+  const formattedDate = new Intl.DateTimeFormat("it-IT", { dateStyle: "long" }).format(new Date(guida.date))
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-500 flex-col items-center justify-center gap-10 px-4 py-49">
