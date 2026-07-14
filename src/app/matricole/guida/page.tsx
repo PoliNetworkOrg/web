@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const FALLBACK_GUIDA = {
   version: "1.0",
-  date: "2025-07-14",
+  date: "2026-07-14",
   url: "/guida-della-matricola.pdf",
 }
 
