@@ -20,15 +20,15 @@ const groups = [
 export default function Home() {
   return (
     <main className="w-full">
-      <div className="flex min-h-svh flex-col items-center justify-center gap-34">
+      <div className="mx-auto flex min-h-svh flex-col items-center justify-center gap-16 px-4 py-32 md:gap-34">
         <div className="flex w-full flex-col items-center gap-5 text-center">
-          <h2 className="typo-display-large sm:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent sm:py-14">
+          <h2 className="typo-display-large md:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent md:py-14">
             Groups
           </h2>
           <GroupSearch />
         </div>
 
-        <div className="flex w-full flex-col items-center justify-center gap-4 sm:flex-row sm:gap-13">
+        <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:gap-13">
           {groups.map((group) => (
             <CardIcon
               key={group.title}
