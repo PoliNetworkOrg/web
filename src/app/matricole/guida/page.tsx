@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Controlla l'ultima versione disponibile e scarica il PDF.",
 }
 
+export const dynamic = "force-dynamic"
+
 const FALLBACK_GUIDA = {
   version: "1.0",
   date: "2026-07-14",
