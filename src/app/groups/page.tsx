@@ -6,13 +6,13 @@ const groups = [
   {
     title: "Gruppi Didattici",
     caption: "Ingegneria, Architettura, Design, e tutti i gruppi del tuo corso di studi.",
-    href: "/matricole",
+    href: "/groups/didattica",
     icon: FiBook,
   },
   {
     title: "Gruppi Extra",
     caption: "Affitti, mercatino, eventi, hobby e tutto ciò che riguarda la vita studentesca.",
-    href: "/projects",
+    href: "/groups/extra",
     icon: FiStar,
   },
 ] as const
