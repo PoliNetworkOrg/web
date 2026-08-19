@@ -13,7 +13,12 @@ const FACULTY_ICONS: Record<string, IconType> = {
 
 export function FacultyStep() {
   return (
-    <WizardShell activeStep={0} title="Seleziona la tua facoltà" caption="Troviamo il tuo gruppo partendo dalla base!">
+    <WizardShell
+      activeStep={0}
+      title="Seleziona la tua facoltà"
+      caption="Troviamo il tuo gruppo partendo dalla base!"
+      backHref="/groups"
+    >
       <div className="grid gap-4 md:grid-cols-3 md:gap-12.5">
         {FACULTIES.map((faculty) => (
           <CardIcon
