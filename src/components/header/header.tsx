@@ -21,7 +21,7 @@ export function Header() {
         <MobileLayout />
       </div>
       <div className="max-md:hidden">
-        <DesktopLayout />
+        <DesktopLayout contactVariant={pathname === "/contact"} />
       </div>
     </>
   )

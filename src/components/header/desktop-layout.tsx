@@ -16,7 +16,14 @@ import { headerMenuItems } from "./constants"
 import { IconButtonsDesktop } from "./icon-buttons"
 import { Logo } from "./logo"
 
-export const DesktopLayout = () => {
+const contactMenuItems = [
+  { title: "Resources", href: "/materials" },
+  { title: "Community", href: "/groups" },
+  { title: "About us", href: "/about" },
+  { title: "Collabora", href: "/collaborate" },
+] as const
+
+export const DesktopLayout = ({ contactVariant = false }: { contactVariant?: boolean }) => {
   const removeDefaultHoverEffectClass = "hover:bg-transparent focus:bg-transparent bg-transparent!"
   const customHoverEffectClass = "hover:underline focus-visible:underline decoration-1 decoration-blue-secondary "
 
@@ -33,68 +40,14 @@ export const DesktopLayout = () => {
             <Logo />
           </NavigationMenuLink>
 
-          {headerMenuItems.map((item) => (
-            <NavigationMenuItem key={item.title}>
-              {"menu" in item && item.menu ? (
-                <>
-                  <NavigationMenuTrigger
-                    className={cn(
-                      "typo-body-medium group h-fit p-0 font-red-hat text-text-primary [&_.lucide-chevron-down]:hidden",
-                      removeDefaultHoverEffectClass,
-                      customHoverEffectClass
-                    )}
-                    hideChevron
-                    onPointerEnter={(e) => e.preventDefault()}
-                    onPointerLeave={(e) => e.preventDefault()}
-                    onPointerMove={(e) => e.preventDefault()}
-                  >
-                    <div className="flex flex-col gap-1">
-                      <span className="typo-body-medium font-red-hat text-text-primary">{item.title}</span>
-                    </div>
-                    <FiChevronDown
-                      size={16}
-                      className="relative top-px ml-1 text-text-primary transition duration-300 group-data-[state=open]:rotate-180"
-                    />
-                  </NavigationMenuTrigger>
-
-                  <NavigationMenuContent className="-translate-x-1/2 left-1/2 mt-8.5! border-none bg-transparent p-0 shadow-none! data-[state=closed]:bg-transparent data-[state=open]:bg-transparent">
-                    <ul className="w-fit text-nowrap">
-                      <Glass>
-                        {"menu" in item &&
-                          item.menu.map((subItem) => {
-                            const Icon = subItem.icon
-                            return (
-                              <li key={subItem.title}>
-                                <NavigationMenuLink
-                                  asChild
-                                  className={cn(
-                                    "flex shrink-0 flex-row flex-nowrap items-center justify-between",
-                                    removeDefaultHoverEffectClass,
-                                    customHoverEffectClass
-                                  )}
-                                >
-                                  <Link href={subItem.href || "#"}>
-                                    <div className="flex flex-col gap-1">
-                                      <span className="typo-body-medium font-red-hat text-text-primary">
-                                        {subItem.title}
-                                      </span>
-                                    </div>
-                                    <Icon size={24} className="text-text-primary" />
-                                  </Link>
-                                </NavigationMenuLink>
-                              </li>
-                            )
-                          })}
-                      </Glass>
-                    </ul>
-                  </NavigationMenuContent>
-                </>
-              ) : (
-                <NavigationMenuLink asChild>
+          {contactVariant ? (
+            <NavigationMenuItem className="flex items-center gap-10">
+              {contactMenuItems.map((item) => (
+                <NavigationMenuLink key={item.title} asChild>
                   <Link
-                    href={"href" in item ? item.href || "#" : "#"}
+                    href={item.href}
                     className={cn(
-                      "typo-body-medium font-red-hat text-text-primary",
+                      "typo-body-medium flex flex-col items-start font-red-hat text-text-primary after:h-px after:w-1 after:bg-blue-secondary",
                       removeDefaultHoverEffectClass,
                       customHoverEffectClass
                     )}
@@ -102,12 +55,85 @@ export const DesktopLayout = () => {
                     {item.title}
                   </Link>
                 </NavigationMenuLink>
-              )}
+              ))}
             </NavigationMenuItem>
-          ))}
+          ) : (
+            headerMenuItems.map((item) => (
+              <NavigationMenuItem key={item.title}>
+                {"menu" in item && item.menu ? (
+                  <>
+                    <NavigationMenuTrigger
+                      className={cn(
+                        "typo-body-medium group h-fit p-0 font-red-hat text-text-primary [&_.lucide-chevron-down]:hidden",
+                        removeDefaultHoverEffectClass,
+                        customHoverEffectClass
+                      )}
+                      hideChevron
+                      onPointerEnter={(e) => e.preventDefault()}
+                      onPointerLeave={(e) => e.preventDefault()}
+                      onPointerMove={(e) => e.preventDefault()}
+                    >
+                      <div className="flex flex-col gap-1">
+                        <span className="typo-body-medium font-red-hat text-text-primary">{item.title}</span>
+                      </div>
+                      <FiChevronDown
+                        size={16}
+                        className="relative top-px ml-1 text-text-primary transition duration-300 group-data-[state=open]:rotate-180"
+                      />
+                    </NavigationMenuTrigger>
+
+                    <NavigationMenuContent className="-translate-x-1/2 left-1/2 mt-8.5! border-none bg-transparent p-0 shadow-none! data-[state=closed]:bg-transparent data-[state=open]:bg-transparent">
+                      <ul className="w-fit text-nowrap">
+                        <Glass>
+                          {"menu" in item &&
+                            item.menu.map((subItem) => {
+                              const Icon = subItem.icon
+                              return (
+                                <li key={subItem.title}>
+                                  <NavigationMenuLink
+                                    asChild
+                                    className={cn(
+                                      "flex shrink-0 flex-row flex-nowrap items-center justify-between",
+                                      removeDefaultHoverEffectClass,
+                                      customHoverEffectClass
+                                    )}
+                                  >
+                                    <Link href={subItem.href || "#"}>
+                                      <div className="flex flex-col gap-1">
+                                        <span className="typo-body-medium font-red-hat text-text-primary">
+                                          {subItem.title}
+                                        </span>
+                                      </div>
+                                      <Icon size={24} className="text-text-primary" />
+                                    </Link>
+                                  </NavigationMenuLink>
+                                </li>
+                              )
+                            })}
+                        </Glass>
+                      </ul>
+                    </NavigationMenuContent>
+                  </>
+                ) : (
+                  <NavigationMenuLink asChild>
+                    <Link
+                      href={"href" in item ? item.href || "#" : "#"}
+                      className={cn(
+                        "typo-body-medium font-red-hat text-text-primary",
+                        removeDefaultHoverEffectClass,
+                        customHoverEffectClass
+                      )}
+                    >
+                      {item.title}
+                    </Link>
+                  </NavigationMenuLink>
+                )}
+              </NavigationMenuItem>
+            ))
+          )}
 
           <NavigationMenuItem className="flex items-center gap-5">
-            <IconButtonsDesktop removeHoverClass={removeDefaultHoverEffectClass} />
+            <IconButtonsDesktop removeHoverClass={removeDefaultHoverEffectClass} contactVariant={contactVariant} />
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
