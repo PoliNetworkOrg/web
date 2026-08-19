@@ -1,4 +1,5 @@
 import { Glass } from "@/components/glass"
+import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { BasicCardMedia } from "./basic-card-media"
 import { DescriptionCardMedia } from "./description-card-media"
@@ -10,6 +11,7 @@ import { getAlignmentClasses, getCardPaddingClasses, getContentGapClasses, getTi
 export function CardIcon(props: CardIconProps) {
   const { title, icon, size = "md", href, hoverEffect = false, align = "center", className } = props
   const description = "description" in props ? props.description : undefined
+  const cta = "cta" in props ? props.cta : undefined
   const Root = href ? "a" : "div"
   const isDescriptionCard = Boolean(description)
   const isInlineAligned = align === "inline"
@@ -78,6 +80,12 @@ export function CardIcon(props: CardIconProps) {
                 </p>
               )}
             </div>
+
+            {cta && (
+              <div className="mt-auto flex w-full justify-end pt-4">
+                <span className={cn(buttonVariants({ variant: "tertiary", size: "lg" }))}>{cta}</span>
+              </div>
+            )}
           </div>
         )}
       </Root>
