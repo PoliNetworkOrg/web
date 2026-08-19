@@ -15,7 +15,7 @@ export function GroupsResult({ school, level, course }: { school: string; level:
   if (!faculty || !currentCourse || !currentLevel) notFound()
 
   return (
-    <main className="mx-auto flex min-h-svh w-full min-w-0 max-w-7xl flex-col gap-8 px-6 py-50 md:gap-0">
+    <main className="mx-auto flex min-h-svh w-full min-w-0 max-w-7xl flex-col gap-8 px-6 py-52 md:gap-0">
       <header className="relative flex flex-col items-center gap-1 md:static md:flex-row md:items-center md:gap-4">
         <Link
           href={stepHref({ school, level })}

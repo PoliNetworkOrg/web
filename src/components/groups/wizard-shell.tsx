@@ -31,7 +31,7 @@ export function WizardShell({
   const router = useRouter()
 
   return (
-    <main className="flex min-h-svh w-full min-w-0 flex-col items-center px-6 py-50 md:py-16">
+    <main className="flex min-h-svh w-full min-w-0 flex-col items-center px-6 py-50 md:py-52">
       <Glass className="relative m-auto flex min-h-146 w-full max-w-7xl flex-col gap-10 border-0 bg-transparent p-4 backdrop-blur-none md:h-157 md:gap-15 md:rounded-rectangles md:border md:border-white/50 md:bg-background-blur md:px-25 md:py-12.5 md:backdrop-blur-md">
         <div className="flex shrink-0 items-end gap-4 md:gap-6">
           <ButtonIcon
