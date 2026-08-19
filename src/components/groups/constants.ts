@@ -7,7 +7,7 @@ export const FACULTIES: Faculty[] = [
 ]
 
 export const LEVELS: Level[] = [
-  { slug: "triennale", name: "Triennale (o Ciclo Unico)" },
+  { slug: "triennale", name: "Triennale" },
   { slug: "magistrale", name: "Magistrale" },
 ]
 

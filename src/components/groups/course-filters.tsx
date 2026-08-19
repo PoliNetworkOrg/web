@@ -41,20 +41,20 @@ export function CourseFilters({ campuses, languages }: { campuses: string[]; lan
     if (value === ALL) params.delete(key)
     else params.set(key, value)
     const query = params.toString()
-    router.push(query ? `${pathname}?${query}` : pathname)
+    router.replace(query ? `${pathname}?${query}` : pathname)
   }
 
   return (
     <div className="flex flex-wrap gap-3">
-      <div className="w-56">
+      <div className="min-w-32 flex-1 md:w-56 md:flex-none">
         <FilterSelect
-          label="Tutti i campus"
+          label="Tutti i Campus"
           value={searchParams.get("campus") ?? ALL}
           options={campuses}
           onChange={(value) => update("campus", value)}
         />
       </div>
-      <div className="w-56">
+      <div className="min-w-32 flex-1 md:w-56 md:flex-none">
         <FilterSelect
           label="Tutte le lingue"
           value={searchParams.get("lang") ?? ALL}

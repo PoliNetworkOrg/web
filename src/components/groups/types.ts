@@ -5,10 +5,7 @@ export type Faculty = { slug: string; name: string }
 export type Level = { slug: string; name: string }
 export type Course = { slug: string; name: string; location: Campus; language: Language }
 
-export type WizardParams = {
-  school?: string
-  level?: string
-  course?: string
+export type CourseSearchParams = {
   campus?: string
   lang?: string
 }

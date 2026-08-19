@@ -27,4 +27,5 @@ export type SharedCardProps = {
 
 export type CardIconProps = SharedCardProps & {
   description?: string
+  cta?: string
 }
