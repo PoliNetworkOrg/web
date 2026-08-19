@@ -34,15 +34,15 @@
   position: relative;
   width: 100%;
   height: 1.4rem;
-  background: #101c33;
+  background: var(--color-background);
   border-radius: 999px;
   overflow: hidden;
-  border: 1px solid #1053a6;
+  border: 1px solid var(--color-blue-primary);
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #1053a6, #3f8bff);
+  background: linear-gradient(90deg, var(--color-blue-secondary), var(--color-blue-primary));
   transition: width 0.25s ease-out;
 }
 
@@ -54,7 +54,7 @@
   justify-content: center;
   font-size: 0.75rem;
   font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  color: var(--color-text-primary);
 }
 
 .goldenBanner {
@@ -83,14 +83,14 @@
 .canvas {
   display: block;
   max-width: 100%;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-rectangles);
   background: #050b18;
   touch-action: none;
   outline: none;
 }
 
 .canvas:focus-visible {
-  box-shadow: 0 0 0 3px #3f8bff;
+  box-shadow: 0 0 0 3px var(--color-blue-primary);
 }
 
 .overlay {
@@ -104,23 +104,9 @@
   padding: 1rem;
   text-align: center;
   background: rgba(5, 11, 24, 0.85);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-rectangles);
   font-size: 1rem;
-}
-
-.button {
-  padding: 0.5rem 1.25rem;
-  border: none;
-  border-radius: 999px;
-  background: #1053a6;
-  color: #fff;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.button:hover {
-  background: #3f8bff;
+  color: var(--color-text-accent-darkbg);
 }
 
 .dpad {
@@ -152,10 +138,10 @@
 }
 
 .dpad button {
-  border: 1px solid #1053a6;
-  border-radius: 0.5rem;
-  background: #101c33;
-  color: #eaf1ff;
+  border: 1px solid var(--color-blue-primary);
+  border-radius: var(--radius-images);
+  background: var(--color-background);
+  color: var(--color-text-primary);
   font-size: 1.1rem;
   touch-action: manipulation;
 }

@@ -1,4 +1,5 @@
 import { MAZES } from "./mazes"
+import { PALETTE } from "./palette"
 import { type CellType, CFU_VALUE_BY_CELL, type Direction, type EngineState, type GhostState, type Vec2 } from "./types"
 
 export const TILE = 24 // px logici per tile a scala 1
@@ -6,7 +7,7 @@ const PLAYER_SPEED = 6.2 // tile/sec
 const GOLDEN_SESSION_MS = 7000
 const GOLDEN_WARNING_MS = 2000
 const STARTING_LIVES = 3
-const GHOST_COLORS = ["#e0455f", "#f2a640", "#3fb6a8", "#a76bf0"]
+const GHOST_COLORS = [PALETTE.red, PALETTE.green, PALETTE.blueSecondary, PALETTE.blueTertiary]
 
 let popupIdCounter = 0
 
@@ -105,7 +106,7 @@ export function createLevelState(
     id: i,
     pos: { x: spawn.x, y: spawn.y },
     dir: "left",
-    color: GHOST_COLORS[i % GHOST_COLORS.length] ?? "#e0455f",
+    color: GHOST_COLORS[i % GHOST_COLORS.length] ?? PALETTE.red,
     vulnerable: false,
     vulnerableUntilMs: 0,
     spawn,

@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
+import { Button } from "@/components/ui/button"
 import styles from "./CFUGame.module.css"
 import {
   advanceToNextYear,
@@ -357,18 +358,18 @@ export default function CFUGame({ className, targetCFU = 180, logoSrc, onLevelCo
         {hud.paused && hud.phase === "playing" && (
           <div className={styles.overlay}>
             <p>Pausa</p>
-            <button type="button" className={styles.button} onClick={togglePause}>
+            <Button type="button" onClick={togglePause}>
               Riprendi
-            </button>
+            </Button>
           </div>
         )}
 
         {hud.phase === "intro" && (
           <div className={styles.overlay}>
             <p>Mangia i CFU e arriva a 180 per laurearti!</p>
-            <button type="button" className={styles.button} onClick={beginFromIntro}>
+            <Button type="button" onClick={beginFromIntro}>
               Inizia
-            </button>
+            </Button>
           </div>
         )}
 
@@ -377,18 +378,18 @@ export default function CFUGame({ className, targetCFU = 180, logoSrc, onLevelCo
             <p>
               Anno superato! {hud.cfu} / {targetCFU} CFU
             </p>
-            <button type="button" className={styles.button} onClick={continueToNextYear}>
+            <Button type="button" onClick={continueToNextYear}>
               Continua
-            </button>
+            </Button>
           </div>
         )}
 
         {hud.phase === "gameOver" && (
           <div className={styles.overlay}>
             <p>Fuori corso…</p>
-            <button type="button" className={styles.button} onClick={restartGame}>
+            <Button type="button" onClick={restartGame}>
               Riprova
-            </button>
+            </Button>
           </div>
         )}
 
@@ -397,9 +398,9 @@ export default function CFUGame({ className, targetCFU = 180, logoSrc, onLevelCo
             <p>
               🎓 Dottore! {hud.cfu} CFU — punteggio {hud.score}
             </p>
-            <button type="button" className={styles.button} onClick={restartGame}>
+            <Button type="button" onClick={restartGame}>
               Rigioca
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -423,16 +424,16 @@ export default function CFUGame({ className, targetCFU = 180, logoSrc, onLevelCo
 
       <div className={styles.legend}>
         <span>
-          <span className={styles.legendDot} style={{ background: "#bcd4ff" }} /> 1 CFU
+          <span className={styles.legendDot} style={{ background: "var(--color-blue-tertiary)" }} /> 1 CFU
         </span>
         <span>
-          <span className={styles.legendDot} style={{ background: "#8fb8ff" }} /> 3 CFU
+          <span className={styles.legendDot} style={{ background: "var(--color-blue-secondary)" }} /> 3 CFU
         </span>
         <span>
-          <span className={styles.legendDot} style={{ background: "#ffd66b" }} /> 6 CFU
+          <span className={styles.legendDot} style={{ background: "var(--color-green)" }} /> 6 CFU
         </span>
         <span>
-          <span className={styles.legendDot} style={{ background: "#ff8a5c" }} /> 12 CFU
+          <span className={styles.legendDot} style={{ background: "var(--color-red)" }} /> 12 CFU
         </span>
         <span>☕ sessione d&apos;oro</span>
       </div>

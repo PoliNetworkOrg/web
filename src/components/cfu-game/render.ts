@@ -1,15 +1,16 @@
 import { dirAngle, TILE } from "./engine"
+import { PALETTE } from "./palette"
 import type { EngineState } from "./types"
 import { CFU_VALUE_BY_CELL } from "./types"
 
-const WALL_COLOR = "#1053A6"
+const WALL_COLOR = PALETTE.bluePrimary
 const BG_COLOR = "#050b18"
 const PELLET_COLORS: Record<string, string> = {
-  ".": "#bcd4ff",
-  ":": "#8fb8ff",
-  o: "#ffd66b",
-  O: "#ffb347",
-  "@": "#ff8a5c",
+  ".": PALETTE.blueTertiary,
+  ":": PALETTE.blueSecondary,
+  o: PALETTE.green,
+  O: PALETTE.red,
+  "@": PALETTE.red,
 }
 
 export type RenderOptions = {
@@ -85,7 +86,7 @@ function drawPellets(ctx: CanvasRenderingContext2D, state: EngineState, tSec: nu
 
       if (showValue) {
         const value = CFU_VALUE_BY_CELL[cell]
-        ctx.fillStyle = "#0a1428"
+        ctx.fillStyle = PALETTE.textPrimary
         ctx.font = `bold ${TILE * 0.34}px system-ui, sans-serif`
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
@@ -105,7 +106,7 @@ function drawGhost(
   dirY: number
 ) {
   const r = TILE * 0.42
-  ctx.fillStyle = vulnerable ? "#2f4fd0" : color
+  ctx.fillStyle = vulnerable ? PALETTE.grey : color
   ctx.beginPath()
   ctx.arc(x, y - r * 0.1, r, Math.PI, 0)
   ctx.lineTo(x + r, y + r * 0.6)
@@ -127,7 +128,7 @@ function drawGhost(
     ctx.beginPath()
     ctx.arc(x + side * eyeOffsetX, y + eyeOffsetY, r * 0.22, 0, Math.PI * 2)
     ctx.fill()
-    ctx.fillStyle = vulnerable ? "#fff" : "#1a2a55"
+    ctx.fillStyle = vulnerable ? "#fff" : PALETTE.textPrimary
     ctx.beginPath()
     ctx.arc(x + side * eyeOffsetX + pupilShiftX, y + eyeOffsetY + pupilShiftY, r * 0.11, 0, Math.PI * 2)
     ctx.fill()
@@ -162,7 +163,7 @@ function drawPlayer(
   if (logoImg) {
     ctx.drawImage(logoImg, cx - r, cy - r, r * 2, r * 2)
   } else {
-    ctx.fillStyle = "#1053A6"
+    ctx.fillStyle = PALETTE.bluePrimary
     ctx.fillRect(cx - r, cy - r, r * 2, r * 2)
   }
   ctx.restore()
