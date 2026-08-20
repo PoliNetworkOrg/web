@@ -16,7 +16,7 @@ function extractMazeBlocks(source) {
   // Estrae ogni array `[...]_ROWS = [ ... ];` dal file TypeScript senza
   // dover compilare il progetto: sufficiente per dati puramente statici.
   const blocks = []
-  const regex = /const\s+(\w+_ROWS)\s*=\s*\[([\s\S]*?)\];/g
+  const regex = /const\s+(\w+_ROWS)\s*=\s*\[([\s\S]*?)\]/g
   let match
   while ((match = regex.exec(source))) {
     const [, name, body] = match
