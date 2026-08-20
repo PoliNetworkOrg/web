@@ -71,10 +71,26 @@ function isAligned(pos: Vec2): boolean {
   return Math.abs(pos.x - Math.round(pos.x)) < eps && Math.abs(pos.y - Math.round(pos.y)) < eps
 }
 
+function isTunnelWrap(grid: CellType[][], tileY: number, nx: number, ny: number): boolean {
+  if (ny !== tileY) return false
+  const row = grid[tileY]
+  if (!row) return false
+  const width = row.length
+  if (nx < 0) return row[0] === "T"
+  if (nx >= width) return row[width - 1] === "T"
+  return false
+}
+
 function canMove(grid: CellType[][], tileX: number, tileY: number, dir: Direction): boolean {
   if (dir === "none") return false
   const v = DIR_VECTORS[dir]
-  return isWalkable(grid, tileX + v.x, tileY + v.y)
+  const nx = tileX + v.x
+  const ny = tileY + v.y
+  // Le celle "T" sui bordi laterali sono tunnel: uscire dalla griglia in
+  // quel punto è un movimento valido, non un muro (isWalkable fallirebbe
+  // perché la cella successiva è fuori dai limiti dell'array).
+  if (isTunnelWrap(grid, tileY, nx, ny)) return true
+  return isWalkable(grid, nx, ny)
 }
 
 function wrapTunnel(grid: CellType[][], pos: Vec2): Vec2 {

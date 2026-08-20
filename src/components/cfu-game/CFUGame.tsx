@@ -253,10 +253,14 @@ export default function CFUGame({ className, targetCFU = 180, logoSrc, onLevelCo
     }
   }, [])
 
-  // Tastiera: solo quando l'area di gioco ha il focus, per non bloccare lo
-  // scroll della pagina che ospita il gioco.
+  // Tastiera: attiva su tutta la pagina (non serve cliccare sul riquadro),
+  // ma si disattiva se l'utente sta scrivendo in un campo editabile altrove.
   useEffect(() => {
-    const isGameFocused = () => wrapperRef.current?.contains(document.activeElement) ?? false
+    const isEditableTarget = (el: Element | null) => {
+      if (!el) return false
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT") return true
+      return (el as HTMLElement).isContentEditable
+    }
 
     const keyToDir: Record<string, Direction> = {
       ArrowUp: "up",
@@ -274,7 +278,7 @@ export default function CFUGame({ className, targetCFU = 180, logoSrc, onLevelCo
     }
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (!isGameFocused()) return
+      if (isEditableTarget(document.activeElement)) return
       const dir = keyToDir[e.key]
       if (dir) {
         e.preventDefault()
