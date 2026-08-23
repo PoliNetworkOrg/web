@@ -3,6 +3,7 @@ import { AboutSection } from "@/components/collabora/about-section"
 import { AssociationSection } from "@/components/collabora/association-section"
 import { CollaborationSection } from "@/components/collabora/collaboration-section"
 import { CompanySection } from "@/components/collabora/company-section"
+import { ContactSection } from "@/components/collabora/contact-section"
 import { Hero } from "@/components/ui/hero"
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function CollaboraPage() {
       <CollaborationSection />
       <AssociationSection />
       <CompanySection />
+      <ContactSection />
     </main>
   )
 }
