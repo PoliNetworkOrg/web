@@ -1,4 +1,3 @@
-
 export function CollaborationSection() {
   return (
     <section className="flex w-full flex-row gap-8 px-36">
@@ -7,11 +6,13 @@ export function CollaborationSection() {
 
         <div className="flex flex-col gap-3 text-start">
           <p className="typo-title-large sm:typo-headline-small">
-            Collaborare con noi significa <span className="text-blue-primary">accedere a questa community in modo diretto</span>. Non siamo un canale
-            pubblicitario e non accettiamo promozioni commerciali generiche: ogni collaborazione viene
-            valutata in termini di valore concreto per gli studenti del Politecnico
-            <span className="typo-headline-extrasmall"> (e nel rispetto dei
-              nostri valori sanciti sul nostro statuto).
+            Collaborare con noi significa{" "}
+            <span className="text-blue-primary">accedere a questa community in modo diretto</span>. Non siamo un canale
+            pubblicitario e non accettiamo promozioni commerciali generiche: ogni collaborazione viene valutata in
+            termini di valore concreto per gli studenti del Politecnico
+            <span className="typo-headline-extrasmall">
+              {" "}
+              (e nel rispetto dei nostri valori sanciti sul nostro statuto).
             </span>
           </p>
           <p className="typo-title-large sm:typo-headline-small">
