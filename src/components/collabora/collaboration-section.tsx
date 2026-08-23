@@ -1,7 +1,7 @@
 
 export function CollaborationSection() {
   return (
-    <section className="flex w-full flex-col gap-8 px-36">
+    <section className="flex w-full flex-row gap-8 px-36">
       <div className="flex max-w-[959] flex-col gap-6">
         <h2 className="typo-display-large sm:typo-display-medium text-start">Cosa possiamo fare insieme?</h2>
 

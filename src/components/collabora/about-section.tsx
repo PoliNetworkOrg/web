@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 
 export function AboutSection() {
   return (
-    <section className="flex w-full flex-col gap-8 px-36">
+    <section className="flex w-full flex-row gap-8 px-36">
       <div className="flex max-w-3xl flex-col gap-6">
         <h2 className="typo-display-large sm:typo-display-medium text-start">Chi siamo?</h2>
 
