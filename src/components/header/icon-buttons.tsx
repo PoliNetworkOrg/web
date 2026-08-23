@@ -1,5 +1,4 @@
 import { FiGlobe, FiMoon, FiUser } from "react-icons/fi"
-import { MdTranslate } from "react-icons/md"
 import { NavigationMenuLink } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 
@@ -19,24 +18,12 @@ export const IconButtonsMobile = () => (
   </>
 )
 
-export const IconButtonsDesktop = ({
-  removeHoverClass,
-  contactVariant = false,
-}: {
-  removeHoverClass: string
-  contactVariant?: boolean
-}) => (
+export const IconButtonsDesktop = ({ removeHoverClass }: { removeHoverClass: string }) => (
   <>
-    {(contactVariant
-      ? [
-          { key: "translate", label: "Language", Icon: MdTranslate, onClick: () => console.log("Language clicked") },
-          { key: "moon", label: "Theme", Icon: FiMoon, onClick: () => console.log("Moon icon clicked") },
-        ]
-      : iconConfigs
-    ).map(({ key, label, Icon, onClick }) => (
+    {iconConfigs.map(({ key, label, Icon, onClick }) => (
       <NavigationMenuLink key={key} asChild className={cn("p-0", removeHoverClass)}>
         <button type="button" onClick={onClick} aria-label={label}>
-          <Icon className={cn("text-text-primary", contactVariant ? "size-6" : "size-5")} />
+          <Icon className="size-[20px] text-text-primary" />
         </button>
       </NavigationMenuLink>
     ))}
