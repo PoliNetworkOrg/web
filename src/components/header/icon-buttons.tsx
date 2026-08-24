@@ -1,9 +1,8 @@
-import { FiGlobe, FiMoon, FiUser } from "react-icons/fi"
+import { FiGlobe, FiMoon } from "react-icons/fi"
 import { NavigationMenuLink } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 
 const iconConfigs = [
-  { key: "user", label: "User profile", Icon: FiUser, onClick: () => console.log("User icon clicked") },
   { key: "globe", label: "Language", Icon: FiGlobe, onClick: () => console.log("Globe icon clicked") },
   { key: "moon", label: "Theme", Icon: FiMoon, onClick: () => console.log("Moon icon clicked") },
 ]
