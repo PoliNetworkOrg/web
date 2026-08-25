@@ -14,7 +14,6 @@ export function ButtonIcon({
   children: ReactNode
   iconPosition?: "left" | "right"
   size: ButtonSizes
-  className?: string
 }) {
   return (
     <Button variant={variant} size={size}>
