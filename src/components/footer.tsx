@@ -3,6 +3,7 @@ import { FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi"
 import discord from "@/assets/icons/discord.svg"
 import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "./card-multiple-icons"
+import Link from "next/link"
 
 export function Footer() {
   return (
@@ -26,16 +27,16 @@ export function Footer() {
 
       <div className="mx-auto mt-11 grid max-w-5xl grid-flow-row-dense grid-cols-[max-content_max-content] justify-around gap-y-7 **:h-fit md:mt-25 md:gap-y-11">
         <div className="typo-title-medium md:typo-headline-small contents text-text-primary underline *:col-start-1">
-          <a href="/">Unisciti a noi!</a>
-          <a href="/">Contattaci</a>
-          <a href="/">
+          <Link href="#">Unisciti a noi!</Link>
+          <Link href="#">Contattaci</Link>
+          <Link href="#">
             Qualche problema? <br /> Segnalalo!
-          </a>
+          </Link>
         </div>
         <div className="typo-body-small md:typo-body-large contents text-text-secondary *:col-start-2">
-          <a href="/">Terms & conditions</a>
-          <a href="/">Privacy policy</a>
-          <a href="/">Cookie policy</a>
+          <Link href="#">Terms & conditions</Link>
+          <Link href="#">Privacy policy</Link>
+          <Link href="#">Cookie policy</Link>
         </div>
       </div>
 
