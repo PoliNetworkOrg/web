@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { FAQsPage } from "@/components/matricole/faqs"
+import { MatricoleGuides } from "@/components/matricole/guides"
 import { MatricoleIntro } from "@/components/matricole/intro"
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export default function MatricolePage() {
   return (
     <main className="w-full">
       <MatricoleIntro />
+      <MatricoleGuides />
       <FAQsPage />
     </main>
   )

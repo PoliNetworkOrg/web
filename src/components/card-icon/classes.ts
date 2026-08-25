@@ -6,6 +6,7 @@ export const ICON_SIZE_CLASSES: SizeClassMap = {
   sm: "h-14 w-14",
   md: "h-32 w-32",
   lg: "h-44 w-44",
+  inline: "h-6 w-6",
 }
 
 export const CARD_PADDING_WITHOUT_DESCRIPTION: SizeClassMap = {
@@ -14,6 +15,7 @@ export const CARD_PADDING_WITHOUT_DESCRIPTION: SizeClassMap = {
   sm: "px-8 py-4",
   md: "p-8",
   lg: "p-8",
+  inline: "p-6",
 }
 
 export const CARD_PADDING_WITH_DESCRIPTION: SizeClassMap = {
@@ -22,6 +24,7 @@ export const CARD_PADDING_WITH_DESCRIPTION: SizeClassMap = {
   sm: "p-8",
   md: "p-8",
   lg: "p-8",
+  inline: "p-6",
 }
 
 export const CONTENT_GAP_CLASSES: SizeClassMap = {
@@ -30,6 +33,7 @@ export const CONTENT_GAP_CLASSES: SizeClassMap = {
   sm: "gap-2",
   md: "gap-6",
   lg: "gap-6",
+  inline: "gap-4",
 }
 
 export const TITLE_SIZE_CLASSES: SizeClassMap = {
@@ -38,4 +42,14 @@ export const TITLE_SIZE_CLASSES: SizeClassMap = {
   sm: "typo-headline-medium",
   md: "typo-headline-medium",
   lg: "typo-headline-medium",
+  inline: "typo-title-large",
+}
+
+export const INLINE_CONTAINER_SIZE_CLASSES: SizeClassMap = {
+  compact: "h-12 w-12",
+  xs: "h-10 w-10",
+  sm: "h-12 w-12",
+  md: "h-14 w-14",
+  lg: "h-16 w-16",
+  inline: "h-10 w-10",
 }

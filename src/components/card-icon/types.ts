@@ -1,8 +1,8 @@
 import type { GradientIconType } from "@/components/gradient-icon"
 
-export type CardSize = "compact" | "xs" | "sm" | "md" | "lg"
+export type CardSize = "compact" | "xs" | "sm" | "md" | "lg" | "inline"
 export type CardBreakpoint = "base" | "sm" | "md" | "lg"
-export type CardAlign = "center" | "start"
+export type CardAlign = "center" | "start" | "inline"
 
 export type SizeClassMap = Record<CardSize, string>
 

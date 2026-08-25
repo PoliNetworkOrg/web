@@ -18,7 +18,7 @@ import { Logo } from "./logo"
 
 export const DesktopLayout = () => {
   const removeDefaultHoverEffectClass = "hover:bg-transparent focus:bg-transparent bg-transparent!"
-  const customHoverEffectClass = "hover:underline focus:underline decoration-1 decoration-blue-secondary "
+  const customHoverEffectClass = "hover:underline focus-visible:underline decoration-1 decoration-blue-secondary "
 
   return (
     <div className="fixed inset-x-6 top-10 z-20 mx-auto box-border max-w-261.25 rounded-full">
@@ -44,6 +44,9 @@ export const DesktopLayout = () => {
                       customHoverEffectClass
                     )}
                     hideChevron
+                    onPointerEnter={(e) => e.preventDefault()}
+                    onPointerLeave={(e) => e.preventDefault()}
+                    onPointerMove={(e) => e.preventDefault()}
                   >
                     <div className="flex flex-col gap-1">
                       <span className="typo-body-medium font-red-hat text-text-primary">{item.title}</span>

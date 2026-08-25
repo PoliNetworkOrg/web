@@ -27,7 +27,13 @@ function ItemContent({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function ItemTitle({ className, ...props }: React.ComponentProps<"p">) {
-  return <p data-slot="item-title" className={cn("typo-title-medium text-blue-secondary", className)} {...props} />
+  return (
+    <p
+      data-slot="item-title"
+      className={cn("typo-label-small sm:typo-title-medium text-blue-secondary", className)}
+      {...props}
+    />
+  )
 }
 
 function ItemActions({ className, ...props }: React.ComponentProps<"div">) {

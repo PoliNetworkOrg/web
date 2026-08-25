@@ -3,10 +3,11 @@ import {
   CARD_PADDING_WITHOUT_DESCRIPTION,
   CONTENT_GAP_CLASSES,
   ICON_SIZE_CLASSES,
+  INLINE_CONTAINER_SIZE_CLASSES,
   TITLE_SIZE_CLASSES,
 } from "./classes"
 
-import type { CardBreakpoint, ResponsiveCardSize, SizeClassMap } from "./types"
+import type { CardAlign, CardBreakpoint, ResponsiveCardSize, SizeClassMap } from "./types"
 
 const BREAKPOINTS: CardBreakpoint[] = ["base", "sm", "md", "lg"]
 
@@ -60,4 +61,28 @@ export function getContentGapClasses(size: ResponsiveCardSize) {
 
 export function getTitleSizeClasses(size: ResponsiveCardSize) {
   return resolveResponsiveClasses(size, TITLE_SIZE_CLASSES)
+}
+
+export function getInlineContainerClasses(size: ResponsiveCardSize) {
+  return resolveResponsiveClasses(size, INLINE_CONTAINER_SIZE_CLASSES)
+}
+
+export function getAlignmentClasses(align: CardAlign, hasDescription: boolean) {
+  return {
+    center: {
+      contentClass: hasDescription ? "justify-between" : "items-center justify-center text-center",
+      textClass: hasDescription ? "gap-2 text-left" : "items-center text-center",
+      iconWrapClass: "justify-center",
+    },
+    start: {
+      contentClass: hasDescription ? "items-start justify-start text-left" : "items-start justify-center text-left",
+      textClass: hasDescription ? "items-start gap-5 text-left" : "items-start text-left",
+      iconWrapClass: "justify-start",
+    },
+    inline: {
+      contentClass: "",
+      textClass: "",
+      iconWrapClass: "",
+    },
+  }[align]
 }

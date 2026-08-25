@@ -1,6 +1,8 @@
+import type React from "react"
+
 export type CalloutItemProps = {
   title: string
   href: string
-  buttonText: string
+  buttonText: React.ReactNode
   className?: string
 }
