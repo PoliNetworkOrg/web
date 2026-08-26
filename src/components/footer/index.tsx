@@ -25,7 +25,7 @@ export function Footer() {
         />
       </div>
 
-      <div className="mx-auto mt-11 grid max-w-5xl grid-flow-row-dense grid-cols-[max-content_max-content] justify-around gap-y-7 **:h-fit md:mt-25 md:gap-y-11">
+      <div className="mx-auto mt-11 grid max-w-5xl grid-flow-row-dense grid-cols-[max-content_max-content] items-baseline justify-around gap-y-7 **:h-min **:w-fit md:mt-25 md:gap-y-11">
         <div className="typo-title-medium md:typo-headline-small contents text-text-primary underline *:col-start-1">
           <Link href="#">Unisciti a noi!</Link>
           <Link href="#">Contattaci</Link>
