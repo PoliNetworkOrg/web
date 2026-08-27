@@ -3,11 +3,13 @@ import associationsImage from "@/assets/images/collabora_associations.jpg"
 
 export function AssociationSection() {
   return (
-    <section className="flex w-full flex-row items-end gap-27 px-36">
-      <div className="flex flex-1 flex-col gap-6">
-        <h2 className="typo-display-large sm:typo-display-medium text-start">Sei un’associazione studentesca?</h2>
+    <section className="flex w-full flex-col items-center gap-27 px-6 text-center min-[1616px]:flex-row min-[1616px]:items-end min-[1616px]:px-36">
+      <div className="flex w-full min-w-0 flex-1 flex-col items-center gap-6 min-[1616px]:items-start min-[1616px]:text-start">
+        <h2 className="typo-display-large sm:typo-display-medium text-center min-[1616px]:text-start">
+          Sei un’associazione studentesca?
+        </h2>
 
-        <div className="flex flex-col gap-3 text-start">
+        <div className="flex flex-col gap-3 text-center min-[1616px]:text-start">
           <p className="typo-title-large sm:typo-headline-small">
             Se fai parte dell'ecosistema universitario del Politecnico di Milano o di un'altra università, possiamo
             valutare collaborazioni su
@@ -31,7 +33,7 @@ export function AssociationSection() {
         </div>
       </div>
 
-      <div className="flex flex-1 items-center justify-center">
+      <div className="flex w-full min-w-0 flex-1 items-center justify-center min-[1616px]:min-w-[611px]">
         <Image
           src={associationsImage}
           alt=""

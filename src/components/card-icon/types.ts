@@ -1,4 +1,5 @@
 import type { GradientIconType } from "@/components/gradient-icon"
+import type { ReactNode } from "react"
 
 export type CardSize = "compact" | "xs" | "sm" | "md" | "lg" | "inline"
 export type CardBreakpoint = "base" | "sm" | "md" | "lg"
@@ -26,5 +27,5 @@ export type SharedCardProps = {
 }
 
 export type CardIconProps = SharedCardProps & {
-  description?: string
+  description?: ReactNode
 }

@@ -3,8 +3,8 @@ import companyImage from "@/assets/images/collabora_company.png"
 
 export function CompanySection() {
   return (
-    <section className="flex w-full flex-row items-end gap-27 px-36">
-      <div className="flex flex-1 items-center justify-center">
+    <section className="flex w-full flex-col-reverse items-center gap-27 px-6 text-center min-[1616px]:flex-row min-[1616px]:items-end min-[1616px]:px-36">
+      <div className="flex w-full min-w-0 flex-1 items-center justify-center min-[1616px]:min-w-[611px]">
         <Image
           src={companyImage}
           alt=""
@@ -15,10 +15,10 @@ export function CompanySection() {
         />
       </div>
 
-      <div className="flex flex-1 flex-col gap-6">
-        <h2 className="typo-display-large sm:typo-display-medium text-start">Sei un’azienda?</h2>
+      <div className="flex w-full min-w-0 flex-1 flex-col items-center gap-6 min-[1616px]:items-start min-[1616px]:text-start">
+        <h2 className="typo-display-large sm:typo-display-medium text-center min-[1616px]:text-start">Sei un’azienda?</h2>
 
-        <div className="flex flex-col gap-3 text-start">
+        <div className="flex flex-col gap-3 text-center min-[1616px]:text-start">
           <p className="typo-title-large sm:typo-headline-small">
             PoliNetwork è un punto di accesso diretto alla community studentesca del Politecnico di Milano: migliaia di
             studenti di corsi tecnici e progettuali, da tutta Italia, in tutti gli anni di corso. Se hai

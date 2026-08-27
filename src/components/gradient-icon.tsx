@@ -20,7 +20,7 @@ export function GradientIcon({ icon: Icon, className }: GradientIconProps) {
           <stop offset="100%" stopColor="var(--color-blue-primary)" />
         </linearGradient>
         <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">
-          <Icon stroke="white" fill="none" size="16" />
+          <Icon color="white" size="16" />
         </mask>
       </defs>
       <rect x="0" y="0" width="16" height="16" fill={`url(#${gradientId})`} mask={`url(#${maskId})`} />

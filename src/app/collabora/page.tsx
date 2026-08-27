@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function CollaboraPage() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-700 flex-col items-center justify-center gap-20 px-4 py-49 md:gap-38">
+    <main className="mx-auto flex min-h-screen w-full max-w-700 flex-col items-center justify-center gap-60 px-4 py-49 md:gap-38">
       <Hero
         title="Collabora con Noi"
         description="Mettiamo la nostra infrastruttura e i nostri talenti a disposizione di chi ha buone idee per gli studenti del PoliMi"
