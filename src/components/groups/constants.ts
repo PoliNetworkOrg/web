@@ -1,6 +1,6 @@
-import type { Course, Faculty, Level } from "@/components/groups/types"
+import type { Course, Level, School } from "@/components/groups/types"
 
-export const FACULTIES: Faculty[] = [
+export const SCHOOLS: School[] = [
   { slug: "architettura", name: "Scuola di Architettura" },
   { slug: "design", name: "Scuola di Design" },
   { slug: "ingegneria", name: "Scuole di Ingegneria" },
@@ -19,24 +19,24 @@ export const COURSES: Record<string, Course[]> = {
   ],
 }
 
-export function getFaculty(slug: string) {
-  return FACULTIES.find((faculty) => faculty.slug === slug)
+export function getSchool(slug: string) {
+  return SCHOOLS.find((school) => school.slug === slug)
 }
 
 export function getLevel(slug: string) {
   return LEVELS.find((level) => level.slug === slug)
 }
 
-export function getCourses(faculty: string, level: string) {
-  return COURSES[`${faculty}/${level}`] ?? []
+export function getCourses(school: string, level: string) {
+  return COURSES[`${school}/${level}`] ?? []
 }
 
-export function getCourse(faculty: string, level: string, slug: string) {
-  return getCourses(faculty, level).find((course) => course.slug === slug)
+export function getCourse(school: string, level: string, slug: string) {
+  return getCourses(school, level).find((course) => course.slug === slug)
 }
 
-export function getCourseFilters(faculty: string, level: string) {
-  const courses = getCourses(faculty, level)
+export function getCourseFilters(school: string, level: string) {
+  const courses = getCourses(school, level)
   return {
     campuses: [...new Set(courses.map((course) => course.location))],
     languages: [...new Set(courses.map((course) => course.language))],

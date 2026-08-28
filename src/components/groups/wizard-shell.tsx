@@ -7,7 +7,7 @@ import { ButtonIcon } from "@/components/button-icon"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
 
-const STEPS = ["Facoltà", "Triennale/​Magistrale", "Corso"] as const
+const STEPS = ["Scuola", "Triennale/​Magistrale", "Corso"] as const
 
 type WizardShellProps = {
   activeStep: number

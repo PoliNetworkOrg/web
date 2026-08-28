@@ -1,5 +1,5 @@
-import { FacultyStep } from "@/components/groups/faculty-step"
+import { SchoolStep } from "@/components/groups/school-step"
 
 export default function DidatticaWizard() {
-  return <FacultyStep />
+  return <SchoolStep />
 }
