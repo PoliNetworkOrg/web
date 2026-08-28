@@ -4,7 +4,7 @@ import type { GradientIconType } from "../gradient-icon"
 export type AccordionAssociationItem = {
   value: string
   name: string
-  logo: StaticImageData
+  logo: StaticImageData | string
   content: React.ReactNode
   links: {
     key: string

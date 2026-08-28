@@ -1,40 +1,12 @@
 import { FiCrop } from "react-icons/fi"
+import type { ApiOutput } from "@/types"
 import { CardCaption } from "../card-caption"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "../ui/carousel"
 import { Hero } from "../ui/hero"
 
-const communityCards = [
-  {
-    title: "Title 1",
-    caption:
-      "description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua.",
-    icon: FiCrop,
-    iconPosition: "right",
-  },
-  {
-    title: "Title 2",
-    caption:
-      "description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua.",
-    icon: FiCrop,
-    iconPosition: "right",
-  },
-  {
-    title: "Title 3",
-    caption:
-      "description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua.",
-    icon: FiCrop,
-    iconPosition: "right",
-  },
-  {
-    title: "Title 4",
-    caption:
-      "description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua.",
-    icon: FiCrop,
-    iconPosition: "right",
-  },
-] as const
+type Project = ApiOutput["web"]["projects"]["getAllProjects"][number]
 
-export function CommunityNews() {
+export function CommunityNews({ projects }: { projects: Project[] }) {
   return (
     <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-48 px-4 py-49">
       <Hero title="Projects" description=" Esplora e contribuisci ai progetti degli studenti" />
@@ -49,28 +21,47 @@ export function CommunityNews() {
           </p>
         </div>
 
-        {/* Desktop Grid */}
-        <div className="hidden 1xl:grid-cols-4 justify-items-center gap-6 md:grid md:grid-cols-2">
-          {communityCards.map((card) => (
-            <CardCaption key={card.title} {...card} />
-          ))}
-        </div>
-
-        {/* Mobile Carousel */}
-        <div className="sm:hidden">
-          <Carousel className="w-full">
-            <CarouselContent>
-              {communityCards.map((card) => (
-                <CarouselItem key={card.title}>
-                  <div className="flex justify-center">
-                    <CardCaption {...card} />
-                  </div>
-                </CarouselItem>
+        {projects.length === 0 ? (
+          <p className="typo-body-large text-center sm:text-left">Nessuna novità disponibile al momento.</p>
+        ) : (
+          <>
+            {/* Desktop Grid */}
+            <div className="hidden 1xl:grid-cols-4 justify-items-center gap-6 md:grid md:grid-cols-2">
+              {projects.map((project) => (
+                <CardCaption
+                  key={project.id}
+                  title={project.title}
+                  caption={project.descriptionIt}
+                  icon={FiCrop}
+                  iconPosition="right"
+                  href={project.link ?? undefined}
+                />
               ))}
-            </CarouselContent>
-            <CarouselDots className="mt-8" />
-          </Carousel>
-        </div>
+            </div>
+
+            {/* Mobile Carousel */}
+            <div className="sm:hidden">
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {projects.map((project) => (
+                    <CarouselItem key={project.id}>
+                      <div className="flex justify-center">
+                        <CardCaption
+                          title={project.title}
+                          caption={project.descriptionIt}
+                          icon={FiCrop}
+                          iconPosition="right"
+                          href={project.link ?? undefined}
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselDots className="mt-8" />
+              </Carousel>
+            </div>
+          </>
+        )}
       </div>
     </section>
   )
