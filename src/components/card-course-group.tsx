@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { Card, CardAction, CardTitle } from "./ui/card"
 
 export const cardCourseGroupVariants = cva(
-  "flex h-fit w-full flex-row items-center gap-5 px-7.5 py-6.25 font-normal leading-6 tracking-[0.03125rem]",
+  "flex h-fit w-full min-w-0 flex-1 flex-row items-center gap-3 px-5 py-4 font-normal leading-6 tracking-[0.03125rem] sm:gap-5 sm:px-7.5 sm:py-6.25",
   {
     variants: {
       secondary: {
@@ -27,21 +27,30 @@ export function CardCourseGroup({
   hasTelegram = true,
   iconTelegram: IconTelegram = LiaTelegramPlane,
   secondary = false,
+  stacked = false,
 }: {
   groupName: string
   hasWhatsapp?: boolean
   iconWhatsApp?: IconType
   hasTelegram?: boolean
   iconTelegram?: IconType
+  stacked?: boolean
 } & VariantProps<typeof cardCourseGroupVariants>) {
-  const actionClassName = cn("rounded-full p-3.75", secondary ? "bg-[#51A2FF]" : "bg-[#74D4FF]")
+  const actionClassName = cn("rounded-full p-2 sm:p-3.75", secondary ? "bg-[#51A2FF]" : "bg-[#74D4FF]")
   return (
-    <Card className={cn(cardCourseGroupVariants({ secondary }))}>
-      <CardTitle gradient={false} className="typo-headline-small grow">
+    <Card
+      className={cn(
+        cardCourseGroupVariants({ secondary }),
+        stacked && "h-auto flex-col items-start md:h-fit md:flex-row md:items-center"
+      )}
+    >
+      <CardTitle gradient={false} className="typo-body-medium md:typo-headline-small min-w-0 grow">
         {groupName}
       </CardTitle>
-      {hasWhatsapp && <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="md" />}
-      {hasTelegram && <CardAction gradient={false} className={actionClassName} icon={IconTelegram} iconSize="md" />}
+      <div className={cn("flex items-center gap-3", stacked ? "md:contents" : "contents")}>
+        {hasWhatsapp && <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="sm" />}
+        {hasTelegram && <CardAction gradient={false} className={actionClassName} icon={IconTelegram} iconSize="sm" />}
+      </div>
     </Card>
   )
 }
