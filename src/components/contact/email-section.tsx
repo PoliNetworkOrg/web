@@ -65,11 +65,11 @@ function ContactCard({ title, description, email }: ContactCardData) {
 
 export function EmailSection() {
   return (
-    <section className="flex flex-col gap-6 px-48">
-      <h2 className="typo-headline-medium sm:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+    <section className="flex flex-col gap-6 px-6 md:px-36">
+      <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent text-center min-[1616px]:text-start">
         Hai una richiesta specifica?
       </h2>
-      <p className="typo-body-large sm:typo-headline-small text-text-primary">
+      <p className="typo-body-large pb-6 md:typo-headline-small text-text-primary text-center min-[1616px]:text-start">
         Per tutto il resto,{" "}
         <a href="mailto:info@polinetwork.org" className="text-blue-secondary hover:underline focus-visible:underline">
           puoi scriverci direttamente
@@ -79,7 +79,7 @@ export function EmailSection() {
         Qui sotto trovi i contatti in base al tipo di richiesta.
       </p>
 
-      <div className="flex flex-wrap gap-12 xl:gap-16">
+      <div className="flex flex-wrap gap-12 xl:gap-16 justify-center w-full">
         {contactCards.map((card) => (
           <ContactCard key={card.email} {...card} />
         ))}
