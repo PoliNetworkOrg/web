@@ -6,7 +6,7 @@
 
 /* Display */
 @utility typo-display-extralarge {
-  @apply font-dm-sans font-medium text-[7.5rem]/[auto];
+  @apply font-dm-sans font-medium text-[7.5rem]/[156px];
 }
 
 @utility typo-display-large {

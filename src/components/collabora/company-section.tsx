@@ -16,7 +16,9 @@ export function CompanySection() {
       </div>
 
       <div className="flex w-full min-w-0 flex-1 flex-col items-center gap-6 min-[1616px]:items-start min-[1616px]:text-start">
-        <h2 className="typo-display-large sm:typo-display-medium text-center min-[1616px]:text-start">Sei un’azienda?</h2>
+        <h2 className="typo-display-large sm:typo-display-medium text-center min-[1616px]:text-start">
+          Sei un’azienda?
+        </h2>
 
         <div className="flex flex-col gap-3 text-center min-[1616px]:text-start">
           <p className="typo-title-large sm:typo-headline-small">
