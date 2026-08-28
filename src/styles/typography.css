@@ -68,6 +68,10 @@
   @apply font-red-hat font-medium text-[0.6875rem]/[16px];
 }
 
+@utility typo-label-tiny {
+  @apply font-red-hat font-medium text-[0.59rem]/[15px];
+}
+
 /* Title */
 @utility typo-title-large {
   @apply font-poppins font-normal text-[1.375rem]/[28px];

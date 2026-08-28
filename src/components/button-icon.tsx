@@ -1,25 +1,27 @@
-import type { ReactNode } from "react"
+import type { ComponentProps } from "react"
 import type { IconType } from "react-icons"
-import { Button, type ButtonSizes } from "./ui/button"
+import { Button } from "./ui/button"
+
+type ButtonIconProps = ComponentProps<typeof Button> & {
+  icon: IconType
+  text?: string
+  iconPosition?: "left" | "right"
+  iconClassName?: string
+}
 
 export function ButtonIcon({
-  variant = "primary",
   icon: Icon,
-  children,
+  text,
   iconPosition = "left",
+  iconClassName,
   size,
-}: {
-  variant?: "primary" | "tertiary" | "tertiaryBlur"
-  icon: IconType
-  children: ReactNode
-  iconPosition?: "left" | "right"
-  size: ButtonSizes
-}) {
+  ...props
+}: ButtonIconProps) {
   return (
-    <Button variant={variant} size={size}>
-      {iconPosition === "left" && <Icon />}
-      {children}
-      {iconPosition === "right" && <Icon />}
+    <Button size={size ?? (text ? "lg" : "icon-lg")} {...props}>
+      {iconPosition === "left" && <Icon className={iconClassName} />}
+      {text}
+      {iconPosition === "right" && <Icon className={iconClassName} />}
     </Button>
   )
 }

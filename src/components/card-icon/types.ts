@@ -27,5 +27,6 @@ export type SharedCardProps = {
 }
 
 export type CardIconProps = SharedCardProps & {
+  cta?: string
   description?: ReactNode
 }

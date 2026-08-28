@@ -37,8 +37,8 @@ export function GroupSearch() {
       <Input
         icon={<FiSearch className="h-5 w-5" />}
         type="text"
-        placeholder="Find your group"
-        aria-label="Find your group"
+        placeholder="Corso, Scuola, Interessi..."
+        aria-label="Corso, Scuola, Interessi..."
         containerClassName="w-full"
         className="typo-body-medium"
         value={query}
