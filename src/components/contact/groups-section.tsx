@@ -5,15 +5,15 @@ import { Button } from "@/components/ui/button"
 
 export function GroupsSection() {
   return (
-    <section className="flex w-full flex-row items-end gap-21 px-48">
-      <div className="flex flex-1 flex-col gap-6">
-        <h2 className="typo-display-large sm:typo-display-medium text-start">
+    <section className="flex w-full flex-col items-center gap-21 px-6 sm:flex-row sm:items-end sm:px-48">
+      <div className="flex flex-col gap-6 sm:flex-1">
+        <h2 className="typo-headline-medium sm:typo-display-medium text-center sm:text-start">
           Hai mille dubbi sul Poli?
           <br />
           Siamo pronti ad aiutarti!
         </h2>
 
-        <p className="typo-title-large sm:typo-headline-small">
+        <p className="typo-body-large sm:typo-headline-small text-center sm:text-start">
           Il modo più rapido per ottenere risposte su esami, burocrazia universitaria o sulla vita al Politecnico è{" "}
           <Link href="/groups" className="text-blue-secondary hover:underline focus-visible:underline">
             entrare nel gruppo del tuo corso
@@ -26,7 +26,7 @@ export function GroupsSection() {
         </Button>
       </div>
 
-      <div className="flex flex-1 items-center justify-center">
+      <div className="flex items-center justify-center sm:flex-1">
         <Image
           src="/contact-group.png"
           alt="Foto di gruppo della community PoliNetwork"
