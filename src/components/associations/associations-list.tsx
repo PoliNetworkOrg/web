@@ -1,84 +1,55 @@
-"use client"
-
 import {
   FiFacebook,
-  FiGithub,
   FiGlobe,
   FiInstagram,
   FiLinkedin,
   FiMail,
-  FiTwitch,
+  FiMusic,
+  FiSend,
+  FiVideo,
   FiX,
   FiYoutube,
 } from "react-icons/fi"
 import AccordionAssociation from "@/components/accordion-association"
+import type { GradientIconType } from "@/components/gradient-icon"
+import type { ApiOutput } from "@/types"
 import esnLogo from "../../../public/logos/esn.svg"
 
-const accordionItems = [
-  {
-    value: "ESN",
-    name: "ESN",
-    logo: esnLogo,
-    content:
-      "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
-    links: [
-      { key: "Facebook", href: "https://www.google.com", icon: FiFacebook },
-      { key: "Instagram", href: "https://www.google.com", icon: FiInstagram },
-      { key: "Youtube", href: "https://www.google.com", icon: FiYoutube },
-      { key: "GitHub", href: "https://www.google.com", icon: FiGithub },
-      { key: "Email", href: "mailto:example@email.com", icon: FiMail },
-      { key: "LinkedIn", href: "https://www.google.com", icon: FiLinkedin },
-      { key: "Twitch", href: "https://www.google.com", icon: FiTwitch },
-      { key: "X", href: "https://www.google.com", icon: FiX },
-      { key: "Web", href: "https://www.google.com", icon: FiGlobe },
-    ],
-  },
-  {
-    value: "Lista Aperta",
-    name: "Lista Aperta",
-    logo: esnLogo,
-    content:
-      "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
-    links: [{ key: "Facebook", href: "https://www.google.com", icon: FiFacebook }],
-  },
-  {
-    value: "MESA",
-    name: "MESA",
-    logo: esnLogo,
-    content:
-      "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
-    links: [{ key: "Facebook", href: "https://www.google.com", icon: FiFacebook }],
-  },
-  {
-    value: "Polifonia",
-    name: "Polifonia",
-    logo: esnLogo,
-    content:
-      "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
-    links: [{ key: "Facebook", href: "https://www.google.com", icon: FiFacebook }],
-  },
-  {
-    value: "POLI.RADIO",
-    name: "POLI.RADIO",
-    logo: esnLogo,
-    content:
-      "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
-    links: [{ key: "Facebook", href: "https://www.google.com", icon: FiFacebook }],
-  },
-  {
-    value: "Studenti Indipendenti",
-    name: "Studenti Indipendenti",
-    logo: esnLogo,
-    content:
-      "Lorem ipsum dolor sit amet consectetur. Velit integer diam in id proin blandit fames id. Volutpat at vel risus non amet tortor. Potenti sit gravida donec lacinia et posuere faucibus. Elementum libero diam nullam ultricies mauris mauris erat porttitor. At morbi commodo nunc vulputate id odio pellentesque ipsum. Adipiscing at dictumst pulvinar mattis faucibus quisque donec convallis commodo. ",
-    links: [{ key: "Facebook", href: "https://www.google.com", icon: FiFacebook }],
-  },
+type Association = ApiOutput["web"]["associations"]["getAllAssociations"][number]
+type AssociationLinks = Association["links"]
+
+const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: GradientIconType; mailto?: boolean }[] = [
+  { key: "website", label: "Web", icon: FiGlobe },
+  { key: "email", label: "Email", icon: FiMail, mailto: true },
+  { key: "facebook", label: "Facebook", icon: FiFacebook },
+  { key: "instagram", label: "Instagram", icon: FiInstagram },
+  { key: "tiktok", label: "TikTok", icon: FiVideo },
+  { key: "x", label: "X", icon: FiX },
+  { key: "youtube", label: "Youtube", icon: FiYoutube },
+  { key: "telegram", label: "Telegram", icon: FiSend },
+  { key: "linkedin", label: "LinkedIn", icon: FiLinkedin },
+  { key: "spotify", label: "Spotify", icon: FiMusic },
 ]
 
-export function AssociationsList() {
+export function AssociationsList({ associations }: { associations: Association[] }) {
+  if (associations.length === 0) {
+    return <p className="typo-body-large text-center">Nessuna associazione disponibile al momento.</p>
+  }
+
+  const accordionItems = associations.map((association) => ({
+    value: String(association.id),
+    name: association.name,
+    logo: association.logo ?? esnLogo,
+    content: association.descriptionIt,
+    links: LINK_CONFIG.filter(({ key }) => association.links[key]).map(({ key, label, icon, mailto }) => {
+      const value = association.links[key] as string
+      return { key: label, href: mailto ? `mailto:${value}` : value, icon }
+    }),
+  }))
+
   return (
     <div className="w-full max-w-300">
-      <AccordionAssociation accordionItems={accordionItems} defaultValue="ESN - Erasmus Student Network" />
+      <AccordionAssociation accordionItems={accordionItems} defaultValue={accordionItems[0]?.value} />
     </div>
   )
 }

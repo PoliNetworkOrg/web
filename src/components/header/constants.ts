@@ -1,33 +1,38 @@
-import { FiArrowUpRight, FiChevronRight } from "react-icons/fi"
+import { FiChevronRight } from "react-icons/fi"
 import type { HeaderMenuItem } from "./types"
 
 export const headerMenuItems: HeaderMenuItem[] = [
   {
     title: "Resources",
     menu: [
-      { title: "Materials", href: "/materials", icon: FiChevronRight },
-      { title: "Guides", href: "/guides", icon: FiChevronRight },
-      { title: "Computer Recs", href: "/computer-recs", icon: FiChevronRight },
+      { title: "Progetti", href: "/projects", icon: FiChevronRight },
+      { title: "Appunti", href: "/materials", icon: FiChevronRight },
+      { title: "Guide", href: "/guides", icon: FiChevronRight },
       { title: "FAQs", href: "/faqs", icon: FiChevronRight },
-      { title: "Rankings", href: "https://rankings.polinetwork.org/", icon: FiArrowUpRight },
-      { title: "Tol Project", href: "https://tol.polinetwork.org/", icon: FiArrowUpRight },
     ],
   },
   {
     title: "Community",
     menu: [
-      { title: "Groups", href: "/groups", icon: FiChevronRight },
-      { title: "Projects", href: "/projects", icon: FiChevronRight },
-      { title: "Freshman", href: "/matricole", icon: FiChevronRight },
-      { title: "Associations", href: "/associations", icon: FiChevronRight },
+      { title: "Gruppi", href: "/groups", icon: FiChevronRight },
+      { title: "Matricole", href: "/matricole", icon: FiChevronRight },
+      { title: "Associazioni", href: "/associations", icon: FiChevronRight },
     ],
   },
   {
-    title: "About",
+    title: "Chi siamo",
     menu: [
-      { title: "About us", href: "/about", icon: FiChevronRight },
-      { title: "Join us", href: "/join", icon: FiChevronRight },
-      { title: "Contact us", href: "/contact", icon: FiChevronRight },
+      { title: "Su di noi", href: "/chi-siamo", icon: FiChevronRight },
+      { title: "La nostra storia", href: "/storia", icon: FiChevronRight },
+    ],
+  },
+  {
+    title: "Collabora",
+    menu: [
+      { title: "Struttura", href: "/about", icon: FiChevronRight },
+      { title: "I team", href: "/team", icon: FiChevronRight },
+      { title: "Unisciti", href: "/join", icon: FiChevronRight },
+      { title: "Collabora", href: "/collabora", icon: FiChevronRight },
     ],
   },
 ]
