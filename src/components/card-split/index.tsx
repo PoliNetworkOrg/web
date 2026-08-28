@@ -11,7 +11,7 @@ export function CardSplit({ textPrimary, textSecondary, textSecondarySmall, acti
   return (
     <Glass
       className={cn(
-        "inline-flex max-w-full overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground",
+        "inline-flex w-67 overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground md:w-full",
         className
       )}
     >
