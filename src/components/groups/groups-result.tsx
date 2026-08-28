@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { FiArrowLeft, FiX } from "react-icons/fi"
 import { CardCourseGroup } from "@/components/card-course-group"
 import { getCourse, getLevel, getSchool } from "@/components/groups/constants"
-import { stepHref } from "./step-href"
+import { stepHref } from "../../utils/step-href"
 
 // TODO: placeholder da cambiare
 const FIRST_YEAR_GROUPS_PLACEHOLDER = Array.from({ length: 7 }, (_, i) => `Sezione P${i + 1}`)

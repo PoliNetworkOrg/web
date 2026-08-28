@@ -5,7 +5,7 @@ import { CardCourse } from "@/components/card-course"
 import { getCourseFilters, getCourses, getLevel, getSchool } from "@/components/groups/constants"
 import { CourseFilters } from "@/components/groups/course-filters"
 import { WizardShell } from "@/components/groups/wizard-shell"
-import { stepHref } from "./step-href"
+import { stepHref } from "../../utils/step-href"
 
 export function CourseStep({
   school: schoolSlug,

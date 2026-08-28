@@ -4,7 +4,7 @@ import { FiBook } from "react-icons/fi"
 import { CardPathSelection } from "@/components/card-path-selection"
 import { getSchool, LEVELS } from "@/components/groups/constants"
 import { WizardShell } from "@/components/groups/wizard-shell"
-import { stepHref } from "./step-href"
+import { stepHref } from "../../utils/step-href"
 
 export function LevelStep({ school: schoolSlug }: { school: string }) {
   const school = getSchool(schoolSlug)

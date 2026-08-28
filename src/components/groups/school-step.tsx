@@ -3,7 +3,7 @@ import { FiBox, FiFeather, FiPenTool } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { SCHOOLS } from "@/components/groups/constants"
 import { WizardShell } from "@/components/groups/wizard-shell"
-import { stepHref } from "./step-href"
+import { stepHref } from "../../utils/step-href"
 
 const SCHOOL_ICONS: Record<string, IconType> = {
   architettura: FiPenTool,
