@@ -6,7 +6,7 @@
 
 /* Display */
 @utility typo-display-extralarge {
-  @apply font-dm-sans font-medium text-[7.5rem]/[auto];
+  @apply font-dm-sans font-medium text-[7.5rem]/[156px];
 }
 
 @utility typo-display-large {
@@ -32,6 +32,10 @@
 
 @utility typo-headline-small {
   @apply font-poppins font-normal text-[1.5rem]/[32px];
+}
+
+@utility typo-headline-extrasmall {
+  @apply font-poppins font-normal text-[1.25rem]/[28px];
 }
 
 /* Body */

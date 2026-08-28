@@ -26,7 +26,7 @@ export const MobileLayout = () => {
       </div>
 
       {mobileMenuOpen && (
-        <nav className="flex flex-row gap-4">
+        <nav className="flex max-h-[calc(100dvh-9rem)] flex-row gap-4 overflow-y-auto">
           <div className="mr-auto flex flex-col">
             {headerMenuItems.map((item) => (
               <Fragment key={item.title}>
