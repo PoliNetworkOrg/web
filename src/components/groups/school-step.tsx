@@ -1,14 +1,15 @@
 import type { IconType } from "react-icons"
-import { FiBox, FiFeather, FiPenTool } from "react-icons/fi"
+import { FiCpu, FiFeather, FiMap, FiPenTool } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { SCHOOLS } from "@/components/groups/constants"
 import { WizardShell } from "@/components/groups/wizard-shell"
 import { stepHref } from "../../utils/step-href"
 
 const SCHOOL_ICONS: Record<string, IconType> = {
-  architettura: FiPenTool,
+  "ingegneria-industriale-informazione": FiCpu,
+  auic: FiPenTool,
+  "ingegneria-civile-ambientale-territoriale": FiMap,
   design: FiFeather,
-  ingegneria: FiBox,
 }
 
 export function SchoolStep() {
@@ -19,7 +20,7 @@ export function SchoolStep() {
       caption="Troviamo il tuo gruppo partendo dalla base!"
       backHref="/groups"
     >
-      <div className="grid gap-4 md:grid-cols-3 md:gap-12.5">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-12.5">
         {SCHOOLS.map((school) => (
           <CardIcon
             key={school.slug}
