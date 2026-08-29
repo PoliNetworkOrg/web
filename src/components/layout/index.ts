@@ -1,5 +1,5 @@
 import TextImageLayout from "./TextImageSection";
 import TextOnlyLayout from "./TextOnlySection";
-import TextCardSection from "./TextCardSection";
+import TextChildrenLayout from "./TextChildrenSection";
 
-export { TextImageLayout, TextOnlyLayout, TextCardSection };
+export { TextImageLayout, TextOnlyLayout, TextChildrenLayout };

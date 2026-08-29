@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/ui/hero";
-import { TextImageLayout, TextOnlyLayout, TextCardSection } from "@/components/layout";
+import { TextImageLayout, TextOnlyLayout, TextChildrenLayout } from "@/components/layout";
 import { ContactSection } from "@/components/collabora/contact-section";
 import { FiArrowUpRight, FiMessageSquare, FiUsers } from "react-icons/fi"
 import { MdOutlineHandshake, MdOutlineSchool } from "react-icons/md"
@@ -66,22 +66,22 @@ export default function CollaboraPage() {
         description="Mettiamo la nostra infrastruttura e i nostri talenti a disposizione di chi ha buone idee per gli studenti del PoliMi"
         gradientDescription
       />
-      <TextCardSection
+      <TextChildrenLayout
         title="Chi siamo?"
         description={
           <>
-            <p className="typo-title-large text-center md:text-start">
+            <p className="typo-title-large text-center min-[1616px]:text-start">
               PoliNetwork è l'infrastruttura di comunicazione studentesca del Politecnico di Milano.
             </p>
-            <p className="typo-title-large text-center md:text-start">
+            <p className="typo-title-large text-center min-[1616px]:text-start">
               Gestiamo oltre 500 gruppi Telegram e WhatsApp, una presenza social in crescita e strumenti digitali usati
               ogni anno da decine di migliaia di studenti di ingegneria, architettura e design.
             </p>
             <div>
-              <p className="typo-title-large text-center text-blue-secondary md:text-start">
+              <p className="typo-title-large text-center text-blue-secondary min-[1616px]:text-start">
                 Chi entra al PoliMi, prima o poi, incontra PoliNetwork.
               </p>
-              <p className="typo-title-large text-center md:text-start">(e persino studenti di liceo o altri atenei)</p>
+              <p className="typo-title-large text-center min-[1616px]:text-start">(e persino studenti di liceo o altri atenei)</p>
             </div>
           </>
         }
@@ -91,12 +91,11 @@ export default function CollaboraPage() {
         {aboutCards.map((card) => (
           <CardIcon key={card.title} {...card} align="start" className="w-full min-w-0" />
         ))}
-      </TextCardSection>
+      </TextChildrenLayout>
       <TextOnlyLayout
         title="Cosa possiamo fare insieme?"
         description={
           <>
-            {" "}
             <p className="typo-title-large sm:typo-headline-small">
               Collaborare con noi significa{" "}
               <span className="text-blue-primary">
@@ -149,13 +148,13 @@ export default function CollaboraPage() {
           </>
         }
         imageSrc={associationsImage}
-        imageW="611px"
+        imageW={611}
+        imageH={408}
       />
       <TextImageLayout
         title="Sei un’azienda?"
         description={
           <>
-            {" "}
             <p className="typo-title-large sm:typo-headline-small">
               PoliNetwork è un punto di accesso diretto alla community
               studentesca del Politecnico di Milano: migliaia di studenti di
@@ -180,7 +179,8 @@ export default function CollaboraPage() {
           </>
         }
         imageSrc={companyImage}
-        imageW="611px"
+        imageW={611}
+        imageH={298}
         horizontalOrientation="rl"
       />
       <ContactSection />

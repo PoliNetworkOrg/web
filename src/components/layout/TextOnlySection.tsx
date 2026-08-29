@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 interface LayoutButton {
   text: string;
   icon?: ReactNode;
-  variant?: "primary" | "tertiary" | "tertiaryBlur" | "glass" | "outline" | "link";
+  variant?:
+    | "primary"
+    | "tertiary"
+    | "tertiaryBlur"
+    | "glass"
+    | "outline"
+    | "link";
   size?: "sm" | "lg" | "default" | "lg-wide" | "icon" | "icon-sm" | "icon-lg";
 }
 
@@ -52,39 +58,54 @@ export default function TextOnlyLayout({
   return (
     <section
       className={cn(
-        "flex w-full flex-col gap-8 px-6 min-[1616px]:flex-row min-[1616px]:items-start min-[1616px]:px-36",
-        classNames.section
+        "flex w-full items-center flex-col gap-8 px-6 min-[1616px]:flex-row min-[1616px]:items-start md:px-36",
+        classNames.section,
       )}
     >
       <div
         className={cn(
           "flex w-full max-w-[959] flex-col gap-6",
           itemsAlignClass,
-          classNames.textDiv
+          classNames.textDiv,
         )}
       >
         <h2
           className={cn(
             "typo-display-large sm:typo-display-medium",
             textAlignClass,
-            classNames.title
+            classNames.title,
           )}
         >
           {title}
         </h2>
 
-        <div className={cn("flex flex-col gap-3", textAlignClass, classNames.descriptionDiv)}>
+        <div
+          className={cn(
+            "flex flex-col gap-3",
+            textAlignClass,
+            classNames.descriptionDiv,
+          )}
+        >
           {description}
         </div>
         {button && (
-          <Button type="button" variant={button.variant ?? "primary"} size={button.size ?? "lg"} className={cn("flex items-center gap-2", classNames.button)}>
-            {button.text}
-            {button.icon}
-          </Button>
+          <div className="w-full flex justify-center min-[1616px]:justify-start">
+            <Button
+              type="button"
+              variant={button.variant ?? "primary"}
+              size={button.size ?? "lg"}
+              className={cn("flex items-center gap-2", classNames.button)}
+            >
+              {button.text}
+              {button.icon}
+            </Button>
+          </div>
         )}
       </div>
 
-      <div className={cn("flex w-full min-[1616px]:flex-1", classNames.contentDiv)}>
+      <div
+        className={cn("flex w-full min-[1616px]:flex-1", classNames.contentDiv)}
+      >
         {children}
       </div>
     </section>
