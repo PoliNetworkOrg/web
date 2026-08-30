@@ -1,11 +1,16 @@
 import Link from "next/link"
 import { FiArrowLeft } from "react-icons/fi"
 import { CardCourseGroup } from "@/components/card-course-group"
+import { getVisibleGroups } from "@/queries/groups"
+import { EXTRA_LABEL, matchesLabelBranch } from "@/utils/labels"
+import { mergeGroupsByTitle } from "@/utils/merge-groups"
 
-// TODO: placeholder da cambiare
-const EXTRA_GROUPS_PLACEHOLDER = ["Affitti", "Mercatino", "Eventi", "Hobby"]
+export async function ExtraGroups() {
+  const groups = await getVisibleGroups()
+  const extraGroups = mergeGroupsByTitle(groups.filter((g) => matchesLabelBranch(g.labels, EXTRA_LABEL))).sort((a, b) =>
+    a.title.localeCompare(b.title)
+  )
 
-export function ExtraGroups() {
   return (
     <main className="mx-auto flex min-h-svh w-full min-w-0 max-w-7xl flex-col gap-16 px-6 py-50 md:gap-0">
       <header className="relative flex flex-col items-center gap-1 md:static md:flex-row md:items-center md:gap-4">
@@ -21,11 +26,17 @@ export function ExtraGroups() {
         </div>
       </header>
 
-      <div className="flex flex-col gap-3 md:mt-25.75">
-        {EXTRA_GROUPS_PLACEHOLDER.map((name) => (
-          <CardCourseGroup key={name} groupName={name} />
-        ))}
-      </div>
+      {extraGroups.length > 0 ? (
+        <div className="flex flex-col gap-3 md:mt-25.75">
+          {extraGroups.map((g) => (
+            <CardCourseGroup key={g.title} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} />
+          ))}
+        </div>
+      ) : (
+        <p className="typo-body-medium text-center text-text-secondary md:mt-25.75">
+          Nessun gruppo extra disponibile al momento.
+        </p>
+      )}
     </main>
   )
 }

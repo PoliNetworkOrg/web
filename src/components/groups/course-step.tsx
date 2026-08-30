@@ -2,12 +2,35 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FiChevronRight } from "react-icons/fi"
 import { CardCourse } from "@/components/card-course"
-import { getCourseFilters, getCourses, getLevel, getSchool } from "@/components/groups/constants"
-import { CourseFilters } from "@/components/groups/course-filters"
+import { getLevel, getSchool } from "@/components/groups/constants"
+import { CourseFilters, type FilterOption } from "@/components/groups/course-filters"
 import { WizardShell } from "@/components/groups/wizard-shell"
+import { getVisibleGroups } from "@/queries/groups"
+import {
+  CAMPUS_FACETS,
+  campusFacet,
+  campusLabel,
+  courseLabel,
+  courseSlugsForLevel,
+  facetsForBranch,
+  humanizeSlug,
+  LANGUAGE_FACETS,
+  languageFacet,
+  languageLabel,
+} from "@/utils/labels"
 import { stepHref } from "../../utils/step-href"
 
-export function CourseStep({
+function facetOptions(facetsByCourse: Map<string, string[]>, known: string[], label: (facet: string) => string) {
+  const values = new Set<string>()
+  for (const facets of facetsByCourse.values()) {
+    for (const facet of facets) {
+      if (known.includes(facet)) values.add(facet)
+    }
+  }
+  return [...values].sort().map((value) => ({ value, label: label(value) }) satisfies FilterOption)
+}
+
+export async function CourseStep({
   school: schoolSlug,
   level,
   campus,
@@ -22,10 +45,22 @@ export function CourseStep({
   const currentLevel = getLevel(level)
   if (!school || !currentLevel) notFound()
 
-  const { campuses, languages } = getCourseFilters(schoolSlug, level)
-  const courses = getCourses(schoolSlug, level).filter(
-    (course) => (!campus || course.location === campus) && (!lang || course.language === lang)
+  const groups = await getVisibleGroups()
+  const allCourseSlugs = courseSlugsForLevel(groups, schoolSlug, level)
+
+  const facetsByCourse = new Map(
+    allCourseSlugs.map((course) => [course, facetsForBranch(groups, courseLabel(schoolSlug, level, course))])
   )
+
+  const campusOptions = facetOptions(facetsByCourse, CAMPUS_FACETS, campusLabel)
+  const languageOptions = facetOptions(facetsByCourse, LANGUAGE_FACETS, languageLabel)
+
+  const courseSlugs = allCourseSlugs.filter((course) => {
+    const facets = facetsByCourse.get(course) ?? []
+    if (campus && !facets.includes(campus)) return false
+    if (lang && !facets.includes(lang)) return false
+    return true
+  })
 
   return (
     <WizardShell
@@ -34,22 +69,31 @@ export function CourseStep({
       caption={`Perfetto, cerchiamo tra i corsi della ${currentLevel.name.toLowerCase()}!`}
       captionPosition="above"
       backHref={stepHref({ school: schoolSlug })}
-      action={<CourseFilters campuses={campuses} languages={languages} />}
+      action={
+        campusOptions.length > 0 || languageOptions.length > 0 ? (
+          <CourseFilters campuses={campusOptions} languages={languageOptions} />
+        ) : undefined
+      }
     >
       <div className="flex flex-col gap-3">
-        {courses.length === 0 && (
-          <p className="typo-body-medium text-text-secondary">Nessun corso corrisponde ai filtri.</p>
+        {courseSlugs.length === 0 && (
+          <p className="typo-body-medium text-text-secondary">Nessun corso disponibile al momento.</p>
         )}
-        {courses.map((course) => (
-          <Link key={course.slug} href={stepHref({ school: schoolSlug, level, course: course.slug })} className="block">
-            <CardCourse
-              courseName={course.name}
-              location={course.location}
-              language={course.language}
-              iconSelect={FiChevronRight}
-            />
-          </Link>
-        ))}
+        {courseSlugs.map((course) => {
+          const facets = facetsByCourse.get(course) ?? []
+          const courseCampus = campusFacet(facets)
+          const courseLanguage = languageFacet(facets)
+          return (
+            <Link key={course} href={stepHref({ school: schoolSlug, level, course })} className="block">
+              <CardCourse
+                courseName={humanizeSlug(course)}
+                location={courseCampus ? campusLabel(courseCampus) : undefined}
+                language={courseLanguage ? languageLabel(courseLanguage) : undefined}
+                iconSelect={FiChevronRight}
+              />
+            </Link>
+          )
+        })}
       </div>
     </WizardShell>
   )
