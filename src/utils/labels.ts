@@ -1,16 +1,3 @@
-const ITALIAN_ORDINALS = [
-  "Primo",
-  "Secondo",
-  "Terzo",
-  "Quarto",
-  "Quinto",
-  "Sesto",
-  "Settimo",
-  "Ottavo",
-  "Nono",
-  "Decimo",
-]
-
 export const EXTRA_LABEL = "extra"
 
 const CATEGORY_ROOT = "didattica"
@@ -78,20 +65,21 @@ export function languageLabel(facet: string): string {
   return facet === MIXED_FACET ? "Mixed" : facet.toUpperCase()
 }
 
-/** Reads the `.anno-N` suffix directly nested under `coursePath`, if any of the given labels has one. */
-export function courseYearFromLabels(labels: string[], coursePath: string): number | null {
-  const prefix = `${coursePath}.anno-`
+const COHORT_PATTERN = /^\d{2}-\d{2}$/
+
+/** Reads the `YY-YY` cohort suffix (e.g. "26-27") directly nested under `coursePath`, if any label has one. */
+export function courseCohortFromLabels(labels: string[], coursePath: string): string | null {
+  const prefix = `${coursePath}.`
   for (const label of labels) {
     if (!label.startsWith(prefix)) continue
-    const year = Number(label.slice(prefix.length))
-    if (Number.isInteger(year) && year > 0) return year
+    const segment = label.slice(prefix.length).split(".")[0]
+    if (segment && COHORT_PATTERN.test(segment)) return segment
   }
   return null
 }
 
-export function yearLabelText(year: number): string {
-  const ordinal = ITALIAN_ORDINALS[year - 1]
-  return ordinal ? `${ordinal} Anno` : `${year}° Anno`
+export function cohortLabelText(cohort: string): string {
+  return cohort.replace("-", "/")
 }
 
 export function humanizeSlug(slug: string): string {

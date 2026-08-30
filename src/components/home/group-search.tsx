@@ -48,7 +48,7 @@ export function GroupSearch() {
       />
 
       {query && (
-        <Glass className={cn("absolute top-15 grid w-full overflow-hidden rounded-xl p-0")}>
+        <Glass className={cn("absolute top-15 z-20 grid w-full overflow-hidden rounded-xl p-0")}>
           <div className="max-h-70 overflow-y-auto">
             {results && results.count > 0 ? (
               results?.groups

@@ -5,13 +5,13 @@ import { CardCourseGroup } from "@/components/card-course-group"
 import { getLevel, getSchool } from "@/components/groups/constants"
 import { getVisibleGroups, type VisibleGroup } from "@/queries/groups"
 import {
+  cohortLabelText,
+  courseCohortFromLabels,
   courseLabel,
-  courseYearFromLabels,
   humanizeSlug,
   levelLabel,
   matchesLabelBranch,
   schoolLabel,
-  yearLabelText,
 } from "@/utils/labels"
 import { mergeGroupsByTitle } from "@/utils/merge-groups"
 import { stepHref } from "../../utils/step-href"
@@ -60,16 +60,16 @@ export async function GroupsResult({
 
   const coursePath = courseLabel(schoolSlug, level, course)
   const courseGroups = groups.filter((g) => matchesLabelBranch(g.labels, coursePath))
-  const generalCourseGroups = courseGroups.filter((g) => courseYearFromLabels(g.labels, coursePath) === null)
+  const generalCourseGroups = courseGroups.filter((g) => courseCohortFromLabels(g.labels, coursePath) === null)
   const mergedGeneralCourseGroups = mergeGroupsByTitle(generalCourseGroups)
 
-  const groupsByYear = new Map<number, VisibleGroup[]>()
+  const groupsByCohort = new Map<string, VisibleGroup[]>()
   for (const g of courseGroups) {
-    const year = courseYearFromLabels(g.labels, coursePath)
-    if (year === null) continue
-    groupsByYear.set(year, [...(groupsByYear.get(year) ?? []), g])
+    const cohort = courseCohortFromLabels(g.labels, coursePath)
+    if (cohort === null) continue
+    groupsByCohort.set(cohort, [...(groupsByCohort.get(cohort) ?? []), g])
   }
-  const years = [...groupsByYear.keys()].sort((a, b) => a - b)
+  const cohorts = [...groupsByCohort.keys()].sort()
 
   const hasAnyGroup = schoolGroups.length > 0 || levelGroups.length > 0 || courseGroups.length > 0
 
@@ -113,8 +113,12 @@ export async function GroupsResult({
         </div>
       )}
 
-      {years.map((year) => (
-        <GroupSection key={year} title={`Gruppi del ${yearLabelText(year)}`} groups={groupsByYear.get(year) ?? []} />
+      {cohorts.map((cohort) => (
+        <GroupSection
+          key={cohort}
+          title={`Gruppi ${cohortLabelText(cohort)}`}
+          groups={groupsByCohort.get(cohort) ?? []}
+        />
       ))}
 
       {!hasAnyGroup && (
