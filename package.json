@@ -11,7 +11,9 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "check": "biome check",
-    "check:fix": "biome check --write --unsafe"
+    "check:fix": "biome check --write --unsafe",
+    "gen:logo": "node scripts/make-logo-data.mjs",
+    "validate:mazes": "node scripts/validate-mazes.mjs"
   },
   "dependencies": {
     "@polinetwork/backend": "^0.16.4",
