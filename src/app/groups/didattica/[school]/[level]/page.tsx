@@ -1,6 +1,8 @@
 import { CourseStep } from "@/components/groups/course-step"
 import type { CourseSearchParams } from "@/components/groups/types"
 
+export const dynamic = "force-dynamic"
+
 export default async function DidatticaCoursePage({
   params,
   searchParams,

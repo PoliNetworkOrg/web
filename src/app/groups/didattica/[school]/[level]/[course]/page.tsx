@@ -1,5 +1,7 @@
 import { GroupsResult } from "@/components/groups/groups-result"
 
+export const dynamic = "force-dynamic"
+
 export default async function DidatticaGroupsResultPage({
   params,
 }: {
