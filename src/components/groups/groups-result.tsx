@@ -11,6 +11,7 @@ import {
   humanizeSlug,
   levelLabel,
   matchesLabelBranch,
+  SITE_LABEL,
   schoolLabel,
 } from "@/utils/labels"
 import { mergeGroupsByTitle } from "@/utils/merge-groups"
@@ -53,8 +54,10 @@ export async function GroupsResult({
   const courseName = humanizeSlug(course)
   const groups = await getVisibleGroups()
 
+  const siteGroups = groups.filter((g) => g.labels.includes(SITE_LABEL))
   const schoolGroups = groups.filter((g) => g.labels.includes(schoolLabel(schoolSlug)))
   const levelGroups = groups.filter((g) => g.labels.includes(levelLabel(schoolSlug, level)))
+  const mergedSiteGroups = mergeGroupsByTitle(siteGroups)
   const mergedSchoolGroups = mergeGroupsByTitle(schoolGroups)
   const mergedLevelGroups = mergeGroupsByTitle(levelGroups)
 
@@ -71,7 +74,8 @@ export async function GroupsResult({
   }
   const cohorts = [...groupsByCohort.keys()].sort()
 
-  const hasAnyGroup = schoolGroups.length > 0 || levelGroups.length > 0 || courseGroups.length > 0
+  const hasAnyGroup =
+    siteGroups.length > 0 || schoolGroups.length > 0 || levelGroups.length > 0 || courseGroups.length > 0
 
   return (
     <main className="mx-auto flex min-h-svh w-full min-w-0 max-w-7xl flex-col gap-8 px-6 py-52 md:gap-0">
@@ -99,8 +103,14 @@ export async function GroupsResult({
         </Link>
       </header>
 
-      {(mergedSchoolGroups.length > 0 || mergedLevelGroups.length > 0 || mergedGeneralCourseGroups.length > 0) && (
+      {(mergedSiteGroups.length > 0 ||
+        mergedSchoolGroups.length > 0 ||
+        mergedLevelGroups.length > 0 ||
+        mergedGeneralCourseGroups.length > 0) && (
         <div className="flex flex-row flex-wrap gap-3 md:mt-25.75">
+          {mergedSiteGroups.map((g) => (
+            <CardCourseGroup key={g.title} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
+          ))}
           {mergedSchoolGroups.map((g) => (
             <CardCourseGroup key={g.title} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
           ))}

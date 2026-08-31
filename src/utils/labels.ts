@@ -2,6 +2,8 @@ export const EXTRA_LABEL = "extra"
 
 const CATEGORY_ROOT = "didattica"
 
+export const SITE_LABEL = CATEGORY_ROOT
+
 export function schoolLabel(school: string) {
   return `${CATEGORY_ROOT}.${school}`
 }
