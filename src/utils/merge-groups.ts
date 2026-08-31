@@ -1,7 +1,7 @@
 import type { VisibleGroup } from "@/queries/groups"
 
 export type MergedGroup = {
-  /** Stable React key — the source group's own id, not the (possibly non-unique) title. */
+  /** Stable React key — `type:id`, since numeric ids aren't guaranteed unique across the tg/wa namespaces. */
   key: string
   title: string
   waLink?: string
@@ -23,7 +23,7 @@ export function mergeGroupsByTitle(groups: VisibleGroup[]): MergedGroup[] {
     if (openEntry) {
       openEntry[linkField] = g.link
     } else {
-      const merged: MergedGroup = { key: String(g.id), title: g.title, [linkField]: g.link }
+      const merged: MergedGroup = { key: `${g.type}:${g.id}`, title: g.title, [linkField]: g.link }
       candidates.push(merged)
       openByTitle.set(g.title, candidates)
       result.push(merged)

@@ -59,7 +59,7 @@ export function GroupSearch() {
                 .map((g) => {
                   const Icon = PLATFORM_ICON[g.type]
                   return (
-                    <Link key={g.telegramId} href={g.link} target="_blank">
+                    <Link key={`${g.type}:${g.telegramId}`} href={g.link} target="_blank">
                       <div className="flex items-center justify-start gap-3 px-4 py-3 text-start hover:bg-background-blur">
                         <div
                           role="img"
