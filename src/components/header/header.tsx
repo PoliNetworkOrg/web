@@ -7,6 +7,7 @@ import { MobileLayout } from "./mobile-layout"
 export type { HeaderMenuItem, HeaderSubmenuItem } from "./types"
 
 const HIDDEN_ROUTES = ["/matricole/guida"]
+const LOGO_ONLY_PREFIXES = ["/groups"]
 
 export function Header() {
   const pathname = usePathname()
@@ -15,13 +16,15 @@ export function Header() {
     return null
   }
 
+  const logoOnly = LOGO_ONLY_PREFIXES.some((prefix) => pathname.startsWith(prefix))
+
   return (
     <>
       <div className="md:hidden">
-        <MobileLayout />
+        <MobileLayout logoOnly={logoOnly} />
       </div>
       <div className="max-md:hidden">
-        <DesktopLayout />
+        <DesktopLayout logoOnly={logoOnly} />
       </div>
     </>
   )

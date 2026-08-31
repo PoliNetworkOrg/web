@@ -4,28 +4,31 @@ import Link from "next/link"
 import { Fragment, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
+import { cn } from "@/lib/utils"
 import { headerMenuItems } from "./constants"
 import { IconButtonsMobile } from "./icon-buttons"
 import { Logo } from "./logo"
 
-export const MobileLayout = () => {
+export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <Glass className="fixed inset-x-6 top-14 z-20 box-border rounded-[36px] px-6 py-5">
       <div className="flex w-full items-center justify-between">
         <Logo />
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="ml-auto rounded-md focus-visible:ring-2 focus-visible:ring-text-primary"
-          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {mobileMenuOpen ? <FiX size={24} className="text-black" /> : <FiMenu size={24} className="text-black" />}
-        </button>
+        {!logoOnly && (
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="ml-auto rounded-md focus-visible:ring-2 focus-visible:ring-text-primary"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileMenuOpen ? <FiX size={24} className="text-black" /> : <FiMenu size={24} className="text-black" />}
+          </button>
+        )}
       </div>
 
-      {mobileMenuOpen && (
+      {!logoOnly && mobileMenuOpen && (
         <nav className="flex max-h-[calc(100dvh-9rem)] flex-row gap-4 overflow-y-auto">
           <div className="mr-auto flex flex-col">
             {headerMenuItems.map((item) => (
