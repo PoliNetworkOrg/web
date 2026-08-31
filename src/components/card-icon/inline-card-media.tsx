@@ -1,6 +1,6 @@
-import Image from "next/image"
 import { cn } from "@/lib/utils"
 import type { GradientIconType } from "../gradient-icon"
+import { CardMediaImage } from "./card-media-image"
 import type { ResponsiveCardSize } from "./types"
 import { getIconSizeClasses, getInlineContainerClasses } from "./utils"
 
@@ -13,9 +13,8 @@ export function InlineCardMedia({ icon, size }: { icon: GradientIconType | strin
   if (typeof icon === "string") {
     return (
       <div className={wrapperClassName}>
-        <Image
+        <CardMediaImage
           src={icon}
-          alt=""
           width={24}
           height={24}
           className={cn(getIconSizeClasses("inline"), "object-contain")}

@@ -26,18 +26,6 @@ export function isCategoryLabel(label: string): boolean {
   return label === CATEGORY_ROOT || label.startsWith(`${CATEGORY_ROOT}.`)
 }
 
-/** Distinct facet labels (non-category) carried by groups whose category matches `branchPath`. */
-export function facetsForBranch(groups: { labels: string[] }[], branchPath: string): string[] {
-  const facets = new Set<string>()
-  for (const g of groups) {
-    if (!matchesLabelBranch(g.labels, branchPath)) continue
-    for (const label of g.labels) {
-      if (!isCategoryLabel(label)) facets.add(label)
-    }
-  }
-  return [...facets].sort()
-}
-
 export const LANGUAGE_FACETS = ["ita", "eng"]
 export const CAMPUS_FACETS = ["online", "bovisa", "cremona", "leonardo", "piacenza", "lecco", "mantova"]
 
@@ -92,16 +80,33 @@ export function humanizeSlug(slug: string): string {
     .join(" ")
 }
 
-/** Distinct course slugs — the label segment right after `didattica.<school>.<level>.` — found across the given groups. */
-export function courseSlugsForLevel(groups: { labels: string[] }[], school: string, level: string): string[] {
+/**
+ * For every course under `didattica.<school>.<level>.<course>`, the distinct facet labels (language, campus, ...)
+ * carried by its groups. The key set is exactly the set of course slugs that exist at this level — one pass over
+ * `groups` instead of re-scanning them once per course.
+ */
+export function courseFacetsForLevel(
+  groups: { labels: string[] }[],
+  school: string,
+  level: string
+): Map<string, string[]> {
   const prefix = `${levelLabel(school, level)}.`
-  const slugs = new Set<string>()
+  const facetsByCourse = new Map<string, Set<string>>()
   for (const g of groups) {
+    const courseSlugs = new Set<string>()
     for (const label of g.labels) {
       if (!label.startsWith(prefix)) continue
       const courseSlug = label.slice(prefix.length).split(".")[0]
-      if (courseSlug) slugs.add(courseSlug)
+      if (courseSlug) courseSlugs.add(courseSlug)
+    }
+    if (courseSlugs.size === 0) continue
+    for (const courseSlug of courseSlugs) {
+      const set = facetsByCourse.get(courseSlug) ?? new Set<string>()
+      for (const label of g.labels) {
+        if (!isCategoryLabel(label)) set.add(label)
+      }
+      facetsByCourse.set(courseSlug, set)
     }
   }
-  return [...slugs].sort()
+  return new Map([...facetsByCourse].map(([course, set]) => [course, [...set].sort()]))
 }

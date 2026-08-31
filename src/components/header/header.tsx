@@ -1,6 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
+import { matchesAnyRoutePrefix } from "@/utils/route-match"
 import { DesktopLayout } from "./desktop-layout"
 import { MobileLayout } from "./mobile-layout"
 
@@ -16,7 +17,7 @@ export function Header() {
     return null
   }
 
-  const logoOnly = LOGO_ONLY_PREFIXES.some((prefix) => pathname.startsWith(prefix))
+  const logoOnly = matchesAnyRoutePrefix(pathname, LOGO_ONLY_PREFIXES)
 
   return (
     <>

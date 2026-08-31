@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
@@ -11,6 +11,12 @@ import { Logo } from "./logo"
 
 export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // logoOnly routes hide the toggle/nav entirely; close the menu so it doesn't reappear open
+  // when navigating back to a normal route (this component instance persists across navigation).
+  useEffect(() => {
+    if (logoOnly) setMobileMenuOpen(false)
+  }, [logoOnly])
 
   return (
     <Glass className="fixed inset-x-6 top-14 z-20 box-border rounded-[36px] px-6 py-5">

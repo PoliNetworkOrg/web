@@ -1,6 +1,6 @@
-import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { GradientIcon, type GradientIconType } from "../gradient-icon"
+import { CardMediaImage } from "./card-media-image"
 import type { ResponsiveCardSize } from "./types"
 import { getIconSizeClasses } from "./utils"
 
@@ -8,7 +8,7 @@ export function BasicCardMedia({ icon, size }: { icon: GradientIconType | string
   if (typeof icon === "string") {
     return (
       <div className={cn("relative", getIconSizeClasses(size))}>
-        <Image src={icon} alt="" fill sizes="180px" className="object-contain" />
+        <CardMediaImage src={icon} fill sizes="180px" className="object-contain" />
       </div>
     )
   }

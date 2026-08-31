@@ -29,7 +29,7 @@ export async function ExtraGroups() {
       {extraGroups.length > 0 ? (
         <div className="flex flex-col gap-3 md:mt-25.75">
           {extraGroups.map((g) => (
-            <CardCourseGroup key={g.title} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} />
+            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} />
           ))}
         </div>
       ) : (

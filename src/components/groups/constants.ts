@@ -24,6 +24,6 @@ export function getLevelsForSchool(schoolSlug: string): Level[] {
   return SCHOOLS_WITH_CICLO_UNICO.has(schoolSlug) ? [...LEVELS, CICLO_UNICO_LEVEL] : LEVELS
 }
 
-export function getLevel(slug: string) {
-  return [...LEVELS, CICLO_UNICO_LEVEL].find((level) => level.slug === slug)
+export function getLevel(schoolSlug: string, slug: string) {
+  return getLevelsForSchool(schoolSlug).find((level) => level.slug === slug)
 }

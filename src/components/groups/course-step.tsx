@@ -10,9 +10,7 @@ import {
   CAMPUS_FACETS,
   campusFacet,
   campusLabel,
-  courseLabel,
-  courseSlugsForLevel,
-  facetsForBranch,
+  courseFacetsForLevel,
   humanizeSlug,
   LANGUAGE_FACETS,
   languageFacet,
@@ -42,15 +40,12 @@ export async function CourseStep({
   lang?: string
 }) {
   const school = getSchool(schoolSlug)
-  const currentLevel = getLevel(level)
+  const currentLevel = getLevel(schoolSlug, level)
   if (!school || !currentLevel) notFound()
 
   const groups = await getVisibleGroups()
-  const allCourseSlugs = courseSlugsForLevel(groups, schoolSlug, level)
-
-  const facetsByCourse = new Map(
-    allCourseSlugs.map((course) => [course, facetsForBranch(groups, courseLabel(schoolSlug, level, course))])
-  )
+  const facetsByCourse = courseFacetsForLevel(groups, schoolSlug, level)
+  const allCourseSlugs = [...facetsByCourse.keys()].sort()
 
   const campusOptions = facetOptions(facetsByCourse, CAMPUS_FACETS, campusLabel)
   const languageOptions = facetOptions(facetsByCourse, LANGUAGE_FACETS, languageLabel)
