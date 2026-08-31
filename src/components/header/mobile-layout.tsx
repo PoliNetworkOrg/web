@@ -21,7 +21,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   return (
     <Glass className="fixed inset-x-6 top-14 z-20 box-border rounded-[36px] px-6 py-5">
       <div className={cn("flex w-full items-center", logoOnly ? "justify-center" : "justify-between")}>
-        <Logo interactive={!logoOnly} />
+        <Logo href={logoOnly ? "https://polinetwork.org" : "/"} />
         {!logoOnly && (
           <button
             type="button"

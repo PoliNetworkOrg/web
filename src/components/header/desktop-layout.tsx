@@ -30,7 +30,7 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
       >
         <NavigationMenuList className={cn("flex w-full", logoOnly ? "justify-center" : "justify-between")}>
           {logoOnly ? (
-            <Logo interactive={false} />
+            <Logo href="https://polinetwork.org" />
           ) : (
             <NavigationMenuLink asChild className={cn("p-0 py-0.75", removeDefaultHoverEffectClass)}>
               <Logo />

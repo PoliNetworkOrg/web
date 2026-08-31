@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-export const Logo = ({ interactive = true }: { interactive?: boolean }) => {
+export const Logo = ({ href = "/" }: { href?: string }) => {
   const content = (
     <>
       <Image src="/polinetwork_meta.png" alt="PoliNetwork Logo" width={24} height={24} />
@@ -9,12 +9,8 @@ export const Logo = ({ interactive = true }: { interactive?: boolean }) => {
     </>
   )
 
-  if (!interactive) {
-    return <div className="flex h-7.5 items-center space-x-2.25">{content}</div>
-  }
-
   return (
-    <Link href="/" className="flex h-7.5 items-center space-x-2.25">
+    <Link href={href} className="flex h-7.5 items-center space-x-2.25">
       {content}
     </Link>
   )
