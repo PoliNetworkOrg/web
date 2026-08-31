@@ -22,17 +22,17 @@ export const cardCourseGroupVariants = cva(
 
 export function CardCourseGroup({
   groupName,
-  hasWhatsapp = true,
+  waLink,
   iconWhatsApp: IconWhatsApp = FaWhatsapp,
-  hasTelegram = true,
+  tgLink,
   iconTelegram: IconTelegram = LiaTelegramPlane,
   secondary = false,
   stacked = false,
 }: {
   groupName: string
-  hasWhatsapp?: boolean
+  waLink?: string
   iconWhatsApp?: IconType
-  hasTelegram?: boolean
+  tgLink?: string
   iconTelegram?: IconType
   stacked?: boolean
 } & VariantProps<typeof cardCourseGroupVariants>) {
@@ -48,8 +48,16 @@ export function CardCourseGroup({
         {groupName}
       </CardTitle>
       <div className={cn("flex items-center gap-3", stacked ? "md:contents" : "contents")}>
-        {hasWhatsapp && <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="sm" />}
-        {hasTelegram && <CardAction gradient={false} className={actionClassName} icon={IconTelegram} iconSize="sm" />}
+        {waLink && (
+          <a href={waLink} target="_blank" rel="noopener noreferrer" aria-label={`${groupName} su WhatsApp`}>
+            <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="sm" />
+          </a>
+        )}
+        {tgLink && (
+          <a href={tgLink} target="_blank" rel="noopener noreferrer" aria-label={`${groupName} su Telegram`}>
+            <CardAction gradient={false} className={actionClassName} icon={IconTelegram} iconSize="sm" />
+          </a>
+        )}
       </div>
     </Card>
   )
