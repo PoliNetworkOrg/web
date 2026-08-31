@@ -62,8 +62,9 @@ export function GroupSearch() {
                     <Link key={g.telegramId} href={g.link} target="_blank">
                       <div className="flex items-center justify-start gap-3 px-4 py-3 text-start hover:bg-background-blur">
                         <div
-                          className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#74D4FF]"
+                          role="img"
                           aria-label={PLATFORM_LABEL[g.type]}
+                          className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#74D4FF]"
                         >
                           <Icon className="size-4.5" />
                         </div>
