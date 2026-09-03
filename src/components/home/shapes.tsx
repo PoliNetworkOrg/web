@@ -1,5 +1,3 @@
-import Image from "next/image"
-import heroGlowSvg from "@/assets/shapes/hero-glow.svg"
 import { Shape } from "@/components/shapes"
 
 /**
@@ -10,57 +8,44 @@ import { Shape } from "@/components/shapes"
  * narrower than the 1728px/402px Figma reference frames.
  */
 
-/**
- * Decorative shapes for the Hero section, matching the Figma homepage design.
- * Renders a mobile composition (< sm) and a desktop composition (>= sm).
- */
 export function HeroShapes() {
   return (
     <div aria-hidden className="-z-10 pointer-events-none absolute inset-0 overflow-hidden">
-      <Shape variant="big-teal" className="top-[198px] left-[calc(50%-201px)] size-[401px] sm:hidden" />
-      <Shape variant="small-blue" className="top-[88px] left-[calc(50%-178px)] size-[354.13px] sm:hidden" />
-      <Shape variant="looper" className="top-[39px] left-[calc(50%-374px)] h-[866px] w-[891px] sm:hidden" />
+      {/* Mobile Shapes */}
+      <Shape variant="big-teal" className="top-49.5 left-[calc(50%-201px)] size-100.25 md:hidden" />
+      <Shape variant="small-blue" className="top-22 left-[calc(50%-178px)] size-[354.13px] md:hidden" />
+      <Shape variant="looper" className="top-9.75 left-[calc(50%-374px)] h-216.5 w-222.75 md:hidden" />
 
-      <Image
-        src={heroGlowSvg}
-        alt=""
-        className="-z-10 absolute top-[-665px] left-[calc(50%-647px)] hidden h-[1712px] w-[1290px] select-none sm:block"
-      />
-      <Shape variant="looper" className="top-[-286px] left-[calc(50%-682px)] hidden h-[1358px] w-[1401px] sm:block" />
+      {/* Desktop Shapes */}
+      <Shape variant="hero-glow" className="-top-166.25 left-[calc(50%-647px)] hidden h-428 w-322.5 md:block" />
+      <Shape variant="looper" className="-top-71.5 left-[calc(50%-682px)] hidden h-339.5 w-350.25 md:block" />
     </div>
   )
 }
 
-/**
- * Decorative shapes bleeding across the Materials, Projects and About Us sections,
- * matching the Figma homepage design. Mount this once behind those three sections.
- */
 export function MiddleShapes() {
   return (
     <div aria-hidden className="-z-10 pointer-events-none absolute inset-0 overflow-hidden">
-      <Shape variant="big-teal" className="top-[43px] left-[calc(50%-315px)] size-[401px] sm:hidden" />
-      <Shape variant="small-blue" className="top-[170px] left-[calc(50%-281px)] size-[233px] sm:hidden" />
-      <Shape variant="big-teal" className="top-[605px] left-[calc(50%-89px)] size-[401px] sm:hidden" />
-      <Shape
-        variant="looper"
-        className="top-[668.89px] left-[calc(50%-452.96px)] h-[1020.89px] w-[1000.33px] sm:hidden"
-      />
-      <Shape variant="big-teal" className="top-[923px] left-[calc(50%-315px)] size-[401px] sm:hidden" />
-      <Shape variant="big-teal" className="top-[1313px] left-[calc(50%-111px)] size-[401px] sm:hidden" />
-      <Shape variant="small-blue" className="top-[1390px] left-[calc(50%+17px)] size-[222px] sm:hidden" />
-      <Shape variant="big-teal" className="top-[1886px] left-[calc(50%-200px)] size-[401px] sm:hidden" />
+      {/* Mobile Shapes */}
+      <Shape variant="big-teal" className="top-10.75 left-[calc(50%-315px)] size-100.25 md:hidden" />
+      <Shape variant="small-blue" className="top-42.5 left-[calc(50%-281px)] size-58.25 md:hidden" />
+      <Shape variant="big-teal" className="top-151.25 left-[calc(50%-89px)] size-100.25 md:hidden" />
+      <Shape variant="looper" className="-top-88 -rotate-100 left-[calc(50%-598px)] h-216.5 w-222.75 md:hidden" />
+      <Shape variant="big-teal" className="top-230.75 left-[calc(50%-315px)] size-100.25 md:hidden" />
+      <Shape variant="big-teal" className="top-328.25 left-[calc(50%-111px)] size-100.25 md:hidden" />
+      <Shape variant="small-blue" className="top-347.5 left-[calc(50%+17px)] size-55.5 md:hidden" />
+      <Shape variant="big-teal" className="top-471.5 left-[calc(50%-200px)] size-100.25 md:hidden" />
+      <Shape variant="looper" className="top-222.75 left-[calc(50%-409px)] h-334.75 w-344 rotate-59 md:hidden" />
 
-      <Shape variant="big-teal" className="top-[1746px] left-[calc(50%+392px)] hidden size-[662px] sm:block" />
+      {/* Desktop Shapes */}
+      <Shape variant="big-teal" className="top-436.5 left-[calc(50%+392px)] hidden size-165.5 md:block" />
       <Shape
         variant="small-blue"
-        className="top-[1404.32px] left-[calc(50%+340.32px)] hidden size-[477.48px] sm:block"
+        className="top-[1404.32px] left-[calc(50%+340.32px)] hidden size-[477.48px] md:block"
       />
-      <Shape variant="big-teal" className="top-[569px] left-[calc(50%-1261px)] hidden size-[974px] sm:block" />
-      <Shape variant="small-blue" className="top-[550px] left-[calc(50%-1043px)] hidden size-[498.98px] sm:block" />
-      <Shape
-        variant="looper"
-        className="top-[264px] left-[calc(50%-1276px)] hidden h-[1560.48px] w-[1609.71px] sm:block"
-      />
+      <Shape variant="big-teal" className="top-142.25 left-[calc(50%-1261px)] hidden size-243.5 md:block" />
+      <Shape variant="small-blue" className="top-137.5 left-[calc(50%-1043px)] hidden size-[498.98px] md:block" />
+      <Shape variant="looper" className="top-66 left-[calc(50%-1276px)] hidden h-[1560.48px] w-[1609.71px] md:block" />
     </div>
   )
 }
