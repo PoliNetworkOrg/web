@@ -8,7 +8,7 @@ import { Shape } from "@/components/shapes"
  * narrower than the 1728px/402px Figma reference frames.
  */
 
-export function HeroShapes() {
+export function HomeHeroShapes() {
   return (
     <div aria-hidden className="-z-10 pointer-events-none absolute inset-0 overflow-hidden">
       {/* Mobile Shapes */}
@@ -23,7 +23,7 @@ export function HeroShapes() {
   )
 }
 
-export function MiddleShapes() {
+export function HomeMiddleShapes() {
   return (
     <div aria-hidden className="-z-10 pointer-events-none absolute inset-0 overflow-hidden">
       {/* Mobile Shapes */}

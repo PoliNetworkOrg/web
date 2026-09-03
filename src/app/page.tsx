@@ -2,14 +2,14 @@ import { AboutUs } from "@/components/home/about-us"
 import { Hero } from "@/components/home/hero"
 import { Materials } from "@/components/home/materials"
 import { Projects } from "@/components/home/projects"
-import { MiddleShapes } from "@/components/home/shapes"
+import { HomeMiddleShapes } from "@/components/home/shapes"
 
 export default function Home() {
   return (
     <main className="w-full">
       <Hero />
       <div className="relative">
-        <MiddleShapes />
+        <HomeMiddleShapes />
         <Materials />
         <Projects />
         <AboutUs />
