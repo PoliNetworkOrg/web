@@ -4,11 +4,13 @@ import { FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi"
 import discord from "@/assets/icons/discord.svg"
 import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "../card-multiple-icons"
+import { FooterShapes } from "./shapes"
 
 export function Footer() {
   return (
-    <footer className="my-8 w-full px-8">
-      <h2 className="typo-headline-medium md:typo-display-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-center text-transparent">
+    <footer className="relative w-full px-8">
+      <FooterShapes />
+      <h2 className="typo-headline-medium md:typo-display-large mt-18 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-center text-transparent md:mt-30.5">
         Keep in touch!
       </h2>
 
@@ -40,7 +42,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="typo-body-small md:typo-body-large mt-12 w-full text-center text-text-secondary md:mt-36">
+      <div className="typo-body-small md:typo-body-large mt-12 mb-10.5 w-full text-center text-text-secondary md:mt-36 md:mb-10">
         <p id="copyright">PoliNetwork 2016-{new Date().getFullYear()} - All rights reserved</p>
       </div>
     </footer>
