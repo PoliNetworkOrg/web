@@ -1,5 +1,4 @@
 import { ConditionalFooter } from "@/components/conditional-footer"
-import { ConditionalGlobalShapes } from "@/components/conditional-global-shapes"
 import { Header } from "@/components/header/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
@@ -75,7 +74,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           // storageKey="polinetwork_darkmode_temp" // TODO: enable when dark mode design is ready
           disableTransitionOnChange
         >
-          <ConditionalGlobalShapes />
+          {/* <ConditionalGlobalShapes /> */}
           <div className="flex min-h-screen w-full flex-col items-center justify-start">
             <Header />
             {children}

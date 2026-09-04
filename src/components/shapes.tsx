@@ -3,10 +3,11 @@ import bigBlueSvg from "@/assets/shapes/big-blue.svg"
 import bigTealSvg from "@/assets/shapes/big-teal.svg"
 import heroGlowSvg from "@/assets/shapes/hero-glow.svg"
 import looperSvg from "@/assets/shapes/looper.svg"
+import projectsGlowSvg from "@/assets/shapes/projects-glow.svg"
 import smallBlueSvg from "@/assets/shapes/small-blue.svg"
 import { cn } from "@/lib/utils"
 
-export type ShapeVariant = "big-blue" | "big-teal" | "small-blue" | "hero-glow" | "looper"
+export type ShapeVariant = "big-blue" | "big-teal" | "small-blue" | "hero-glow" | "projects-glow" | "looper"
 
 export type ShapeProps = {
   variant: ShapeVariant
@@ -24,6 +25,8 @@ export const Shape: React.FC<ShapeProps> = ({ variant, className }) => {
         return smallBlueSvg
       case "hero-glow":
         return heroGlowSvg
+      case "projects-glow":
+        return projectsGlowSvg
       case "looper":
         return looperSvg
       default:

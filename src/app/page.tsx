@@ -2,18 +2,21 @@ import { AboutUs } from "@/components/home/about-us"
 import { Hero } from "@/components/home/hero"
 import { Materials } from "@/components/home/materials"
 import { Projects } from "@/components/home/projects"
-import { HomeMiddleShapes } from "@/components/home/shapes"
+import { HomeMaterialsShapes, HomeProjectsShapes } from "@/components/home/shapes"
 
 export default function Home() {
   return (
     <main className="w-full">
       <Hero />
       <div className="relative">
-        <HomeMiddleShapes />
+        <HomeMaterialsShapes />
         <Materials />
-        <Projects />
-        <AboutUs />
       </div>
+      <div className="relative">
+        <HomeProjectsShapes />
+        <Projects />
+      </div>
+      <AboutUs />
     </main>
   )
 }
