@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   description: desc,
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   openGraph: {
-    description: desc,
     url: "https://polinetwork.org/",
     siteName: "PoliNetwork",
     images: [
