@@ -1,12 +1,13 @@
 import type { StaticImageData } from "next/image"
 import Image from "next/image"
-import type { ReactNode } from "react"
+import type { CSSProperties, MouseEventHandler, ReactNode } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 interface LayoutButton {
   text: string
   icon?: ReactNode
+  onClick?: MouseEventHandler<HTMLButtonElement>
   variant?: "primary" | "tertiary" | "tertiaryBlur" | "glass" | "outline" | "link"
   size?: "sm" | "lg" | "default" | "lg-wide" | "icon" | "icon-sm" | "icon-lg"
 }
@@ -66,6 +67,7 @@ export default function TextImageLayout({
       {button && (
         <div className="flex w-full justify-center min-[1616px]:justify-start">
           <Button
+            onClick={button.onClick}
             variant={button.variant ?? "primary"}
             size={button.size ?? "lg"}
             className={cn("flex items-center gap-2", classNames.button)}
@@ -81,16 +83,18 @@ export default function TextImageLayout({
   const imageDiv = (
     <div
       className={cn(
-        `flex w-full min-w-0 flex-1 items-center justify-center min-[1616px]:min-w-[${imageW}px]`,
+        "flex w-full min-w-0 flex-1 items-center justify-center min-[1616px]:min-w-(--image-width)",
         classNames.imageDiv
       )}
+      style={{ "--image-width": `${imageW}px` } as CSSProperties}
     >
       <Image
         src={imageSrc}
         alt=""
         width={imageW}
         height={imageH}
-        className={cn(`h-[${imageH}px] w-full max-w-[${imageW}px] rounded-rectangles object-cover`, classNames.image)}
+        className={cn("h-auto w-full rounded-rectangles object-cover", classNames.image)}
+        style={{ height: imageH, maxWidth: imageW }}
       />
     </div>
   )

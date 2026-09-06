@@ -1,10 +1,11 @@
-import type { ReactNode } from "react"
+import type { MouseEventHandler, ReactNode } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 interface LayoutButton {
   text: string
   icon?: ReactNode
+  onClick?: MouseEventHandler<HTMLButtonElement>
   variant?: "primary" | "tertiary" | "tertiaryBlur" | "glass" | "outline" | "link"
   size?: "sm" | "lg" | "default" | "lg-wide" | "icon" | "icon-sm" | "icon-lg"
 }
@@ -49,6 +50,13 @@ export default function TextOnlyLayout({
         ? "items-end min-[1616px]:items-end"
         : "items-center min-[1616px]:items-start"
 
+  const buttonAlignClass =
+    horizontalOrientation === "center"
+      ? "justify-center min-[1616px]:justify-center"
+      : horizontalOrientation === "end"
+        ? "justify-center min-[1616px]:justify-end"
+        : "justify-center min-[1616px]:justify-start"
+
   return (
     <section
       className={cn(
@@ -61,9 +69,10 @@ export default function TextOnlyLayout({
 
         <div className={cn("flex flex-col gap-3", textAlignClass, classNames.descriptionDiv)}>{description}</div>
         {button && (
-          <div className="flex w-full justify-center min-[1616px]:justify-start">
+          <div className={cn("flex w-full", buttonAlignClass)}>
             <Button
               type="button"
+              onClick={button.onClick}
               variant={button.variant ?? "primary"}
               size={button.size ?? "lg"}
               className={cn("flex items-center gap-2", classNames.button)}

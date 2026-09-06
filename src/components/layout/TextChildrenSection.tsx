@@ -1,10 +1,11 @@
-import type { ReactNode } from "react"
+import type { MouseEventHandler, ReactNode } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 interface LayoutButton {
   text: string
   icon?: ReactNode
+  onClick?: MouseEventHandler<HTMLButtonElement>
   variant?: "primary" | "tertiary" | "tertiaryBlur" | "glass" | "outline" | "link"
   size?: "sm" | "lg" | "default" | "lg-wide" | "icon" | "icon-sm" | "icon-lg"
 }
@@ -51,6 +52,13 @@ export default function TextChildrenLayout({
         ? "justify-end"
         : "justify-center min-[1616px]:justify-start"
 
+  const buttonAlignClass =
+    horizontalOrientation === "center"
+      ? "justify-center min-[1616px]:justify-center"
+      : horizontalOrientation === "end"
+        ? "justify-center min-[1616px]:justify-end"
+        : "justify-center min-[1616px]:justify-start"
+
   const flexDirection = verticalOrientation === "bt" ? "flex-col-reverse" : "flex-col"
 
   const flexDirectionDesktop =
@@ -94,9 +102,10 @@ export default function TextChildrenLayout({
           {description}
         </div>
         {button && (
-          <div className="flex w-full justify-center min-[1616px]:justify-start">
+          <div className={cn("flex w-full", buttonAlignClass)}>
             <Button
               type="button"
+              onClick={button.onClick}
               variant={button.variant ?? "primary"}
               size={button.size ?? "lg"}
               className={cn("flex w-fit items-center gap-2", classNames.button)}
