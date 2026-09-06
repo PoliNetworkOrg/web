@@ -18,7 +18,7 @@ export type ResponsiveCardSize = CardSize | ResponsiveCardSizeConfig
 
 export type SharedCardProps = {
   title: string
-  icon: GradientIconType
+  icon: GradientIconType | string
   size?: ResponsiveCardSize
   align?: CardAlign
   href?: string

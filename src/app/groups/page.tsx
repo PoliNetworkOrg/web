@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { FiBook, FiStar } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { GroupSearch } from "@/components/home/group-search"
@@ -18,6 +19,11 @@ const groups = [
     cta: "Esplora",
   },
 ] as const
+
+export const metadata: Metadata = {
+  title: "Gruppi",
+  description: "Esplora i gruppi del Politecnico di Milano, dai gruppi didattici a quelli extra-curriculari.",
+}
 
 export default function Home() {
   return (

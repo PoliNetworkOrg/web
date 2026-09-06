@@ -5,10 +5,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const ALL = "all"
 
+export type FilterOption = { value: string; label: string }
+
 type FilterSelectProps = {
   label: string
   value: string
-  options: string[]
+  options: FilterOption[]
   onChange: (value: string) => void
 }
 
@@ -22,8 +24,8 @@ function FilterSelect({ label, value, options, onChange }: FilterSelectProps) {
       <SelectContent>
         <SelectItem value={ALL}>{label}</SelectItem>
         {options.map((option) => (
-          <SelectItem key={option} value={option}>
-            {option}
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
           </SelectItem>
         ))}
       </SelectContent>
@@ -31,7 +33,7 @@ function FilterSelect({ label, value, options, onChange }: FilterSelectProps) {
   )
 }
 
-export function CourseFilters({ campuses, languages }: { campuses: string[]; languages: string[] }) {
+export function CourseFilters({ campuses, languages }: { campuses: FilterOption[]; languages: FilterOption[] }) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
