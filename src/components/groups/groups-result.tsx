@@ -3,7 +3,8 @@ import { notFound } from "next/navigation"
 import { FiArrowLeft, FiX } from "react-icons/fi"
 import { CardCourseGroup } from "@/components/card-course-group"
 import { getLevel, getSchool } from "@/components/groups/constants"
-import { getVisibleGroups, type VisibleGroup } from "@/queries/groups"
+import { getVisibleGroups } from "@/queries/groups"
+import type { VisibleGroup } from "@/queries/types"
 import {
   cohortLabelText,
   courseCohortFromLabels,
