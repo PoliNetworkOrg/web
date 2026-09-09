@@ -1,4 +1,5 @@
 import { ConditionalFooter } from "@/components/conditional-footer"
+import { NavigationEasterEgg } from "@/components/easter-egg/navigation-easter-egg"
 import { Header } from "@/components/header/header"
 import { Shape } from "@/components/shapes"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -79,11 +80,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <Shape variant="big-blue" className="-translate-x-1/2 -translate-y-1/2 top-0 left-1/2" />
             <Shape variant="looper" className="-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
           </div>
-          <div className="flex min-h-screen w-full flex-col items-center justify-start">
+          <NavigationEasterEgg className="flex min-h-screen w-full flex-col items-center justify-start">
             <Header />
             {children}
             <ConditionalFooter />
-          </div>
+          </NavigationEasterEgg>
         </ThemeProvider>
       </body>
     </html>
