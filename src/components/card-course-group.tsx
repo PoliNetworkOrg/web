@@ -47,7 +47,7 @@ export function CardCourseGroup({
       <CardTitle gradient={false} className="typo-body-medium md:typo-headline-small min-w-0 grow">
         {groupName}
       </CardTitle>
-      <div className={cn("flex items-center gap-3", stacked ? "md:contents" : "contents")}>
+      <div className={cn("flex items-center gap-1.5", stacked ? "md:contents" : "contents")}>
         {waLink && (
           <a href={waLink} target="_blank" rel="noopener noreferrer" aria-label={`${groupName} su WhatsApp`}>
             <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="sm" />
