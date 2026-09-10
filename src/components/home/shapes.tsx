@@ -1,4 +1,4 @@
-import { Shape } from "@/components/shapes"
+import { Shape, ShapeLayer } from "@/components/shapes"
 
 /**
  * `left` offsets below are expressed as `calc(50% + Npx)`, i.e. relative to the
@@ -21,7 +21,7 @@ import { Shape } from "@/components/shapes"
 
 export function HomeHeroShapes() {
   return (
-    <div aria-hidden className="-z-10 pointer-events-none absolute inset-0 overflow-hidden">
+    <ShapeLayer>
       {/* Mobile Shapes */}
       <Shape variant="big-teal" className="top-49.5 left-[calc(50%-201px)] size-100.25 md:hidden" />
       <Shape variant="small-blue" className="top-22 left-[calc(50%-178px)] size-[354.13px] md:hidden" />
@@ -30,13 +30,13 @@ export function HomeHeroShapes() {
       {/* Desktop Shapes */}
       <Shape variant="hero-glow" className="-top-166.25 left-[calc(50%-647px)] hidden h-428 w-322.5 md:block" />
       <Shape variant="looper" className="-top-71.5 left-[calc(50%-682px)] hidden h-339.5 w-350.25 md:block" />
-    </div>
+    </ShapeLayer>
   )
 }
 
 export function HomeMaterialsShapes() {
   return (
-    <div aria-hidden className="-z-10 pointer-events-none absolute inset-0 overflow-hidden">
+    <ShapeLayer>
       {/* Mobile Shapes */}
       <Shape variant="big-teal" className="top-10.75 left-[calc(50%-315px)] size-100.25 md:hidden" />
       <Shape variant="small-blue" className="top-42.5 left-[calc(50%-281px)] size-58.25 md:hidden" />
@@ -49,13 +49,13 @@ export function HomeMaterialsShapes() {
       <Shape variant="big-teal" className="top-142.25 left-[calc(50%-1261px)] hidden size-243.5 md:block" />
       <Shape variant="small-blue" className="top-137.5 left-[calc(50%-1043px)] hidden size-[498.98px] md:block" />
       <Shape variant="looper" className="top-66 left-[calc(50%-1276px)] hidden h-[1560.48px] w-[1609.71px] md:block" />
-    </div>
+    </ShapeLayer>
   )
 }
 
 export function HomeProjectsShapes() {
   return (
-    <div aria-hidden className="-z-10 pointer-events-none absolute inset-0 overflow-hidden">
+    <ShapeLayer>
       {/* Mobile Shapes */}
       <Shape variant="big-teal" className="top-13.25 left-[calc(50%-111px)] size-100.25 md:hidden" />
       <Shape variant="small-blue" className="top-32.5 left-[calc(50%+17px)] size-55.5 md:hidden" />
@@ -67,6 +67,6 @@ export function HomeProjectsShapes() {
         variant="small-blue"
         className="top-[287.32px] left-[calc(50%+340.32px)] hidden size-[477.48px] md:block"
       />
-    </div>
+    </ShapeLayer>
   )
 }

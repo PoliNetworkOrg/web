@@ -1,4 +1,4 @@
-import { Shape } from "@/components/shapes"
+import { Shape, ShapeLayer } from "@/components/shapes"
 
 /**
  * `left` offsets below are expressed as `calc(50% + Npx)`, i.e. relative to the
@@ -16,7 +16,7 @@ import { Shape } from "@/components/shapes"
 
 export function CommunityNewsShapes() {
   return (
-    <div aria-hidden className="-z-10 pointer-events-none absolute inset-0">
+    <ShapeLayer>
       {/* Mobile Shapes */}
       <Shape variant="big-teal" className="top-12.25 left-[calc(50%-44px)] size-100.25 md:hidden" />
       <Shape variant="small-blue" className="top-64.75 left-[calc(50%-307px)] size-71.25 md:hidden" />
@@ -37,13 +37,13 @@ export function CommunityNewsShapes() {
         variant="looper"
         className="top-[-280.4px] left-[calc(50%-27.41px)] hidden h-[1584.39px] w-[1464.51px] md:block"
       />
-    </div>
+    </ShapeLayer>
   )
 }
 
 export function CollectionShapes() {
   return (
-    <div aria-hidden className="-z-10 pointer-events-none absolute inset-0">
+    <ShapeLayer>
       {/* Mobile Shapes */}
       <Shape variant="small-blue" className="top-76.25 left-[calc(50%-14px)] size-58.25 md:hidden" />
       <Shape variant="big-teal" className="top-95.5 left-[calc(50%-317px)] size-100.25 md:hidden" />
@@ -55,13 +55,13 @@ export function CollectionShapes() {
         variant="looper"
         className="top-[-205.37px] left-[calc(50%-763.83px)] hidden h-[1560.48px] w-[1609.71px] md:block"
       />
-    </div>
+    </ShapeLayer>
   )
 }
 
 export function UploadShapes() {
   return (
-    <div aria-hidden className="-z-9 pointer-events-none absolute inset-0">
+    <ShapeLayer className="-z-9">
       {/* Mobile Shapes */}
       <Shape variant="big-teal" className="top-161 left-[calc(50%-52px)] size-100.25 md:hidden" />
       <Shape variant="looper" className="-rotate-120 top-70 left-[calc(50%-480px)] h-265 w-258 md:hidden" />
@@ -73,13 +73,13 @@ export function UploadShapes() {
         variant="looper"
         className="-top-15.25 left-[calc(50%-1096.09px)] hidden h-[1560.48px] w-[1609.71px] md:block"
       />
-    </div>
+    </ShapeLayer>
   )
 }
 
 export function DeprecatedShapes() {
   return (
-    <div aria-hidden className="-z-10 pointer-events-none absolute inset-0">
+    <ShapeLayer>
       {/* Mobile Shapes */}
       <Shape variant="big-teal" className="top-23.25 left-[calc(50%-338px)] size-100.25 md:hidden" />
       <Shape variant="small-blue" className="top-45.5 left-[calc(50%-67px)] size-58.25 md:hidden" />
@@ -92,6 +92,6 @@ export function DeprecatedShapes() {
         variant="looper"
         className="top-[-147.41px] left-[calc(50%-268.41px)] hidden h-[1560.62px] w-[1609.84px] rotate-180 md:block"
       />
-    </div>
+    </ShapeLayer>
   )
 }
