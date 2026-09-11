@@ -1,24 +1,5 @@
 import { Shape, ShapeLayer } from "@/components/shapes"
 
-/**
- * `left` offsets are `calc(50% + Npx)`, relative to the horizontal center of
- * the 1728px-wide (desktop) / 402px-wide (mobile) Figma reference frames —
- * see src/components/home/shapes.tsx for why.
- *
- * This page is a single `<main>` section (no sub-sections like Projects or
- * Matricole), so `top` is simply the Figma-reported `y`, relative to the top
- * of the page/`<main>` — no per-section remapping needed.
- *
- * Exception: the last looper is `bottom`-anchored instead. It's meant to sit
- * near the end of the card list / bleed into the footer transition, but the
- * list length (and so `<main>`'s real height) is data-dependent — the
- * associations list can be empty or have any number of cards. A fixed `top`
- * would only land near the end of the content at the exact card count Figma
- * assumed; anchoring from the bottom (proportionally, using the Figma
- * container height as the reference) keeps it near the end of the *real*
- * content regardless of how many cards actually render.
- */
-
 export function AssociationsShapes() {
   return (
     <ShapeLayer>
