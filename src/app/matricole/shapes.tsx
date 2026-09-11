@@ -57,7 +57,7 @@ export function MatricoleGuidesShapes() {
       <Shape variant="matricole-glow-1" className="top-[1553.59px] left-[calc(50%-304px)] size-54.75 md:hidden" />
       <Shape variant="big-teal" className="top-571.75 left-[calc(50%+311px)] size-100.25 md:hidden" />
 
-      <Shape variant="looper" className="rotate-45 -top-20 left-[calc(50%-340px)] size-200 md:hidden" />
+      <Shape variant="looper" className="-top-20 left-[calc(50%-340px)] size-200 rotate-45 md:hidden" />
       <Shape variant="looper" className="-rotate-93 top-350.75 left-[calc(50%-500px)] size-250 md:hidden" />
 
       {/* Desktop Shapes */}
