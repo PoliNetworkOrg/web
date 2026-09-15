@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ContactCard, type ContactCardData } from "./contact-card"
+import { ContactCard, type ContactCardData } from "../contact-card"
 
 const contactCards: ContactCardData[] = [
   {
