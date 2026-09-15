@@ -1,19 +1,7 @@
-import { FiBox } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
-import type { GradientIconType } from "@/components/gradient-icon"
-import { SCHOOLS } from "@/components/groups/constants"
+import { DEFAULT_SCHOOL_ICON, SCHOOL_ICONS, SCHOOLS } from "@/components/groups/constants"
 import { WizardShell } from "@/components/groups/wizard-shell"
 import { stepHref } from "../../utils/step-href"
-
-const SCHOOL_ICONS: Record<string, GradientIconType | string> = {
-  "ingegneria-industriale-informazione": "/icons/ingegneria.png",
-  auic: "/icons/architettura.png",
-  "ingegneria-civile-ambientale-territoriale": "/icons/civile.png",
-  design: "/icons/design.png",
-}
-
-// Generic placeholder for a school without a dedicated icon — never a specific school's own image.
-const DEFAULT_SCHOOL_ICON: GradientIconType = FiBox
 
 export function SchoolStep() {
   return (
