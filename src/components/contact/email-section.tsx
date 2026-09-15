@@ -1,12 +1,5 @@
 import Link from "next/link"
-import type { ReactNode } from "react"
-import { Card, CardBottomButton, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
-type ContactCardData = {
-  title: string
-  description: ReactNode
-  email: string
-}
+import { ContactCard, type ContactCardData } from "./contact-card"
 
 const contactCards: ContactCardData[] = [
   {
@@ -48,23 +41,9 @@ const contactCards: ContactCardData[] = [
   },
 ]
 
-function ContactCard({ title, description, email }: ContactCardData) {
-  return (
-    <Card className="h-66 w-full max-w-78 gap-6 justify-self-center p-6">
-      <CardHeader>
-        <CardTitle className="typo-headline-small">{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="typo-body-medium flex-1">{description}</CardContent>
-      <CardBottomButton variant="tertiary" asChild className="mt-auto">
-        <a href={`mailto:${email}`}>{email}</a>
-      </CardBottomButton>
-    </Card>
-  )
-}
-
 export function EmailSection() {
   return (
-    <section className="flex flex-col gap-6 px-6 md:px-36">
+    <section className="flex w-full flex-col gap-6 px-6 min-[1616px]:px-36">
       <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent min-[1616px]:text-start">
         Hai una richiesta specifica?
       </h2>
@@ -78,7 +57,7 @@ export function EmailSection() {
         Qui sotto trovi i contatti in base al tipo di richiesta.
       </p>
 
-      <div className="flex w-full flex-wrap justify-center gap-12 xl:gap-16">
+      <div className="flex w-full flex-wrap justify-center gap-12 xl:gap-16 min-[1616px]:justify-start">
         {contactCards.map((card) => (
           <ContactCard key={card.email} {...card} />
         ))}

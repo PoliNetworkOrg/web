@@ -32,7 +32,7 @@ export function GroupsSection() {
           alt="Foto di gruppo della community PoliNetwork"
           width={721}
           height={342}
-          className="h-auto w-full max-w-[721px] rounded-rectangles object-cover min-[1616px]:min-w-[721px]"
+          className="h-auto w-full max-w-180.25 rounded-rectangles object-cover min-[1616px]:min-w-180.25"
         />
       </div>
     </section>
