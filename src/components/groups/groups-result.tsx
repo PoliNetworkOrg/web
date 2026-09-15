@@ -2,7 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FiArrowLeft, FiX } from "react-icons/fi"
 import { CardCourseGroup } from "@/components/card-course-group"
-import { getLevel, getSchool } from "@/components/groups/constants"
+import { getLevel, getSchool } from "@/components/wizard/constants"
 import { getVisibleGroups } from "@/queries/groups"
 import type { VisibleGroup } from "@/queries/types"
 import {
@@ -17,7 +17,9 @@ import {
   schoolLabel,
 } from "@/utils/labels"
 import { mergeGroupsByTitle } from "@/utils/merge-groups"
-import { stepHref } from "../../utils/step-href"
+import { createStepHref } from "@/utils/step-href"
+
+const stepHref = createStepHref("/groups/didattica")
 
 function GroupSection({ title, groups }: { title: string; groups: VisibleGroup[] }) {
   const merged = mergeGroupsByTitle(groups)
@@ -114,21 +116,21 @@ export async function GroupsResult({
         mergedSchoolGroups.length > 0 ||
         mergedLevelGroups.length > 0 ||
         mergedGeneralCourseGroups.length > 0) && (
-        <div className="flex flex-row flex-wrap gap-3 md:mt-25.75">
-          {mergedSiteGroups.map((g) => (
-            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
-          ))}
-          {mergedSchoolGroups.map((g) => (
-            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
-          ))}
-          {mergedLevelGroups.map((g) => (
-            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} secondary stacked />
-          ))}
-          {mergedGeneralCourseGroups.map((g) => (
-            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} secondary stacked />
-          ))}
-        </div>
-      )}
+          <div className="flex flex-row flex-wrap gap-3 md:mt-25.75">
+            {mergedSiteGroups.map((g) => (
+              <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
+            ))}
+            {mergedSchoolGroups.map((g) => (
+              <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
+            ))}
+            {mergedLevelGroups.map((g) => (
+              <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} secondary stacked />
+            ))}
+            {mergedGeneralCourseGroups.map((g) => (
+              <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} secondary stacked />
+            ))}
+          </div>
+        )}
 
       {cohorts.map((cohort) => (
         <GroupSection

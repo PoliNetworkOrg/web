@@ -1,6 +1,9 @@
 import type { Metadata } from "next"
-import { getSchool } from "@/components/groups/constants"
-import { LevelStep } from "@/components/groups/level-step"
+import { getSchool } from "@/components/wizard/constants"
+import { LevelStep } from "@/components/wizard/level-step"
+import { createStepHref } from "@/utils/step-href"
+
+const stepHref = createStepHref("/groups/didattica")
 
 export async function generateMetadata({ params }: { params: Promise<{ school: string }> }): Promise<Metadata> {
   const { school: schoolSlug } = await params
@@ -15,5 +18,5 @@ export async function generateMetadata({ params }: { params: Promise<{ school: s
 
 export default async function DidatticaLevelPage({ params }: { params: Promise<{ school: string }> }) {
   const { school } = await params
-  return <LevelStep school={school} />
+  return <LevelStep school={school} landingHref="/groups" stepHref={stepHref} />
 }

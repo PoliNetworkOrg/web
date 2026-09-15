@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import { getLevel, getSchool } from "@/components/groups/constants"
 import { GroupsResult } from "@/components/groups/groups-result"
+import { getLevel, getSchool } from "@/components/wizard/constants"
 import { humanizeSlug } from "@/utils/labels"
 
 export const dynamic = "force-dynamic"

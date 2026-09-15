@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
-import { SchoolStep } from "@/components/groups/school-step"
+import { SchoolStep } from "@/components/wizard/school-step"
+import { createStepHref } from "@/utils/step-href"
+
+const stepHref = createStepHref("/groups/didattica")
 
 export const metadata: Metadata = {
   title: "Gruppi Didattici",
@@ -7,5 +10,5 @@ export const metadata: Metadata = {
 }
 
 export default function DidatticaWizard() {
-  return <SchoolStep />
+  return <SchoolStep caption="Troviamo il tuo gruppo partendo dalla base!" landingHref="/groups" stepHref={stepHref} />
 }

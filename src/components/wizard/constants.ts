@@ -1,6 +1,6 @@
 import { FiBox } from "react-icons/fi"
 import type { GradientIconType } from "@/components/gradient-icon"
-import type { Level, School } from "@/components/groups/types"
+import type { Level, School } from "@/components/wizard/types"
 
 export const SCHOOLS: School[] = [
   { slug: "ingegneria-industriale-informazione", name: "Scuola di Ingegneria Industriale e dell'Informazione" },
