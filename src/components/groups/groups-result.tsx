@@ -116,21 +116,21 @@ export async function GroupsResult({
         mergedSchoolGroups.length > 0 ||
         mergedLevelGroups.length > 0 ||
         mergedGeneralCourseGroups.length > 0) && (
-          <div className="flex flex-row flex-wrap gap-3 md:mt-25.75">
-            {mergedSiteGroups.map((g) => (
-              <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
-            ))}
-            {mergedSchoolGroups.map((g) => (
-              <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
-            ))}
-            {mergedLevelGroups.map((g) => (
-              <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} secondary stacked />
-            ))}
-            {mergedGeneralCourseGroups.map((g) => (
-              <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} secondary stacked />
-            ))}
-          </div>
-        )}
+        <div className="flex flex-row flex-wrap gap-3 md:mt-25.75">
+          {mergedSiteGroups.map((g) => (
+            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
+          ))}
+          {mergedSchoolGroups.map((g) => (
+            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} stacked />
+          ))}
+          {mergedLevelGroups.map((g) => (
+            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} secondary stacked />
+          ))}
+          {mergedGeneralCourseGroups.map((g) => (
+            <CardCourseGroup key={g.key} groupName={g.title} waLink={g.waLink} tgLink={g.tgLink} secondary stacked />
+          ))}
+        </div>
+      )}
 
       {cohorts.map((cohort) => (
         <GroupSection
