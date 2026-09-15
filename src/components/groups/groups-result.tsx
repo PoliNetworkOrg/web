@@ -2,7 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FiArrowLeft, FiX } from "react-icons/fi"
 import { CardCourseGroup } from "@/components/card-course-group"
-import { getLevel, getSchool } from "@/components/groups/constants"
+import { getLevel, getSchool } from "@/components/wizard/constants"
 import { getVisibleGroups } from "@/queries/groups"
 import type { VisibleGroup } from "@/queries/types"
 import {
@@ -17,7 +17,9 @@ import {
   schoolLabel,
 } from "@/utils/labels"
 import { mergeGroupsByTitle } from "@/utils/merge-groups"
-import { stepHref } from "../../utils/step-href"
+import { createStepHref } from "@/utils/step-href"
+
+const stepHref = createStepHref("/groups/didattica")
 
 function GroupSection({ title, groups }: { title: string; groups: VisibleGroup[] }) {
   const merged = mergeGroupsByTitle(groups)
