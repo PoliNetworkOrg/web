@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { FiBook, FiStar } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { GroupSearch } from "@/components/home/group-search"
+import { GroupsShapes } from "./shapes"
 
 const groups = [
   {
@@ -28,7 +29,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="w-full">
-      <div className="flex min-h-svh flex-col items-center gap-16 px-6 py-64 md:gap-20 md:py-49">
+      <div className="relative flex min-h-svh flex-col items-center gap-16 px-6 py-64 md:gap-20 md:py-49">
+        <GroupsShapes />
         <div className="flex w-full flex-col items-center gap-5 text-center">
           <h2 className="typo-display-large md:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent md:py-14">
             Groups

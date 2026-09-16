@@ -15,7 +15,7 @@ export type ShapeVariant =
   | "big-teal"
   | "small-blue"
   | "hero-glow"
-  | "projects-glow"
+  | "projects-glow" //TODO: remove these page specific shapes
   | "matricole-glow-1"
   | "matricole-glow-2"
   | "matricole-top-glow"
