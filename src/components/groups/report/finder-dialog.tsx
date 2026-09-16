@@ -5,6 +5,7 @@ import { FiAlertCircle, FiCheckCircle, FiLink } from "react-icons/fi"
 import { ButtonIcon } from "@/components/button-icon"
 import { ReportBrokenLinkFlow } from "@/components/groups/report/broken-link-flow"
 import { ReportMissingLinkFlow } from "@/components/groups/report/missing-link"
+import type { MissingLinkTarget } from "@/components/groups/report/missing-link/types"
 import { SelectableCardIcon } from "@/components/groups/report/selectable-card-icon"
 import { Button } from "@/components/ui/button"
 import { Card, CardAction, CardContent } from "@/components/ui/card"
@@ -21,7 +22,17 @@ import type { BrokenGroupLinkReportInput, MissingGroupLinkReportInput } from "@/
 
 type View = "problem" | "broken" | "missing" | "confirmation" | "done"
 
-export function ReportFinderDialog({ trigger }: { trigger: ReactNode }) {
+export function ReportFinderDialog({
+  trigger,
+  selectedReport,
+  selectedGroupName,
+  missingLinkTarget,
+}: {
+  trigger: ReactNode
+  selectedReport?: BrokenGroupLinkReportInput
+  selectedGroupName?: string
+  missingLinkTarget?: MissingLinkTarget
+}) {
   const [open, setOpen] = useState(false)
   const [view, setView] = useState<View>("problem")
   const [report, setReport] = useState<BrokenGroupLinkReportInput | null>(null)
@@ -41,7 +52,13 @@ export function ReportFinderDialog({ trigger }: { trigger: ReactNode }) {
 
   function handleOpenChange(next: boolean) {
     setOpen(next)
-    if (!next) reset()
+    if (!next) {
+      reset()
+    } else if (selectedReport && selectedGroupName) {
+      setReport(selectedReport)
+      setGroupName(selectedGroupName)
+      setView("confirmation")
+    }
   }
 
   async function submit(input: BrokenGroupLinkReportInput | MissingGroupLinkReportInput) {
@@ -123,6 +140,7 @@ export function ReportFinderDialog({ trigger }: { trigger: ReactNode }) {
             onBack={reset}
             onSubmit={(missingReport) => void submit(missingReport)}
             status={status}
+            target={missingLinkTarget}
           />
         ) : (
           <>

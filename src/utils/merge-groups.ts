@@ -5,7 +5,9 @@ export type MergedGroup = {
   key: string
   title: string
   waLink?: string
+  waGroupId?: number
   tgLink?: string
+  tgGroupId?: number
 }
 
 /**
@@ -18,12 +20,19 @@ export function mergeGroupsByTitle(groups: VisibleGroup[]): MergedGroup[] {
   const result: MergedGroup[] = []
   for (const g of groups) {
     const linkField = g.type === "wa" ? "waLink" : "tgLink"
+    const groupIdField = g.type === "wa" ? "waGroupId" : "tgGroupId"
     const candidates = openByTitle.get(g.title) ?? []
     const openEntry = candidates.find((m) => !m[linkField])
     if (openEntry) {
       openEntry[linkField] = g.link
+      openEntry[groupIdField] = g.id
     } else {
-      const merged: MergedGroup = { key: `${g.type}:${g.id}`, title: g.title, [linkField]: g.link }
+      const merged: MergedGroup = {
+        key: `${g.type}:${g.id}`,
+        title: g.title,
+        [linkField]: g.link,
+        [groupIdField]: g.id,
+      }
       candidates.push(merged)
       openByTitle.set(g.title, candidates)
       result.push(merged)
