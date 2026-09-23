@@ -3,6 +3,7 @@ import { CommunityNews } from "@/components/projects/community-news"
 import { Deprecated } from "@/components/projects/deprecated"
 import { Upload } from "@/components/projects/upload"
 import { getAllProjects } from "@/queries/projects"
+import { CollectionShapes, CommunityNewsShapes, DeprecatedShapes, UploadShapes } from "./shapes"
 
 export const metadata = {
   title: "Progetti",
@@ -20,10 +21,22 @@ export default async function Home() {
 
   return (
     <main className="w-full">
-      <CommunityNews projects={news} />
-      <Collection projects={general} />
-      <Upload />
-      <Deprecated projects={deprecated} />
+      <div className="relative">
+        <CommunityNewsShapes />
+        <CommunityNews projects={news} />
+      </div>
+      <div className="relative">
+        <CollectionShapes />
+        <Collection projects={general} />
+      </div>
+      <div className="relative">
+        <UploadShapes />
+        <Upload />
+      </div>
+      <div className="relative">
+        <DeprecatedShapes />
+        <Deprecated projects={deprecated} />
+      </div>
     </main>
   )
 }
