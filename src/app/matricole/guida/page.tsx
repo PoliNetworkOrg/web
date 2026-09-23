@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { FiDownload } from "react-icons/fi"
 import { CardSplit } from "@/components/card-split"
+import { ResourcesHeroShapes } from "@/components/resources/shapes"
 import { Button } from "@/components/ui/button"
 import { getLatestGuidaMatricola } from "@/queries/guida-matricola"
-import { ResourcesHeroShapes } from "@/components/resources/shapes"
 
 export const metadata: Metadata = {
   title: "Guida della Matricola",
