@@ -4,9 +4,9 @@ import bigTealSvg from "@/assets/shapes/big-teal.svg"
 import heroGlowSvg from "@/assets/shapes/hero-glow.svg"
 import looperSvg from "@/assets/shapes/looper.svg"
 import matricoleGlow1Svg from "@/assets/shapes/matricole-glow-1.svg"
-import matricoleGlow2Svg from "@/assets/shapes/matricole-glow-2.svg"
-import matricoleTopGlowSvg from "@/assets/shapes/matricole-top-glow.svg"
 import projectsGlowSvg from "@/assets/shapes/projects-glow.svg"
+import resourcesGlow2Svg from "@/assets/shapes/resources-glow-2.svg"
+import resourcesTopGlowSvg from "@/assets/shapes/resources-top-glow.svg"
 import smallBlueSvg from "@/assets/shapes/small-blue.svg"
 import { cn } from "@/lib/utils"
 
@@ -17,8 +17,8 @@ export type ShapeVariant =
   | "hero-glow"
   | "projects-glow" //TODO: remove these page specific shapes
   | "matricole-glow-1"
-  | "matricole-glow-2"
-  | "matricole-top-glow"
+  | "resources-glow-2"
+  | "resources-top-glow"
   | "looper"
 
 export type ShapeProps = {
@@ -41,10 +41,10 @@ export const Shape: React.FC<ShapeProps> = ({ variant, className }) => {
         return projectsGlowSvg
       case "matricole-glow-1":
         return matricoleGlow1Svg
-      case "matricole-glow-2":
-        return matricoleGlow2Svg
-      case "matricole-top-glow":
-        return matricoleTopGlowSvg
+      case "resources-glow-2":
+        return resourcesGlow2Svg
+      case "resources-top-glow":
+        return resourcesTopGlowSvg
       case "looper":
         return looperSvg
       default:
