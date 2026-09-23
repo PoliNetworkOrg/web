@@ -1,4 +1,4 @@
-import type { VisibleGroup } from "@/queries/groups"
+import type { VisibleGroup } from "@/queries/types"
 
 export type MergedGroup = {
   /** Stable React key — `type:id`, since numeric ids aren't guaranteed unique across the tg/wa namespaces. */
