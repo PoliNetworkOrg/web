@@ -73,7 +73,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           disableTransitionOnChange
         >
           {/* <ConditionalGlobalShapes /> */}
-          <div className="flex min-h-screen w-full flex-col items-center justify-start">
+          <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
             <Header />
             {children}
             <ConditionalFooter />

@@ -72,6 +72,11 @@ export type ShapeLayerProps = {
  * shapes bleed vertically into the next section (as several are designed to)
  * without shapes positioned off-canvas horizontally causing a page-wide
  * horizontal scrollbar.
+ *
+ * Don't add `overflow-hidden` here to stop shapes from lengthening the page:
+ * that also cuts them off at the section's bottom edge (e.g. before the
+ * footer). The page wrapper in app/layout.tsx is `overflow-clip`, so shapes
+ * can cross into the footer but anything past the end of the page is clipped.
  */
 export const ShapeLayer: React.FC<ShapeLayerProps> = ({ children, className }) => (
   <div
