@@ -10,19 +10,26 @@ import { CourseStep } from "./course-step"
 import { DetailsStep } from "./details-step"
 import { LevelStep } from "./level-step"
 import { SchoolStep } from "./school-step"
-import type { ReportMissingLinkCategory, ReportMissingLinkSelection, ReportMissingLinkStep } from "./types"
+import type {
+  MissingLinkTarget,
+  ReportMissingLinkCategory,
+  ReportMissingLinkSelection,
+  ReportMissingLinkStep,
+} from "./types"
 
 export function ReportMissingLinkFlow({
   onBack,
   onSubmit,
   status,
+  target,
 }: {
   onBack: () => void
   onSubmit: (report: MissingGroupLinkReportInput) => void
   status: "idle" | "submitting" | "error"
+  target?: MissingLinkTarget
 }) {
-  const [step, setStep] = useState<ReportMissingLinkStep>("category")
-  const [category, setCategory] = useState<ReportMissingLinkCategory | null>(null)
+  const [step, setStep] = useState<ReportMissingLinkStep>(target ? "details" : "category")
+  const [category, setCategory] = useState<ReportMissingLinkCategory | null>(target?.category ?? null)
   const [selection, setSelection] = useState<ReportMissingLinkSelection>({ school: null, level: null, course: null })
   const [courses, setCourses] = useState<string[] | null>(null)
   const [details, setDetails] = useState("")
@@ -45,12 +52,13 @@ export function ReportMissingLinkFlow({
 
   const school = selection.school ? getSchool(selection.school) : undefined
   const level = selection.school && selection.level ? getLevel(selection.school, selection.level) : undefined
-  const path =
+  const selectedPath =
     category === "extra"
       ? "Gruppi Extra"
       : [school?.name, level?.name, selection.course ? humanizeSlug(selection.course) : undefined]
           .filter(Boolean)
           .join(" · ")
+  const path = target?.path ?? selectedPath
 
   function selectCategory(next: ReportMissingLinkCategory) {
     setCategory(next)
@@ -109,14 +117,19 @@ export function ReportMissingLinkFlow({
     }
 
     // step === "details"
-    setStep(detailsFrom ?? "category")
+    if (target) {
+      onBack()
+    } else {
+      setStep(detailsFrom ?? "category")
+    }
   }
 
   function submit() {
     if (!details.trim() || status === "submitting") return
 
     const label =
-      category === "extra"
+      target?.label ??
+      (category === "extra"
         ? "Gruppi Extra"
         : selection.school && selection.course && selection.level
           ? courseLabel(selection.school, selection.level, selection.course)
@@ -124,7 +137,7 @@ export function ReportMissingLinkFlow({
             ? levelLabel(selection.school, selection.level)
             : selection.school
               ? schoolLabel(selection.school)
-              : null
+              : null)
 
     if (label === null) return
 
