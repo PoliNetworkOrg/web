@@ -9,7 +9,7 @@ export function Hero({
 }) {
   return (
     <div className="flex flex-col items-center gap-6">
-      <h2 className="typo-display-large sm:typo-display-extralarge w-fit self-stretch bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-center text-transparent sm:py-14">
+      <h2 className="typo-display-large sm:typo-display-extralarge w-full self-stretch bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-center text-transparent sm:py-14">
         {title}
       </h2>
       <p
