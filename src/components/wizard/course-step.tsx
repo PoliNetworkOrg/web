@@ -2,9 +2,9 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FiChevronRight } from "react-icons/fi"
 import { CardCourse } from "@/components/card-course"
-import { getLevel, getSchool } from "@/components/groups/constants"
-import { CourseFilters, type FilterOption } from "@/components/groups/course-filters"
-import { WizardShell } from "@/components/groups/wizard-shell"
+import { getLevel, getSchool } from "@/components/wizard/constants"
+import { CourseFilters, type FilterOption } from "@/components/wizard/course-filters"
+import { WizardShell } from "@/components/wizard/wizard-shell"
 import { getVisibleGroups } from "@/queries/groups"
 import {
   CAMPUS_FACETS,
@@ -16,7 +16,7 @@ import {
   languageFacet,
   languageLabel,
 } from "@/utils/labels"
-import { stepHref } from "../../utils/step-href"
+import type { StepHrefBuilder } from "@/utils/step-href"
 
 function facetOptions(facetsByCourse: Map<string, string[]>, known: string[], label: (facet: string) => string) {
   const values = new Set<string>()
@@ -33,11 +33,15 @@ export async function CourseStep({
   level,
   campus,
   lang,
+  landingHref,
+  stepHref,
 }: {
   school: string
   level: string
   campus?: string
   lang?: string
+  landingHref: string
+  stepHref: StepHrefBuilder
 }) {
   const school = getSchool(schoolSlug)
   const currentLevel = getLevel(schoolSlug, level)
@@ -64,6 +68,7 @@ export async function CourseStep({
       caption={`Perfetto, cerchiamo tra i corsi della ${currentLevel.name.toLowerCase()}!`}
       captionPosition="above"
       backHref={stepHref({ school: schoolSlug })}
+      closeHref={landingHref}
       action={
         campusOptions.length > 0 || languageOptions.length > 0 ? (
           <CourseFilters campuses={campusOptions} languages={languageOptions} />

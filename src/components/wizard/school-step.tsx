@@ -1,15 +1,24 @@
 import { CardIcon } from "@/components/card-icon"
-import { DEFAULT_SCHOOL_ICON, SCHOOL_ICONS, SCHOOLS } from "@/components/groups/constants"
-import { WizardShell } from "@/components/groups/wizard-shell"
-import { stepHref } from "../../utils/step-href"
+import { DEFAULT_SCHOOL_ICON, SCHOOL_ICONS, SCHOOLS } from "@/components/wizard/constants"
+import { WizardShell } from "@/components/wizard/wizard-shell"
+import type { StepHrefBuilder } from "@/utils/step-href"
 
-export function SchoolStep() {
+export function SchoolStep({
+  caption,
+  landingHref,
+  stepHref,
+}: {
+  caption: string
+  landingHref: string
+  stepHref: StepHrefBuilder
+}) {
   return (
     <WizardShell
       activeStep={0}
       title="Seleziona la tua Scuola"
-      caption="Troviamo il tuo gruppo partendo dalla base!"
-      backHref="/groups"
+      caption={caption}
+      backHref={landingHref}
+      closeHref={landingHref}
     >
       <div className="grid gap-4 md:grid-cols-2 md:gap-12.5">
         {SCHOOLS.map((school) => (
