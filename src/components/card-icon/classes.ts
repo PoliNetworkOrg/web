@@ -42,7 +42,7 @@ export const TITLE_SIZE_CLASSES: SizeClassMap = {
   sm: "typo-headline-medium",
   md: "typo-headline-medium",
   lg: "typo-headline-medium",
-  inline: "typo-title-large",
+  inline: "typo-headline-extrasmall",
 }
 
 export const INLINE_CONTAINER_SIZE_CLASSES: SizeClassMap = {

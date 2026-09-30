@@ -52,21 +52,17 @@ export function AboutSection() {
   return (
     <section className="flex w-full flex-row flex-wrap gap-28 px-2 md:px-36">
       <div className="flex min-w-0 flex-1 basis-120 flex-col gap-6">
-        <h2 className="md:typo-display-large typo-display-medium text-center md:text-start">Chi siamo?</h2>
+        <h2 className="sm:typo-display-medium typo-headline-medium text-center md:text-start">Chi siamo?</h2>
 
-        <div className="flex flex-col gap-5 text-start">
-          <p className="typo-title-large text-center md:text-start">
-            PoliNetwork è l'infrastruttura di comunicazione studentesca del Politecnico di Milano.
-          </p>
-          <p className="typo-title-large text-center md:text-start">
-            Gestiamo oltre 500 gruppi Telegram e WhatsApp, una presenza social in crescita e strumenti digitali usati
-            ogni anno da decine di migliaia di studenti di ingegneria, architettura e design.
+        <div className="sm:typo-headline-small typo-body-large flex flex-col gap-5 text-center md:text-start">
+          <p>
+            PoliNetwork è l'infrastruttura di comunicazione studentesca del Politecnico di Milano. Gestiamo oltre 500
+            gruppi Telegram e WhatsApp, una presenza social in crescita e strumenti digitali usati ogni anno da decine
+            di migliaia di studenti di ingegneria, architettura e design.
           </p>
           <div>
-            <p className="typo-title-large text-center text-blue-secondary md:text-start">
-              Chi entra al PoliMi, prima o poi, incontra PoliNetwork.
-            </p>
-            <p className="typo-title-large text-center md:text-start">(e persino studenti di liceo o altri atenei)</p>
+            <p className="text-blue-secondary">Chi entra al PoliMi, prima o poi, incontra PoliNetwork.</p>
+            <p>(e persino studenti di liceo o altri atenei)</p>
           </div>
         </div>
 
@@ -87,7 +83,7 @@ export function AboutSection() {
           <CarouselContent>
             {cards.map((card) => (
               <CarouselItem key={card.title}>
-                <CardIcon {...card} align="start" className="w-full min-w-0" />
+                <CardIcon {...card} align="inline" className="w-full min-w-0" />
               </CarouselItem>
             ))}
           </CarouselContent>

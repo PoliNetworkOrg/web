@@ -5,12 +5,12 @@ export function AssociationSection() {
   return (
     <section className="flex w-full flex-col items-center gap-27 px-6 text-center min-[1616px]:flex-row min-[1616px]:items-end min-[1616px]:px-36">
       <div className="flex w-full min-w-0 flex-1 flex-col items-center gap-6 min-[1616px]:items-start min-[1616px]:text-start">
-        <h2 className="typo-display-large sm:typo-display-medium text-center min-[1616px]:text-start">
+        <h2 className="sm:typo-display-medium typo-headline-medium text-center min-[1616px]:text-start">
           Sei un’associazione studentesca?
         </h2>
 
-        <div className="flex flex-col gap-3 text-center min-[1616px]:text-start">
-          <p className="typo-title-large sm:typo-headline-small">
+        <div className="sm:typo-headline-small typo-body-large flex flex-col gap-3 text-center min-[1616px]:text-start">
+          <p>
             Se fai parte dell'ecosistema universitario del Politecnico di Milano o di un'altra università, possiamo
             valutare collaborazioni su
             <span className="text-blue-secondary">
@@ -18,7 +18,7 @@ export function AssociationSection() {
               eventi congiunti, visibilità reciproca sui canali o iniziative rivolte agli studenti.
             </span>
           </p>
-          <p className="typo-title-large sm:typo-headline-small">
+          <p>
             Le collaborazioni più efficaci che abbiamo avuto nel tempo sono nate da gruppi studenteschi che
             condividevano una parte degli obiettivi che perseguiamo:
             <span className="text-blue-secondary">
@@ -26,14 +26,14 @@ export function AssociationSection() {
               rendere la vita universitaria meno complicata e più ricca per chi studia al Politecnico.
             </span>
           </p>
-          <p className="typo-title-large sm:typo-headline-small">
+          <p>
             Il processo è semplice: ci scrivi, ci descrivi il progetto e valutiamo insieme se c'è una base comune (per
             poi mettere i nostri talent a disposizione di questa partnership).
           </p>
         </div>
       </div>
 
-      <div className="flex w-full min-w-0 flex-1 items-center justify-center min-[1616px]:min-w-[611px]">
+      <div className="flex w-full min-w-0 flex-1 items-center justify-center min-[1616px]:min-w-152.75">
         <Image
           src={associationsImage}
           alt=""
