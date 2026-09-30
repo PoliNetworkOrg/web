@@ -1,5 +1,5 @@
-import { getLevel, getSchool } from "@/components/groups/constants"
 import type { MissingLinkTarget } from "@/components/groups/report/missing-link/types"
+import { getLevel, getSchool } from "@/components/wizard/constants"
 import { courseLabel, humanizeSlug, levelLabel, schoolLabel } from "@/utils/labels"
 
 export function missingLinkTargetFromPath(pathname: string): MissingLinkTarget | undefined {

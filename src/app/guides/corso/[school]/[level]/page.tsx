@@ -6,7 +6,7 @@ import { createStepHref } from "@/utils/step-href"
 
 export const dynamic = "force-dynamic"
 
-const stepHref = createStepHref("/groups/didattica")
+const stepHref = createStepHref("/guides/corso")
 
 export async function generateMetadata({
   params,
@@ -20,11 +20,11 @@ export async function generateMetadata({
 
   return {
     title: `${level.name} - ${school.name}`,
-    description: `Trova i gruppi Telegram e WhatsApp del tuo corso di ${level.name.toLowerCase()} alla ${school.name}.`,
+    description: `Trova le guide del tuo corso di ${level.name.toLowerCase()} alla ${school.name}.`,
   }
 }
 
-export default async function DidatticaCoursePage({
+export default async function GuidesCoursePage({
   params,
   searchParams,
 }: {
@@ -34,6 +34,6 @@ export default async function DidatticaCoursePage({
   const { school, level } = await params
   const { campus, lang } = await searchParams
   return (
-    <CourseStep school={school} level={level} campus={campus} lang={lang} landingHref="/groups" stepHref={stepHref} />
+    <CourseStep school={school} level={level} campus={campus} lang={lang} landingHref="/guides" stepHref={stepHref} />
   )
 }

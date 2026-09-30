@@ -15,6 +15,7 @@ type WizardShellProps = {
   caption?: string
   captionPosition?: "above" | "below"
   backHref?: string
+  closeHref?: string
   action?: ReactNode
   children: ReactNode
 }
@@ -25,6 +26,7 @@ export function WizardShell({
   caption,
   captionPosition = "below",
   backHref,
+  closeHref = "/groups",
   action,
   children,
 }: WizardShellProps) {
@@ -64,7 +66,7 @@ export function WizardShell({
             iconClassName="size-5"
             className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
             aria-label="Chiudi"
-            onClick={() => router.push("/groups")}
+            onClick={() => router.push(closeHref)}
           />
         </div>
 
