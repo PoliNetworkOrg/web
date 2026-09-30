@@ -1,6 +1,7 @@
 import { FiArrowUpRight, FiMessageSquare, FiUsers } from "react-icons/fi"
 import { MdOutlineHandshake, MdOutlineSchool } from "react-icons/md"
 import { Button } from "@/components/ui/button"
+import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "@/components/ui/carousel"
 import { CardIcon } from "../card-icon"
 
 const cards = [
@@ -75,10 +76,23 @@ export function AboutSection() {
         </Button>
       </div>
 
-      <div className="grid min-w-0 flex-1 basis-120 grid-cols-2 grid-rows-2 gap-x-8 gap-y-9">
+      <div className="hidden min-w-0 flex-1 basis-120 grid-cols-2 grid-rows-2 gap-x-8 gap-y-9 md:grid">
         {cards.map((card) => (
           <CardIcon key={card.title} {...card} align="start" className="w-full min-w-0" />
         ))}
+      </div>
+
+      <div className="min-w-0 flex-1 basis-120 md:hidden">
+        <Carousel className="w-full">
+          <CarouselContent>
+            {cards.map((card) => (
+              <CarouselItem key={card.title}>
+                <CardIcon {...card} align="start" className="w-full min-w-0" />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselDots className="mt-6" />
+        </Carousel>
       </div>
     </section>
   )
