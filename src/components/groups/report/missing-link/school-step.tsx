@@ -1,6 +1,6 @@
-import { DEFAULT_SCHOOL_ICON, SCHOOL_ICONS, SCHOOLS } from "@/components/groups/constants"
 import { SelectableCardIcon } from "@/components/groups/report/selectable-card-icon"
 import { DialogDescription, DialogHeader } from "@/components/ui/dialog"
+import { DEFAULT_SCHOOL_ICON, SCHOOL_ICONS, SCHOOLS } from "@/components/wizard/constants"
 
 export function SchoolStep({ onBack, onSelect }: { onBack: () => void; onSelect: (schoolSlug: string) => void }) {
   return (

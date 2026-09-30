@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { GroupsResult } from "@/components/groups/groups-result"
+import { GuidesResult } from "@/components/guides/guides-result"
 import { getLevel, getSchool } from "@/components/wizard/constants"
 import { humanizeSlug } from "@/utils/labels"
 
@@ -18,16 +18,16 @@ export async function generateMetadata({
   const courseName = humanizeSlug(course)
 
   return {
-    title: `${courseName} - Gruppi`,
-    description: `Gruppi Telegram e WhatsApp per ${courseName}, ${level.name} alla ${school.name}.`,
+    title: `${courseName} - Guide`,
+    description: `Guide per ${courseName}, ${level.name} alla ${school.name}.`,
   }
 }
 
-export default async function DidatticaGroupsResultPage({
+export default async function GuidesResultPage({
   params,
 }: {
   params: Promise<{ school: string; level: string; course: string }>
 }) {
   const { school, level, course } = await params
-  return <GroupsResult school={school} level={level} course={course} />
+  return <GuidesResult school={school} level={level} course={course} />
 }

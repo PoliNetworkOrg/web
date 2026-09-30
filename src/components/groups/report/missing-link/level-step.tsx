@@ -1,7 +1,7 @@
 import { CardPathSelection } from "@/components/card-path-selection"
-import { getLevelsForSchool } from "@/components/groups/constants"
 import { Button } from "@/components/ui/button"
 import { DialogDescription, DialogFooter, DialogHeader } from "@/components/ui/dialog"
+import { getLevelsForSchool } from "@/components/wizard/constants"
 
 export function LevelStep({
   schoolName,

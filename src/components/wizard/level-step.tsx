@@ -2,12 +2,20 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FiBook } from "react-icons/fi"
 import { CardPathSelection } from "@/components/card-path-selection"
-import { getLevelsForSchool, getSchool } from "@/components/groups/constants"
-import { WizardShell } from "@/components/groups/wizard-shell"
+import { getLevelsForSchool, getSchool } from "@/components/wizard/constants"
+import { WizardShell } from "@/components/wizard/wizard-shell"
 import { cn } from "@/lib/utils"
-import { stepHref } from "../../utils/step-href"
+import type { StepHrefBuilder } from "@/utils/step-href"
 
-export function LevelStep({ school: schoolSlug }: { school: string }) {
+export function LevelStep({
+  school: schoolSlug,
+  landingHref,
+  stepHref,
+}: {
+  school: string
+  landingHref: string
+  stepHref: StepHrefBuilder
+}) {
   const school = getSchool(schoolSlug)
   if (!school) notFound()
 
@@ -20,6 +28,7 @@ export function LevelStep({ school: schoolSlug }: { school: string }) {
       caption={`Ottimo, ${school.name}!`}
       captionPosition="above"
       backHref={stepHref({})}
+      closeHref={landingHref}
     >
       <div className="grid gap-4 md:grid-cols-2 md:gap-6">
         {levels.map((level, index) => {
