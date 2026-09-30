@@ -1,7 +1,11 @@
+"use client"
+
 import { cva, type VariantProps } from "class-variance-authority"
 import type { IconType } from "react-icons"
 import { FaWhatsapp } from "react-icons/fa"
+import { FiFlag } from "react-icons/fi"
 import { LiaTelegramPlane } from "react-icons/lia"
+import { ReportFinderDialog } from "@/components/groups/report/finder-dialog"
 import { cn } from "@/lib/utils"
 import { Card, CardAction, CardTitle } from "./ui/card"
 
@@ -23,16 +27,20 @@ export const cardCourseGroupVariants = cva(
 export function CardCourseGroup({
   groupName,
   waLink,
+  waGroupId,
   iconWhatsApp: IconWhatsApp = FaWhatsapp,
   tgLink,
+  tgGroupId,
   iconTelegram: IconTelegram = LiaTelegramPlane,
   secondary = false,
   stacked = false,
 }: {
   groupName: string
   waLink?: string
+  waGroupId?: number
   iconWhatsApp?: IconType
   tgLink?: string
+  tgGroupId?: number
   iconTelegram?: IconType
   stacked?: boolean
 } & VariantProps<typeof cardCourseGroupVariants>) {
@@ -48,17 +56,64 @@ export function CardCourseGroup({
         {groupName}
       </CardTitle>
       <div className={cn("flex items-center gap-1.5", stacked ? "md:contents" : "contents")}>
-        {waLink && (
-          <a href={waLink} target="_blank" rel="noopener noreferrer" aria-label={`${groupName} su WhatsApp`}>
-            <CardAction gradient={false} className={actionClassName} icon={IconWhatsApp} iconSize="sm" />
-          </a>
-        )}
-        {tgLink && (
-          <a href={tgLink} target="_blank" rel="noopener noreferrer" aria-label={`${groupName} su Telegram`}>
-            <CardAction gradient={false} className={actionClassName} icon={IconTelegram} iconSize="sm" />
-          </a>
-        )}
+        <PlatformAction
+          platform="wa"
+          platformLabel="WhatsApp"
+          link={waLink}
+          groupId={waGroupId}
+          icon={IconWhatsApp}
+          groupName={groupName}
+          actionClassName={actionClassName}
+        />
+        <PlatformAction
+          platform="tg"
+          platformLabel="Telegram"
+          link={tgLink}
+          groupId={tgGroupId}
+          icon={IconTelegram}
+          groupName={groupName}
+          actionClassName={actionClassName}
+        />
       </div>
     </Card>
+  )
+}
+
+function PlatformAction({
+  platform,
+  platformLabel,
+  link,
+  groupId,
+  icon,
+  groupName,
+  actionClassName,
+}: {
+  platform: "wa" | "tg"
+  platformLabel: string
+  link?: string
+  groupId?: number
+  icon: IconType
+  groupName: string
+  actionClassName: string
+}) {
+  if (!link) return null
+
+  return (
+    <>
+      <a href={link} target="_blank" rel="noopener noreferrer" aria-label={`${groupName} su ${platformLabel}`}>
+        <CardAction gradient={false} className={actionClassName} icon={icon} iconSize="sm" />
+      </a>
+      {groupId !== undefined && (
+        <ReportFinderDialog
+          selectedReport={{ groupId, type: platform, reportType: "broken_link", reportedLink: link }}
+          selectedGroupName={groupName}
+          trigger={
+            <button type="button" aria-label={`Segnala il link ${platformLabel} di ${groupName} come non funzionante`}>
+              <CardAction gradient={false} className="p-2 text-text-secondary sm:p-3.75" icon={FiFlag} iconSize="xs" />
+            </button>
+          }
+        />
+      )}
+    </>
   )
 }
