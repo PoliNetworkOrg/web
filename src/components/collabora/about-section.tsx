@@ -13,7 +13,6 @@ const cards = [
       </>
     ),
     icon: FiMessageSquare,
-    size: "sm",
   },
   {
     title: "45k+",
@@ -23,7 +22,6 @@ const cards = [
       </>
     ),
     icon: MdOutlineSchool,
-    size: "sm",
   },
   {
     title: "1000+",
@@ -34,7 +32,6 @@ const cards = [
     ),
 
     icon: FiUsers,
-    size: "sm",
   },
   {
     title: "5",
@@ -44,7 +41,6 @@ const cards = [
       </>
     ),
     icon: MdOutlineHandshake,
-    size: "sm",
   },
 ] as const
 
@@ -74,7 +70,7 @@ export function AboutSection() {
 
       <div className="hidden min-w-0 flex-1 basis-120 grid-cols-2 grid-rows-2 gap-x-8 gap-y-9 md:grid">
         {cards.map((card) => (
-          <CardIcon key={card.title} {...card} align="start" className="w-full min-w-0" />
+          <CardIcon key={card.title} {...card} size="sm" align="start" className="w-full min-w-0" />
         ))}
       </div>
 
@@ -83,7 +79,7 @@ export function AboutSection() {
           <CarouselContent>
             {cards.map((card) => (
               <CarouselItem key={card.title}>
-                <CardIcon {...card} align="inline" className="w-full min-w-0" />
+                <CardIcon {...card} size="inline" align="inline" className="w-full min-w-0" />
               </CarouselItem>
             ))}
           </CarouselContent>

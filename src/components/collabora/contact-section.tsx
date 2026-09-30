@@ -23,7 +23,7 @@ const cards = [
 
 const alignVariants = [
   { align: "start", size: "sm", visibility: "max-sm:hidden" },
-  { align: "inline", size: "inline", visibility: "sm:hidden" },
+  { align: "inline", size: "inline-sm", visibility: "sm:hidden" },
 ] as const
 
 export function ContactSection() {
