@@ -1,18 +1,32 @@
+import type { ReactNode } from "react"
 import type { GradientIconType } from "@/components/gradient-icon"
 
-export type CardSize = "sm" | "md" | "lg"
+export type CardSize = "compact" | "xs" | "sm" | "md" | "lg" | "inline"
+export type CardBreakpoint = "base" | "sm" | "md" | "lg"
+export type CardAlign = "center" | "start" | "inline"
+
+export type SizeClassMap = Record<CardSize, string>
+
+export type ResponsiveCardSizeConfig = {
+  base: CardSize
+  sm?: CardSize
+  md?: CardSize
+  lg?: CardSize
+}
+
+export type ResponsiveCardSize = CardSize | ResponsiveCardSizeConfig
 
 export type SharedCardProps = {
   title: string
-  icon: GradientIconType
-  size?: CardSize
+  icon: GradientIconType | string
+  size?: ResponsiveCardSize
+  align?: CardAlign
   href?: string
   hoverEffect?: boolean
   className?: string
 }
 
-export type CardWithDescriptionProps = SharedCardProps & {
-  description: string
+export type CardIconProps = SharedCardProps & {
+  cta?: string
+  description?: ReactNode
 }
-
-export type CardIconProps = SharedCardProps | CardWithDescriptionProps

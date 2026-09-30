@@ -3,8 +3,14 @@
 @import "./figma.css";
 @import "./sidebar.css";
 @import "./charts.css";
+@import "./animations.css";
 
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  --breakpoint-1xl: 85rem; /* 1360px */
+  --breakpoint-3xl: 90rem; /* 1440px */
+}
 
 @layer base {
   body {
@@ -16,5 +22,20 @@
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
+  }
+
+  body[data-scroll-locked] {
+    /* biome-ignore lint/complexity/noImportantStyles: necessary */
+    overflow-y: auto !important;
+    /* biome-ignore lint/complexity/noImportantStyles: necessary */
+    margin-right: 0px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  /* max-md */
+  .scroll-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 36px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 28px, black calc(100% - 28px), transparent);
   }
 }

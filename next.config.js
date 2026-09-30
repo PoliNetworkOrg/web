@@ -15,7 +15,15 @@ const config = {
   output: "standalone",
   experimental: {
     reactCompiler: true
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.blob.core.windows.net",
+      },
+    ],
+  },
 }
 
 export default config
