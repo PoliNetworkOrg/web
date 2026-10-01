@@ -47,7 +47,9 @@ export function CardIcon(props: CardIconProps) {
                 {title}
               </h3>
             </div>
-            {description && <p className="typo-body-large text-left text-text-primary">{description}</p>}
+            {description && (
+              <p className="typo-body-small sm:typo-body-large text-left text-text-primary">{description}</p>
+            )}
           </div>
         ) : (
           <div className={cn("relative z-10 flex h-full flex-1 flex-col", getContentGapClasses(size), contentClass)}>
