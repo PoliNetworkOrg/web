@@ -8,9 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@polinetwork/backend':
+      '@polinetwork/auth-kit':
         specifier: ^1.1.0
         version: 1.1.0
+      '@polinetwork/backend':
+        specifier: ^1.4.0
+        version: 1.4.0
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -453,8 +456,12 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@polinetwork/backend@1.1.0':
-    resolution: {integrity: sha512-fc8XwXEODcD9jhENGLaxG1VRJQp91OGnfmMaw1lGR+qiTsNAW1qX9GWdfRoUMxrcZuL4Xx7FU713TlAr4V8dZA==}
+  '@polinetwork/auth-kit@1.1.0':
+    resolution: {integrity: sha512-SAf/cVSF4wW7UqP3EP/3IFPAJgYTL9po9qOXcJ9OvbRPCi9X4bmMTDDHYzuPCKMAQkHybuPbI6tzcKFBekw0Ag==}
+    engines: {node: '>=20.19'}
+
+  '@polinetwork/backend@1.4.0':
+    resolution: {integrity: sha512-wXvngodOakPV521G4+zCMvgKSiNITNxVUtEA6ZRM1oNR0mKF2Bp7GDYWd7YvT19cV5i8HrvZ5DpbConDFHHdtQ==}
 
   '@radix-ui/number@1.1.1':
     resolution: {integrity: sha512-MkKCwxlXTgz6CFoJx3pCwn07GKp36+aZyu/u2Ln2VrA5DcdyCZkASEDBTd8x5whTQQL5CiYf4prXKLcgQdv29g==}
@@ -1599,6 +1606,9 @@ packages:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
 
+  jose@6.2.12:
+    resolution: {integrity: sha512-9NiFmJEex0sy2Dk58j2UGBSHgUs2ypF9eZSu4L6vjOX3Dp96Sw1F3uL+H+D1sx02jZZdzUT0HgvCy59CuvXcWw==}
+
   lightningcss-android-arm64@1.30.2:
     resolution: {integrity: sha512-BH9sEdOCahSgmkVhBLeU7Hc9DWeZ1Eb6wNS6Da8igvUwAe0sqROHddIlvU06q3WyXVEOYDZ6ykBZQnjTbmo4+A==}
     engines: {node: '>= 12.0.0'}
@@ -2117,7 +2127,12 @@ snapshots:
   '@next/swc-win32-x64-msvc@16.3.6':
     optional: true
 
-  '@polinetwork/backend@1.1.0': {}
+  '@polinetwork/auth-kit@1.1.0':
+    dependencies:
+      jose: 6.2.12
+      zod: 4.2.1
+
+  '@polinetwork/backend@1.4.0': {}
 
   '@radix-ui/number@1.1.1': {}
 
@@ -3181,6 +3196,8 @@ snapshots:
   isexe@2.0.0: {}
 
   jiti@2.6.1: {}
+
+  jose@6.2.12: {}
 
   lightningcss-android-arm64@1.30.2:
     optional: true

@@ -16,7 +16,8 @@
     "prestart": "mkdir -p .next/standalone/.next && cp -R .next/static .next/standalone/.next/ && cp -R public .next/standalone/"
   },
   "dependencies": {
-    "@polinetwork/backend": "^1.1.0",
+    "@polinetwork/auth-kit": "^1.1.0",
+    "@polinetwork/backend": "^1.4.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-separator": "^1.1.8",
