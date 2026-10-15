@@ -1,4 +1,6 @@
+import Image from "next/image"
 import { FiMessageCircle, FiUserCheck, FiUsers } from "react-icons/fi"
+import networkLogo from "@/assets/images/join/network-logo.png"
 import { CardIcon } from "@/components/card-icon"
 import { Highlight, SectionTitle } from "@/components/collabora/section"
 
@@ -10,9 +12,7 @@ const paths = [
 
 export function Introduction() {
   return (
-    <section
-      className={"mx-auto grid w-full max-w-330 items-start gap-16 px-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]"}
-    >
+    <section className="mx-auto grid w-full max-w-330 items-start gap-16 px-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
       <div className="flex min-w-0 flex-col gap-6 text-center md:text-start">
         <SectionTitle>Cosa significa far parte di PoliNetwork</SectionTitle>
         <div className="typo-body-large sm:typo-headline-extrasmall flex flex-col gap-5 text-pretty">
@@ -37,16 +37,19 @@ export function Introduction() {
           </p>
         </div>
       </div>
-      <ul
-        aria-label="Tre modi per fare parte di PoliNetwork"
-        className="grid min-w-0 gap-4 self-center lg:grid-cols-3 xl:grid-cols-1"
-      >
-        {paths.map((path) => (
-          <li key={path.href} className="min-w-0">
-            <CardIcon {...path} align="inline" size="inline-sm" className="h-full" />
-          </li>
-        ))}
-      </ul>
+      <div className="flex min-w-0 flex-col items-center gap-10 self-center">
+        <Image src={networkLogo} alt="" sizes="224px" className="hidden h-auto w-56 xl:block" />
+        <ul
+          aria-label="Tre modi per fare parte di PoliNetwork"
+          className="grid w-full gap-4 lg:grid-cols-3 xl:grid-cols-1"
+        >
+          {paths.map((path) => (
+            <li key={path.href} className="min-w-0">
+              <CardIcon {...path} align="inline" size="inline-sm" className="h-full" />
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }
