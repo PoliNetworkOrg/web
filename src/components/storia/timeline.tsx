@@ -1,53 +1,50 @@
-import Image from "next/image"
 import Link from "next/link"
-import { FiArrowDown, FiArrowRight, FiClipboard, FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
+import {
+  FiArrowDown,
+  FiCheckCircle,
+  FiClipboard,
+  FiClock,
+  FiLayers,
+  FiUser,
+  FiUserCheck,
+  FiUsers,
+} from "react-icons/fi"
 import telegram from "@/assets/icons/telegram-gradient.svg"
-import { CardMultipleIcons } from "@/components/card-multiple-icons"
+import { CardCaption } from "@/components/card-caption"
+import { CardIcon } from "@/components/card-icon"
 import { Glass } from "@/components/glass"
-import { GradientIcon } from "@/components/gradient-icon"
 import { Button } from "@/components/ui/button"
 import { chapters, milestones } from "./constants"
 
-const milestoneIcons = [FiUser, FiUsers, FiUserCheck, FiUsers]
+const milestoneIcons = [FiUser, telegram.src, FiUserCheck, FiUsers]
 
 export function Timeline() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col gap-12 px-6">
-      <h2 className="typo-display-small 2xl:typo-display-large max-w-240 bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent 2xl:mb-6">
-        Da un semplice gruppo
-        <br className="hidden 2xl:block" /> a una rete costruita dagli studenti,
-        <br className="hidden 2xl:block" /> <span className="text-blue-secondary">per gli studenti.</span>
+    <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 sm:gap-12">
+      <h2 className="typo-headline-medium sm:typo-display-medium max-w-240 text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+        Da un semplice gruppo a una rete costruita dagli studenti,{" "}
+        <span className="text-blue-secondary">per gli studenti.</span>
       </h2>
-      <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+      <ol className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {milestones.map((milestone, index) => (
-          <li key={milestone.year} className="relative flex flex-col items-center gap-4 text-center">
-            <Glass className="flex size-21 items-center justify-center rounded-rectangles">
-              {milestone.year === "2017" ? (
-                <Image src={telegram} alt="" width={55} height={50} />
-              ) : (
-                <GradientIcon icon={milestoneIcons[index] ?? FiUsers} className="size-14" />
-              )}
-            </Glass>
-            {index < milestones.length - 1 && (
-              <span
-                aria-hidden
-                className="absolute top-10 left-[calc(50%+42px)] hidden h-px w-[calc(100%-36px)] bg-blue-primary lg:block"
-              />
-            )}
-            <h3 className="typo-headline-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
-              {milestone.year}
-            </h3>
-            <p className={`typo-body-medium ${index === 0 ? "max-w-50" : "max-w-58"}`}>{milestone.description}</p>
+          <li key={milestone.year} className="min-w-0">
+            <CardIcon
+              title={milestone.year}
+              description={milestone.description}
+              icon={milestoneIcons[index] ?? FiUsers}
+              size="compact"
+              align="start"
+              className="h-full"
+            />
           </li>
         ))}
       </ol>
-      <div className="flex flex-col items-center gap-8 text-center">
-        <p className="typo-headline-small max-w-125">
-          Dieci anni di crescita, persone e progetti.
-          <br />
-          La nostra storia <span className="text-blue-secondary">continua, insieme a te.</span>
+      <div className="flex flex-col items-center gap-6 text-center">
+        <p className="typo-body-large sm:typo-headline-extrasmall max-w-145 text-balance">
+          Dieci anni di crescita, persone e progetti. La nostra storia{" "}
+          <span className="text-blue-secondary">continua, insieme a te.</span>
         </p>
-        <Button asChild variant="primary">
+        <Button asChild variant="primary" size="lg">
           <Link href="#capitoli">
             Leggi la nostra storia completa <FiArrowDown aria-hidden />
           </Link>
@@ -58,128 +55,79 @@ export function Timeline() {
 }
 
 const chapterVisuals = [
-  <div key="rete" className="flex w-full flex-wrap items-start justify-between gap-4">
+  <div key="rete" className="grid w-full grid-cols-2 gap-4">
     {[
-      { icon: null, label: "Il primo gruppo" },
-      { icon: FiUser, label: "I primi admin e volontari" },
-      { icon: FiUserCheck, label: "Test su Informatica" },
-      { icon: FiUsers, label: "Tutti i corsi" },
-    ].map(({ icon, label }) => (
-      <div key={label} className="flex max-w-25 flex-col items-center gap-4 text-center">
-        <Glass className="flex size-18 items-center justify-center rounded-rectangles md:size-21">
-          {icon ? (
-            <GradientIcon icon={icon} className="size-12" />
-          ) : (
-            <Image src={telegram} alt="" width={55} height={50} />
-          )}
-        </Glass>
-        <span className="typo-body-medium">{label}</span>
-      </div>
+      { icon: telegram.src, title: "Il primo gruppo" },
+      { icon: FiUser, title: "I primi admin e volontari" },
+      { icon: FiUserCheck, title: "Test su Informatica" },
+      { icon: FiUsers, title: "Tutti i corsi" },
+    ].map((item) => (
+      <CardIcon key={item.title} {...item} size="xs" className="h-full [&_h3]:text-balance" />
     ))}
   </div>,
-  <div
-    key="spazio"
-    className="grid w-full grid-cols-1 justify-items-center gap-6 min-[360px]:grid-cols-3 min-[360px]:gap-4"
-  >
+  <div key="spazio" className="grid w-full gap-4">
     {[
-      { icon: FiClipboard, label: "Regole interne" },
-      { icon: FiUserCheck, label: "Comunicazioni selezionate" },
-      { icon: FiUsers, label: "Una community indipendente" },
-    ].map(({ icon, label }) => (
-      <div key={label} className="flex max-w-30 flex-col items-center gap-4 text-center">
-        <Glass className="flex size-21 items-center justify-center rounded-rectangles">
-          <GradientIcon icon={icon} className="size-14" />
-        </Glass>
-        <span className="typo-body-medium">{label}</span>
-      </div>
+      { icon: FiClipboard, title: "Regole interne" },
+      { icon: FiUserCheck, title: "Comunicazioni selezionate" },
+      { icon: FiUsers, title: "Una community indipendente" },
+    ].map((item) => (
+      <CardIcon key={item.title} {...item} size="inline-sm" align="inline" className="[&_h3]:text-balance" />
     ))}
   </div>,
-  <CardMultipleIcons
-    key="consiglio"
-    className="[&>div>span]:typo-body-large sm:[&>div>span]:typo-headline-small w-full justify-center rounded-rectangles [&>div]:gap-2 [&>div]:px-4"
-    icons={[
-      <span key="persone" className="typo-body-small sm:typo-headline-small text-center">
-        5<br />
-        persone
-      </span>,
-      <FiArrowRight key="arrow1" aria-hidden />,
-      <span key="rappresentanti" className="typo-body-small sm:typo-headline-small text-center">
-        ~25
-        <br />
-        rappresentanti
-      </span>,
-      <FiArrowRight key="arrow2" aria-hidden />,
-      <span key="composizioni" className="typo-body-small sm:typo-headline-small text-center">
-        4<br />
-        composizioni
-      </span>,
-    ]}
-  />,
-  <Glass
-    key="team"
-    className="grid w-full grid-cols-1 items-center gap-4 rounded-rectangles p-6 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:p-8"
-  >
-    <div>
-      <h3 className="typo-body-large md:typo-headline-extrasmall mb-4">I primi dipartimenti</h3>
-      <p className="typo-body-large md:typo-headline-extrasmall xl:typo-headline-small wrap-anywhere">
-        Eventi
-        <br />
-        HR
-        <br />
-        IT
-        <br />
-        Social
-        <br />
-        Gestione
-      </p>
-    </div>
-    <FiArrowRight aria-hidden className="rotate-90 justify-self-center sm:rotate-0" />
-    <div>
-      <h3 className="typo-body-large md:typo-headline-extrasmall mb-4">I team di oggi</h3>
-      <p className="typo-body-large md:typo-headline-extrasmall xl:typo-headline-small wrap-anywhere">
-        Tech
-        <br />
-        Design
-        <br />
-        People
-        <br />
-        Events
-        <br />
-        Communication
-        <br />…
-      </p>
-    </div>
-  </Glass>,
-  <Glass
-    key="associazione"
-    className="grid w-full grid-cols-1 items-center gap-4 rounded-rectangles p-6 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:p-8"
-  >
-    <p className="typo-body-large md:typo-headline-extrasmall">
-      Consiglio degli Admin
-      <br />
-      Garanti
-      <br />
-      Coordinamento
-    </p>
-    <FiArrowRight aria-hidden className="rotate-90 justify-self-center sm:rotate-0" />
-    <p className="typo-body-large md:typo-headline-extrasmall">
-      Consiglio Direttivo
-      <br />
-      Collegio dei Probiviri
-      <br />
-      Statuto e regolamenti
-    </p>
-  </Glass>,
-  <Glass key="albo" className="w-full rounded-rectangles p-6 md:p-8">
-    <dl className="typo-body-large md:typo-headline-extrasmall xl:typo-headline-small grid grid-cols-[auto_1fr] gap-x-5 gap-y-2">
-      <dt>✓ APS-ETS</dt>
-      <dd>Riconosciuto dallo Stato</dd>
-      <dt>✓ RUNTS</dt>
-      <dd>Iscritta come ETS</dd>
-      <dt>Albo PoliMi</dt>
-      <dd>Ancora da raggiungere</dd>
-    </dl>
-  </Glass>,
+  <div key="consiglio" className="grid w-full gap-4 sm:grid-cols-3">
+    {[
+      { title: "5", caption: "persone", icon: FiUser },
+      { title: "~25", caption: "rappresentanti", icon: FiUsers },
+      { title: "4", caption: "composizioni", icon: FiLayers },
+    ].map((item) => (
+      <CardCaption key={item.title} {...item} className="h-full w-full p-4 sm:p-6" />
+    ))}
+  </div>,
+  <div key="team" className="grid w-full gap-4">
+    <CardIcon
+      title="I primi dipartimenti"
+      description="Eventi · HR · IT · Social · Gestione"
+      icon={FiLayers}
+      size="inline-sm"
+      align="inline"
+      className="[&_h3]:text-balance"
+    />
+    <CardIcon
+      title="I team di oggi"
+      description="Tech · Design · People · Events · Communication · …"
+      icon={FiUsers}
+      size="inline-sm"
+      align="inline"
+      className="[&_h3]:text-balance"
+    />
+  </div>,
+  <div key="associazione" className="grid w-full gap-4">
+    <CardIcon
+      title="Prima"
+      description="Consiglio degli Admin · Garanti · Coordinamento"
+      icon={FiUsers}
+      size="inline-sm"
+      align="inline"
+    />
+    <CardIcon
+      title="Dal 2022"
+      description="Consiglio Direttivo · Collegio dei Probiviri · Statuto e regolamenti"
+      icon={FiUserCheck}
+      size="inline-sm"
+      align="inline"
+    />
+  </div>,
+  <div key="albo" className="grid w-full gap-4">
+    <CardIcon
+      title="APS-ETS"
+      description="Riconosciuto dallo Stato"
+      icon={FiCheckCircle}
+      size="inline-sm"
+      align="inline"
+    />
+    <CardIcon title="RUNTS" description="Iscritta come ETS" icon={FiCheckCircle} size="inline-sm" align="inline" />
+    <CardIcon title="Albo PoliMi" description="Ancora da raggiungere" icon={FiClock} size="inline-sm" align="inline" />
+  </div>,
 ]
 
 export function Chapters() {
@@ -187,25 +135,29 @@ export function Chapters() {
     <section
       id="capitoli"
       aria-label="La nostra storia completa"
-      className="mx-auto w-full max-w-330 scroll-mt-32 px-6"
+      className="mx-auto w-full max-w-330 scroll-mt-36 px-6"
     >
-      <ol className="flex flex-col gap-20">
+      <ol className="flex flex-col gap-16 sm:gap-24">
         {chapters.map((chapter, index) => (
-          <li key={chapter.title} className="grid gap-10 xl:grid-cols-2 xl:items-center xl:gap-16">
-            <div className="relative border-blue-primary/40 border-l pl-6 sm:pl-11">
-              <span
+          <li key={chapter.title} className="grid gap-8 xl:grid-cols-2 xl:items-center xl:gap-16">
+            <div className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-4 sm:gap-x-6">
+              <Glass
                 aria-hidden
-                className="typo-headline-small md:typo-display-medium xl:-left-22 mb-4 block text-text-primary xl:absolute xl:top-0"
+                className="typo-label-large flex size-10 shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0 text-blue-secondary"
               >
                 {String(index + 1).padStart(2, "0")}
-              </span>
-              <h2 className="typo-headline-medium md:typo-display-medium">{chapter.title}</h2>
-              <h3 className="typo-headline-extrasmall md:typo-headline-small mt-3">{chapter.subtitle}</h3>
-              <p className="typo-body-large md:typo-headline-extrasmall xl:typo-headline-small mt-5">
+              </Glass>
+              <h2 className="typo-title-large sm:typo-headline-medium lg:typo-display-small text-balance">
+                {chapter.title}
+              </h2>
+              <p className="typo-body-large sm:typo-headline-extrasmall col-span-2 text-pretty text-blue-secondary sm:col-span-1 sm:col-start-2">
+                {chapter.subtitle}
+              </p>
+              <p className="typo-body-large sm:typo-headline-extrasmall col-span-2 text-pretty sm:col-span-1 sm:col-start-2">
                 {chapter.description}
               </p>
             </div>
-            <div className="flex min-w-0 items-center justify-center xl:pl-12">{chapterVisuals[index]}</div>
+            <div className="flex min-w-0 items-center justify-center">{chapterVisuals[index]}</div>
           </li>
         ))}
       </ol>

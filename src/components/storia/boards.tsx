@@ -11,8 +11,8 @@ import { boardMembers, boardTerms } from "./constants"
 export function Boards() {
   return (
     <section className="mx-auto flex w-full max-w-330 flex-col gap-6 px-6">
-      <h2 className="typo-headline-medium md:typo-display-medium">I nostri direttivi</h2>
-      <p className="typo-display-small 2xl:typo-display-large bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+      <h2 className="typo-title-large text-blue-secondary">I nostri direttivi</h2>
+      <p className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
         Ogni mandato, un nuovo capitolo
       </p>
       <Tabs defaultValue="2024-OGGI" className="mt-2 gap-12">
@@ -40,9 +40,7 @@ export function Boards() {
                         />
                         <CardContent className="absolute inset-x-4 bottom-5 text-white">
                           <h3 className="typo-body-large font-poppins">{member.name}</h3>
-                          {member.role && (
-                            <p className="typo-body-small sm:typo-label-tiny sm:font-normal">{member.role}</p>
-                          )}
+                          {member.role && <p className="typo-body-small">{member.role}</p>}
                         </CardContent>
                       </Card>
                     ))}
@@ -52,9 +50,9 @@ export function Boards() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-4">
-                  <p className="typo-headline-small text-text-secondary">{term}</p>
-                  <h3 className="typo-display-medium">Il Direttivo</h3>
-                  <p className="typo-body-medium">
+                  <p className="typo-label-large text-blue-secondary">{term}</p>
+                  <h3 className="typo-display-small text-balance">Il Direttivo</h3>
+                  <p className="typo-body-large text-pretty">
                     Si concentra sul rafforzamento della struttura, sull’evoluzione dei servizi e sullo sviluppo di
                     nuovi progetti per la community.
                   </p>

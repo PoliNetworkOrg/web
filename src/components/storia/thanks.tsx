@@ -20,23 +20,23 @@ export function Thanks() {
       title="Un grazie speciale"
       description={
         <>
-          <h3 className="typo-display-small 2xl:typo-display-large bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+          <h3 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
             Centinaia di persone, una sola comunità.
           </h3>
-          <p className="typo-body-large md:typo-headline-extrasmall xl:typo-headline-small mt-3">
+          <p className="typo-body-large sm:typo-headline-extrasmall mt-3 text-pretty">
             PoliNetwork esiste grazie a tutte le persone che, in modi diversi, hanno dedicato tempo, energie e idee alla
             sua crescita. Alcune hanno coordinato un corso, altre sviluppato uno strumento, organizzato un evento,
             moderato un gruppo o semplicemente aiutato qualcuno nel momento giusto.
           </p>
-          <p className="typo-body-large md:typo-headline-extrasmall xl:typo-headline-small">
+          <p className="typo-body-large sm:typo-headline-extrasmall text-pretty">
             Questa è la nostra memoria collettiva.
           </p>
         </>
       }
       classNames={{
-        section: "mx-auto max-w-330 gap-16 px-6 md:px-6 xl:flex-row",
+        section: "mx-auto max-w-330 gap-12 px-6 md:px-6 xl:flex-row [&>div>h2]:typo-title-large",
         textDiv: "xl:w-1/2 xl:items-start xl:text-start",
-        title: "max-sm:typo-headline-medium xl:text-start",
+        title: "text-blue-secondary xl:text-start",
         descriptionDiv: "xl:text-start",
         contentDiv: "min-w-0 xl:w-1/2",
       }}
@@ -62,7 +62,7 @@ export function Thanks() {
               <TabsContent key={category} value={category}>
                 <div aria-live="polite" aria-atomic="true">
                   {names.length > 0 ? (
-                    <ul className="typo-body-medium grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
+                    <ul className="typo-body-medium grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-3 xl:grid-cols-2 min-[360px]:grid-cols-2">
                       {names.map((person) => (
                         <li key={person.name}>{person.name}</li>
                       ))}

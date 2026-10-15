@@ -13,10 +13,10 @@ export function Organization() {
   return (
     <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6" aria-labelledby="struttura-title">
       <div className="flex max-w-140 flex-col gap-6">
-        <h2 id="struttura-title" className="typo-headline-medium md:typo-display-medium">
+        <h2 id="struttura-title" className="typo-headline-medium sm:typo-display-medium text-balance">
           Come è organizzata PoliNetwork
         </h2>
-        <p className="typo-body-large md:typo-headline-extrasmall xl:typo-headline-small max-w-94">
+        <p className="typo-body-large sm:typo-headline-extrasmall max-w-94 text-pretty">
           Direttivo, team operativi, admin e soci. Guarda come funziona la macchina dall’interno.
         </p>
         <Button asChild className="w-fit">
