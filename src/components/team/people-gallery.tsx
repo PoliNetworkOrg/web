@@ -28,6 +28,7 @@ export function PeopleGallery({ placeholderCount = 0 }: { placeholderCount?: num
               <Card
                 className={cn(
                   "relative mx-auto aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0",
+                  !placeholderCount && "motion-safe:hover:-translate-y-1 shadow-sm transition-transform",
                   placeholderCount && "max-w-40 bg-linear-to-t from-blue-secondary/10 to-background-blur"
                 )}
               >

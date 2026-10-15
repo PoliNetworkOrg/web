@@ -35,27 +35,29 @@ export default function TeamPage() {
         <TeamSectionShapes section="board" />
         <section
           aria-labelledby="direttivo-title"
-          className="mx-auto flex w-full max-w-330 flex-col items-center gap-10 px-6 md:gap-12"
+          className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 md:gap-12"
         >
-          <div className="flex max-w-260 flex-col gap-6 text-center">
-            <h2
-              id="direttivo-title"
-              className="typo-headline-medium md:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent"
-            >
-              Consiglio direttivo
-            </h2>
-            <p className="typo-body-large sm:typo-headline-extrasmall text-pretty">
-              Il Consiglio Direttivo è l’organo garante dell’associazione. Ha l’obiettivo di vigilare sulle attività di
-              PoliNetwork e di monitorarne l’andamento per preservare i valori dello statuto; di conseguenza, può
-              approvare o respingere le linee d’azione intraprese dai singoli dipartimenti o le strategie delineate dal
-              Growth Team. I membri del consiglio sono eletti ogni due anni dall’Assemblea dei Soci tra i soci
-              dell’associazione.
-            </p>
+          <h2
+            id="direttivo-title"
+            className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:text-start"
+          >
+            Consiglio direttivo
+          </h2>
+          <div className="grid min-w-0 items-start gap-10 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
+            <PeopleGallery />
+            <Glass className="order-first flex flex-col gap-4 rounded-rectangles border-white/50 bg-background-blur p-6 xl:order-last">
+              <p className="typo-label-large text-blue-secondary">In carica da novembre 2024</p>
+              <p className="typo-body-large text-pretty">
+                Il Consiglio Direttivo è l’organo garante dell’associazione. Ha l’obiettivo di vigilare sulle attività
+                di PoliNetwork e di monitorarne l’andamento per preservare i valori dello statuto; di conseguenza, può
+                approvare o respingere le linee d’azione intraprese dai singoli dipartimenti o le strategie delineate
+                dal Growth Team.
+              </p>
+              <p className="typo-body-medium text-pretty text-text-secondary">
+                I membri del consiglio sono eletti ogni due anni dall’Assemblea dei Soci tra i soci dell’associazione.
+              </p>
+            </Glass>
           </div>
-          <PeopleGallery />
-          <p className="typo-body-medium text-center text-text-secondary">
-            Il Direttivo attuale è in carica da novembre 2024.
-          </p>
         </section>
       </div>
       {teams.map((team) => (
@@ -66,7 +68,9 @@ export default function TeamPage() {
       ))}
       <section className="mx-auto w-full max-w-330 px-6">
         <Glass className="flex flex-col items-center gap-6 rounded-rectangles border-white/50 bg-linear-to-br from-background-blur to-blue-tertiary/30 p-6 text-center sm:p-12">
-          <h2 className="typo-headline-medium sm:typo-display-medium text-balance">Vuoi fare la differenza?</h2>
+          <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+            Vuoi fare la differenza?
+          </h2>
           <p className="typo-body-large sm:typo-headline-extrasmall max-w-200 text-balance">
             Le porte di PoliNetwork sono aperte a tutti gli studenti del Politecnico di Milano. Segui i nostri social
             per non perdere i periodi di recruiting ufficiali… ma se hai talento e motivazione, non aspettare: valutiamo
