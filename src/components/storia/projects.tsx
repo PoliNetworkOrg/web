@@ -72,7 +72,7 @@ export function HistoryProjects() {
               key={project.title}
               {...project}
               size={{ base: "inline-sm", sm: "inline" }}
-              align="inline"
+              align="start"
               className="h-full [&_h3]:text-balance"
             />
           ))}

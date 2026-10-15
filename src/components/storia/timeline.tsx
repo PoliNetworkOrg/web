@@ -20,9 +20,6 @@ const milestoneLinks = ["#capitolo-1", "#capitolo-1", "#capitolo-5", "#direttivi
 
 const milestoneIcons = [FiUser, telegram.src, FiUserCheck, FiUsers]
 
-const staggeredCards =
-  "grid w-full grid-cols-12 gap-4 [&>div]:col-span-10 sm:[&>div]:col-span-8 [&>div:nth-child(2)]:col-start-2 sm:[&>div:nth-child(2)]:col-start-3 [&>div:nth-child(3)]:col-start-3 sm:[&>div:nth-child(3)]:col-start-5"
-
 export function Timeline() {
   return (
     <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 sm:gap-12">
@@ -72,68 +69,79 @@ const chapterVisuals = [
       <CardIcon key={item.title} {...item} size="xs" className="h-full [&_h3]:text-balance" />
     ))}
   </div>,
-  <div key="spazio" className={staggeredCards}>
+  <div key="spazio" className="grid w-full gap-4">
     {[
       { icon: FiClipboard, title: "Regole interne" },
       { icon: FiUserCheck, title: "Comunicazioni selezionate" },
       { icon: FiUsers, title: "Una community indipendente" },
     ].map((item) => (
-      <CardIcon key={item.title} {...item} size="inline-sm" align="inline" className="[&_h3]:text-balance" />
+      <CardCaption
+        key={item.title}
+        {...item}
+        caption=""
+        className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-0 p-6 [&_h3]:text-balance"
+      />
     ))}
   </div>,
-  <div key="consiglio" className={staggeredCards}>
+  <div
+    key="consiglio"
+    className="grid w-full gap-4 sm:grid-cols-3 sm:items-start sm:[&>div:nth-child(2)]:mt-8 sm:[&>div:nth-child(3)]:mt-16"
+  >
     {[
       { title: "5", caption: "persone", icon: FiUser },
       { title: "~25", caption: "rappresentanti", icon: FiUsers },
       { title: "4", caption: "composizioni", icon: FiLayers },
     ].map((item) => (
-      <CardCaption key={item.title} {...item} className="h-full w-full p-4 sm:p-6" />
+      <CardCaption key={item.title} {...item} className="h-auto w-full p-4 sm:p-6" />
     ))}
   </div>,
-  <div key="team" className={staggeredCards}>
-    <CardIcon
+  <div key="team" className="grid w-full gap-4">
+    <CardCaption
       title="I primi dipartimenti"
-      description="Eventi · HR · IT · Social · Gestione"
+      caption="Eventi · HR · IT · Social · Gestione"
       icon={FiLayers}
-      size="inline-sm"
-      align="inline"
-      className="[&_h3]:text-balance"
+      className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
     />
-    <CardIcon
+    <CardCaption
       title="I team di oggi"
-      description="Tech · Design · People · Events · Communication · …"
+      caption="Tech · Design · People · Events · Communication · …"
       icon={FiUsers}
-      size="inline-sm"
-      align="inline"
-      className="[&_h3]:text-balance"
+      className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
     />
   </div>,
-  <div key="associazione" className={staggeredCards}>
-    <CardIcon
+  <div key="associazione" className="grid w-full gap-4">
+    <CardCaption
       title="Prima"
-      description="Consiglio degli Admin · Garanti · Coordinamento"
+      caption="Consiglio degli Admin · Garanti · Coordinamento"
       icon={FiUsers}
-      size="inline-sm"
-      align="inline"
+      className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
     />
-    <CardIcon
+    <CardCaption
       title="Dal 2022"
-      description="Consiglio Direttivo · Collegio dei Probiviri · Statuto e regolamenti"
+      caption="Consiglio Direttivo · Collegio dei Probiviri · Statuto e regolamenti"
       icon={FiUserCheck}
-      size="inline-sm"
-      align="inline"
+      className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
     />
   </div>,
-  <div key="albo" className={staggeredCards}>
-    <CardIcon
+  <div key="albo" className="grid w-full gap-4">
+    <CardCaption
       title="APS-ETS"
-      description="Riconosciuto dallo Stato"
+      caption="Riconosciuto dallo Stato"
       icon={FiCheckCircle}
-      size="inline-sm"
-      align="inline"
+      className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
     />
-    <CardIcon title="RUNTS" description="Iscritta come ETS" icon={FiCheckCircle} size="inline-sm" align="inline" />
-    <CardIcon title="Albo PoliMi" description="Ancora da raggiungere" icon={FiClock} size="inline-sm" align="inline" />
+    <CardCaption
+      title="RUNTS"
+      caption="Iscritta come ETS"
+      icon={FiCheckCircle}
+      className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
+    />
+    <CardCaption
+      title="Albo PoliMi"
+      caption="Ancora da raggiungere"
+      icon={FiClock}
+      className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
+    />
   </div>,
 ]
 
