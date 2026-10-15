@@ -24,9 +24,10 @@ export type ShapeVariant =
 export type ShapeProps = {
   variant: ShapeVariant
   className?: string
+  style?: React.CSSProperties
 }
 
-export const Shape: React.FC<ShapeProps> = ({ variant, className }) => {
+export const Shape: React.FC<ShapeProps> = ({ variant, className, style }) => {
   const getShapeSrc = () => {
     switch (variant) {
       case "big-blue":
@@ -53,7 +54,86 @@ export const Shape: React.FC<ShapeProps> = ({ variant, className }) => {
   }
 
   return (
-    <Image src={getShapeSrc()} aria-hidden alt="" className={cn(className, "-z-10 absolute max-w-none select-none")} />
+    <Image
+      src={getShapeSrc()}
+      aria-hidden
+      alt=""
+      className={cn(className, "-z-10 absolute max-w-none select-none")}
+      style={style}
+    />
+  )
+}
+
+type FigmaShapeVariant = Extract<ShapeVariant, "big-blue" | "big-teal" | "small-blue" | "looper">
+
+/** Layer size of the blurred shapes' master components in Figma (the looper has no blur). */
+const FIGMA_SHAPE_MASTER_SIZE: Record<FigmaShapeVariant, number | null> = {
+  "big-blue": 1062.24,
+  "big-teal": 974,
+  "small-blue": 354.126,
+  looper: null,
+}
+
+/** The masters' layer blur: 100px (a 50px standard deviation), which the SVGs include as 100px of bleed per side. */
+const FIGMA_SHAPE_BLUR = 50
+const FIGMA_SHAPE_BLEED = 100
+
+export type FigmaShapePlacement = {
+  variant: FigmaShapeVariant
+  /** Center x of the Figma layer, in px from the left edge of the reference box. */
+  x: number
+  /** Center y of the Figma layer, in px from the top edge of the reference box. */
+  y: number
+  /** Figma layer width (without blur bleed). */
+  w: number
+  /** Figma layer height (without blur bleed). */
+  h: number
+  /** Figma rotation/flip, as the 2×2 part of the layer transform: CSS `matrix(a, b, c, d, 0, 0)`. */
+  matrix?: readonly [number, number, number, number]
+}
+
+export type FigmaShapeProps = FigmaShapePlacement & {
+  /** Figma width of the reference box (e.g. 1728 for a desktop frame, 402 for mobile, or a photo's width). */
+  refWidth: number
+  /**
+   * Figma height of the reference box. When set, `y` is a percentage of the box height (use it when the box has a
+   * fixed aspect ratio, e.g. a photo). Otherwise `y` is in px, so shapes keep their offset from the box top
+   * regardless of how text reflows.
+   */
+  refHeight?: number
+  className?: string
+}
+
+/**
+ * Places a `<Shape>` from its Figma geometry. Horizontal position and size are percentages of the reference box
+ * width, so the composition scales with it (on 2K/4K screens the background grows with the viewport instead of
+ * leaving empty bands at the sides). Must be inside a `@container` as wide as the reference box.
+ *
+ * Resizing an instance in Figma doesn't scale its blur, while scaling the SVG does: shapes smaller than their
+ * master get the missing blur from a CSS filter (Gaussian blurs add up in quadrature).
+ */
+export function FigmaShape({ variant, x, y, w, h, matrix, refWidth, refHeight, className }: FigmaShapeProps) {
+  const master = FIGMA_SHAPE_MASTER_SIZE[variant]
+  const ratio = master ? w / master : 1
+  const bleed = master ? FIGMA_SHAPE_BLEED * ratio : 0
+  const width = w + 2 * bleed
+  const height = h + 2 * bleed
+  const missingBlur = master ? FIGMA_SHAPE_BLUR * Math.sqrt(Math.max(0, 1 - ratio ** 2)) : 0
+
+  return (
+    <Shape
+      variant={variant}
+      className={className}
+      style={{
+        left: `${(x / refWidth) * 100}%`,
+        top: refHeight ? `${(y / refHeight) * 100}%` : `${y}px`,
+        width: `${(width / refWidth) * 100}%`,
+        height: "auto",
+        aspectRatio: `${width} / ${height}`,
+        transform: `translate(-50%, -50%)${matrix ? ` matrix(${matrix.join(", ")}, 0, 0)` : ""}`,
+        filter: missingBlur > 0.5 ? `blur(${((missingBlur / refWidth) * 100).toFixed(3)}cqw)` : undefined,
+      }}
+    />
   )
 }
 

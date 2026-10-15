@@ -21,10 +21,10 @@ export function Header() {
 
   return (
     <>
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <MobileLayout logoOnly={logoOnly} />
       </div>
-      <div className="max-md:hidden">
+      <div className="max-lg:hidden">
         <DesktopLayout logoOnly={logoOnly} />
       </div>
     </>
