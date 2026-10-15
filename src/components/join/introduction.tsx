@@ -1,7 +1,12 @@
-import Image from "next/image"
-import networkLogo from "@/assets/images/join/network-logo.png"
-import logoTrail from "@/assets/shapes/join/logo-trail.svg"
+import { FiMessageCircle, FiUserCheck, FiUsers } from "react-icons/fi"
+import { CardIcon } from "@/components/card-icon"
 import { Highlight, SectionTitle } from "@/components/collabora/section"
+
+const paths = [
+  { title: "Diventa Admin", icon: FiMessageCircle, href: "#admin" },
+  { title: "Entra in un Team", icon: FiUsers, href: "#team" },
+  { title: "Diventa Socio", icon: FiUserCheck, href: "#socio" },
+]
 
 export function Introduction() {
   return (
@@ -32,10 +37,16 @@ export function Introduction() {
           </p>
         </div>
       </div>
-      <div aria-hidden className="relative hidden aspect-square min-w-0 xl:block">
-        <Image src={logoTrail} alt="" className="-top-12 -left-8 -rotate-24 absolute h-auto w-155 max-w-none" />
-        <Image src={networkLogo} alt="" sizes="273px" className="relative mt-8 h-auto w-full max-w-68" />
-      </div>
+      <ul
+        aria-label="Tre modi per fare parte di PoliNetwork"
+        className="grid min-w-0 gap-4 self-center lg:grid-cols-3 xl:grid-cols-1"
+      >
+        {paths.map((path) => (
+          <li key={path.href} className="min-w-0">
+            <CardIcon {...path} align="inline" size="inline-sm" className="h-full" />
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

@@ -1,9 +1,9 @@
 import Image from "next/image"
 import type { ReactNode } from "react"
 import externalLink from "@/assets/icons/join/external-link.svg"
-import connector from "@/assets/icons/join/membership-connector.svg"
 import membersPhoto from "@/assets/images/join/members.png"
 import { Highlight, SectionTitle } from "@/components/collabora/section"
+import { cn } from "@/lib/utils"
 import { membershipSteps } from "./constants"
 
 export function MembershipSection({ photoDecorations }: { photoDecorations: ReactNode }) {
@@ -28,17 +28,21 @@ export function MembershipSection({ photoDecorations }: { photoDecorations: Reac
           </p>
         </div>
       </div>
-      <ol className="relative flex min-w-0 flex-col gap-8 xl:col-start-2 xl:row-span-2 xl:row-start-1">
-        <Image
-          src={connector}
-          alt=""
-          aria-hidden
-          className="-translate-x-1/2 absolute top-6 bottom-6 left-6 h-[calc(100%-48px)] w-1 md:top-8 md:bottom-8 md:left-8 md:h-[calc(100%-64px)]"
-        />
+      <ol className="flex min-w-0 flex-col xl:col-start-2 xl:row-span-2 xl:row-start-1">
         {membershipSteps.map((step, index) => (
-          <li key={step.title} className="relative flex min-w-0 items-start gap-4 md:gap-6">
-            <Image src={step.icon} alt="" className="size-12 shrink-0 md:size-16" />
-            <div className="flex min-w-0 flex-col gap-3 pt-2 md:pt-3">
+          <li key={step.title} className="flex min-w-0 items-stretch gap-4 md:gap-6">
+            <div className="flex shrink-0 flex-col items-center">
+              <Image src={step.icon} alt="" className="size-12 md:size-16" />
+              {index < membershipSteps.length - 1 && (
+                <span
+                  aria-hidden
+                  className="my-2 min-h-6 w-1 flex-1 rounded-full bg-linear-to-b from-blue-secondary to-blue-primary"
+                />
+              )}
+            </div>
+            <div
+              className={cn("flex min-w-0 flex-col gap-3 pt-2 md:pt-3", index < membershipSteps.length - 1 && "pb-8")}
+            >
               <h3 className="typo-title-medium sm:typo-title-large text-pretty text-blue-secondary">
                 {"href" in step ? (
                   <a
