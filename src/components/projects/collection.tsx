@@ -62,7 +62,7 @@ export function Collection({ projects }: { projects: Project[] }) {
                   onClick={() => setExpanded((previous) => !previous)}
                 >
                   {expanded ? "Mostra di meno" : "Mostra di più"}
-                  {expanded ? <FiArrowUp /> : <FiArrowDown />}
+                  {expanded ? <FiArrowUp aria-hidden="true" /> : <FiArrowDown aria-hidden="true" />}
                 </Button>
               </div>
             )}
