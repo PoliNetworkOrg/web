@@ -5,38 +5,43 @@ const cards = [
   {
     title: "Community",
     description:
-      "Lo facciamo attraverso una community di gruppi Telegram e WhatsApp organizzati per tematiche, corsi, scaglioni e sedi, moderati ogni giorno da admin volontari.",
+      "Gruppi Telegram e WhatsApp per corsi, scaglioni, sedi e interessi. Una rete moderata ogni giorno da admin volontari.",
     icon: FiUsers,
   },
   {
     title: "Strumenti",
     description:
-      "Lo facciamo con strumenti digitali gratuiti e open source: dalle graduatorie TOL navigabili al simulatore del test d’ingresso, dal bot per trovare il proprio gruppo agli archivi di appunti e temi d’esame.",
+      "Strumenti gratuiti e open source: graduatorie e simulazioni TOL, bot per trovare il tuo gruppo, appunti e temi d’esame.",
     icon: FiBookOpen,
   },
   {
     title: "Eventi",
-    description:
-      "E lo facciamo di persona, con eventi che aggregano la community e collaborazioni che portano valore concreto agli studenti.",
+    description: "Eventi per incontrarsi e fare community. Collaborazioni che portano valore concreto agli studenti.",
     icon: FiAward,
   },
 ] as const
 
 export function AnswerSection() {
   return (
-    <section className="page-container flex flex-col gap-block">
-      <div className="flex flex-col gap-6 text-center md:text-start">
+    <section id="cosa-facciamo" className="page-container flex scroll-mt-32 flex-col gap-block">
+      <div className="flex flex-col gap-4">
         <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
           La nostra risposta
         </h2>
-        <p className="typo-body-large md:typo-headline-small">
+        <p className="typo-body-large sm:typo-headline-extrasmall max-w-200 text-pretty">
           Costruiamo e manteniamo la rete di comunicazione studentesca del Politecnico di Milano.
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3 lg:gap-12">
+      <div className="grid gap-6 lg:grid-cols-3">
         {cards.map((card) => (
-          <CardIcon key={card.title} {...card} size={{ base: "md", lg: "lg" }} className="h-full" />
+          <CardIcon
+            key={card.title}
+            {...card}
+            size="compact"
+            align="start"
+            className="h-full p-0 [&_h3]:text-balance"
+          />
         ))}
       </div>
     </section>

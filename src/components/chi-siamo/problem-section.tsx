@@ -9,23 +9,18 @@ const questions = [
 
 export function ProblemSection() {
   return (
-    <section className="page-container flex flex-col gap-block lg:flex-row lg:items-start lg:justify-between">
-      <div className="flex flex-col gap-6 text-center md:text-start">
-        <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-          Il problema
+    <section className="page-container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="flex min-w-0 flex-col gap-6">
+        <p className="typo-title-large text-blue-secondary">Il problema</p>
+        <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+          Il PoliMi è complesso. Le informazioni non dovrebbero esserlo.
         </h2>
-        <p className="typo-body-large md:typo-headline-small">
-          Il PoliMi è complesso.
-          <br />
-          Le informazioni non dovrebbero esserlo.
-        </p>
       </div>
-
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div className="grid min-w-0 gap-4">
         {questions.map((question) => (
-          <Card key={question.text} className="h-auto min-h-42.5 w-full p-6 lg:w-50">
-            <CardAction icon={question.icon} />
-            <CardContent className="typo-body-medium">{question.text}</CardContent>
+          <Card key={question.text} className="h-auto w-full flex-row items-center justify-between gap-6 p-6">
+            <CardContent className="typo-body-large text-pretty">{question.text}</CardContent>
+            <CardAction icon={question.icon} className="shrink-0" />
           </Card>
         ))}
       </div>

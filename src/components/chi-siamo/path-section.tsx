@@ -19,7 +19,7 @@ const steps = [
 export function PathSection() {
   return (
     <section className="page-container flex flex-col gap-block">
-      <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent md:text-start">
+      <h2 className="typo-headline-medium md:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent md:text-start">
         Il tuo percorso, sempre al tuo fianco
       </h2>
 
@@ -37,7 +37,7 @@ export function PathSection() {
               <GradientIcon icon={step.icon} className="size-14" />
             </Glass>
             <div className="flex flex-col gap-2 pt-2 lg:pt-0">
-              <h3 className="typo-headline-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+              <h3 className="typo-title-large text-balance bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
                 {step.title}
               </h3>
               <p className="typo-body-medium">{step.description}</p>
@@ -46,7 +46,7 @@ export function PathSection() {
         ))}
       </ol>
 
-      <p className="typo-body-large md:typo-headline-small mx-auto max-w-215 text-center">
+      <p className="typo-body-large sm:typo-headline-extrasmall mx-auto max-w-215 text-balance text-center">
         Dalla prima simulazione del TOL fino alla laurea, ogni studente ha sempre{" "}
         <span className="text-blue-secondary">una risposta</span> a portata di mano e{" "}
         <span className="text-blue-secondary">qualcuno</span> a cui chiederla.
