@@ -39,8 +39,10 @@ export function Boards() {
                           className="absolute inset-0 bg-linear-to-t from-5% from-blue-secondary/70 to-60% to-transparent"
                         />
                         <CardContent className="absolute inset-x-4 bottom-5 text-white">
-                          <h3 className="typo-body-large">{member.name}</h3>
-                          {member.role && <p className="typo-body-small">{member.role}</p>}
+                          <h3 className="typo-body-large font-poppins">{member.name}</h3>
+                          {member.role && (
+                            <p className="typo-body-small sm:typo-label-tiny sm:font-normal">{member.role}</p>
+                          )}
                         </CardContent>
                       </Card>
                     ))}

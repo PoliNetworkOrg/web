@@ -96,7 +96,7 @@ const chapterVisuals = [
   </div>,
   <CardMultipleIcons
     key="consiglio"
-    className="w-full justify-center rounded-rectangles [&>div>span]:text-base sm:[&>div>span]:text-2xl [&>div]:gap-2 [&>div]:px-4"
+    className="[&>div>span]:typo-body-large sm:[&>div>span]:typo-headline-small w-full justify-center rounded-rectangles [&>div]:gap-2 [&>div]:px-4"
     icons={[
       <span key="persone" className="typo-body-small sm:typo-headline-small text-center">
         5<br />

@@ -59,7 +59,7 @@ export default function HistoryPage() {
             }
             classNames={{
               section: "mx-auto max-w-330 gap-12 px-6 md:px-6 xl:flex-row xl:items-center",
-              textDiv: "xl:w-[52%] xl:max-w-165 xl:shrink-0",
+              textDiv: "xl:w-165 xl:shrink-0",
               title: "max-sm:typo-headline-medium xl:text-start",
               descriptionDiv: "xl:text-start",
               contentDiv: "min-w-0 xl:w-1/2",
