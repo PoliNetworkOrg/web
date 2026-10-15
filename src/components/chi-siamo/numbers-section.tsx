@@ -24,10 +24,11 @@ export function NumbersSection() {
       </div>
 
       <div className="flex flex-col gap-8">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {/* Column proportions from Figma: the middle column has the shortest labels */}
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-[383fr_341fr_411fr]">
           {stats.map((stat) => (
-            <Card key={stat.label} className="h-auto w-full flex-row items-center gap-6 px-8 py-7">
-              <GradientIcon icon={stat.icon} className="size-14 shrink-0 md:size-21" />
+            <Card key={stat.label} className="h-auto w-full flex-row items-center gap-5 px-6 py-7">
+              <GradientIcon icon={stat.icon} className="1xl:size-21 size-14 shrink-0" />
               <div className="flex flex-col">
                 <CardTitle gradient={false} className="typo-display-medium md:typo-display-large text-blue-secondary">
                   {stat.value}

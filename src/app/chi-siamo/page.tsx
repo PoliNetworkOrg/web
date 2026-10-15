@@ -22,7 +22,8 @@ export const metadata: Metadata = {
 
 export default function ChiSiamoPage() {
   return (
-    <main className="flex w-full flex-col gap-section pb-section">
+    // Narrower content column (1200px, as in Figma): `page-container` caps its padding on this variable
+    <main className="flex w-full flex-col gap-section pb-section [--container-page:75rem]">
       <div className="relative">
         <ChiSiamoVisionShapes />
         <VisionSection />
