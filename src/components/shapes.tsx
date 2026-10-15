@@ -1,88 +1,39 @@
 import Image from "next/image"
+import type { CSSProperties } from "react"
 import bigBlueSvg from "@/assets/shapes/big-blue.svg"
 import bigTealSvg from "@/assets/shapes/big-teal.svg"
-import heroGlowSvg from "@/assets/shapes/hero-glow.svg"
 import looperSvg from "@/assets/shapes/looper.svg"
-import matricoleGlow1Svg from "@/assets/shapes/matricole-glow-1.svg"
-import projectsGlowSvg from "@/assets/shapes/projects-glow.svg"
-import resourcesGlow2Svg from "@/assets/shapes/resources-glow-2.svg"
-import resourcesTopGlowSvg from "@/assets/shapes/resources-top-glow.svg"
 import smallBlueSvg from "@/assets/shapes/small-blue.svg"
 import { cn } from "@/lib/utils"
 
-export type ShapeVariant =
-  | "big-blue"
-  | "big-teal"
-  | "small-blue"
-  | "hero-glow"
-  | "projects-glow" //TODO: remove these page specific shapes
-  | "matricole-glow-1"
-  | "resources-glow-2"
-  | "resources-top-glow"
-  | "looper"
+const SOURCES = {
+  "big-blue": bigBlueSvg,
+  "big-teal": bigTealSvg,
+  "small-blue": smallBlueSvg,
+  looper: looperSvg,
+}
+
+export type ShapeVariant = keyof typeof SOURCES
+export type BlobVariant = Exclude<ShapeVariant, "looper">
 
 export type ShapeProps = {
   variant: ShapeVariant
   className?: string
-}
-
-export const Shape: React.FC<ShapeProps> = ({ variant, className }) => {
-  const getShapeSrc = () => {
-    switch (variant) {
-      case "big-blue":
-        return bigBlueSvg
-      case "big-teal":
-        return bigTealSvg
-      case "small-blue":
-        return smallBlueSvg
-      case "hero-glow":
-        return heroGlowSvg
-      case "projects-glow":
-        return projectsGlowSvg
-      case "matricole-glow-1":
-        return matricoleGlow1Svg
-      case "resources-glow-2":
-        return resourcesGlow2Svg
-      case "resources-top-glow":
-        return resourcesTopGlowSvg
-      case "looper":
-        return looperSvg
-      default:
-        return ""
-    }
-  }
-
-  return (
-    <Image src={getShapeSrc()} aria-hidden alt="" className={cn(className, "-z-10 absolute max-w-none select-none")} />
-  )
-}
-
-export type ShapeLayerProps = {
-  children: React.ReactNode
-  className?: string
+  style?: CSSProperties
 }
 
 /**
- * Wraps a group of `<Shape>`s positioned behind a section. `overflow-x-clip`
- * (not `overflow-hidden`/`overflow-x-hidden`) is required: pairing it with
- * `overflow-y-visible` clips horizontal bleed only — CSS forces the "visible"
- * axis to compute as `auto` (which still clips, just via an invisible
- * scrollbar) whenever the other axis is `hidden`/`auto`/`scroll`, but not
- * when it's `clip`, since `clip` doesn't create a scroll container. This lets
- * shapes bleed vertically into the next section (as several are designed to)
- * without shapes positioned off-canvas horizontally causing a page-wide
- * horizontal scrollbar.
- *
- * Don't add `overflow-hidden` here to stop shapes from lengthening the page:
- * that also cuts them off at the section's bottom edge (e.g. before the
- * footer). The page wrapper in app/layout.tsx is `overflow-clip`, so shapes
- * can cross into the footer but anything past the end of the page is clipped.
+ * Static decorative shape. The page background is animated and generated in
+ * `@/components/background`, this is for decorations inside components.
  */
-export const ShapeLayer: React.FC<ShapeLayerProps> = ({ children, className }) => (
-  <div
+export const Shape: React.FC<ShapeProps> = ({ variant, className, style }) => (
+  <Image
+    src={SOURCES[variant]}
+    // the same four tiny SVGs are reused everywhere, lazy loading them only delays the first paint
+    loading="eager"
     aria-hidden
-    className={cn("-z-10 pointer-events-none absolute inset-0 overflow-x-clip overflow-y-visible", className)}
-  >
-    {children}
-  </div>
+    alt=""
+    className={cn(className, "-z-10 absolute max-w-none select-none")}
+    style={style}
+  />
 )
