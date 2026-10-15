@@ -5,67 +5,15 @@
   --bg-unit: clamp(0.5px, 0.064vw, 1.1px);
   /* height of the slices of page the background is generated in */
   --bg-segment: 900px;
-  /* easeInOutSine: alternating animations with it look like a sine wave */
-  --ease-sine: cubic-bezier(0.37, 0, 0.63, 1);
 
   @media (width >= 48rem) {
     --bg-segment: 1000px;
   }
 }
 
-.looper-fan {
-  transform-box: view-box;
-}
-
-@keyframes shape-parallax {
-  from {
-    translate: 0 var(--parallax);
-  }
-  to {
-    translate: 0 calc(var(--parallax) * -1);
-  }
-}
-
-@keyframes shape-drift-x {
-  from {
-    translate: calc(var(--drift-x) * -1) 0;
-  }
-  to {
-    translate: var(--drift-x) 0;
-  }
-}
-
-@keyframes shape-drift-y {
-  from {
-    translate: 0 calc(var(--drift-y) * -1);
-    scale: calc(1 - var(--breathe));
-  }
-  to {
-    translate: 0 var(--drift-y);
-    scale: calc(1 + var(--breathe));
-  }
-}
-
-@keyframes shape-sway {
-  from {
-    rotate: calc(var(--sway) * -1);
-  }
-  to {
-    rotate: var(--sway);
-  }
-}
-
-@keyframes looper-fan {
-  from {
-    rotate: calc(var(--fan) * var(--fan-index) * -1);
-  }
-  to {
-    rotate: calc(var(--fan) * var(--fan-index));
-  }
-}
-
+/* glide to the new layout when navigating to another page */
 @media (prefers-reduced-motion: no-preference) {
-  .shape-parallax {
+  .shape-box {
     transition-property: left, top, width, height;
   }
 
@@ -73,32 +21,9 @@
     transition-property: rotate;
   }
 
-  .shape-parallax,
+  .shape-box,
   .shape-content {
     transition-duration: 1.5s;
-    transition-timing-function: var(--ease-sine);
-  }
-
-  /* each axis/property oscillates with its own period, so motion never visibly loops */
-  .shape-drift-x {
-    animation:
-      shape-drift-x var(--drift-x-duration) var(--ease-sine) var(--drift-x-delay) infinite alternate both,
-      shape-sway var(--sway-duration) var(--ease-sine) var(--sway-delay) infinite alternate both;
-  }
-
-  .shape-drift-y {
-    animation: shape-drift-y var(--drift-y-duration) var(--ease-sine) var(--drift-y-delay) infinite alternate both;
-  }
-
-  .looper-fan {
-    animation: looper-fan var(--fan-duration) var(--ease-sine) var(--fan-delay) infinite alternate both;
-  }
-
-  /* no polyfill: where scroll-driven animations are unsupported shapes just don't parallax */
-  @supports (animation-timeline: view()) {
-    .shape-parallax {
-      animation: shape-parallax linear both;
-      animation-timeline: view();
-    }
+    transition-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
   }
 }

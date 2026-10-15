@@ -11,19 +11,22 @@ export type SceneShape = {
   size: number
   /** Static rotation, in degrees */
   rotate: number
-  /** Scroll parallax offset in px, negative is further away (slower than the page) */
+  /** Scroll: parallax offset in px (negative is further away, slower than the page) and rotation in degrees */
   depth: number
-  /** Passive motion: drift amplitude (px), sway (deg), breathing scale and timings (s) */
+  spin: number
+  /** Passive motion: drift amplitude (px), sway (deg), breathing scale, their periods (s) and phase (0-1) */
   driftX: number
   driftY: number
   sway: number
   breathe: number
-  durX: number
-  durY: number
-  durSway: number
-  /** Looper only: extra rotation per line (deg) and duration (s) of the fan animation */
+  periodX: number
+  periodY: number
+  periodSway: number
+  phase: number
+  /** Looper only: extra angle between lines (deg) driven by scroll, and its passive oscillation */
+  spread: number
   fan: number
-  durFan: number
+  periodFan: number
 }
 
 /** FNV-1a, to turn the pathname into a seed */
@@ -77,32 +80,35 @@ export function sceneSegment(pathname: string, index: number): SceneShape[] {
       size,
       rotate: between(0, 360),
       depth: vary(...depth),
+      spin: looper ? vary(6, 10) : vary(-8, 8),
       driftX: vary(12, 32),
       driftY: vary(12, 32),
       sway: looper ? vary(2, 4) : vary(5, 12),
       breathe: looper ? 0 : vary(0.02, 0.05),
-      durX: vary(17, 29),
-      durY: vary(19, 31),
-      durSway: vary(29, 47),
-      fan: looper ? vary(0.25, 0.45) : 0,
-      durFan: vary(11, 19),
+      periodX: vary(34, 58),
+      periodY: vary(38, 62),
+      periodSway: vary(58, 94),
+      phase: vary(0, 1),
+      spread: looper ? vary(1, 1.3) : 0,
+      fan: looper ? vary(0.25, 0.4) : 0,
+      periodFan: vary(22, 38),
     })
   }
 
   // main cluster: the blobs overlap, so the looper's white lines show on top of them
   const cx = side * between(0.35, 0.8)
   const cy = between(0.15, 0.45)
-  add("big-blue", cx + side * between(-0.1, 0.15), cy - between(0, 0.2), between(650, 900), [-90, -40])
-  add("big-teal", cx, cy, between(800, 1050), [-40, 20])
-  add("small-blue", cx - side * between(0.1, 0.25), cy + between(0.05, 0.2), between(380, 520), [60, 140])
-  add("looper", cx + side * between(-0.3, 0.1), cy + between(-0.05, 0.2), between(1400, 1800), [-160, -90])
+  add("big-blue", cx + side * between(-0.1, 0.15), cy - between(0, 0.2), between(650, 900), [-140, -60])
+  add("big-teal", cx, cy, between(800, 1050), [-70, 30])
+  add("small-blue", cx - side * between(0.1, 0.25), cy + between(0.05, 0.2), between(380, 520), [100, 200])
+  add("looper", cx + side * between(-0.3, 0.1), cy + between(-0.05, 0.2), between(1400, 1800), [-240, -140])
 
   // counterweight on the other side
   const ox = -side * between(0.55, 0.95)
   const oy = between(0.6, 0.9)
-  add(rand() < 0.5 ? "big-blue" : "big-teal", ox, oy, between(550, 850), [-80, 0])
+  add(rand() < 0.5 ? "big-blue" : "big-teal", ox, oy, between(550, 850), [-120, -20])
   if (rand() < 0.5)
-    add("small-blue", ox + side * between(0.1, 0.3), oy - between(0, 0.15), between(250, 400), [80, 160])
+    add("small-blue", ox + side * between(0.1, 0.3), oy - between(0, 0.15), between(250, 400), [120, 220])
 
   return shapes
 }
