@@ -10,13 +10,12 @@ import { cn } from "@/lib/utils"
 import { boardMembers } from "./constants"
 
 const portraits = [
-  { member: boardMembers[1], position: "top-8 left-0 -rotate-6", caption: "right-1/4 left-1 sm:left-2" },
+  { member: boardMembers[1], position: "top-12 left-0 -rotate-6" },
   {
     member: boardMembers[0],
     position: "-translate-x-1/2 top-0 left-1/2 z-10",
-    caption: "inset-x-2 text-center",
   },
-  { member: boardMembers[3], position: "top-12 right-0 rotate-6", caption: "right-2 left-1/4 text-end" },
+  { member: boardMembers[3], position: "top-12 right-0 rotate-6 sm:top-16" },
 ]
 
 export function HistoryHero() {
@@ -44,7 +43,7 @@ export function HistoryHero() {
       </div>
       <div className="relative mx-auto w-full max-w-140">
         <div className="relative aspect-square w-full sm:aspect-4/3">
-          {portraits.map(({ member, position, caption }) => (
+          {portraits.map(({ member, position }) => (
             <Card
               key={member.name}
               className={cn(
@@ -59,12 +58,7 @@ export function HistoryHero() {
                 className={cn("absolute max-w-none", member.crop)}
               />
               <div className="absolute inset-0 bg-linear-to-t from-blue-secondary/80 to-60% to-transparent" />
-              <CardContent
-                className={cn(
-                  "typo-label-tiny sm:typo-label-medium absolute bottom-3 whitespace-nowrap text-white sm:bottom-4",
-                  caption
-                )}
-              >
+              <CardContent className="typo-label-tiny sm:typo-label-medium absolute inset-x-3 bottom-4 whitespace-nowrap text-center text-white sm:inset-x-4 sm:bottom-6">
                 {member.role}
               </CardContent>
             </Card>

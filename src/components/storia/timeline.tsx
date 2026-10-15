@@ -20,6 +20,9 @@ const milestoneLinks = ["#capitolo-1", "#capitolo-1", "#capitolo-5", "#direttivi
 
 const milestoneIcons = [FiUser, telegram.src, FiUserCheck, FiUsers]
 
+const staggeredCards =
+  "grid w-full grid-cols-12 gap-4 [&>div]:col-span-10 sm:[&>div]:col-span-8 [&>div:nth-child(2)]:col-start-2 sm:[&>div:nth-child(2)]:col-start-3 [&>div:nth-child(3)]:col-start-3 sm:[&>div:nth-child(3)]:col-start-5"
+
 export function Timeline() {
   return (
     <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 sm:gap-12">
@@ -69,7 +72,7 @@ const chapterVisuals = [
       <CardIcon key={item.title} {...item} size="xs" className="h-full [&_h3]:text-balance" />
     ))}
   </div>,
-  <div key="spazio" className="grid w-full gap-4">
+  <div key="spazio" className={staggeredCards}>
     {[
       { icon: FiClipboard, title: "Regole interne" },
       { icon: FiUserCheck, title: "Comunicazioni selezionate" },
@@ -78,7 +81,7 @@ const chapterVisuals = [
       <CardIcon key={item.title} {...item} size="inline-sm" align="inline" className="[&_h3]:text-balance" />
     ))}
   </div>,
-  <div key="consiglio" className="grid w-full gap-4 sm:grid-cols-3">
+  <div key="consiglio" className={staggeredCards}>
     {[
       { title: "5", caption: "persone", icon: FiUser },
       { title: "~25", caption: "rappresentanti", icon: FiUsers },
@@ -87,7 +90,7 @@ const chapterVisuals = [
       <CardCaption key={item.title} {...item} className="h-full w-full p-4 sm:p-6" />
     ))}
   </div>,
-  <div key="team" className="grid w-full gap-4">
+  <div key="team" className={staggeredCards}>
     <CardIcon
       title="I primi dipartimenti"
       description="Eventi · HR · IT · Social · Gestione"
@@ -105,7 +108,7 @@ const chapterVisuals = [
       className="[&_h3]:text-balance"
     />
   </div>,
-  <div key="associazione" className="grid w-full gap-4">
+  <div key="associazione" className={staggeredCards}>
     <CardIcon
       title="Prima"
       description="Consiglio degli Admin · Garanti · Coordinamento"
@@ -121,7 +124,7 @@ const chapterVisuals = [
       align="inline"
     />
   </div>,
-  <div key="albo" className="grid w-full gap-4">
+  <div key="albo" className={staggeredCards}>
     <CardIcon
       title="APS-ETS"
       description="Riconosciuto dallo Stato"
