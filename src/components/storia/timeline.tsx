@@ -59,7 +59,7 @@ export function Timeline() {
 }
 
 const chapterVisuals = [
-  <div key="rete" className="grid w-full grid-cols-2 gap-4">
+  <div key="rete" className="grid w-full gap-4">
     {[
       { icon: telegram.src, title: "Il primo gruppo" },
       { icon: FiUser, title: "I primi admin e volontari" },
@@ -83,16 +83,13 @@ const chapterVisuals = [
       />
     ))}
   </div>,
-  <div
-    key="consiglio"
-    className="grid w-full gap-4 sm:grid-cols-3 sm:items-start sm:[&>div:nth-child(2)]:mt-8 sm:[&>div:nth-child(3)]:mt-16"
-  >
+  <div key="consiglio" className="grid w-full gap-4">
     {[
       { title: "5", caption: "persone", icon: FiUser },
       { title: "~25", caption: "rappresentanti", icon: FiUsers },
       { title: "4", caption: "composizioni", icon: FiLayers },
     ].map((item) => (
-      <CardCaption key={item.title} {...item} className="h-auto w-full p-4 sm:p-6" />
+      <CardCaption key={item.title} {...item} className="h-auto w-full gap-3 p-6" />
     ))}
   </div>,
   <div key="team" className="grid w-full gap-4">
