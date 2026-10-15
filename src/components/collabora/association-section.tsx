@@ -3,7 +3,7 @@ import associationsImage from "@/assets/images/collabora_associations.jpg"
 
 export function AssociationSection() {
   return (
-    <section className="flex w-full flex-col items-center gap-27 px-6 text-center min-[1616px]:flex-row min-[1616px]:items-end min-[1616px]:px-36">
+    <section className="flex w-full flex-col items-center gap-block text-center min-[1616px]:flex-row min-[1616px]:items-end">
       <div className="flex w-full min-w-0 flex-1 flex-col items-center gap-6 min-[1616px]:items-start min-[1616px]:text-start">
         <h2 className="sm:typo-display-medium typo-headline-medium text-center min-[1616px]:text-start">
           Sei un’associazione studentesca?

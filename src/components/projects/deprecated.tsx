@@ -17,8 +17,8 @@ export function Deprecated({ projects }: { projects: Project[] }) {
   const visibleProjects = expanded ? projects : projects.slice(0, INITIAL_PROJECT_COUNT)
 
   return (
-    <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center px-4 py-49">
-      <div className="flex w-full flex-col gap-14 sm:w-fit">
+    <section className="page-container flex flex-col items-center">
+      <div className="flex w-full flex-col gap-block sm:w-fit">
         <div className="flex flex-col items-center gap-2 sm:items-start">
           <h3 className="typo-headline-medium sm:typo-display-medium text-center sm:text-left">Progetti deprecati</h3>
           <p className="typo-body-large text-center sm:text-left">

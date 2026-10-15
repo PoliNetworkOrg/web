@@ -43,19 +43,21 @@ const contactCards: ContactCardData[] = [
 
 export function EmailSection() {
   return (
-    <section className="flex w-full flex-col gap-6 px-6 min-[1616px]:px-36">
-      <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent min-[1616px]:text-start">
-        Hai una richiesta specifica?
-      </h2>
-      <p className="typo-body-large md:typo-headline-small pb-6 text-center text-text-primary min-[1616px]:text-start">
-        Per tutto il resto,{" "}
-        <a href="mailto:info@polinetwork.org" className="text-blue-secondary hover:underline focus-visible:underline">
-          puoi scriverci direttamente
-        </a>
-        .
-        <br />
-        Qui sotto trovi i contatti in base al tipo di richiesta.
-      </p>
+    <section className="flex w-full flex-col gap-block">
+      <div className="flex flex-col gap-6">
+        <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent min-[1616px]:text-start">
+          Hai una richiesta specifica?
+        </h2>
+        <p className="typo-body-large md:typo-headline-small text-center text-text-primary min-[1616px]:text-start">
+          Per tutto il resto,{" "}
+          <a href="mailto:info@polinetwork.org" className="text-blue-secondary hover:underline focus-visible:underline">
+            puoi scriverci direttamente
+          </a>
+          .
+          <br />
+          Qui sotto trovi i contatti in base al tipo di richiesta.
+        </p>
+      </div>
 
       <div className="flex w-full flex-wrap justify-center gap-12 xl:gap-16 min-[1616px]:justify-start">
         {contactCards.map((card) => (

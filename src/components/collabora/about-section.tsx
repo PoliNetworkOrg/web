@@ -46,7 +46,7 @@ const cards = [
 
 export function AboutSection() {
   return (
-    <section className="flex w-full flex-row flex-wrap gap-28 px-2 md:px-36">
+    <section className="flex w-full flex-row flex-wrap gap-block">
       <div className="flex min-w-0 flex-1 basis-120 flex-col gap-6">
         <h2 className="sm:typo-display-medium typo-headline-medium text-center md:text-start">Chi siamo?</h2>
 

@@ -28,7 +28,7 @@ const alignVariants = [
 
 export function ContactSection() {
   return (
-    <section className="flex w-full flex-col gap-6 px-2 md:px-36">
+    <section className="flex w-full flex-col gap-block">
       <h2 className="sm:typo-display-medium typo-headline-medium text-center md:text-start">Come contattarci</h2>
 
       <div className="grid w-full grid-cols-1 gap-y-10 text-start min-[1616px]:grid-cols-3 min-[1616px]:gap-x-10 min-[1616px]:gap-y-0">

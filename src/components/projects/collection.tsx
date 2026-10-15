@@ -18,7 +18,7 @@ export function Collection({ projects }: { projects: Project[] }) {
   const visibleProjects = expanded ? projects : projects.slice(0, INITIAL_PROJECT_COUNT)
 
   return (
-    <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-12 px-4 sm:gap-22">
+    <section className="page-container flex flex-col items-center gap-block">
       <div className="flex flex-col items-center gap-8">
         <h2 className="typo-headline-medium sm:typo-display-medium text-center">
           Esplora la raccolta completa dei progetti

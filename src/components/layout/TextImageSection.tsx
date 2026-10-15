@@ -102,7 +102,7 @@ export default function TextImageLayout({
   return (
     <section
       className={cn(
-        "flex w-full items-center gap-27 px-6 text-center md:px-36 min-[1616px]:items-center",
+        "flex w-full items-center gap-block text-center min-[1616px]:items-center",
         "flex-col",
         verticalOrientation === "bt" && "flex-col-reverse",
         "min-[1616px]:flex-row",
