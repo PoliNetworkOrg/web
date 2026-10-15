@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { FiUsers } from "react-icons/fi"
+import { Glass } from "@/components/glass"
 import { applicationHref, teams } from "@/components/team/constants"
 import { PeopleGallery } from "@/components/team/people-gallery"
 import { TeamSection } from "@/components/team/team-section"
@@ -24,9 +25,9 @@ export default function TeamPage() {
             description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento in sinergia con il Consiglio Direttivo."
             gradientDescription
           />
-          <p className="typo-title-large md:typo-headline-small max-w-195 text-balance text-center text-blue-secondary">
-            Il punto d’incontro? Il Team Growth, il cuore strategico dove i responsabili uniscono le forze per
-            coordinare i progetti interarea e disegnare il futuro dell’associazione.
+          <p className="typo-body-large sm:typo-headline-extrasmall max-w-180 text-balance text-center">
+            Il punto d’incontro? Il <span className="text-blue-secondary">Team Growth</span>, il cuore strategico dove i
+            responsabili uniscono le forze per coordinare i progetti interarea e disegnare il futuro dell’associazione.
           </p>
         </section>
       </div>
@@ -43,7 +44,7 @@ export default function TeamPage() {
             >
               Consiglio direttivo
             </h2>
-            <p className="typo-body-large md:typo-headline-small text-pretty">
+            <p className="typo-body-large sm:typo-headline-extrasmall text-pretty">
               Il Consiglio Direttivo è l’organo garante dell’associazione. Ha l’obiettivo di vigilare sulle attività di
               PoliNetwork e di monitorarne l’andamento per preservare i valori dello statuto; di conseguenza, può
               approvare o respingere le linee d’azione intraprese dai singoli dipartimenti o le strategie delineate dal
@@ -63,18 +64,20 @@ export default function TeamPage() {
           <TeamSection team={team} />
         </div>
       ))}
-      <section className="mx-auto flex w-full max-w-300 flex-col items-center gap-8 px-6 text-center">
-        <h2 className="typo-headline-medium md:typo-display-large text-balance">Vuoi fare la differenza?</h2>
-        <p className="typo-title-large md:typo-display-small text-balance">
-          Le porte di PoliNetwork sono aperte a tutti gli studenti del Politecnico di Milano. Segui i nostri social per
-          non perdere i periodi di recruiting ufficiali… ma se hai talento e motivazione, non aspettare: valutiamo le
-          candidature spontanee tutto l’anno.
-        </p>
-        <Button asChild size="lg">
-          <a href={applicationHref()}>
-            Unisciti a noi <FiUsers aria-hidden />
-          </a>
-        </Button>
+      <section className="mx-auto w-full max-w-330 px-6">
+        <Glass className="flex flex-col items-center gap-6 rounded-rectangles border-white/50 bg-linear-to-br from-background-blur to-blue-tertiary/30 p-6 text-center sm:p-12">
+          <h2 className="typo-headline-medium sm:typo-display-medium text-balance">Vuoi fare la differenza?</h2>
+          <p className="typo-body-large sm:typo-headline-extrasmall max-w-200 text-balance">
+            Le porte di PoliNetwork sono aperte a tutti gli studenti del Politecnico di Milano. Segui i nostri social
+            per non perdere i periodi di recruiting ufficiali… ma se hai talento e motivazione, non aspettare: valutiamo
+            le candidature spontanee tutto l’anno.
+          </p>
+          <Button asChild size="lg">
+            <a href={applicationHref()}>
+              Unisciti a noi <FiUsers aria-hidden />
+            </a>
+          </Button>
+        </Glass>
       </section>
     </main>
   )

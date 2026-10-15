@@ -12,16 +12,16 @@ export function TeamSection({ team }: { team: Team }) {
     <section
       id={team.id}
       aria-labelledby={`${team.id}-title`}
-      className="mx-auto flex w-full max-w-360 scroll-mt-36 flex-col gap-10 px-6 md:gap-12"
+      className="mx-auto flex w-full max-w-330 scroll-mt-36 flex-col gap-10 px-6 md:gap-12"
     >
       <div
-        className={cn("grid min-w-0 items-center gap-10 xl:grid-cols-2 xl:gap-16", team.centered && "xl:grid-cols-1")}
+        className={cn("grid min-w-0 items-center gap-8 xl:grid-cols-2 xl:gap-16", team.centered && "xl:grid-cols-1")}
       >
         <div
           className={cn(
             "flex min-w-0 flex-col items-center gap-6 text-center xl:items-start xl:text-start",
             team.reverse && "xl:order-last",
-            team.centered && "mx-auto max-w-240 xl:items-center xl:text-center"
+            team.centered && "mx-auto max-w-220 xl:items-center xl:text-center"
           )}
         >
           <h2
@@ -30,7 +30,7 @@ export function TeamSection({ team }: { team: Team }) {
           >
             {team.title}
           </h2>
-          <p className="typo-body-large md:typo-headline-small text-pretty">{team.description}</p>
+          <p className="typo-body-large sm:typo-headline-extrasmall max-w-145 text-pretty">{team.description}</p>
           <Button asChild size="lg" className="mt-2 w-fit">
             <a href={applicationHref(team.title)}>
               Unisciti a noi <FiUsers aria-hidden />
@@ -38,24 +38,11 @@ export function TeamSection({ team }: { team: Team }) {
           </Button>
         </div>
         {team.roles.length > 0 && (
-          <div
-            className={cn(
-              "grid w-full min-w-0 gap-4 sm:grid-cols-2",
-              team.id === "it" && "sm:grid-cols-6",
-              team.centered && "sm:grid-cols-3"
-            )}
-          >
-            {team.roles.map((role, index) => (
-              <Card
-                key={role.title}
-                className={cn(
-                  "h-auto w-full p-4 sm:p-6",
-                  team.id === "it" && "sm:col-span-2",
-                  team.id === "it" && index === 3 && "sm:col-start-2"
-                )}
-              >
-                <CardHeader className="flex h-full flex-row items-center justify-between gap-4 sm:flex-col-reverse sm:justify-center sm:gap-6">
-                  <CardTitle className="typo-body-large sm:typo-title-large min-w-0 text-balance sm:text-center">
+          <div className="grid w-full min-w-0 gap-4">
+            {team.roles.map((role) => (
+              <Card key={role.title} className="h-auto w-full p-5 sm:p-6">
+                <CardHeader className="flex flex-row items-center justify-between gap-6">
+                  <CardTitle className="typo-title-medium sm:typo-headline-extrasmall min-w-0 text-pretty">
                     {role.title}
                   </CardTitle>
                   {typeof role.icon === "string" ? (
@@ -64,10 +51,10 @@ export function TeamSection({ team }: { team: Team }) {
                       alt=""
                       width={88.4252}
                       height={88.4252}
-                      className="size-6 shrink-0 sm:size-12"
+                      className="size-6 shrink-0 sm:size-8"
                     />
                   ) : (
-                    <GradientIcon icon={role.icon} className="size-6 shrink-0 sm:size-12" />
+                    <GradientIcon icon={role.icon} className="size-6 shrink-0 sm:size-8" />
                   )}
                 </CardHeader>
               </Card>

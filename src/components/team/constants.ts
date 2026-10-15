@@ -81,7 +81,6 @@ export const teams: Team[] = [
       { title: "Project Management", icon: FiSettings },
     ],
     placeholderCount: 0,
-    centered: true,
   },
   {
     id: "international",

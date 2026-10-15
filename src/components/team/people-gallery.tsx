@@ -22,23 +22,23 @@ export function PeopleGallery({ placeholderCount = 0 }: { placeholderCount?: num
               key={typeof member === "string" ? member : member.name}
               className={cn(
                 "sm:basis-1/2 md:max-w-56 md:basis-[calc((100%-72px)/4)] md:pl-0",
-                placeholderCount && "md:max-w-40 md:basis-40"
+                placeholderCount && "basis-1/2 sm:basis-1/3 md:max-w-40 md:basis-40"
               )}
             >
               <Card
                 className={cn(
                   "relative mx-auto aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0",
-                  placeholderCount && "bg-linear-to-t from-blue-secondary/70 to-background-blur"
+                  placeholderCount && "max-w-40 bg-linear-to-t from-blue-secondary/10 to-background-blur"
                 )}
               >
                 {typeof member === "string" ? (
                   <>
                     <div className="flex h-full items-center justify-center pb-10">
-                      <GradientIcon icon={FiUser} className="size-14 opacity-40" />
+                      <GradientIcon icon={FiUser} className="size-10 opacity-50" />
                     </div>
-                    <CardContent className="absolute inset-x-4 bottom-5 flex flex-col gap-1 text-white">
+                    <CardContent className="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-text-primary">
                       <p className="typo-body-medium">Profilo del team</p>
-                      <p className="typo-body-small">In aggiornamento</p>
+                      <p className="typo-body-small text-text-secondary">In aggiornamento</p>
                     </CardContent>
                   </>
                 ) : (
