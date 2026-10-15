@@ -55,18 +55,11 @@ function prng(seed: number) {
  * other side. Sides alternate between segments, everything else is jittered
  * from a seed derived from the pathname and the segment index, so each page
  * gets its own (but stable across reloads) variation.
- *
- * Animation parameters are seeded by the segment index only: when navigating
- * the same elements glide to the new layout, and changing the parameters of a
- * running animation would make it jump.
  */
 export function sceneSegment(pathname: string, index: number): SceneShape[] {
   const seed = hash(pathname)
-  const segment = Math.imul(index + 1, 0x9e3779b1)
-  const rand = prng(seed ^ segment)
+  const rand = prng(seed ^ Math.imul(index + 1, 0x9e3779b1))
   const between = (min: number, max: number) => min + rand() * (max - min)
-  const motion = prng(segment)
-  const vary = (min: number, max: number) => min + motion() * (max - min)
   const side = (seed + index) % 2 ? 1 : -1
 
   const shapes: SceneShape[] = []
@@ -79,19 +72,19 @@ export function sceneSegment(pathname: string, index: number): SceneShape[] {
       y: index + y,
       size,
       rotate: between(0, 360),
-      depth: vary(...depth),
-      spin: looper ? vary(6, 10) : vary(-8, 8),
-      driftX: vary(12, 32),
-      driftY: vary(12, 32),
-      sway: looper ? vary(2, 4) : vary(5, 12),
-      breathe: looper ? 0 : vary(0.02, 0.05),
-      periodX: vary(34, 58),
-      periodY: vary(38, 62),
-      periodSway: vary(58, 94),
-      phase: vary(0, 1),
-      spread: looper ? vary(1, 1.3) : 0,
-      fan: looper ? vary(0.25, 0.4) : 0,
-      periodFan: vary(22, 38),
+      depth: between(...depth),
+      spin: looper ? between(6, 10) : between(-8, 8),
+      driftX: between(12, 32),
+      driftY: between(12, 32),
+      sway: looper ? between(2, 4) : between(5, 12),
+      breathe: looper ? 0 : between(0.02, 0.05),
+      periodX: between(34, 58),
+      periodY: between(38, 62),
+      periodSway: between(58, 94),
+      phase: between(0, 1),
+      spread: looper ? between(1, 1.3) : 0,
+      fan: looper ? between(0.25, 0.4) : 0,
+      periodFan: between(22, 38),
     })
   }
 

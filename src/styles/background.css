@@ -10,20 +10,3 @@
     --bg-segment: 1000px;
   }
 }
-
-/* glide to the new layout when navigating to another page */
-@media (prefers-reduced-motion: no-preference) {
-  .shape-box {
-    transition-property: left, top, width, height;
-  }
-
-  .shape-content {
-    transition-property: rotate;
-  }
-
-  .shape-box,
-  .shape-content {
-    transition-duration: 1.5s;
-    transition-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
-  }
-}

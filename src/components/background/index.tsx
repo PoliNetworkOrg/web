@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Shape } from "@/components/shapes"
 import { animateScene } from "./animate"
 import { LOOPER_ASPECT, Looper } from "./looper"
@@ -14,11 +14,14 @@ const INITIAL_SEGMENTS = 2
  * Animated decorative background shared by every page. It covers the whole
  * page (footer included) and is split into `--bg-segment` tall segments, each
  * filled with shapes from `sceneSegment` and animated by `animateScene`.
- * When navigating, the shapes glide to their place in the new page (CSS
- * transitions in `styles/background.css`).
+ * Every page gets a fresh scene, rendered directly in its final place.
  */
 export function Background() {
   const pathname = usePathname()
+  return <Scene key={pathname} pathname={pathname} />
+}
+
+function Scene({ pathname }: { pathname: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const [segments, setSegments] = useState(INITIAL_SEGMENTS)
   const shapes = Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat()
@@ -36,12 +39,14 @@ export function Background() {
       setSegments(Math.max(1, Math.ceil(el.offsetHeight / segment)))
     })
     observer.observe(el)
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return () => observer.disconnect()
-    const stop = animateScene(el, () => shapesRef.current)
-    return () => {
-      observer.disconnect()
-      stop()
-    }
+    return () => observer.disconnect()
+  }, [])
+
+  // a layout effect, so the first frame is applied before the new page is painted
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    return animateScene(el, () => shapesRef.current)
   }, [])
 
   return (
@@ -60,7 +65,7 @@ function SceneItem({ shape }: { shape: SceneShape }) {
 
   return (
     <div
-      className="shape-box absolute"
+      className="absolute"
       style={{
         left: `calc(${50 + shape.x * 50}% - ${width / 2} * var(--bg-unit))`,
         top: `calc(${shape.y} * var(--bg-segment) - ${height / 2} * var(--bg-unit))`,
@@ -70,9 +75,9 @@ function SceneItem({ shape }: { shape: SceneShape }) {
     >
       <div className="size-full">
         {looper ? (
-          <Looper className="shape-content size-full" style={{ rotate: `${shape.rotate}deg` }} />
+          <Looper className="size-full" style={{ rotate: `${shape.rotate}deg` }} />
         ) : (
-          <Shape variant={shape.variant} className="shape-content size-full" style={{ rotate: `${shape.rotate}deg` }} />
+          <Shape variant={shape.variant} className="size-full" style={{ rotate: `${shape.rotate}deg` }} />
         )}
       </div>
     </div>

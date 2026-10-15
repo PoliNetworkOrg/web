@@ -7,6 +7,11 @@ const MARGIN = 200
 const SCROLL_INERTIA = 0.15
 /** Duration (ms) of the fade-in of the motion, so the first frame doesn't jump from the server-rendered layout */
 const INTRO = 1500
+/** For this long (ms) after a scene starts the scroll isn't smoothed: navigating or restoring the scroll position jumps */
+const SETTLE = 300
+
+/** The intro only plays once, on the first page load: later pages are rendered on the client, directly in place */
+let introStart: number | undefined
 
 const wave = (t: number, period: number, phase: number) => Math.sin(2 * Math.PI * (t / period + phase))
 const smoothstep = (x: number) => {
@@ -22,21 +27,25 @@ const smoothstep = (x: number) => {
  * past them. Only `transform`s are touched, so nothing is repainted.
  *
  * `scene` children must match the order of `getShapes()`, each being
- * `layout box > motion > content`.
+ * `layout box > motion > content`. The first frame is rendered synchronously,
+ * so new shapes never show up out of place.
  */
 export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) {
   let scroll = window.scrollY
   let last = performance.now()
   const start = last
+  introStart ??= start
+  const introFrom = introStart
 
   const tick = (now: number) => {
     frame = requestAnimationFrame(tick)
     const dt = Math.min(0.1, (now - last) / 1000)
     last = now
-    scroll += (window.scrollY - scroll) * (1 - Math.exp(-dt / SCROLL_INERTIA))
+    if (now - start < SETTLE) scroll = window.scrollY
+    else scroll += (window.scrollY - scroll) * (1 - Math.exp(-dt / SCROLL_INERTIA))
 
     const t = now / 1000
-    const intro = smoothstep((now - start) / INTRO)
+    const intro = smoothstep((now - introFrom) / INTRO)
     const viewport = window.innerHeight
     const sceneTop = scene.getBoundingClientRect().top + window.scrollY - scroll
     const boxes = scene.children as HTMLCollectionOf<HTMLElement>
@@ -74,6 +83,7 @@ export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) 
     }
   }
 
-  let frame = requestAnimationFrame(tick)
+  let frame = 0
+  tick(start)
   return () => cancelAnimationFrame(frame)
 }
