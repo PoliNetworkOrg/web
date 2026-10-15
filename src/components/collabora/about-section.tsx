@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { FiArrowUpRight, FiMessageSquare, FiUsers } from "react-icons/fi"
 import { MdOutlineHandshake, MdOutlineSchool } from "react-icons/md"
 import { Button } from "@/components/ui/button"
@@ -62,9 +63,11 @@ export function AboutSection() {
           </div>
         </div>
 
-        <Button variant="primary" size="lg" className="w-fit gap-2 self-center md:self-start">
-          Scopri la nostra storia
-          <FiArrowUpRight />
+        <Button asChild variant="primary" size="lg" className="w-fit gap-2 self-center md:self-start">
+          <Link href="/storia">
+            Scopri la nostra storia
+            <FiArrowUpRight />
+          </Link>
         </Button>
       </div>
 
