@@ -1,133 +1,218 @@
-import { Shape, ShapeLayer } from "@/components/shapes"
+import { FigmaShape, type FigmaShapePlacement, ShapeLayer } from "@/components/shapes"
 
 /**
- * `left` offsets are `calc(50% + Npx)`, relative to the horizontal center of
- * the 1728px (desktop) / 402px (mobile) Figma frames — see
- * src/components/home/shapes.tsx.
+ * Decorative shapes of the "Collabora con Noi" Figma frames (desktop node 5248:13597, 1728px wide; mobile node
+ * 5246:13012, 402px wide). Values are the Figma layers' centers, sizes and rotations, in paint order.
  *
- * The real sections are much shorter/taller than the Figma frames (up to
- * ~300px drift on desktop, and the mobile page is ~60% taller), so each
- * section's shapes are `top`-anchored to that section's heading (the section's
- * top edge): `top = figmaY - figmaHeadingY`. The hero shapes are instead on a
- * layer over the whole `<main>`, where page y = Figma y.
+ * Background shapes are grouped by the section that contains their center and `y` is measured from that section's
+ * top, so they stay next to their section however the copy reflows. `x` and the size scale with the page width.
  *
- * On mobile the photo decorations of "associazione"/"azienda" are anchored to
- * the section bottom, since the photo is the last element there.
- *
- * Section layers use `-inset-x-4` because the sections sit inside `<main>`'s
- * `px-4`: without it the layer (and its horizontal clip) would stop 16px short
- * of the viewport edges.
+ * Shapes Figma draws over the photos are anchored to the photo itself (see `PhotoShapes`).
  */
+
+type Placement = FigmaShapePlacement
+
+const DESKTOP_WIDTH = 1728
+const MOBILE_WIDTH = 402
+
+function SectionShapes({ desktop = [], mobile = [] }: { desktop?: Placement[]; mobile?: Placement[] }) {
+  return (
+    <ShapeLayer className="@container">
+      {mobile.map((shape) => (
+        <FigmaShape
+          key={`${shape.variant}-${shape.x}-${shape.y}`}
+          {...shape}
+          refWidth={MOBILE_WIDTH}
+          className="md:hidden"
+        />
+      ))}
+      {desktop.map((shape) => (
+        <FigmaShape
+          key={`${shape.variant}-${shape.x}-${shape.y}`}
+          {...shape}
+          refWidth={DESKTOP_WIDTH}
+          className="max-md:hidden"
+        />
+      ))}
+    </ShapeLayer>
+  )
+}
+
+const ROTATE_MINUS_34 = [0.828, -0.56, 0.56, 0.828] as const
+const ROTATE_MINUS_98 = [-0.132, -0.991, 0.991, -0.132] as const
+const ROTATE_MINUS_45 = [Math.SQRT1_2, -Math.SQRT1_2, Math.SQRT1_2, Math.SQRT1_2] as const
 
 export function CollaboraHeroShapes() {
   return (
-    <ShapeLayer>
-      {/* Mobile Shapes */}
-      <Shape variant="big-teal" className="-top-15 left-[calc(50%-276px)] size-100.25 md:hidden" />
-      <Shape variant="small-blue" className="top-[429.87px] left-[calc(50%-30px)] size-[461.71px] md:hidden" />
-      <Shape variant="looper" className="-top-46.75 left-[calc(50%-414.95px)] h-[1071.5px] w-[1053.17px] md:hidden" />
-
-      {/* Desktop Shapes */}
-      <Shape variant="big-teal" className="-top-79 left-[calc(50%-1077px)] hidden size-243.5 md:block" />
-      <Shape variant="big-blue" className="top-[-141.76px] left-[calc(50%+484px)] hidden size-[852.32px] md:block" />
-      <Shape variant="big-blue" className="-top-112.25 left-[calc(50%-1053.43px)] hidden size-[817.37px] md:block" />
-      <Shape
-        variant="looper"
-        className="-top-239.5 left-[calc(50%-1087.41px)] hidden h-[1872.58px] w-[1909.95px] md:block"
-      />
-      <Shape variant="big-teal" className="top-153 left-[calc(50%+318px)] hidden size-195.5 md:block" />
-      <Shape variant="looper" className="top-39 left-[calc(50%-6px)] hidden h-340.75 w-351.75 md:block" />
-    </ShapeLayer>
+    <SectionShapes
+      desktop={[
+        { variant: "big-teal", x: 274, y: 171, w: 974, h: 974 },
+        { variant: "big-blue", x: 1774.2, y: 75.2, w: 676.3, h: 676.3, matrix: [0.951, -0.309, 0.309, 0.951] },
+        { variant: "big-blue", x: 77.7, y: -40.3, w: 690.5, h: 690.5, matrix: [0.979, 0.205, -0.205, 0.979] },
+        { variant: "looper", x: 393, y: -21.7, w: 1609.7, h: 1560.5, matrix: [0.976, 0.217, -0.217, 0.976] },
+      ]}
+      mobile={[
+        { variant: "big-teal", x: 125.5, y: 140.5, w: 401, h: 401 },
+        { variant: "small-blue", x: 401.9, y: 526.9, w: 354.1, h: 354.1, matrix: [0.926, -0.378, 0.378, 0.926] },
+        { variant: "looper", x: 100.6, y: 348.8, w: 891, h: 866, matrix: [-0.238, 0.971, 0.971, 0.238] },
+      ]}
+    />
   )
 }
 
 export function CollaboraAboutShapes() {
   return (
-    <ShapeLayer className="-inset-x-4">
-      {/* Mobile Shapes */}
-      <Shape variant="small-blue" className="top-[341.77px] left-[calc(50%-402.25px)] size-[397.83px] md:hidden" />
-      <Shape variant="big-teal" className="top-78.25 left-[calc(50%-52px)] size-100.25 md:hidden" />
-
-      {/* Desktop Shapes */}
-      <Shape variant="big-teal" className="top-23.25 left-[calc(50%-1037px)] hidden size-171.75 md:block" />
-      <Shape variant="big-blue" className="top-[281.91px] left-[calc(50%+406.91px)] hidden size-[661.95px] md:block" />
-      <Shape variant="looper" className="-top-7.75 left-[calc(50%-1002px)] hidden h-241.75 w-249.75 md:block" />
-    </ShapeLayer>
+    <SectionShapes
+      desktop={[
+        { variant: "big-teal", x: 170.5, y: 511.5, w: 687, h: 687 },
+        { variant: "big-blue", x: 1601.9, y: 299.5, w: 475.1, h: 475.1, matrix: [0.576, -0.818, 0.818, 0.576] },
+        { variant: "big-teal", x: 1573, y: 215, w: 782, h: 782 },
+        { variant: "looper", x: 361.5, y: 527.5, w: 999, h: 967 },
+        { variant: "looper", x: 1561.5, y: 49.5, w: 1407, h: 1363 },
+      ]}
+      mobile={[
+        { variant: "small-blue", x: -49.1, y: 262.9, w: 354.1, h: 354.1, matrix: ROTATE_MINUS_98 },
+        { variant: "big-teal", x: 349.5, y: 633.5, w: 401, h: 401 },
+        { variant: "looper", x: 184.5, y: 578.9, w: 891, h: 866, matrix: [0.031, -1, 1, 0.031] },
+      ]}
+    />
   )
 }
 
 export function CollaboraCollaborationShapes() {
   return (
-    <ShapeLayer className="-inset-x-4">
-      {/* Mobile Shapes */}
-      <Shape variant="small-blue" className="top-[35.16px] left-[calc(50%-305.68px)] size-[249.16px] md:hidden" />
-      <Shape variant="big-teal" className="-top-24 left-[calc(50%-427px)] size-100.25 md:hidden" />
-      <Shape variant="big-teal" className="top-71.25 left-[calc(50%+29px)] size-100.25 md:hidden" />
-      <Shape variant="looper" className="top-[74.56px] left-[calc(50%-463.34px)] h-[917.81px] w-[893.61px] md:hidden" />
-      <Shape variant="looper" className="top-[420.03px] left-[calc(50%-606.39px)] size-[1242.39px] md:hidden" />
-
-      {/* Desktop Shapes */}
-      <Shape variant="big-teal" className="top-40.5 left-[calc(50%+386px)] hidden size-171 md:block" />
-      <Shape variant="looper" className="top-53.25 left-[calc(50%+356px)] hidden h-196.75 w-203.25 md:block" />
-    </ShapeLayer>
+    <SectionShapes
+      mobile={[
+        { variant: "small-blue", x: -9.4, y: 30.6, w: 221.8, h: 221.8, matrix: ROTATE_MINUS_98 },
+        { variant: "big-teal", x: -25.5, y: 224.5, w: 401, h: 401 },
+        { variant: "looper", x: 215.8, y: 531.2, w: 891, h: 866, matrix: ROTATE_MINUS_45 },
+      ]}
+    />
   )
 }
 
 export function CollaboraAssociationShapes() {
   return (
-    <ShapeLayer className="-inset-x-4">
-      {/* Mobile Shapes */}
-      <Shape variant="small-blue" className="top-[212.16px] left-[calc(50%-303.68px)] size-[249.16px] md:hidden" />
-      {/* Photo decoration, bottom-anchored to the photo */}
-      <Shape variant="small-blue" className="-bottom-17.25 left-[calc(50%-243px)] h-41 w-40.75 md:hidden" />
-      <Shape variant="big-teal" className="bottom-8.5 left-[calc(50%-43px)] h-94.75 w-94.5 md:hidden" />
-      <Shape variant="looper" className="-bottom-12.75 left-[calc(50%-59px)] h-108.75 w-112.25 md:hidden" />
-
-      {/* Desktop Shapes */}
-      <Shape variant="big-blue" className="top-66 left-[calc(50%+579px)] hidden size-114.5 md:block" />
-      <Shape variant="big-blue" className="top-[346.07px] left-[calc(50%-1167px)] hidden size-[555.32px] md:block" />
-      <Shape variant="small-blue" className="top-26.25 left-[calc(50%+24px)] hidden size-73.75 md:block" />
-      <Shape variant="big-teal" className="top-109.5 left-[calc(50%-1122px)] hidden size-171 md:block" />
-      <Shape variant="small-blue" className="-top-32.5 left-[calc(50%+609px)] hidden size-49.75 md:block" />
-    </ShapeLayer>
+    <SectionShapes
+      desktop={[
+        { variant: "big-blue", x: 1672, y: 643, w: 458, h: 458 },
+        { variant: "big-blue", x: -25.3, y: 549.7, w: 399.9, h: 399.9, matrix: ROTATE_MINUS_34 },
+      ]}
+      mobile={[
+        { variant: "small-blue", x: -7.4, y: 207.6, w: 221.8, h: 221.8, matrix: ROTATE_MINUS_98 },
+        { variant: "big-teal", x: 430.5, y: -0.5, w: 401, h: 401 },
+      ]}
+    />
   )
 }
 
 export function CollaboraCompanyShapes() {
   return (
-    <ShapeLayer className="-inset-x-4">
-      {/* Mobile Shapes */}
-      <Shape variant="small-blue" className="top-[276.16px] left-[calc(50%+101.32px)] size-[249.16px] md:hidden" />
-      {/* Photo decoration, bottom-anchored to the photo */}
-      <Shape variant="small-blue" className="bottom-[-25.11px] left-[calc(50%+81.03px)] size-[148.4px] md:hidden" />
-      <Shape variant="big-teal" className="bottom-[43.71px] left-[calc(50%-424px)] size-[409.29px] md:hidden" />
-      <Shape
-        variant="looper"
-        className="bottom-[-606.61px] left-[calc(50%-289.36px)] h-[606.31px] w-[601.37px] md:hidden"
-      />
-
-      {/* Desktop Shapes */}
-      <Shape variant="big-blue" className="top-99.25 left-[calc(50%+747.24px)] hidden size-[668.96px] md:block" />
-      <Shape variant="small-blue" className="top-52 left-[calc(50%-278px)] hidden size-62 md:block" />
-      <Shape
-        variant="looper"
-        className="top-[414.54px] left-[calc(50%-897px)] hidden h-[1013.26px] w-[1004.99px] md:block"
-      />
-    </ShapeLayer>
+    <SectionShapes
+      mobile={[{ variant: "small-blue", x: 397.6, y: 271.6, w: 221.8, h: 221.8, matrix: ROTATE_MINUS_98 }]}
+    />
   )
 }
 
 export function CollaboraContactShapes() {
   return (
-    <ShapeLayer className="-inset-x-4">
-      {/* Mobile Shapes */}
-      <Shape variant="small-blue" className="top-[270.16px] left-[calc(50%-304.68px)] size-[249.16px] md:hidden" />
-      <Shape variant="big-teal" className="top-33.25 left-[calc(50%-40px)] size-100.25 md:hidden" />
+    <SectionShapes
+      desktop={[
+        { variant: "big-blue", x: 842.7, y: 435.7, w: 261.4, h: 261.4, matrix: ROTATE_MINUS_34 },
+        { variant: "big-teal", x: 83.5, y: 335, w: 489, h: 490 },
+        { variant: "big-teal", x: 1570.5, y: 409.5, w: 535, h: 535 },
+        { variant: "big-blue", x: 1697.5, y: 230.5, w: 488.5, h: 488.5, matrix: [0.861, 0.508, -0.508, 0.861] },
+      ]}
+      mobile={[
+        { variant: "small-blue", x: -8.4, y: 205.6, w: 221.8, h: 221.8, matrix: ROTATE_MINUS_98 },
+        { variant: "big-teal", x: 361.5, y: 393.5, w: 401, h: 401 },
+      ]}
+    />
+  )
+}
 
-      {/* Desktop Shapes */}
-      <Shape variant="big-blue" className="top-[275.64px] left-[calc(50%-202.82px)] hidden size-[362.96px] md:block" />
-      <Shape variant="big-teal" className="-top-8.75 left-[calc(50%-1025px)] hidden h-122.5 w-122.25 md:block" />
-      <Shape variant="big-teal" className="top-4.25 left-[calc(50%+439px)] hidden size-133.75 md:block" />
-    </ShapeLayer>
+/**
+ * Shapes drawn over a photo, positioned in the photo's own Figma frame (611px wide on desktop, 354px on mobile) so
+ * they follow it at every size.
+ */
+function PhotoShapes({
+  desktop,
+  mobile,
+}: {
+  desktop: { width: number; height: number; shapes: Placement[] }
+  mobile: { width: number; height: number; shapes: Placement[] }
+}) {
+  return (
+    <>
+      {mobile.shapes.map((shape) => (
+        <FigmaShape
+          key={`${shape.variant}-${shape.x}-${shape.y}`}
+          {...shape}
+          refWidth={mobile.width}
+          refHeight={mobile.height}
+          className="md:hidden"
+        />
+      ))}
+      {desktop.shapes.map((shape) => (
+        <FigmaShape
+          key={`${shape.variant}-${shape.x}-${shape.y}`}
+          {...shape}
+          refWidth={desktop.width}
+          refHeight={desktop.height}
+          className="max-md:hidden"
+        />
+      ))}
+    </>
+  )
+}
+
+export function CollaboraAssociationPhotoShapes() {
+  return (
+    <PhotoShapes
+      desktop={{
+        width: 611,
+        height: 370,
+        shapes: [
+          { variant: "small-blue", x: 63.5, y: 246.5, w: 295, h: 295 },
+          { variant: "big-teal", x: 620, y: -33, w: 684, h: 684 },
+          { variant: "small-blue", x: 600.5, y: -36.5, w: 199, h: 199 },
+          { variant: "looper", x: 654.5, y: 69.5, w: 813, h: 787 },
+        ],
+      }}
+      mobile={{
+        width: 354,
+        height: 210,
+        shapes: [
+          { variant: "small-blue", x: 15.5, y: 197, w: 163, h: 164 },
+          { variant: "big-teal", x: 323, y: -13.5, w: 378, h: 379 },
+          { variant: "looper", x: 342.5, y: 43.5, w: 449, h: 435 },
+        ],
+      }}
+    />
+  )
+}
+
+export function CollaboraCompanyPhotoShapes() {
+  return (
+    <PhotoShapes
+      desktop={{
+        width: 611,
+        height: 366,
+        shapes: [
+          { variant: "small-blue", x: 565, y: 322, w: 248, h: 248 },
+          { variant: "big-teal", x: -61, y: 119, w: 684, h: 684 },
+          { variant: "looper", x: 324.5, y: 261.6, w: 750, h: 727.4, matrix: [0.5, -0.866, 0.866, 0.5] },
+        ],
+      }}
+      mobile={{
+        width: 354,
+        height: 209,
+        shapes: [
+          { variant: "small-blue", x: 332.2, y: 159.9, w: 148.4, h: 148.4 },
+          { variant: "big-teal", x: -42.4, y: -39.4, w: 409.3, h: 409.3 },
+          { variant: "looper", x: 188.3, y: 123.8, w: 448.8, h: 435.3, matrix: [0.5, -0.866, 0.866, 0.5] },
+        ],
+      }}
+    />
   )
 }

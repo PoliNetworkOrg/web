@@ -2,7 +2,6 @@
 
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react"
 import * as React from "react"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 type CarouselApi = UseEmblaCarouselType[1]
@@ -166,26 +165,22 @@ function CarouselDots({ className, ...props }: React.ComponentProps<"div">) {
   if (scrollSnaps.length <= 1) return null
 
   return (
-    <div data-slot="carousel-dots" className={cn("flex items-center justify-center gap-3", className)} {...props}>
-      {scrollSnaps.map((scrollSnap, index) => (
-        <Button
-          key={scrollSnap}
+    <div data-slot="carousel-dots" className={cn("flex items-center justify-center gap-1.5", className)} {...props}>
+      {scrollSnaps.map((_, index) => (
+        <button
+          // Snap positions aren't unique (they can repeat with `containScroll: false`); the list is index-addressed anyway
+          // biome-ignore lint/suspicious/noArrayIndexKey: one dot per snap index
+          key={index}
           type="button"
           aria-label={`Go to slide ${index + 1}`}
           aria-current={selectedIndex === index}
           onClick={() => api?.scrollTo(index)}
+          // Figma "slider dots": 16px current dot, 12px others, 6px apart. The pseudo-element enlarges the hit area.
           className={cn(
-            "flex size-5 appearance-none items-center justify-center rounded-full bg-transparent p-0 outline-none transition-colors"
+            "after:-inset-1.5 relative shrink-0 rounded-full border border-white/50 bg-background-blur backdrop-blur-md transition-[width,height] after:absolute after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
+            selectedIndex === index ? "size-4" : "size-3"
           )}
-        >
-          <span
-            className={cn(
-              "block size-3 rounded-full transition-colors",
-              selectedIndex === index ? "bg-white/95" : "bg-white/20"
-            )}
-          />
-          <span className="sr-only">{`Slide ${index + 1}`}</span>
-        </Button>
+        />
       ))}
     </div>
   )
