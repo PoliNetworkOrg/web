@@ -4,24 +4,25 @@ import { FiArrowDown, FiArrowUpRight, FiUsers } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Hero } from "@/components/ui/hero"
 import { cn } from "@/lib/utils"
 import { boardMembers } from "./constants"
 
 const portraits = [
-  { member: boardMembers[0], position: "top-8 left-0 -rotate-6" },
-  { member: boardMembers[2], position: "-translate-x-1/2 top-0 left-1/2 z-10" },
-  { member: boardMembers[5], position: "top-12 right-0 rotate-6" },
+  { member: boardMembers[1], position: "top-8 left-0 -rotate-6", caption: "right-1/4 left-1 sm:left-2" },
+  {
+    member: boardMembers[0],
+    position: "-translate-x-1/2 top-0 left-1/2 z-10",
+    caption: "inset-x-2 text-center",
+  },
+  { member: boardMembers[3], position: "top-12 right-0 rotate-6", caption: "right-2 left-1/4 text-end" },
 ]
 
 export function HistoryHero() {
   return (
     <section className="mx-auto grid w-full max-w-330 items-center gap-12 px-6 xl:grid-cols-2 xl:gap-16">
       <div className="flex min-w-0 flex-col items-center gap-6 xl:items-start">
-        <Glass className="typo-label-large flex w-fit items-center gap-2 rounded-buttonsM border-white/50 bg-background-blur px-4 py-2 text-blue-secondary">
-          <FiUsers aria-hidden className="size-4" /> Dal 2016, dagli studenti
-        </Glass>
         <div className="[&_h2]:typo-display-medium sm:[&_h2]:typo-display-large 2xl:[&_h2]:typo-display-extralarge w-full xl:[&>div]:items-start [&_h2]:text-balance [&_h2]:py-0 xl:[&_h2]:text-start [&_p]:max-w-145 [&_p]:text-balance xl:[&_p]:text-start">
           <Hero
             title="La nostra storia"
@@ -42,8 +43,8 @@ export function HistoryHero() {
         </div>
       </div>
       <div className="relative mx-auto w-full max-w-140">
-        <div aria-hidden className="relative aspect-square w-full sm:aspect-4/3">
-          {portraits.map(({ member, position }) => (
+        <div className="relative aspect-square w-full sm:aspect-4/3">
+          {portraits.map(({ member, position, caption }) => (
             <Card
               key={member.name}
               className={cn(
@@ -53,11 +54,19 @@ export function HistoryHero() {
             >
               <Image
                 src={member.image}
-                alt=""
+                alt={member.name}
                 sizes="(max-width: 639px) 40vw, 224px"
                 className={cn("absolute max-w-none", member.crop)}
               />
-              <div className="absolute inset-0 bg-linear-to-t from-blue-secondary/30 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-blue-secondary/80 to-60% to-transparent" />
+              <CardContent
+                className={cn(
+                  "typo-label-tiny sm:typo-label-medium absolute bottom-3 whitespace-nowrap text-white sm:bottom-4",
+                  caption
+                )}
+              >
+                {member.role}
+              </CardContent>
             </Card>
           ))}
         </div>
