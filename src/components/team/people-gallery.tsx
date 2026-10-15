@@ -16,7 +16,13 @@ export function PeopleGallery({ placeholderCount = 0 }: { placeholderCount?: num
         opts={{ align: "center", breakpoints: { "(min-width: 768px)": { active: false } } }}
         className="w-full min-w-0"
       >
-        <CarouselContent className="md:ml-0 md:flex-wrap md:justify-center md:gap-6">
+        <CarouselContent
+          className={cn(
+            "md:ml-0 md:flex-wrap md:justify-center md:gap-6",
+            // Four board cards per row: officers first, then the other members.
+            !placeholderCount && "md:mx-auto md:max-w-242"
+          )}
+        >
           {items.map((member) => (
             <CarouselItem
               key={typeof member === "string" ? member : member.name}
