@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { FiSearch } from "react-icons/fi"
+import { Glass } from "@/components/glass"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
@@ -41,7 +42,7 @@ export function Thanks() {
         contentDiv: "min-w-0 xl:w-1/2",
       }}
     >
-      <div className="flex w-full flex-col gap-10">
+      <Glass className="flex w-full flex-col gap-8 rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-8">
         <Input
           type="search"
           icon={<FiSearch aria-hidden />}
@@ -64,7 +65,9 @@ export function Thanks() {
                   {names.length > 0 ? (
                     <ul className="typo-body-medium grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-3 xl:grid-cols-2 min-[360px]:grid-cols-2">
                       {names.map((person) => (
-                        <li key={person.name}>{person.name}</li>
+                        <li key={person.name} className="border-blue-primary/10 border-b pb-3">
+                          {person.name}
+                        </li>
                       ))}
                     </ul>
                   ) : (
@@ -77,7 +80,7 @@ export function Thanks() {
             )
           })}
         </Tabs>
-      </div>
+      </Glass>
     </TextOnlyLayout>
   )
 }

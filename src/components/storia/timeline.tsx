@@ -16,6 +16,8 @@ import { Glass } from "@/components/glass"
 import { Button } from "@/components/ui/button"
 import { chapters, milestones } from "./constants"
 
+const milestoneLinks = ["#capitolo-1", "#capitolo-1", "#capitolo-5", "#direttivi"]
+
 const milestoneIcons = [FiUser, telegram.src, FiUserCheck, FiUsers]
 
 export function Timeline() {
@@ -34,7 +36,9 @@ export function Timeline() {
               icon={milestoneIcons[index] ?? FiUsers}
               size="compact"
               align="start"
-              className="h-full"
+              href={milestoneLinks[index]}
+              hoverEffect
+              className="motion-safe:hover:-translate-y-1 h-full transition-transform"
             />
           </li>
         ))}
@@ -137,13 +141,17 @@ export function Chapters() {
       aria-label="La nostra storia completa"
       className="mx-auto w-full max-w-330 scroll-mt-36 px-6"
     >
-      <ol className="flex flex-col gap-16 sm:gap-24">
+      <ol className="relative flex flex-col gap-16 before:pointer-events-none before:absolute before:inset-y-5 before:left-5 before:hidden before:w-px before:bg-blue-primary/20 sm:gap-24 xl:before:block">
         {chapters.map((chapter, index) => (
-          <li key={chapter.title} className="grid gap-8 xl:grid-cols-2 xl:items-center xl:gap-16">
+          <li
+            id={`capitolo-${index + 1}`}
+            key={chapter.title}
+            className="grid scroll-mt-36 gap-8 xl:grid-cols-2 xl:items-center xl:gap-16"
+          >
             <div className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-4 sm:gap-x-6">
               <Glass
                 aria-hidden
-                className="typo-label-large flex size-10 shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0 text-blue-secondary"
+                className="typo-label-large relative z-10 flex size-10 shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-background p-0 text-blue-secondary"
               >
                 {String(index + 1).padStart(2, "0")}
               </Glass>

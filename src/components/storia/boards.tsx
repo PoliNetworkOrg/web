@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { Glass } from "@/components/glass"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
@@ -10,7 +11,7 @@ import { boardMembers, boardTerms } from "./constants"
 
 export function Boards() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col gap-6 px-6">
+    <section id="direttivi" className="mx-auto flex w-full max-w-330 scroll-mt-36 flex-col gap-6 px-6">
       <h2 className="typo-title-large text-blue-secondary">I nostri direttivi</h2>
       <p className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
         Ogni mandato, un nuovo capitolo
@@ -26,7 +27,7 @@ export function Boards() {
                     {boardMembers.map((member) => (
                       <Card
                         key={member.name}
-                        className="relative aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-0 p-0 sm:w-[calc((100%-48px)/3)] xl:w-[calc((100%-72px)/4)] min-[360px]:w-[calc((100%-24px)/2)]"
+                        className="motion-safe:hover:-translate-y-1 relative aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0 shadow-sm transition-transform sm:w-[calc((100%-48px)/3)] xl:w-[calc((100%-72px)/4)] min-[360px]:w-[calc((100%-24px)/2)]"
                       >
                         <Image
                           src={member.image}
@@ -49,14 +50,14 @@ export function Boards() {
                     Il Direttivo viene eletto ogni due anni dall’Assemblea dei Soci tra i soci dell’associazione.
                   </p>
                 </div>
-                <div className="flex flex-col gap-4">
+                <Glass className="order-first flex flex-col gap-4 rounded-rectangles border-white/50 bg-background-blur p-6 xl:order-last">
                   <p className="typo-label-large text-blue-secondary">{term}</p>
                   <h3 className="typo-display-small text-balance">Il Direttivo</h3>
                   <p className="typo-body-large text-pretty">
                     Si concentra sul rafforzamento della struttura, sull’evoluzione dei servizi e sullo sviluppo di
                     nuovi progetti per la community.
                   </p>
-                </div>
+                </Glass>
               </div>
             ) : (
               <div className="flex min-h-70 flex-col items-center justify-center gap-4 text-center">
