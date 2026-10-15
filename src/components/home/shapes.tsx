@@ -9,8 +9,8 @@ import { Shape, ShapeLayer } from "@/components/shapes"
  *
  * `top` is relative to the top of the section each component is mounted in
  * (Materials or Projects), not to the page. Materials and Projects/AboutUs
- * used to share one absolute layer with cumulative offsets, but AboutUs uses
- * `min-h-screen` (fluid height, depends on the viewport) — if a shape ever
+ * used to share one absolute layer with cumulative offsets, but section heights
+ * and the gaps between them are fluid (they depend on the viewport) — if a shape ever
  * needs to sit inside AboutUs, mount it scoped to that section too, the same
  * way this file already splits Materials from Projects. Otherwise any
  * mismatch between a fluid section's real height and Figma's fixed height

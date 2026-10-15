@@ -15,7 +15,7 @@ export default async function AssociationsPage() {
   const associations = await getAllAssociations()
 
   return (
-    <main className="relative mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-20 px-4 py-49 md:gap-39">
+    <main className="page-layout relative flex flex-col items-center gap-section">
       <AssociationsShapes />
       <Hero title="Associazioni" description="Scopri le associazioni studentesche del Politecnico" />
 

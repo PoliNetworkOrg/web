@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 
 export function CollaboraSection() {
   return (
-    <section className="flex w-full flex-row justify-center gap-8 px-6 min-[1616px]:justify-start min-[1616px]:px-36">
+    <section className="flex w-full flex-row justify-center min-[1616px]:justify-start">
       <div className="flex max-w-[959] flex-col gap-6">
         <h2 className="typo-headline-medium md:typo-display-medium text-center min-[1616px]:text-start">
           Vuoi sviluppare un progetto insieme a noi?

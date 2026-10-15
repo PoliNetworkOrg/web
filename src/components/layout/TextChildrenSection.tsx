@@ -73,14 +73,7 @@ export default function TextChildrenLayout({
         : "min-[1616px]:flex-row"
 
   return (
-    <section
-      className={cn(
-        "flex w-full flex-col gap-6 px-6 md:px-36",
-        flexDirection,
-        flexDirectionDesktop,
-        classNames.section
-      )}
-    >
+    <section className={cn("flex w-full flex-col gap-block", flexDirection, flexDirectionDesktop, classNames.section)}>
       <div className={cn("flex flex-col gap-6", classNames.textDiv)}>
         <h2
           className={cn(

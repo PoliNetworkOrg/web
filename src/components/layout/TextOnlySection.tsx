@@ -60,7 +60,7 @@ export default function TextOnlyLayout({
   return (
     <section
       className={cn(
-        "flex w-full flex-col items-center gap-8 px-6 md:px-36 min-[1616px]:flex-row min-[1616px]:items-start",
+        "flex w-full flex-col items-center gap-block min-[1616px]:flex-row min-[1616px]:items-start",
         classNames.section
       )}
     >

@@ -1,6 +1,6 @@
 export function CollaborationSection() {
   return (
-    <section className="flex w-full flex-col items-center gap-8 px-6 text-center min-[1616px]:flex-row min-[1616px]:items-start min-[1616px]:px-36">
+    <section className="flex w-full flex-col items-center gap-block text-center min-[1616px]:flex-row min-[1616px]:items-start">
       <div className="flex w-full max-w-[959] flex-col items-center gap-6 min-[1616px]:items-start min-[1616px]:text-start">
         <h2 className="md:typo-display-medium typo-headline-medium text-center min-[1616px]:text-start">
           Cosa possiamo fare insieme?

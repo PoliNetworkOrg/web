@@ -26,29 +26,27 @@ export const metadata: Metadata = {
 
 export default function GuidesHome() {
   return (
-    <main className="w-full">
-      <div className="flex min-h-svh flex-col items-center gap-16 px-6 py-64 md:gap-20 md:py-49">
-        <div className="flex w-full flex-col items-center gap-5 text-center">
-          <h2 className="typo-display-large md:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent md:py-14">
-            Guide
-          </h2>
-        </div>
+    <main className="page-layout flex min-h-svh flex-col items-center gap-block">
+      <div className="flex w-full flex-col items-center gap-5 text-center">
+        <h2 className="typo-display-large sm:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent">
+          Guide
+        </h2>
+      </div>
 
-        <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:gap-13">
-          {guides.map((guide) => (
-            <CardIcon
-              key={guide.title}
-              title={guide.title}
-              description={guide.caption}
-              href={guide.href}
-              icon={guide.icon}
-              cta={guide.cta}
-              align="start"
-              className="w-full max-w-108"
-              size="compact"
-            />
-          ))}
-        </div>
+      <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:gap-13">
+        {guides.map((guide) => (
+          <CardIcon
+            key={guide.title}
+            title={guide.title}
+            description={guide.caption}
+            href={guide.href}
+            icon={guide.icon}
+            cta={guide.cta}
+            align="start"
+            className="w-full max-w-108"
+            size="compact"
+          />
+        ))}
       </div>
     </main>
   )

@@ -8,9 +8,9 @@ import { Shape, ShapeLayer } from "@/components/shapes"
  * narrower than the 1728px/402px Figma reference frames.
  *
  * `top` is relative to the top of the section each component is mounted in
- * (CommunityNews, Collection, Upload, Deprecated), not to the page. Every
- * section on this page uses `min-h-screen` (fluid height, depends on the viewport)
- * — each shape below is therefore scoped and `top`-anchored to the section it
+ * (CommunityNews, Collection, Upload, Deprecated), not to the page. Section
+ * heights and the gaps between them are fluid (data-dependent grids, viewport-based
+ * spacing tokens) — each shape below is therefore scoped and `top`-anchored to the section it
  * visually belongs to, rather than using cumulative page offsets.
  */
 

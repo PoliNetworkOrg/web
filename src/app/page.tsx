@@ -6,7 +6,7 @@ import { HomeMaterialsShapes, HomeProjectsShapes } from "@/components/home/shape
 
 export default function Home() {
   return (
-    <main className="w-full">
+    <main className="flex w-full flex-col gap-section pb-section">
       <Hero />
       <div className="relative">
         <HomeMaterialsShapes />

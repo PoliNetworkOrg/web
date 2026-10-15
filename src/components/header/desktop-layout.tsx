@@ -21,7 +21,7 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const customHoverEffectClass = "hover:underline focus-visible:underline decoration-1 decoration-blue-secondary "
 
   return (
-    <div className="fixed inset-x-6 top-10 z-20 mx-auto box-border max-w-261.25 rounded-full">
+    <div className="fixed inset-x-gutter top-10 z-20 mx-auto box-border max-w-261.25 rounded-full">
       <Glass className="pointer-events-none absolute inset-0 rounded-full" />
 
       <NavigationMenu

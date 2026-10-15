@@ -8,9 +8,9 @@ import { FooterShapes } from "./shapes"
 
 export function Footer() {
   return (
-    <footer className="relative w-full px-8">
+    <footer className="relative w-full px-gutter">
       <FooterShapes />
-      <h2 className="typo-headline-medium md:typo-display-large mt-18 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-center text-transparent md:mt-30.5">
+      <h2 className="typo-headline-medium md:typo-display-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-center text-transparent">
         Keep in touch!
       </h2>
 
@@ -27,7 +27,7 @@ export function Footer() {
         />
       </div>
 
-      <div className="mx-auto mt-11 grid max-w-5xl grid-flow-row-dense grid-cols-[max-content_max-content] items-baseline justify-around gap-y-7 **:h-min **:w-fit md:mt-25 md:gap-y-11">
+      <div className="mx-auto mt-block grid max-w-5xl grid-flow-row-dense grid-cols-[max-content_max-content] items-baseline justify-around gap-y-7 **:h-min **:w-fit md:gap-y-11">
         <div className="typo-title-medium md:typo-headline-small contents text-text-primary underline *:col-start-1">
           <Link href="#">Unisciti a noi!</Link>
           <Link href="/contact">Contattaci</Link>
@@ -42,7 +42,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="typo-body-small md:typo-body-large mt-12 mb-10.5 w-full text-center text-text-secondary md:mt-36 md:mb-10">
+      <div className="typo-body-small md:typo-body-large mt-section mb-10 w-full text-center text-text-secondary">
         <p id="copyright">PoliNetwork 2016-{new Date().getFullYear()} - All rights reserved</p>
       </div>
     </footer>

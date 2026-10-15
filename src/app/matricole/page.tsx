@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function MatricolePage() {
   return (
-    <main className="w-full">
+    <main className="flex w-full flex-col gap-section pb-section">
       <div className="relative">
         <ResourcesHeroShapes />
         <MatricoleIntro />

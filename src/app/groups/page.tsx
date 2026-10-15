@@ -27,30 +27,28 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="w-full">
-      <div className="flex min-h-svh flex-col items-center gap-16 px-6 py-64 md:gap-20 md:py-49">
-        <div className="flex w-full flex-col items-center gap-5 text-center">
-          <h2 className="typo-display-large md:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent md:py-14">
-            Groups
-          </h2>
-          <GroupSearch />
-        </div>
+    <main className="page-layout flex min-h-svh flex-col items-center gap-block">
+      <div className="flex w-full flex-col items-center gap-6 text-center">
+        <h2 className="typo-display-large sm:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent">
+          Groups
+        </h2>
+        <GroupSearch />
+      </div>
 
-        <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:gap-13">
-          {groups.map((group) => (
-            <CardIcon
-              key={group.title}
-              title={group.title}
-              description={group.caption}
-              href={group.href}
-              icon={group.icon}
-              cta={group.cta}
-              align="start"
-              className="w-full max-w-108"
-              size="compact"
-            />
-          ))}
-        </div>
+      <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:gap-13">
+        {groups.map((group) => (
+          <CardIcon
+            key={group.title}
+            title={group.title}
+            description={group.caption}
+            href={group.href}
+            icon={group.icon}
+            cta={group.cta}
+            align="start"
+            className="w-full max-w-108"
+            size="compact"
+          />
+        ))}
       </div>
     </main>
   )
