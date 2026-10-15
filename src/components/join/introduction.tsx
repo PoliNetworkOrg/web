@@ -1,13 +1,12 @@
 import Image from "next/image"
 import networkLogo from "@/assets/images/join/network-logo.png"
 import logoTrail from "@/assets/shapes/join/logo-trail.svg"
-import { Highlight, SectionTitle, sectionContainerClass } from "@/components/collabora/section"
-import { cn } from "@/lib/utils"
+import { Highlight, SectionTitle } from "@/components/collabora/section"
 
 export function Introduction() {
   return (
     <section
-      className={cn(sectionContainerClass, "grid items-start gap-16 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]")}
+      className={"mx-auto grid w-full max-w-330 items-start gap-16 px-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]"}
     >
       <div className="flex min-w-0 flex-col gap-6 text-center md:text-start">
         <SectionTitle>Cosa significa far parte di PoliNetwork</SectionTitle>

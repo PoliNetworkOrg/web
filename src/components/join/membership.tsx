@@ -3,15 +3,14 @@ import type { ReactNode } from "react"
 import externalLink from "@/assets/icons/join/external-link.svg"
 import connector from "@/assets/icons/join/membership-connector.svg"
 import membersPhoto from "@/assets/images/join/members.png"
-import { Highlight, SectionTitle, sectionContainerClass } from "@/components/collabora/section"
-import { cn } from "@/lib/utils"
+import { Highlight, SectionTitle } from "@/components/collabora/section"
 import { membershipSteps } from "./constants"
 
 export function MembershipSection({ photoDecorations }: { photoDecorations: ReactNode }) {
   return (
     <section
       id="socio"
-      className={cn(sectionContainerClass, "grid scroll-mt-36 items-start gap-10 xl:grid-cols-2 xl:gap-x-16")}
+      className={"mx-auto grid w-full max-w-330 scroll-mt-36 items-start gap-10 px-6 xl:grid-cols-2 xl:gap-x-16"}
     >
       <div className="flex min-w-0 flex-col gap-6 text-center md:text-start xl:col-start-1">
         <SectionTitle>
