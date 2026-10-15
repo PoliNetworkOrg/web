@@ -11,10 +11,12 @@ export function ProblemSection() {
   return (
     <section className="page-container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <div className="flex min-w-0 flex-col gap-6">
-        <p className="typo-title-large text-blue-secondary">Il problema</p>
         <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-          Il PoliMi è complesso. Le informazioni non dovrebbero esserlo.
+          Il problema
         </h2>
+        <p className="typo-body-large sm:typo-headline-extrasmall text-pretty">
+          Il PoliMi è complesso. Le informazioni non dovrebbero esserlo.
+        </p>
       </div>
       <div className="grid min-w-0 gap-4">
         {questions.map((question) => (
