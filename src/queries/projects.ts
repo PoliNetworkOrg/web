@@ -10,3 +10,8 @@ export async function getAllProjects() {
     return []
   }
 }
+
+export async function getProject(id: number) {
+  const projects = await getAllProjects()
+  return projects.find((project) => project.id === id) ?? null
+}
