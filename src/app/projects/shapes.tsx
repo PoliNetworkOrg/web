@@ -53,7 +53,7 @@ export function CollectionShapes() {
       <Shape variant="big-blue" className="top-128 left-[calc(50%-294px)] hidden size-144.5 md:block" />
       <Shape
         variant="looper"
-        className="top-[-205.37px] left-[calc(50%-763.83px)] hidden h-[1560.48px] w-[1609.71px] md:block"
+        className="top-[-205.37px] left-[calc(50%-763.83px)] hidden h-auto w-[1609.71px] md:block"
       />
     </ShapeLayer>
   )
@@ -69,10 +69,7 @@ export function UploadShapes() {
       {/* Desktop Shapes */}
       <Shape variant="big-blue" className="top-24 left-[calc(50%-50px)] hidden size-115 md:block" />
       <Shape variant="big-teal" className="top-17.25 left-[calc(50%-801px)] hidden size-243.5 md:block" />
-      <Shape
-        variant="looper"
-        className="-top-15.25 left-[calc(50%-1096.09px)] hidden h-[1560.48px] w-[1609.71px] md:block"
-      />
+      <Shape variant="looper" className="-top-15.25 left-[calc(50%-1096.09px)] hidden h-auto w-[1609.71px] md:block" />
     </ShapeLayer>
   )
 }
@@ -90,7 +87,7 @@ export function DeprecatedShapes() {
       <Shape variant="big-blue" className="top-[364.81px] left-[calc(50%+212.4px)] hidden size-[448.76px] md:block" />
       <Shape
         variant="looper"
-        className="top-[-147.41px] left-[calc(50%-268.41px)] hidden h-[1560.62px] w-[1609.84px] rotate-180 md:block"
+        className="top-[-147.41px] left-[calc(50%-268.41px)] hidden h-auto w-[1609.84px] rotate-180 md:block"
       />
     </ShapeLayer>
   )
