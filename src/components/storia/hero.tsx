@@ -20,16 +20,15 @@ const portraits = [
 
 export function HistoryHero() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col items-center gap-12 px-6 xl:gap-16">
-      <div className="flex min-w-0 flex-col items-center gap-6">
-        {/* Figma: display/extralarge on one line where it fits (≥ lg), display/large below */}
+    <section className="mx-auto grid w-full max-w-330 items-center gap-12 px-6 xl:grid-cols-2 xl:gap-16">
+      <div className="flex min-w-0 flex-col items-center gap-6 xl:items-start">
         <Hero
           title="La nostra storia"
           description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
           gradientDescription
-          className="lg:[&_h2]:typo-display-extralarge [&_h2]:typo-display-large [&_p]:max-w-145 [&_p]:text-balance"
+          className="lg:[&_h2]:typo-display-extralarge [&_h2]:typo-display-large w-full xl:items-start [&_h2]:py-0 xl:[&_h2]:text-start [&_p]:max-w-145 [&_p]:text-balance xl:[&_p]:text-start"
         />
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-3 xl:justify-start">
           <Button asChild size="lg">
             <Link href="#capitoli">
               Leggi la nostra storia <FiArrowDown aria-hidden />
