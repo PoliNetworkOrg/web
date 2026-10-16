@@ -1,27 +1,42 @@
 import { FiBriefcase, FiCompass, FiFlag, FiUsers } from "react-icons/fi"
-import { LuBookUser, LuCodeXml, LuGlobe, LuHandshake, LuPencilRuler, LuShield, LuUsersRound } from "react-icons/lu"
+import {
+  LuBookUser,
+  LuCodeXml,
+  LuCrown,
+  LuGlobe,
+  LuHandshake,
+  LuPencilRuler,
+  LuScale,
+  LuShield,
+  LuUserCog,
+  LuUsersRound,
+} from "react-icons/lu"
 
 export const associationBodies = [
   {
     id: "assemblea",
+    icon: FiUsers,
     title: "Assemblea dei Soci",
     description:
       "È l’organo sovrano di PoliNetwork. Si riunisce almeno una volta l’anno per approvare il bilancio consuntivo e, ogni due anni, per eleggere il Consiglio Direttivo e il Collegio dei Probiviri. Approva eventuali modifiche allo Statuto. Ogni socio ha diritto di voto e può candidarsi direttamente a entrambi gli organi.",
   },
   {
     id: "consiglio",
+    icon: LuCrown,
     title: "Consiglio Direttivo",
     description:
       "È l’organo esecutivo e di garanzia dell’associazione. Vigila sulle attività di PoliNetwork per preservare i valori dello Statuto, gestisce le finanze e i rapporti istituzionali con partner esterni, emana i regolamenti interni. Approva o respinge le linee d’azione proposte dai singoli team e le strategie delineate dal Team Growth, senza gestire direttamente le attività quotidiane dei team.",
   },
   {
     id: "probiviri",
+    icon: LuScale,
     title: "Collegio dei Probiviri",
     description:
       "È l’organo di garanzia interna, indipendente dal Consiglio Direttivo. Interviene in caso di controversie tra membri o organi dell’associazione, contestazioni sulle elezioni, e vigila sul rispetto dello Statuto e dei regolamenti quando è in gioco l’imparzialità del Direttivo stesso. Viene eletto dall’Assemblea dei Soci con lo stesso mandato biennale del Direttivo, in modo indipendente da esso.",
   },
   {
     id: "growth",
+    icon: LuUserCog,
     title: "Team Growth",
     description:
       "È il livello di coordinamento tra i cinque team operativi: riunisce i Capi Dipartimento e alcuni membri del Direttivo per allineare le priorità comuni, le nomine, il recruiting e le decisioni che coinvolgono più team contemporaneamente. Non è un team a sé e non si aprono candidature dirette: si entra in Team Growth diventando Capo Dipartimento di uno dei cinque team.",

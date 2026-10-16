@@ -12,10 +12,7 @@ export function Participation() {
         <Card key={path.title} className="h-auto w-full gap-6 border-white/50 p-6">
           <CardHeader className="flex flex-row items-center justify-between gap-4 lg:flex-col lg:items-start">
             <GradientIcon icon={path.icon} className="order-2 size-10 shrink-0 lg:order-1 lg:size-16" />
-            <CardTitle
-              gradient={false}
-              className="typo-headline-small lg:typo-headline-medium order-1 text-balance lg:order-2"
-            >
+            <CardTitle className="typo-headline-small lg:typo-headline-medium order-1 text-balance lg:order-2">
               {path.title}
             </CardTitle>
           </CardHeader>

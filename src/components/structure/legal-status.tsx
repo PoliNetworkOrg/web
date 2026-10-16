@@ -7,7 +7,7 @@ import { legalFacts, regulationsHref, statuteHref } from "./constants"
 export function LegalStatus() {
   return (
     <Glass className="grid gap-8 rounded-rectangles border-white/50 p-6 lg:grid-cols-2 lg:gap-16 lg:p-10">
-      <h2 className="typo-headline-medium md:typo-display-medium text-balance text-center lg:text-start">
+      <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent lg:text-start">
         Forma giuridica
       </h2>
       <div className="flex min-w-0 flex-col gap-8 lg:row-span-2">

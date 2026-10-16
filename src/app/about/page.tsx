@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 }
 
 const containerClass = "mx-auto flex w-full max-w-330 flex-col gap-10 px-6 md:gap-14"
-const titleClass = "typo-headline-medium md:typo-display-medium text-balance text-center"
+const titleClass =
+  "typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent"
 
 export default function StructurePage() {
   return (
