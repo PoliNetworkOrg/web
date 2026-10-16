@@ -59,7 +59,7 @@ export function Timeline() {
 }
 
 const chapterVisuals = [
-  <div key="rete" className="grid w-full gap-4">
+  <div key="rete" className="grid w-full max-w-110 grid-cols-2 gap-4">
     {[
       { icon: telegram.src, title: "Il primo gruppo" },
       { icon: FiUser, title: "I primi admin e volontari" },
@@ -69,7 +69,7 @@ const chapterVisuals = [
       <CardIcon key={item.title} {...item} size="xs" className="h-full [&_h3]:text-balance" />
     ))}
   </div>,
-  <div key="spazio" className="grid w-full gap-4">
+  <div key="spazio" className="grid w-full max-w-110 gap-4">
     {[
       { icon: FiClipboard, title: "Regole interne" },
       { icon: FiUserCheck, title: "Comunicazioni selezionate" },
@@ -83,7 +83,7 @@ const chapterVisuals = [
       />
     ))}
   </div>,
-  <div key="consiglio" className="grid w-full gap-4">
+  <div key="consiglio" className="grid w-full max-w-110 gap-4">
     {[
       { title: "5", caption: "persone", icon: FiUser },
       { title: "~25", caption: "rappresentanti", icon: FiUsers },
@@ -92,7 +92,7 @@ const chapterVisuals = [
       <CardCaption key={item.title} {...item} className="h-auto w-full gap-3 p-6" />
     ))}
   </div>,
-  <div key="team" className="grid w-full gap-4">
+  <div key="team" className="grid w-full max-w-110 gap-4">
     <CardCaption
       title="I primi dipartimenti"
       caption="Eventi · HR · IT · Social · Gestione"
@@ -106,7 +106,7 @@ const chapterVisuals = [
       className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
     />
   </div>,
-  <div key="associazione" className="grid w-full gap-4">
+  <div key="associazione" className="grid w-full max-w-110 gap-4">
     <CardCaption
       title="Prima"
       caption="Consiglio degli Admin · Garanti · Coordinamento"
@@ -120,7 +120,7 @@ const chapterVisuals = [
       className="[&_h3]:typo-headline-extrasmall h-auto w-full gap-3 p-6 [&_h3]:text-balance"
     />
   </div>,
-  <div key="albo" className="grid w-full gap-4">
+  <div key="albo" className="grid w-full max-w-110 gap-4">
     <CardCaption
       title="APS-ETS"
       caption="Riconosciuto dallo Stato"
