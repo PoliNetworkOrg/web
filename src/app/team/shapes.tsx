@@ -17,11 +17,6 @@ export function TeamHeroShapes() {
 
 // Original Figma layers, anchored to their sections so they follow responsive content reflow.
 const placements: Record<string, FigmaShapePlacement[]> = {
-  board: [
-    { variant: "big-teal", x: 1661, y: 458, w: 974, h: 974 },
-    { variant: "small-blue", x: 1641, y: 201, w: 354, h: 354, matrix: [0.7649, 0.6441, -0.6441, 0.7649] },
-    { variant: "looper", x: 1964, y: 446, w: 1609.7, h: 1560.48 },
-  ],
   it: [
     { variant: "big-teal", x: 11, y: 1, w: 1164, h: 1164 },
     { variant: "small-blue", x: -13, y: -306, w: 424, h: 424, matrix: [0.7649, 0.6441, -0.6441, 0.7649] },

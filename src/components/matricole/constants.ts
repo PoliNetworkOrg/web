@@ -114,7 +114,7 @@ export const materiali = {
   description:
     "Il più grande archivio didattico creato dagli studenti per gli studenti del Politecnico di Milano. Migliaia di appunti e temi d’esame.",
   icon: FiFolder,
-  href: "/materials",
+  href: "https://polinetwork.org/it/materials/view/",
 }
 
 export const techTools = {

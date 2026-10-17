@@ -31,7 +31,7 @@ const contactCards: ContactCardData[] = [
     description: (
       <>
         Se sei un&apos;azienda o associazione e vuoi proporre una collaborazione, puoi anche consultare la pagina{" "}
-        <Link href="/collaborate" className="text-blue-secondary underline underline-offset-2">
+        <Link href="/collabora" className="text-blue-secondary underline underline-offset-2">
           Collabora con Noi
         </Link>{" "}
         per capire cosa offriamo.
