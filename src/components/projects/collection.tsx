@@ -47,7 +47,7 @@ export function Collection({ projects }: { projects: Project[] }) {
                   title={project.title}
                   caption={project.descriptionIt}
                   icon={FiUploadCloud}
-                  href={project.link ?? undefined}
+                  href={`/projects/${project.id}`}
                 />
               ))}
             </div>
@@ -78,7 +78,7 @@ export function Collection({ projects }: { projects: Project[] }) {
                         title={project.title}
                         caption={project.descriptionIt}
                         icon={FiUploadCloud}
-                        href={project.link ?? undefined}
+                        href={`/projects/${project.id}`}
                       />
                     </div>
                   </CarouselItem>
