@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
 
@@ -20,9 +21,11 @@ export function CollaboraSection() {
           </p>
         </div>
 
-        <Button variant="primary" size="lg" className="w-fit gap-2 self-center min-[1616px]:self-start">
-          Collabora con noi
-          <FiArrowUpRight />
+        <Button variant="primary" size="lg" className="w-fit gap-2 self-center min-[1616px]:self-start" asChild>
+          <Link href="/collabora">
+            Collabora con noi
+            <FiArrowUpRight />
+          </Link>
         </Button>
       </div>
     </section>

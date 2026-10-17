@@ -6,7 +6,7 @@ export const headerMenuItems: HeaderMenuItem[] = [
     title: "Resources",
     menu: [
       { title: "Progetti", href: "/projects", icon: FiChevronRight },
-      { title: "Appunti", href: "/materials", icon: FiChevronRight },
+      { title: "Appunti", href: "https://polinetwork.org/it/materials/view/", icon: FiChevronRight },
       { title: "Guide", href: "/guides", icon: FiChevronRight },
       { title: "FAQs", href: "/faqs", icon: FiChevronRight },
     ],

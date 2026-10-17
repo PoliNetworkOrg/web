@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { FiUsers } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { applicationHref, teams } from "@/components/team/constants"
-import { PeopleGallery } from "@/components/team/people-gallery"
 import { TeamSection } from "@/components/team/team-section"
 import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
@@ -10,8 +9,7 @@ import { TeamHeroShapes, TeamSectionShapes } from "./shapes"
 
 export const metadata: Metadata = {
   title: "I Team",
-  description:
-    "Scopri i team di PoliNetwork: IT, Design & Marketing, HR, Events & Partnership e International, in sinergia con il Consiglio Direttivo.",
+  description: "Scopri i team di PoliNetwork: IT, Design & Marketing, HR ed Events & Partnership.",
 }
 
 export default function TeamPage() {
@@ -22,40 +20,9 @@ export default function TeamPage() {
         <section className="mx-auto flex w-full max-w-330 flex-col items-center gap-6 px-6 pt-52 md:pt-64">
           <Hero
             title="I Team"
-            description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento in sinergia con il Consiglio Direttivo."
+            description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento."
             gradientDescription
           />
-          <p className="typo-body-large sm:typo-headline-extrasmall max-w-180 text-balance text-center">
-            Il punto d’incontro? Il <span className="text-blue-secondary">Team Growth</span>, il cuore strategico dove i
-            responsabili uniscono le forze per coordinare i progetti interarea e disegnare il futuro dell’associazione.
-          </p>
-        </section>
-      </div>
-      <div className="relative">
-        <TeamSectionShapes section="board" />
-        <section
-          aria-labelledby="direttivo-title"
-          className="mx-auto flex w-full max-w-330 flex-col items-center gap-10 px-6 md:gap-12"
-        >
-          <div className="flex max-w-260 flex-col gap-6 text-center">
-            <h2
-              id="direttivo-title"
-              className="typo-headline-medium md:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent"
-            >
-              Consiglio direttivo
-            </h2>
-            <p className="typo-body-large sm:typo-headline-extrasmall text-pretty">
-              Il Consiglio Direttivo è l’organo garante dell’associazione. Ha l’obiettivo di vigilare sulle attività di
-              PoliNetwork e di monitorarne l’andamento per preservare i valori dello statuto; di conseguenza, può
-              approvare o respingere le linee d’azione intraprese dai singoli dipartimenti o le strategie delineate dal
-              Growth Team. I membri del consiglio sono eletti ogni due anni dall’Assemblea dei Soci tra i soci
-              dell’associazione.
-            </p>
-          </div>
-          <PeopleGallery />
-          <p className="typo-body-medium text-center text-text-secondary">
-            Il Direttivo attuale è in carica da novembre 2024.
-          </p>
         </section>
       </div>
       {teams.map((team) => (

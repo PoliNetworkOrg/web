@@ -21,13 +21,10 @@ export type Team = {
   title: string
   description: string
   roles: Pick<CardIconProps, "title" | "icon">[]
-  placeholderCount: number
   reverse?: boolean
-  centered?: boolean
 }
 
 // Copy and specialisms from the desktop Team frame (5546:10874).
-// Member cards in the design contain copied board names and no photos: keep them explicit placeholders.
 export const teams: Team[] = [
   {
     id: "it",
@@ -41,7 +38,6 @@ export const teams: Team[] = [
       { title: "DevOps Engineers", icon: FiCloud },
       { title: "Database Specialists", icon: FiSave },
     ],
-    placeholderCount: 6,
   },
   {
     id: "design-marketing",
@@ -54,7 +50,6 @@ export const teams: Team[] = [
       { title: "Copywriting & Communication", icon: communication.src },
       { title: "Collaborazione", icon: FiShare2 },
     ],
-    placeholderCount: 4,
   },
   {
     id: "hr",
@@ -67,7 +62,6 @@ export const teams: Team[] = [
       { title: "Community & Engagement", icon: FiAward },
       { title: "Crescita del team", icon: FiCornerRightUp },
     ],
-    placeholderCount: 4,
     reverse: true,
   },
   {
@@ -80,16 +74,6 @@ export const teams: Team[] = [
       { title: "Partnership", icon: FiUsers },
       { title: "Project Management", icon: FiSettings },
     ],
-    placeholderCount: 0,
-  },
-  {
-    id: "international",
-    title: "International Team",
-    description:
-      "Il team International segue gli studenti Erasmus in arrivo al Politecnico e chi si è trasferito stabilmente per studiare qui. Organizza eventi di benvenuto e di scambio culturale, cura le comunicazioni sui social rivolte a questo pubblico e sviluppa progetti pensati sulle loro esigenze specifiche. Il team lavora a stretto contatto con Events & Partnership per l’organizzazione degli eventi e con Design & Marketing per la comunicazione in lingua inglese sui social.",
-    roles: [],
-    placeholderCount: 7,
-    centered: true,
   },
 ]
 

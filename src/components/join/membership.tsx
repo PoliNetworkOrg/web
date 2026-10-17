@@ -1,7 +1,7 @@
 import Image from "next/image"
 import type { ReactNode } from "react"
 import externalLink from "@/assets/icons/join/external-link.svg"
-import membersPhoto from "@/assets/images/join/members.png"
+import membersPhoto from "@/assets/images/join/members.webp"
 import { Highlight, SectionTitle } from "@/components/collabora/section"
 import { cn } from "@/lib/utils"
 import { membershipSteps } from "./constants"
