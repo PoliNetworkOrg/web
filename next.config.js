@@ -20,6 +20,13 @@ const config = {
         protocol: "https",
         hostname: "*.blob.core.windows.net",
       },
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        port: "",
+        pathname: "/toto04/webeep-sync/**",
+        search: "",
+      },
     ],
   },
 }

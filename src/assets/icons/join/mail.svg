@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="85" height="85" viewBox="0 0 85 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icona">
+<rect width="85" height="85" rx="20" fill="#F8FAFC" fill-opacity="0.4"/>
+<path id="mail" d="M27 58.5C25.9 58.5 24.9583 58.1083 24.175 57.325C23.3917 56.5417 23 55.6 23 54.5V30.5C23 29.4 23.3917 28.4583 24.175 27.675C24.9583 26.8917 25.9 26.5 27 26.5H59C60.1 26.5 61.0417 26.8917 61.825 27.675C62.6083 28.4583 63 29.4 63 30.5V54.5C63 55.6 62.6083 56.5417 61.825 57.325C61.0417 58.1083 60.1 58.5 59 58.5H27ZM43 44.5L27 34.5V54.5H59V34.5L43 44.5ZM43 40.5L59 30.5H27L43 40.5ZM27 34.5V30.5V54.5V34.5Z" fill="#1074B9"/>
+</g>
+</svg>

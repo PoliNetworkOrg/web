@@ -44,3 +44,90 @@ export const Shape: React.FC<ShapeProps> = ({ variant, className, style }) => (
     style={style}
   />
 )
+
+/** Layer size of the blurred shapes' master components in Figma (the looper has no blur). */
+const FIGMA_SHAPE_MASTER_SIZE: Record<ShapeVariant, number | null> = {
+  "big-blue": 1062.24,
+  "big-teal": 974,
+  "small-blue": 354.126,
+  looper: null,
+}
+
+/** The masters' layer blur: 100px (a 50px standard deviation), which the images include as 100px of bleed per side. */
+const FIGMA_SHAPE_BLUR = 50
+const FIGMA_SHAPE_BLEED = 100
+
+export type FigmaShapePlacement = {
+  variant: ShapeVariant
+  /** Center x of the Figma layer, in px from the left edge of the reference box. */
+  x: number
+  /** Center y of the Figma layer, in px from the top edge of the reference box. */
+  y: number
+  /** Figma layer width (without blur bleed). */
+  w: number
+  /** Figma layer height (without blur bleed). */
+  h: number
+  /** Figma rotation/flip, as the 2×2 part of the layer transform: CSS `matrix(a, b, c, d, 0, 0)`. */
+  matrix?: readonly [number, number, number, number]
+}
+
+type FigmaShapeProps = FigmaShapePlacement & {
+  /** Figma size of the reference box (e.g. a photo): position and size are percentages of it. */
+  refWidth: number
+  refHeight: number
+  className?: string
+}
+
+/**
+ * Places a `<Shape>` from its Figma geometry, scaling with the reference box. Must be inside a `@container` as wide
+ * as the box.
+ *
+ * Resizing an instance in Figma doesn't scale its blur, while scaling the image does: shapes smaller than their
+ * master get the missing blur from a CSS filter (Gaussian blurs add up in quadrature).
+ */
+function FigmaShape({ variant, x, y, w, h, matrix, refWidth, refHeight, className }: FigmaShapeProps) {
+  const master = FIGMA_SHAPE_MASTER_SIZE[variant]
+  const ratio = master ? w / master : 1
+  const bleed = master ? FIGMA_SHAPE_BLEED * ratio : 0
+  const width = w + 2 * bleed
+  const height = h + 2 * bleed
+  const missingBlur = master ? FIGMA_SHAPE_BLUR * Math.sqrt(Math.max(0, 1 - ratio ** 2)) : 0
+
+  return (
+    <Shape
+      variant={variant}
+      className={className}
+      style={{
+        left: `${(x / refWidth) * 100}%`,
+        top: `${(y / refHeight) * 100}%`,
+        width: `${(width / refWidth) * 100}%`,
+        height: "auto",
+        aspectRatio: `${width} / ${height}`,
+        transform: `translate(-50%, -50%)${matrix ? ` matrix(${matrix.join(", ")}, 0, 0)` : ""}`,
+        filter: missingBlur > 0.5 ? `blur(${((missingBlur / refWidth) * 100).toFixed(3)}cqw)` : undefined,
+      }}
+    />
+  )
+}
+
+export type PhotoShapesLayout = { width: number; height: number; shapes: FigmaShapePlacement[] }
+
+/** Static shapes Figma draws over a photo, laid out on the photo's mobile and desktop frames. */
+export function PhotoShapes({ mobile, desktop }: { mobile: PhotoShapesLayout; desktop: PhotoShapesLayout }) {
+  return (
+    <div aria-hidden className="@container pointer-events-none absolute inset-0 z-10">
+      {(["mobile", "desktop"] as const).map((layout) => {
+        const { width, height, shapes } = layout === "mobile" ? mobile : desktop
+        return shapes.map((shape) => (
+          <FigmaShape
+            key={`${layout}-${shape.variant}-${shape.x}-${shape.y}`}
+            {...shape}
+            refWidth={width}
+            refHeight={height}
+            className={layout === "mobile" ? "md:hidden" : "max-md:hidden"}
+          />
+        ))
+      })}
+    </div>
+  )
+}

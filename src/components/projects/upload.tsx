@@ -1,4 +1,4 @@
-import { FiMail, FiSend } from "react-icons/fi"
+import { FiMail } from "react-icons/fi"
 import { CardCaption } from "../card-caption"
 
 const cards = [
@@ -6,12 +6,6 @@ const cards = [
     title: "Contatti",
     caption: (
       <div className="flex flex-col gap-2">
-        <span className="flex items-center gap-2">
-          <FiSend /> @lorenzocorallo
-        </span>
-        <span className="flex items-center gap-2">
-          <FiSend /> @toto04_1
-        </span>
         <span className="flex items-center gap-2">
           <FiMail /> info@polinetwork.org
         </span>

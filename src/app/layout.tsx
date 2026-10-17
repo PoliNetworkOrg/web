@@ -1,5 +1,6 @@
 import { Background } from "@/components/background"
 import { ConditionalFooter } from "@/components/conditional-footer"
+import { Footer } from "@/components/footer"
 import { Header } from "@/components/header/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
@@ -77,7 +78,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <Background />
             <Header />
             {children}
-            <ConditionalFooter />
+            <ConditionalFooter>
+              <Footer />
+            </ConditionalFooter>
           </div>
         </ThemeProvider>
       </body>
