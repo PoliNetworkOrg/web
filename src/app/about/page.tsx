@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { AssociationBodies } from "@/components/structure/association-bodies"
+import { BoardGallery } from "@/components/structure/board-gallery"
 import { LegalStatus } from "@/components/structure/legal-status"
 import { OrganizationChart } from "@/components/structure/organization-chart"
 import { Participation } from "@/components/structure/participation"
-import { PeopleGallery } from "@/components/team/people-gallery"
 import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
 import { StructureShapes } from "./shapes"
@@ -40,7 +40,7 @@ export default function StructurePage() {
             Il Direttivo in carica
           </h2>
           <div className="flex flex-col gap-6">
-            <PeopleGallery />
+            <BoardGallery />
             <p className="typo-body-medium mx-auto max-w-160 text-balance text-center text-text-secondary">
               Il Direttivo viene eletto ogni due anni dall’Assemblea dei Soci tra i soci dell’associazione.
             </p>
