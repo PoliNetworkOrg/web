@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { FiArrowDown, FiArrowUpRight, FiUsers } from "react-icons/fi"
+import { FiArrowDown, FiUsers } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
 import { Button } from "@/components/ui/button"
@@ -22,12 +22,12 @@ export function HistoryHero() {
   return (
     <section className="mx-auto grid w-full max-w-330 items-center gap-12 px-6 xl:grid-cols-2 xl:gap-16">
       <div className="flex min-w-0 flex-col items-center gap-6 xl:items-start">
-        <div className="[&_h2]:typo-display-medium sm:[&_h2]:typo-display-large 2xl:[&_h2]:typo-display-extralarge w-full xl:[&>div]:items-start [&_h2]:text-balance [&_h2]:py-0 xl:[&_h2]:text-start [&_p]:max-w-145 [&_p]:text-balance xl:[&_p]:text-start">
-          <Hero
-            title="La nostra storia"
-            description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
-          />
-        </div>
+        <Hero
+          title="La nostra storia"
+          description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
+          gradientDescription
+          className="lg:[&_h2]:typo-display-extralarge [&_h2]:typo-display-large w-full xl:items-start [&_h2]:py-0 xl:[&_h2]:text-start [&_p]:max-w-145 [&_p]:text-balance xl:[&_p]:text-start"
+        />
         <div className="flex flex-wrap justify-center gap-3 xl:justify-start">
           <Button asChild size="lg">
             <Link href="#capitoli">
@@ -36,7 +36,7 @@ export function HistoryHero() {
           </Button>
           <Button asChild size="lg" variant="glass">
             <Link href="#direttivi">
-              Conosci le persone <FiArrowUpRight aria-hidden />
+              Conosci le persone <FiArrowDown aria-hidden />
             </Link>
           </Button>
         </div>

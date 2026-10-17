@@ -34,7 +34,7 @@ export function CommunityNews({ projects }: { projects: Project[] }) {
                   caption={project.descriptionIt}
                   icon={FiCrop}
                   iconPosition="right"
-                  href={project.link ?? undefined}
+                  href={`/projects/${project.id}`}
                 />
               ))}
             </div>
@@ -51,7 +51,7 @@ export function CommunityNews({ projects }: { projects: Project[] }) {
                           caption={project.descriptionIt}
                           icon={FiCrop}
                           iconPosition="right"
-                          href={project.link ?? undefined}
+                          href={`/projects/${project.id}`}
                         />
                       </div>
                     </CarouselItem>
