@@ -3,7 +3,6 @@ import { CardIcon } from "@/components/card-icon"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { applicationHref, type Team } from "./constants"
-import { PeopleGallery } from "./people-gallery"
 
 export function TeamSection({ team }: { team: Team }) {
   return (
@@ -15,15 +14,13 @@ export function TeamSection({ team }: { team: Team }) {
       <div
         className={cn(
           "grid min-w-0 items-center gap-10 xl:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] xl:gap-16",
-          team.reverse && "xl:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]",
-          team.centered && "xl:grid-cols-1"
+          team.reverse && "xl:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]"
         )}
       >
         <div
           className={cn(
             "flex min-w-0 flex-col items-center gap-6 text-center xl:items-start xl:text-start",
-            team.reverse && "xl:order-last",
-            team.centered && "mx-auto max-w-220 xl:items-center xl:text-center"
+            team.reverse && "xl:order-last"
           )}
         >
           <h2
@@ -39,17 +36,14 @@ export function TeamSection({ team }: { team: Team }) {
             </a>
           </Button>
         </div>
-        {team.roles.length > 0 && (
-          <ul aria-label={`Specializzazioni di ${team.title}`} className="grid w-full min-w-0 gap-4 sm:grid-cols-2">
-            {team.roles.map((role) => (
-              <li key={role.title} className="min-w-0 sm:last:odd:col-span-2">
-                <CardIcon {...role} align="inline" size="inline-sm" className="h-full" />
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul aria-label={`Specializzazioni di ${team.title}`} className="grid w-full min-w-0 gap-4 sm:grid-cols-2">
+          {team.roles.map((role) => (
+            <li key={role.title} className="min-w-0 sm:last:odd:col-span-2">
+              <CardIcon {...role} align="inline" size="inline-sm" className="h-full" />
+            </li>
+          ))}
+        </ul>
       </div>
-      {team.placeholderCount > 0 && <PeopleGallery placeholderCount={team.placeholderCount} />}
     </section>
   )
 }

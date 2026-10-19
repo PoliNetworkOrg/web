@@ -31,8 +31,11 @@ export function Hero({
   return (
     <div className={cn("flex flex-col items-center gap-6", className)}>
       {/* Figma "lightheme-XLarge text effect": #020618 → #6e6e6e at 82.69% */}
-      <h2 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance bg-linear-to-b from-text-primary to-83% to-[#6e6e6e] bg-clip-text py-4 text-center text-transparent sm:pt-14 sm:pb-0">
-        {title}
+      {/* The gradient is drawn per line (box-decoration-clone), so a title that wraps keeps the full effect on each line */}
+      <h2 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0">
+        <span className="bg-linear-to-b from-text-primary to-83% to-[#6e6e6e] box-decoration-clone bg-clip-text text-transparent">
+          {title}
+        </span>
       </h2>
       <p
         className={
