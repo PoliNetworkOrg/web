@@ -1,7 +1,8 @@
 import { CardIcon } from "@/components/card-icon"
-import { resources } from "./constants"
+import type { FreshmanContent } from "@/queries/types"
+import { freshmanCardProps } from "./cards"
 
-export function MatricoleIntro() {
+export function MatricoleIntro({ resources }: { resources: FreshmanContent["resources"] }) {
   return (
     <section className="flex w-full flex-col items-center px-6 pt-40 pb-32 sm:px-10 sm:pb-13">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center">
@@ -15,9 +16,17 @@ export function MatricoleIntro() {
         </div>
 
         <div className="mt-30 hidden w-full gap-6 sm:grid sm:grid-cols-2">
-          {resources.map((resource) => (
-            <CardIcon key={resource.title} {...resource} align="start" className="h-full min-h-50" size="compact" />
-          ))}
+          {resources
+            .filter((resource) => resource.group === "featured")
+            .map((resource) => (
+              <CardIcon
+                key={resource.id}
+                {...freshmanCardProps(resource)}
+                align="start"
+                className="h-full min-h-50"
+                size="compact"
+              />
+            ))}
         </div>
       </div>
     </section>
