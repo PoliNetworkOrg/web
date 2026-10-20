@@ -6,14 +6,6 @@ import { PathSection } from "@/components/chi-siamo/path-section"
 import { ProblemSection } from "@/components/chi-siamo/problem-section"
 import { SupportSection } from "@/components/chi-siamo/support-section"
 import { VisionSection } from "@/components/chi-siamo/vision-section"
-import {
-  ChiSiamoAnswerShapes,
-  ChiSiamoHistoryShapes,
-  ChiSiamoNumbersShapes,
-  ChiSiamoPathShapes,
-  ChiSiamoProblemShapes,
-  ChiSiamoVisionShapes,
-} from "./shapes"
 
 export const metadata: Metadata = {
   title: "Su di noi",
@@ -23,30 +15,12 @@ export const metadata: Metadata = {
 export default function ChiSiamoPage() {
   return (
     <main className="flex w-full flex-col gap-24 pb-24 md:gap-36 md:pb-36">
-      <div className="relative">
-        <ChiSiamoVisionShapes />
-        <VisionSection />
-      </div>
-      <div className="relative">
-        <ChiSiamoProblemShapes />
-        <ProblemSection />
-      </div>
-      <div className="relative">
-        <ChiSiamoAnswerShapes />
-        <AnswerSection />
-      </div>
-      <div className="relative">
-        <ChiSiamoPathShapes />
-        <PathSection />
-      </div>
-      <div className="relative">
-        <ChiSiamoNumbersShapes />
-        <NumbersSection />
-      </div>
-      <div className="relative">
-        <ChiSiamoHistoryShapes />
-        <HistorySection />
-      </div>
+      <VisionSection />
+      <ProblemSection />
+      <AnswerSection />
+      <PathSection />
+      <NumbersSection />
+      <HistorySection />
       <SupportSection />
     </main>
   )

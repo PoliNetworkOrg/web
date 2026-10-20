@@ -4,12 +4,10 @@ import { FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi"
 import discord from "@/assets/icons/discord.svg"
 import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "../card-multiple-icons"
-import { FooterShapes } from "./shapes"
 
 export function Footer() {
   return (
-    <footer className="relative w-full px-8">
-      <FooterShapes />
+    <footer className="w-full px-8">
       <h2 className="typo-headline-medium md:typo-display-large mt-18 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-center text-transparent md:mt-30.5">
         Keep in touch!
       </h2>

@@ -4,7 +4,6 @@ import { Introduction } from "@/components/join/introduction"
 import { MembershipSection } from "@/components/join/membership"
 import { TeamsSection } from "@/components/join/teams"
 import { Hero } from "@/components/ui/hero"
-import { JoinPhotoShapes, JoinShapes } from "./shapes"
 
 export const metadata: Metadata = {
   title: "Unisciti a noi",
@@ -15,32 +14,17 @@ export const metadata: Metadata = {
 export default function JoinPage() {
   return (
     <main className="flex w-full flex-col gap-24 pb-32 md:gap-36 md:pb-48">
-      <div className="relative">
-        <JoinShapes section="hero" />
-        <section className={"mx-auto w-full max-w-330 px-6 pt-52 md:pt-57.5"}>
-          <Hero
-            title="Unisciti a Noi"
-            description="Nessuna simulazione, solo progetti reali. Scopri come fare la differenza per migliaia di studenti del PoliMi"
-            gradientDescription
-          />
-        </section>
-      </div>
-      <div className="relative">
-        <JoinShapes section="intro" />
-        <Introduction />
-      </div>
-      <div className="relative">
-        <JoinShapes section="admin" />
-        <AdminSection />
-      </div>
-      <div className="relative">
-        <JoinShapes section="team" />
-        <TeamsSection />
-      </div>
-      <div className="relative">
-        <JoinShapes section="membership" />
-        <MembershipSection photoDecorations={<JoinPhotoShapes />} />
-      </div>
+      <section className={"mx-auto w-full max-w-330 px-6 pt-52 md:pt-57.5"}>
+        <Hero
+          title="Unisciti a Noi"
+          description="Nessuna simulazione, solo progetti reali. Scopri come fare la differenza per migliaia di studenti del PoliMi"
+          gradientDescription
+        />
+      </section>
+      <Introduction />
+      <AdminSection />
+      <TeamsSection />
+      <MembershipSection />
     </main>
   )
 }

@@ -11,15 +11,6 @@ import { Organization } from "@/components/storia/organization"
 import { HistoryProjects } from "@/components/storia/projects"
 import { Thanks } from "@/components/storia/thanks"
 import { Chapters, Timeline } from "@/components/storia/timeline"
-import {
-  HistoryBoardsShapes,
-  HistoryChaptersShapes,
-  HistoryHeroShapes,
-  HistoryIntroShapes,
-  HistoryProjectsShapes,
-  HistoryThanksShapes,
-  HistoryTimelineShapes,
-} from "./shapes"
 
 export const metadata: Metadata = {
   title: "La nostra storia",
@@ -29,78 +20,59 @@ export const metadata: Metadata = {
 
 export default function HistoryPage() {
   return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-700 flex-col gap-24 px-4 pt-44 pb-32 md:gap-32 md:pt-49 md:pb-49">
-      <HistoryHeroShapes />
+    <main className="mx-auto flex min-h-screen w-full max-w-700 flex-col gap-24 px-4 pt-44 pb-32 md:gap-32 md:pt-49 md:pb-49">
       <HistoryHero />
 
-      <div className="relative flex w-full flex-col gap-24 md:gap-36">
-        <div className="relative w-full">
-          <HistoryIntroShapes />
-          <TextOnlyLayout
-            title="Come è nato tutto"
-            description={
-              <>
-                <h3 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-                  Una domanda semplice, una grande idea.
-                </h3>
-                <p className="typo-body-large sm:typo-headline-extrasmall mt-3 text-pretty">
-                  Tutto è cominciato nel 2016, quando un futuro studente cercava uno spazio per entrare in contatto con
-                  i propri compagni e trovare risposte alle prime domande sulla vita universitaria.
-                </p>
-                <p className="typo-body-large sm:typo-headline-extrasmall mt-5 text-pretty">
-                  Da questa esigenza è nato un progetto collettivo, che nel tempo si è trasformato in una{" "}
-                  <strong>rete capillare costruita dagli studenti, per gli studenti.</strong>
-                </p>
-              </>
-            }
-            classNames={{
-              section: "mx-auto max-w-330 gap-12 px-6 md:px-6 xl:flex-row xl:items-center [&>div>h2]:typo-title-large",
-              textDiv: "min-w-0 xl:w-1/2 xl:items-start",
-              title: "text-balance text-blue-secondary xl:text-start",
-              descriptionDiv: "xl:text-start",
-              contentDiv: "min-w-0 xl:w-1/2",
-            }}
-          >
-            <div className="grid w-full gap-6 sm:grid-cols-2">
-              <CardIcon
-                title="2016"
-                description="Il primo gruppo Telegram"
-                icon={telegram.src}
-                size="compact"
-                align="start"
-                className="h-full"
-              />
-              <CardIcon
-                title="2022"
-                description="Nasce PoliNetwork APS"
-                icon={FiUserCheck}
-                size="compact"
-                align="start"
-                className="h-full"
-              />
-            </div>
-          </TextOnlyLayout>
-        </div>
-        <div className="relative w-full">
-          <HistoryTimelineShapes />
-          <Timeline />
-        </div>
-        <div className="relative w-full">
-          <HistoryChaptersShapes />
-          <Chapters />
-        </div>
-        <div className="relative w-full">
-          <HistoryBoardsShapes />
-          <Boards />
-        </div>
-        <div className="relative w-full">
-          <HistoryProjectsShapes />
-          <HistoryProjects />
-        </div>
-        <div className="relative w-full">
-          <HistoryThanksShapes />
-          <Thanks />
-        </div>
+      <div className="flex w-full flex-col gap-24 md:gap-36">
+        <TextOnlyLayout
+          title="Come è nato tutto"
+          description={
+            <>
+              <h3 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+                Una domanda semplice, una grande idea.
+              </h3>
+              <p className="typo-body-large sm:typo-headline-extrasmall mt-3 text-pretty">
+                Tutto è cominciato nel 2016, quando un futuro studente cercava uno spazio per entrare in contatto con i
+                propri compagni e trovare risposte alle prime domande sulla vita universitaria.
+              </p>
+              <p className="typo-body-large sm:typo-headline-extrasmall mt-5 text-pretty">
+                Da questa esigenza è nato un progetto collettivo, che nel tempo si è trasformato in una{" "}
+                <strong>rete capillare costruita dagli studenti, per gli studenti.</strong>
+              </p>
+            </>
+          }
+          classNames={{
+            section: "mx-auto max-w-330 gap-12 px-6 md:px-6 xl:flex-row xl:items-center [&>div>h2]:typo-title-large",
+            textDiv: "min-w-0 xl:w-1/2 xl:items-start",
+            title: "text-balance text-blue-secondary xl:text-start",
+            descriptionDiv: "xl:text-start",
+            contentDiv: "min-w-0 xl:w-1/2",
+          }}
+        >
+          <div className="grid w-full gap-6 sm:grid-cols-2">
+            <CardIcon
+              title="2016"
+              description="Il primo gruppo Telegram"
+              icon={telegram.src}
+              size="compact"
+              align="start"
+              className="h-full"
+            />
+            <CardIcon
+              title="2022"
+              description="Nasce PoliNetwork APS"
+              icon={FiUserCheck}
+              size="compact"
+              align="start"
+              className="h-full"
+            />
+          </div>
+        </TextOnlyLayout>
+        <Timeline />
+        <Chapters />
+        <Boards />
+        <HistoryProjects />
+        <Thanks />
 
         <TextOnlyLayout
           title="Quello che abbiamo fatto di più"

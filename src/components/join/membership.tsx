@@ -1,12 +1,12 @@
 import Image from "next/image"
-import type { ReactNode } from "react"
 import externalLink from "@/assets/icons/join/external-link.svg"
 import membersPhoto from "@/assets/images/join/members.webp"
 import { Highlight, SectionTitle } from "@/components/collabora/section"
+import { PhotoShapes } from "@/components/shapes"
 import { cn } from "@/lib/utils"
 import { membershipSteps } from "./constants"
 
-export function MembershipSection({ photoDecorations }: { photoDecorations: ReactNode }) {
+export function MembershipSection() {
   return (
     <section
       id="socio"
@@ -86,7 +86,61 @@ export function MembershipSection({ photoDecorations }: { photoDecorations: Reac
             className="-top-[37.19%] absolute left-0 h-[137.25%] w-full max-w-none"
           />
         </div>
-        {photoDecorations}
+        <PhotoShapes
+          desktop={{
+            width: 642,
+            height: 312,
+            shapes: [
+              { variant: "small-blue", x: 593.712, y: 189, w: 312, h: 312, matrix: [0.9403, -0.3404, 0.3404, 0.9403] },
+              {
+                variant: "small-blue",
+                x: -35.053,
+                y: 60.843,
+                w: 372.538,
+                h: 372.538,
+                matrix: [0.9403, -0.3404, 0.3404, 0.9403],
+              },
+              {
+                variant: "looper",
+                x: 89.691,
+                y: 137.058,
+                w: 718.112,
+                h: 695.96,
+                matrix: [0.2588, -0.9659, -0.9659, -0.2588],
+              },
+            ],
+          }}
+          mobile={{
+            width: 354,
+            height: 172,
+            shapes: [
+              {
+                variant: "small-blue",
+                x: 313.296,
+                y: 140.296,
+                w: 148.818,
+                h: 148.818,
+                matrix: [0.9403, -0.3404, 0.3404, 0.9403],
+              },
+              {
+                variant: "small-blue",
+                x: -6.214,
+                y: 24.787,
+                w: 177.693,
+                h: 177.693,
+                matrix: [0.9403, -0.3404, 0.3404, 0.9403],
+              },
+              {
+                variant: "looper",
+                x: 39.651,
+                y: 77.385,
+                w: 342.525,
+                h: 331.959,
+                matrix: [0.2588, -0.9659, -0.9659, -0.2588],
+              },
+            ],
+          }}
+        />
       </div>
     </section>
   )

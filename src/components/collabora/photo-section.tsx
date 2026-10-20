@@ -54,9 +54,7 @@ export function PhotoSection({
               className={cn("absolute max-w-none", imageClassName)}
             />
           </div>
-          <div aria-hidden className="@container pointer-events-none absolute inset-0 z-10">
-            {decorations}
-          </div>
+          {decorations}
         </div>
       </div>
     </section>
