@@ -7,3 +7,6 @@ export type BrokenGroupLinkReportInput = Extract<GroupLinkReportInput, { reportT
 export type MissingGroupLinkReportInput = Extract<GroupLinkReportInput, { reportType: "missing" }>
 
 export type GroupLinkReportResult = { ok: true } | { ok: false; error: "UNKNOWN" }
+
+export type FreshmanContent = ApiOutput["web"]["freshman"]["getContent"]
+export type FreshmanCard = FreshmanContent["resources"][number]
