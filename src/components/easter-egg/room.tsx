@@ -20,7 +20,7 @@ import {
 } from "./constants"
 import { dialogueReducer, initialDialogueState, stepEvent, stepText } from "./dialogue"
 import { DialogueBox } from "./dialogue-box"
-import { hasRoomTicket, markEggReceived } from "./storage"
+import { hasRoomTicket, markEggReceived, subscribeRoomTicket } from "./storage"
 
 // la stanza è larga ~8 tile e alta ~9.5: scala a multipli interi finché ci sta nello schermo
 const ROOM_PX = "max(1px, round(down, min(100vw / 170, 100svh / 190), 1px))"
@@ -42,11 +42,9 @@ const CONFIRM_KEYS = new Set(["Enter", " ", "z", "Z"])
 const SKIP_KEYS = new Set(["x", "X", "Shift"])
 const MOVE_KEYS = new Set(["ArrowLeft", "ArrowRight", "a", "A", "d", "D"])
 
-const subscribeNoop = () => () => {}
-
 export function ForgottenManRoom() {
   // null durante l'SSR/idratazione, poi true solo se ci si arriva dal trigger in navigazione
-  const allowed = useSyncExternalStore(subscribeNoop, hasRoomTicket, () => null)
+  const allowed = useSyncExternalStore(subscribeRoomTicket, hasRoomTicket, () => null)
 
   if (allowed === null) return <div className="fixed inset-0 z-10000 bg-black" />
   if (!allowed) return <NotFound />
@@ -106,7 +104,7 @@ function Room() {
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents lint/a11y/noStaticElementInteractions: la tastiera è gestita a livello di window
     <div
-      className="fixed inset-0 z-10000 animate-forgotten-man-fade-in cursor-default select-none overflow-hidden bg-black"
+      className="fixed inset-0 z-10000 cursor-default select-none overflow-hidden bg-black"
       style={{ "--px": ROOM_PX } as CSSProperties}
       onClick={() => dispatch({ type: "confirm" })}
     >
