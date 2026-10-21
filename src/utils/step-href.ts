@@ -1,4 +1,8 @@
-export function stepHref(params: { school?: string; level?: string; course?: string }) {
-  const segments = [params.school, params.level, params.course].filter(Boolean)
-  return ["/groups/didattica", ...segments].join("/")
+export type StepHrefBuilder = (params: { school?: string; level?: string; course?: string }) => string
+
+export function createStepHref(basePath: string): StepHrefBuilder {
+  return (params) => {
+    const segments = [params.school, params.level, params.course].filter(Boolean)
+    return [basePath, ...segments].join("/")
+  }
 }

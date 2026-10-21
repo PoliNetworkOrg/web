@@ -1,5 +1,7 @@
+import { Background } from "@/components/background"
 import { ConditionalFooter } from "@/components/conditional-footer"
 import { ForgottenManTrigger } from "@/components/easter-egg/trigger"
+import { Footer } from "@/components/footer"
 import { Header } from "@/components/header/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
@@ -73,12 +75,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           // storageKey="polinetwork_darkmode_temp" // TODO: enable when dark mode design is ready
           disableTransitionOnChange
         >
-          {/* <ConditionalGlobalShapes /> */}
-          <ForgottenManTrigger />
-          <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
+          <div className="relative isolate flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
+            <ForgottenManTrigger />
+            <Background />
             <Header />
             {children}
-            <ConditionalFooter />
+            <ConditionalFooter>
+              <Footer />
+            </ConditionalFooter>
           </div>
         </ThemeProvider>
       </body>

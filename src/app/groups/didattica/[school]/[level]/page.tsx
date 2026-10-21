@@ -1,9 +1,12 @@
 import type { Metadata } from "next"
-import { getLevel, getSchool } from "@/components/groups/constants"
-import { CourseStep } from "@/components/groups/course-step"
-import type { CourseSearchParams } from "@/components/groups/types"
+import { getLevel, getSchool } from "@/components/wizard/constants"
+import { CourseStep } from "@/components/wizard/course-step"
+import type { CourseSearchParams } from "@/components/wizard/types"
+import { createStepHref } from "@/utils/step-href"
 
 export const dynamic = "force-dynamic"
+
+const stepHref = createStepHref("/groups/didattica")
 
 export async function generateMetadata({
   params,
@@ -30,5 +33,7 @@ export default async function DidatticaCoursePage({
 }) {
   const { school, level } = await params
   const { campus, lang } = await searchParams
-  return <CourseStep school={school} level={level} campus={campus} lang={lang} />
+  return (
+    <CourseStep school={school} level={level} campus={campus} lang={lang} landingHref="/groups" stepHref={stepHref} />
+  )
 }

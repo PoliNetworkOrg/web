@@ -1,0 +1,12 @@
+/* Animated page background, see src/components/background */
+
+.shape-scene {
+  /* scales shapes with the screen, ≈1px on the 1440-1728px wide Figma frames */
+  --bg-unit: clamp(0.5px, 0.064vw, 1.1px);
+  /* height of the slices of page the background is generated in */
+  --bg-segment: 900px;
+
+  @media (width >= 48rem) {
+    --bg-segment: 1000px;
+  }
+}

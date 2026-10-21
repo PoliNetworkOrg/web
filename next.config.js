@@ -6,21 +6,26 @@ import "./src/env.js"
 
 /** @type {import("next").NextConfig} */
 const config = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
   output: "standalone",
+  reactCompiler: true,
   experimental: {
-    reactCompiler: true
+    turbopackRustReactCompiler: true,
   },
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "*.blob.core.windows.net",
+      },
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        port: "",
+        pathname: "/toto04/webeep-sync/**",
+        search: "",
       },
     ],
   },

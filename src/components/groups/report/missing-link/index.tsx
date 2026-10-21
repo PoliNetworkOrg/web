@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { getLevel, getSchool } from "@/components/groups/constants"
+import { getLevel, getSchool } from "@/components/wizard/constants"
 import { getCoursesForLevel } from "@/queries/groups"
 import type { MissingGroupLinkReportInput } from "@/queries/types"
 import { courseLabel, humanizeSlug, levelLabel, schoolLabel } from "@/utils/labels"

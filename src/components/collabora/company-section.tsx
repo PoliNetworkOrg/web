@@ -1,40 +1,50 @@
-import Image from "next/image"
-import companyImage from "@/assets/images/collabora_company.png"
+import companyImage from "@/assets/images/collabora_company.jpg"
+import { PhotoShapes } from "@/components/shapes"
+import { PhotoSection } from "./photo-section"
+import { Highlight } from "./section"
 
 export function CompanySection() {
   return (
-    <section className="flex w-full flex-col-reverse items-center gap-27 px-6 text-center min-[1616px]:flex-row min-[1616px]:items-end min-[1616px]:px-36">
-      <div className="flex w-full min-w-0 flex-1 items-center justify-center min-[1616px]:min-w-[611px]">
-        <Image
-          src={companyImage}
-          alt=""
-          width={611}
-          height={298}
-          style={{ aspectRatio: "611 / 298" }}
-          className="h-auto w-full max-w-152.75 rounded-rectangles object-cover"
+    <PhotoSection
+      title="Sei un’azienda?"
+      image={companyImage}
+      frameClassName="aspect-[354/209] md:aspect-[611/366]"
+      imageClassName="top-[-8.25%] left-[-5.78%] h-[117.41%] w-[105.65%] md:top-[-3.11%] md:left-0 md:h-[111.16%] md:w-[100.03%]"
+      decorations={
+        <PhotoShapes
+          desktop={{
+            width: 611,
+            height: 366,
+            shapes: [
+              { variant: "small-blue", x: 565, y: 322, w: 248, h: 248 },
+              { variant: "big-teal", x: -61, y: 119, w: 684, h: 684 },
+              { variant: "looper", x: 324.5, y: 261.6, w: 750, h: 727.4, matrix: [0.5, -0.866, 0.866, 0.5] },
+            ],
+          }}
+          mobile={{
+            width: 354,
+            height: 209,
+            shapes: [
+              { variant: "small-blue", x: 332.2, y: 159.9, w: 148.4, h: 148.4 },
+              { variant: "big-teal", x: -42.4, y: -39.4, w: 409.3, h: 409.3 },
+              { variant: "looper", x: 188.3, y: 123.8, w: 448.8, h: 435.3, matrix: [0.5, -0.866, 0.866, 0.5] },
+            ],
+          }}
         />
-      </div>
-
-      <div className="flex w-full min-w-0 flex-1 flex-col items-center gap-6 min-[1616px]:items-start min-[1616px]:text-start">
-        <h2 className="typo-display-large sm:typo-display-medium text-center min-[1616px]:text-start">
-          Sei un’azienda?
-        </h2>
-
-        <div className="flex flex-col gap-3 text-center min-[1616px]:text-start">
-          <p className="typo-title-large sm:typo-headline-small">
-            PoliNetwork è un punto di accesso diretto alla community studentesca del Politecnico di Milano: migliaia di
-            studenti di corsi tecnici e progettuali, da tutta Italia, in tutti gli anni di corso. Se hai
-            <span className="text-blue-secondary"> un'iniziativa che porta valore reale agli studenti</span>, siamo
-            disponibili a valutarla.
-          </p>
-          <p className="typo-title-large sm:typo-headline-small">
-            Siamo aperti a proposte su
-            <span className="text-blue-secondary"> eventi, iniziative di recruiting o progetti di visibilità</span>.
-            Ogni proposta viene discussa nel rispetto della nostra indipendenza: non facciamo cose che compromettono la
-            fiducia che gli studenti ripongono in noi.
-          </p>
-        </div>
-      </div>
-    </section>
+      }
+      photoFirst
+      className="py-30 md:py-31.25"
+    >
+      <p>
+        PoliNetwork è un punto di accesso diretto alla community studentesca del Politecnico di Milano: migliaia di
+        studenti di corsi tecnici e progettuali, da tutta Italia, in tutti gli anni di corso. Se hai{" "}
+        <Highlight>un'iniziativa che porta valore reale agli studenti</Highlight>, siamo disponibili a valutarla.
+      </p>
+      <p>
+        Siamo aperti a proposte su <Highlight>eventi, iniziative di recruiting o progetti di visibilità</Highlight>.
+        Ogni proposta viene discussa nel rispetto della nostra indipendenza: non facciamo cose che compromettono la
+        fiducia che gli studenti ripongono in noi.
+      </p>
+    </PhotoSection>
   )
 }
