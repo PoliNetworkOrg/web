@@ -1,5 +1,5 @@
 import { ConditionalFooter } from "@/components/conditional-footer"
-import { NavigationEasterEgg } from "@/components/easter-egg/navigation-easter-egg"
+import { ForgottenManTrigger } from "@/components/easter-egg/trigger"
 import { Header } from "@/components/header/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css"
@@ -74,11 +74,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           disableTransitionOnChange
         >
           {/* <ConditionalGlobalShapes /> */}
-          <NavigationEasterEgg className="flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
+          <ForgottenManTrigger />
+          <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
             <Header />
             {children}
             <ConditionalFooter />
-          </NavigationEasterEgg>
+          </div>
         </ThemeProvider>
       </body>
     </html>
