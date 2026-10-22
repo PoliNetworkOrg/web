@@ -26,7 +26,12 @@ const featuredCards = [
 const quickLinks = [
   { title: "Dispense", icon: FiBook, size: { base: "xs", sm: "sm" }, href: "#" },
   { title: "Esami", icon: FiFileText, size: { base: "xs", sm: "sm" }, href: "#" },
-  { title: "Appunti", icon: FiClipboard, size: { base: "xs", sm: "sm" }, href: "#" },
+  {
+    title: "Appunti",
+    icon: FiClipboard,
+    size: { base: "xs", sm: "sm" },
+    href: "https://polinetwork.org/it/materials/view/",
+  },
 ] as const
 
 export function Materials() {
@@ -67,7 +72,7 @@ export function Materials() {
           carica i tuoi file per far crescere la community.
         </p>
         <Button variant="primary" size="lg" className="w-fit" asChild>
-          <Link href="/materials" className="flex items-center gap-2">
+          <Link href="https://polinetwork.org/it/materials/view/" className="flex items-center gap-2">
             Scopri di più
             <FiArrowUpRight />
           </Link>

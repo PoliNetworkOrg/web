@@ -1,89 +1,116 @@
-import { FiArrowUpRight, FiMessageSquare, FiUsers } from "react-icons/fi"
-import { MdOutlineHandshake, MdOutlineSchool } from "react-icons/md"
+import Link from "next/link"
+import { FiArrowUpRight } from "react-icons/fi"
+import chatIcon from "@/assets/icons/collabora/chat.svg"
+import groupIcon from "@/assets/icons/collabora/group.svg"
+import handshakeIcon from "@/assets/icons/collabora/handshake.svg"
+import schoolIcon from "@/assets/icons/collabora/school.svg"
 import { Button } from "@/components/ui/button"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "@/components/ui/carousel"
-import { CardIcon } from "../card-icon"
+import { cn } from "@/lib/utils"
+import { InfoCard, type InfoCardData } from "./info-card"
+import { Aside, Highlight, SectionTitle, sectionContainerClass, sectionTextClass } from "./section"
 
-const cards = [
+const cards: InfoCardData[] = [
   {
     title: "18k+",
     description: (
       <>
-        <span className="text-blue-secondary">Membri</span> del nostro gruppo Telegram principale
+        <Highlight>Membri</Highlight> del nostro gruppo Telegram principale
       </>
     ),
-    icon: FiMessageSquare,
+    mobileDescription: "Membri del nostro gruppo Telegram",
+    icon: chatIcon,
+    iconClassName: "mr-3.75 h-7 w-7.5 md:mt-px md:mr-0 md:h-12.5 md:w-13.25",
+    descriptionClassName: "md:-mr-px",
   },
   {
     title: "45k+",
     description: (
       <>
-        <span className="text-blue-secondary">Studenti</span> raggiunti da PoliNetwork ogni anno
+        <Highlight>Studenti</Highlight> raggiunti da PoliNetwork ogni anno
       </>
     ),
-    icon: MdOutlineSchool,
+    mobileDescription: "Studenti raggiunti ogni anno",
+    icon: schoolIcon,
+    iconClassName: "mr-3.75 h-7 w-8.5 md:-mt-px md:mr-0 md:-ml-0.75 md:h-12.5 md:w-15.25",
+    descriptionClassName: "md:-mr-px",
   },
   {
     title: "1000+",
     description: (
       <>
-        <span className="text-blue-secondary">Persone</span> nel nostro evento più grande
+        <Highlight>Persone</Highlight> nel nostro evento
+        <br />
+        più grande
       </>
     ),
-
-    icon: FiUsers,
+    mobileDescription: "Persone al nostro evento più grande",
+    icon: groupIcon,
+    iconClassName: "mr-3.75 h-7 w-9.25 md:-mt-px md:mr-0 md:h-12.5 md:w-16.75",
+    descriptionClassName: "md:-mr-px",
   },
   {
     title: "5",
     description: (
       <>
-        <span className="text-blue-secondary">Team Operativi</span> pronti a collaborare
+        <Highlight>Team Operativi</Highlight> pronti a collaborare
       </>
     ),
-    icon: MdOutlineHandshake,
+    mobileDescription: "Team operativi pronti a collaborare",
+    icon: handshakeIcon,
+    iconClassName: "mr-3.75 h-7 w-7.75 md:mr-0 md:h-12.5 md:w-13.75",
+    descriptionClassName: "md:-mr-px",
   },
-] as const
+]
 
 export function AboutSection() {
   return (
-    <section className="flex w-full flex-row flex-wrap gap-block">
-      <div className="flex min-w-0 flex-1 basis-120 flex-col gap-6">
-        <h2 className="sm:typo-display-medium typo-headline-medium text-center md:text-start">Chi siamo?</h2>
-
-        <div className="sm:typo-headline-small typo-body-large flex flex-col gap-5 text-center md:text-start">
-          <p>
-            PoliNetwork è l'infrastruttura di comunicazione studentesca del Politecnico di Milano. Gestiamo oltre 500
-            gruppi Telegram e WhatsApp, una presenza social in crescita e strumenti digitali usati ogni anno da decine
-            di migliaia di studenti di ingegneria, architettura e design.
-          </p>
-          <div>
-            <p className="text-blue-secondary">Chi entra al PoliMi, prima o poi, incontra PoliNetwork.</p>
-            <p>(e persino studenti di liceo o altri atenei)</p>
+    <section className={cn(sectionContainerClass, "pt-30 pb-30 md:pt-18.75 md:pb-31.25")}>
+      <div className="flex 3xl:flex-row flex-col items-center 3xl:justify-between 3xl:gap-10 gap-8.75 md:items-start md:gap-12">
+        <div className="flex w-full flex-col items-center gap-6 md:max-w-179.75 md:items-start md:gap-2.5">
+          <div className="flex w-full flex-col gap-6 md:gap-3">
+            <SectionTitle>Chi siamo?</SectionTitle>
+            <div className={cn(sectionTextClass, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>
+              <p>PoliNetwork è l'infrastruttura di comunicazione studentesca del Politecnico di Milano.</p>
+              <p>
+                Gestiamo oltre 500 gruppi Telegram e WhatsApp, una presenza social in crescita e strumenti digitali
+                usati ogni anno da decine di migliaia di studenti di ingegneria, architettura e design.
+              </p>
+              <p>
+                <Highlight>Chi entra al PoliMi, prima o poi, incontra PoliNetwork</Highlight>.
+                <Aside className="block">(e persino studenti delle scuole superiori o altri atenei)</Aside>
+              </p>
+            </div>
+          </div>
+          <div className="md:pt-3">
+            <Button asChild variant="primary" size="lg" className="px-6.5 has-[>svg]:px-6.5">
+              <Link href="/storia">
+                Scopri la nostra storia
+                <FiArrowUpRight className="size-5" />
+              </Link>
+            </Button>
           </div>
         </div>
 
-        <Button variant="primary" size="lg" className="w-fit gap-2 self-center md:self-start">
-          Scopri la nostra storia
-          <FiArrowUpRight />
-        </Button>
-      </div>
+        <div className="grid shrink-0 grid-cols-[repeat(2,17.5rem)] gap-x-13.75 gap-y-8.75 max-md:hidden">
+          {cards.map((card) => (
+            <InfoCard key={card.title} card={card} descriptionColorClassName="text-black" className="min-h-61.25" />
+          ))}
+        </div>
 
-      <div className="hidden min-w-0 flex-1 basis-120 grid-cols-2 grid-rows-2 gap-x-8 gap-y-9 md:grid">
-        {cards.map((card) => (
-          <CardIcon key={card.title} {...card} size="sm" align="start" className="w-full min-w-0" />
-        ))}
-      </div>
-
-      <div className="min-w-0 flex-1 basis-120 md:hidden">
-        <Carousel className="w-full">
-          <CarouselContent>
+        {/* Bleeds to the screen edges like the Figma carousel, so the next card peeks in */}
+        <Carousel opts={{ containScroll: false }} className="w-screen max-w-none md:hidden">
+          <CarouselContent className="-ml-2">
             {cards.map((card) => (
-              <CarouselItem key={card.title}>
-                <CardIcon {...card} size="inline" align="inline" className="w-full min-w-0" />
+              <CarouselItem key={card.title} className="basis-auto pl-2">
+                <InfoCard card={card} className="h-26.25 w-62.75" />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselDots className="mt-6" />
+          {/* The dots only render once Embla has measured the slides: reserve their row to avoid a layout shift */}
+          <div className="mt-6 h-4">
+            <CarouselDots />
+          </div>
         </Carousel>
       </div>
     </section>

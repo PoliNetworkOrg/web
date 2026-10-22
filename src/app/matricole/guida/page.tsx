@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { FiDownload } from "react-icons/fi"
 import { CardSplit } from "@/components/card-split"
-import { ResourcesHeroShapes } from "@/components/resources/shapes"
 import { Button } from "@/components/ui/button"
 import { getLatestGuidaMatricola } from "@/queries/guida-matricola"
 
@@ -24,7 +23,6 @@ export default async function GuidaMatricolaPage() {
 
   return (
     <main className="page-container flex min-h-svh flex-col items-center justify-center gap-block py-section">
-      <ResourcesHeroShapes />
       <div className="flex flex-col items-center gap-6">
         <h2 className="typo-display-medium lg:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-center text-transparent lg:leading-33">
           Guida della Matricola

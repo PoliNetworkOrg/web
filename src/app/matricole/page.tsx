@@ -2,8 +2,6 @@ import type { Metadata } from "next"
 import { FAQsPage } from "@/components/matricole/faqs"
 import { MatricoleGuides } from "@/components/matricole/guides"
 import { MatricoleIntro } from "@/components/matricole/intro"
-import { ResourcesHeroShapes } from "@/components/resources/shapes"
-import { MatricoleFAQsShapes, MatricoleGuidesShapes } from "./shapes"
 
 export const metadata: Metadata = {
   title: "Matricole",
@@ -13,18 +11,9 @@ export const metadata: Metadata = {
 export default function MatricolePage() {
   return (
     <main className="flex w-full flex-col gap-section pb-section">
-      <div className="relative">
-        <ResourcesHeroShapes />
-        <MatricoleIntro />
-      </div>
-      <div className="relative">
-        <MatricoleGuidesShapes />
-        <MatricoleGuides />
-      </div>
-      <div className="relative">
-        <MatricoleFAQsShapes />
-        <FAQsPage />
-      </div>
+      <MatricoleIntro />
+      <MatricoleGuides />
+      <FAQsPage />
     </main>
   )
 }

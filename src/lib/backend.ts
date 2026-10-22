@@ -2,18 +2,12 @@ import "server-only"
 
 import { idpEndpoints, type ServiceTokenSourceOptions, serviceTokenSource } from "@polinetwork/auth-kit"
 import { type AppRouter, TRPC_PATH } from "@polinetwork/backend"
-import { createTRPCClient, httpBatchLink, retryLink, splitLink } from "@trpc/client"
+import { createTRPCClient, httpBatchLink, retryLink } from "@trpc/client"
 import SuperJSON from "superjson"
 import { env } from "@/env"
 
 /** Scope of the `website` client (RFC v3 §6.2). */
 const PUBLIC_READ_SCOPE = "backend:public:read"
-
-/**
- * Procedures the backend does not yet open to `backend:public:read`: a service token is refused
- * there, so they stay on the anonymous legacy path until the backend accepts the website's token.
- */
-const ANONYMOUS_PROCEDURES = new Set(["groups.search.getAll", "groups.search.search"])
 
 function parsePrivateKey(value: string): ServiceTokenSourceOptions["privateKey"] {
   try {
@@ -49,7 +43,6 @@ function createTokenSource() {
 
 const tokens = createTokenSource()
 const url = env.BACKEND_URL + TRPC_PATH
-const anonymousLink = httpBatchLink({ url, transformer: SuperJSON })
 
 export const trpc = createTRPCClient<AppRouter>({
   links: tokens
@@ -57,21 +50,17 @@ export const trpc = createTRPCClient<AppRouter>({
         // A 401 is decided before the procedure runs, so retrying once with a new token is safe for
         // mutations too. The backend may have rejected an expired or revoked token we still cached.
         retryLink({
-          retry: ({ op, error, attempts }) => {
-            if (attempts > 1 || ANONYMOUS_PROCEDURES.has(op.path) || error.data?.httpStatus !== 401) return false
+          retry: ({ error, attempts }) => {
+            if (attempts > 1 || error.data?.httpStatus !== 401) return false
             tokens.invalidate()
             return true
           },
         }),
-        splitLink({
-          condition: (op) => ANONYMOUS_PROCEDURES.has(op.path),
-          true: anonymousLink,
-          false: httpBatchLink({
-            url,
-            transformer: SuperJSON,
-            headers: async () => ({ Authorization: `Bearer ${await tokens.getToken()}` }),
-          }),
+        httpBatchLink({
+          url,
+          transformer: SuperJSON,
+          headers: async () => ({ Authorization: `Bearer ${await tokens.getToken()}` }),
         }),
       ]
-    : [anonymousLink],
+    : [httpBatchLink({ url, transformer: SuperJSON })],
 })

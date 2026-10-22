@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { ConditionalGlobalShapes } from "@/components/conditional-global-shapes"
 import { CollaboraSection } from "@/components/contact/collabora-section"
 import { EmailSection } from "@/components/contact/email-section"
 import { GroupsSection } from "@/components/contact/groups-section"
@@ -13,7 +12,6 @@ export const metadata: Metadata = {
 export default function Contact() {
   return (
     <main className="page-layout flex flex-col items-center gap-section">
-      <ConditionalGlobalShapes />
       <Hero
         title="Contattaci"
         description="Qualunque sia la tua domanda, PoliNetwork è a disposizione."

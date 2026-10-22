@@ -1,60 +1,68 @@
-import { FiHeart, FiMail } from "react-icons/fi"
-import { TbArrowBack } from "react-icons/tb"
+import { Fragment } from "react"
+import favoriteIcon from "@/assets/icons/collabora/favorite.svg"
+import mailIcon from "@/assets/icons/collabora/mail.svg"
+import promptSuggestionIcon from "@/assets/icons/collabora/prompt-suggestion.svg"
 import { cn } from "@/lib/utils"
-import { CardIcon } from "../card-icon"
+import { InfoCard, type InfoCardData } from "./info-card"
+import { SectionTitle, sectionContainerClass } from "./section"
 
-const cards = [
+const cards: InfoCardData[] = [
   {
     title: "events@polinetwork.org",
     description: "Ci scrivi una mail descrivendo chi sei e cosa vorresti fare",
-    icon: FiMail,
+    mobileDescription: "Ci scrivi una mail spiegando chi sei e cosa vorresti fare",
+    icon: mailIcon,
+    iconClassName: "mr-2.5 h-5.5 w-7 md:mr-0 md:h-12 md:w-15",
+    descriptionClassName: "max-w-56",
   },
   {
     title: "Condividi la tua visione",
     description: "Quale valore porta il tuo progetto agli studenti del Politecnico?",
-    icon: FiHeart,
+    mobileDescription: "Quale valore porta il progetto agli studenti del Poli?",
+    icon: favoriteIcon,
+    iconClassName: "mr-2.5 h-5.5 w-6 md:mt-0.5 md:mr-0 md:ml-0.5 md:h-12.5 md:w-13.5",
+    descriptionClassName: "max-w-65.75",
   },
   {
     title: "Ricevi il nostro feedback",
-    description: "Rispondiamo al più presto a tutte le richieste",
-    icon: TbArrowBack,
+    description: (
+      <>
+        Rispondiamo al più presto
+        <br />a tutte le richieste
+      </>
+    ),
+    mobileDescription: "Rispondiamo al più presto a tutte le richieste!",
+    icon: promptSuggestionIcon,
+    iconClassName: "mr-2.5 h-5.5 w-7 md:mt-0.5 md:mr-0 md:h-11.75 md:w-15",
+    descriptionClassName: "max-w-56",
   },
-] as const
+]
 
-const alignVariants = [
-  { align: "start", size: "sm", visibility: "max-sm:hidden" },
-  { align: "inline", size: "inline-sm", visibility: "sm:hidden" },
-] as const
+/** Figma's connectors between the steps; vertical while the cards are stacked. */
+const connectorClassNames = [
+  "from-[#51a2ff] to-[#0069a8]", // Vector 4
+  "from-[#0069a8] to-[#74d4ff]", // Vector 5
+]
 
 export function ContactSection() {
   return (
-    <section className="flex w-full flex-col gap-block">
-      <h2 className="sm:typo-display-medium typo-headline-medium text-center md:text-start">Come contattarci</h2>
+    <section className={cn(sectionContainerClass, "pt-15 pb-33.25 md:pt-31.25 md:pb-54.5")}>
+      <SectionTitle className="mb-7.5 md:mb-9.25">Come contattarci</SectionTitle>
 
-      <div className="grid w-full grid-cols-1 gap-y-10 text-start min-[1616px]:grid-cols-3 min-[1616px]:gap-x-10 min-[1616px]:gap-y-0">
+      <div className="flex flex-col items-center md:max-[1615px]:items-start min-[1616px]:flex-row">
         {cards.map((card, index) => (
-          <div
-            key={card.title}
-            className={cn(
-              "relative",
-              index < cards.length - 1 &&
-                "after:-translate-x-1/2 min-[1616px]:after:-translate-y-1/2 after:absolute after:top-full after:left-1/2 after:z-0 after:h-10 after:w-1 after:bg-[linear-gradient(180deg,#0069A8,#74D4FF)] after:content-[''] min-[1616px]:after:top-1/2 min-[1616px]:after:left-full min-[1616px]:after:h-1 min-[1616px]:after:w-10 min-[1616px]:after:translate-x-0 min-[1616px]:after:bg-[linear-gradient(90deg,#0069A8,#74D4FF)]"
-            )}
-          >
-            {alignVariants.map(({ align, size, visibility }) => (
-              <CardIcon
-                key={align}
-                {...card}
-                align={align}
-                size={size}
+          <Fragment key={card.title}>
+            <InfoCard card={card} className="w-full md:min-h-61.25 md:w-104.25 md:shrink-0" />
+            {index < connectorClassNames.length && (
+              <div
+                aria-hidden
                 className={cn(
-                  "relative z-10 w-full min-w-0 min-[1616px]:min-w-104",
-                  visibility,
-                  index === cards.length - 1 && "[&_div>svg]:scale-x-[-1]"
+                  "h-10 w-1 shrink-0 bg-linear-to-b md:max-[1615px]:ml-51.5 min-[1616px]:h-1 min-[1616px]:w-auto min-[1616px]:min-w-10 min-[1616px]:flex-1 min-[1616px]:bg-linear-to-r",
+                  connectorClassNames[index]
                 )}
               />
-            ))}
-          </div>
+            )}
+          </Fragment>
         ))}
       </div>
     </section>

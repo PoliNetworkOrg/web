@@ -2,12 +2,10 @@ import Link from "next/link"
 import { FiNavigation, FiUserPlus } from "react-icons/fi"
 import { Button } from "../ui/button"
 import { GroupSearch } from "./group-search"
-import { HomeHeroShapes } from "./shapes"
 
 export function Hero() {
   return (
     <section className="page-container flex min-h-svh flex-col gap-block pt-page-top pb-gutter">
-      <HomeHeroShapes />
       <div className="flex flex-1 flex-col items-center justify-center gap-block text-center">
         <h1 className="typo-display-small sm:typo-display-medium md:typo-display-large w-fit max-w-4xl bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
           Trova gruppi, risorse e supporto tra gli studenti del Polimi

@@ -4,6 +4,7 @@
 @import "./sidebar.css";
 @import "./charts.css";
 @import "./animations.css";
+@import "./background.css";
 
 @custom-variant dark (&:is(.dark *));
 
