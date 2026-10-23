@@ -31,7 +31,7 @@ const featuredCards = [
 
 export function Projects() {
   return (
-    <section className="mx-auto flex max-w-400 flex-col gap-24 p-11 py-40 sm:px-20 2xl:flex-row 2xl:items-start 2xl:gap-32">
+    <section className="page-container flex flex-col gap-block 2xl:flex-row 2xl:items-start 2xl:gap-32">
       <div className="flex flex-col items-center gap-8 text-center sm:items-start sm:text-start">
         <h2 className="typo-display-large sm:typo-display-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent leading-[0.8] sm:py-6 md:whitespace-nowrap">
           15+ Projects

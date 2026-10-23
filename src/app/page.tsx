@@ -5,7 +5,7 @@ import { Projects } from "@/components/home/projects"
 
 export default function Home() {
   return (
-    <main className="w-full">
+    <main className="flex w-full flex-col gap-section pb-section">
       <Hero />
       <Materials />
       <Projects />

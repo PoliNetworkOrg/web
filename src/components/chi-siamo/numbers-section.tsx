@@ -13,7 +13,7 @@ const stats = [
 
 export function NumbersSection() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 md:gap-14">
+    <section className="page-container flex flex-col gap-block">
       <div className="flex flex-col gap-4">
         <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
           I numeri

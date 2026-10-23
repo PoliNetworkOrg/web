@@ -18,7 +18,7 @@ const steps = [
 
 export function PathSection() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 md:gap-14">
+    <section className="page-container flex flex-col gap-block">
       <h2 className="typo-headline-medium md:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent md:text-start">
         Il tuo percorso, sempre al tuo fianco
       </h2>

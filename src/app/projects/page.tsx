@@ -19,7 +19,7 @@ export default async function Home() {
   const deprecated = projects.filter((project) => project.category === "deprecated")
 
   return (
-    <main className="w-full">
+    <main className="flex w-full flex-col gap-section pb-section">
       <CommunityNews projects={news} />
       <Collection projects={general} />
       <Upload />

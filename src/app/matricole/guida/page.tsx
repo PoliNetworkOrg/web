@@ -22,8 +22,8 @@ export default async function GuidaMatricolaPage() {
   const formattedDate = new Intl.DateTimeFormat("it-IT", { dateStyle: "long" }).format(new Date(guida.date))
 
   return (
-    <main className="mx-auto flex min-h-svh w-full max-w-500 flex-col items-center justify-center gap-10">
-      <div className="mx-12 flex flex-col items-center lg:gap-6">
+    <main className="page-container flex min-h-svh flex-col items-center justify-center gap-block py-section">
+      <div className="flex flex-col items-center gap-6">
         <h2 className="typo-display-medium lg:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-center text-transparent lg:leading-33">
           Guida della Matricola
         </h2>

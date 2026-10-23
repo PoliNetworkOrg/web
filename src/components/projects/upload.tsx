@@ -26,7 +26,7 @@ const cards = [
 
 export function Upload() {
   return (
-    <section className="mx-auto flex min-h-screen max-w-300 flex-col items-center justify-center gap-12 px-4 py-16 md:flex-row md:gap-24 md:px-12 lg:gap-48">
+    <section className="page-container flex flex-col items-center justify-center gap-block md:flex-row md:gap-24 lg:gap-48">
       <div className="flex max-w-xs flex-col items-start gap-8">
         <div className="flex flex-col gap-2">
           <h2 className="typo-headline-medium md:typo-display-medium">Hai un'idea?</h2>

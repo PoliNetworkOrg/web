@@ -23,7 +23,7 @@ const cards = [
 
 export function AnswerSection() {
   return (
-    <section id="cosa-facciamo" className="mx-auto flex w-full max-w-330 scroll-mt-32 flex-col gap-10 px-6 md:gap-14">
+    <section id="cosa-facciamo" className="page-container flex scroll-mt-32 flex-col gap-block">
       <div className="flex flex-col gap-4">
         <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
           La nostra risposta
