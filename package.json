@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@polinetwork/auth-kit": "^1.1.0",
-    "@polinetwork/backend": "^1.4.0",
+    "@polinetwork/backend": "^2.3.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-separator": "^1.1.8",
