@@ -5,7 +5,6 @@ import { applicationHref, teams } from "@/components/team/constants"
 import { TeamSection } from "@/components/team/team-section"
 import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
-import { TeamHeroShapes, TeamSectionShapes } from "./shapes"
 
 export const metadata: Metadata = {
   title: "I Team",
@@ -15,21 +14,15 @@ export const metadata: Metadata = {
 export default function TeamPage() {
   return (
     <main className="flex w-full flex-col gap-24 pb-24 md:gap-36 md:pb-36">
-      <div className="relative">
-        <TeamHeroShapes />
-        <section className="mx-auto flex w-full max-w-330 flex-col items-center gap-6 px-6 pt-52 md:pt-64">
-          <Hero
-            title="I Team"
-            description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento."
-            gradientDescription
-          />
-        </section>
-      </div>
+      <section className="mx-auto flex w-full max-w-330 flex-col items-center gap-6 px-6 pt-52 md:pt-64">
+        <Hero
+          title="I Team"
+          description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento."
+          gradientDescription
+        />
+      </section>
       {teams.map((team) => (
-        <div key={team.id} className="relative">
-          <TeamSectionShapes section={team.id} />
-          <TeamSection team={team} />
-        </div>
+        <TeamSection key={team.id} team={team} />
       ))}
       <section className="mx-auto w-full max-w-330 px-6">
         <Glass className="flex flex-col items-center gap-6 rounded-rectangles border-white/50 bg-linear-to-br from-background-blur to-blue-tertiary/30 p-6 text-center sm:p-12">

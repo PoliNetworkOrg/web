@@ -1,3 +1,4 @@
+import { Background } from "@/components/background"
 import { ConditionalFooter } from "@/components/conditional-footer"
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header/header"
@@ -73,8 +74,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           // storageKey="polinetwork_darkmode_temp" // TODO: enable when dark mode design is ready
           disableTransitionOnChange
         >
-          {/* <ConditionalGlobalShapes /> */}
-          <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
+          <div className="relative isolate flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
+            <Background />
             <Header />
             {children}
             <ConditionalFooter>

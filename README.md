@@ -19,8 +19,6 @@ backend accepts only while it allows legacy anonymous calls. Set all of these or
 - `OAUTH_BACKEND_RESOURCE_URI`: the backend's resource identifier, the token's audience
 - `OAUTH_WEBSITE_CLIENT_ID` and `OAUTH_WEBSITE_PRIVATE_JWK` (secret): the client and its private signing key as a JWK
 
-`groups.search.*` stays anonymous until the backend accepts the website's token there.
-
 ## Contributing
 If you are contributing, you may check [GUIDES.md](./GUIDES.md)
 

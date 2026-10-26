@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@polinetwork/auth-kit": "^1.1.0",
-    "@polinetwork/backend": "^1.4.0",
+    "@polinetwork/backend": "^2.3.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-separator": "^1.1.8",
@@ -58,7 +58,7 @@
     "tw-animate-css": "^1.4.0",
     "typescript": "^7.0.2"
   },
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@10.34.7+sha512.ba98abc585539933375b5971f4bc6d6c73a1b4b7edc4a879e7d102fe5423d1e02309d67c60a11f04955093a96e521ad9c3b138cdd654ca5be563f378b3ae48bd",
   "engines": {
     "node": ">=24.5.2"
   }
