@@ -4,7 +4,7 @@ import { GradientIcon } from "@/components/gradient-icon"
 
 export function SupportSection() {
   return (
-    <section className="mx-auto w-full max-w-330 px-6">
+    <section className="page-container">
       <Glass className="grid items-center gap-10 rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-10 lg:grid-cols-2 lg:gap-16">
         <div className="flex min-w-0 flex-col gap-6">
           <GradientIcon icon={FiHeart} className="size-10" />

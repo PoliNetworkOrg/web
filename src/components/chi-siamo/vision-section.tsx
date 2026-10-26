@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export function VisionSection() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col items-center gap-6 px-6 pt-52 text-center md:pt-57.5">
+    <section className="page-container flex flex-col items-center gap-6 pt-page-top text-center">
       <h1 className="typo-display-small sm:typo-display-medium lg:typo-display-large max-w-260 text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
         Un Politecnico in cui nessuno studente resti indietro per mancanza di{" "}
         <span className="text-blue-secondary">informazioni.</span>

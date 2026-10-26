@@ -32,12 +32,15 @@ export function FaqsTabs({ categories }: { categories: FaqCategory[] }) {
   }))
 
   return (
-    <div className="mx-auto flex w-full max-w-255 flex-col gap-68 sm:gap-79">
+    <div className="mx-auto flex w-full max-w-255 flex-col gap-section">
       {tabs.length === 0 ? (
         <p className="typo-body-large text-center">Nessuna FAQ disponibile al momento.</p>
       ) : (
         <Tabs defaultValue={tabs[0]?.value} className="flex w-full flex-col items-center">
-          <TabsNavigation items={tabs} className="max-md:-mx-2 mb-19 max-md:w-[calc(100%+1rem)] max-md:rounded-none" />
+          <TabsNavigation
+            items={tabs}
+            className="max-md:-mx-2 mb-block max-md:w-[calc(100%+1rem)] max-md:rounded-none"
+          />
           {tabs.map((tab) => (
             <TabsContent value={tab.value} key={tab.value} className="w-full min-w-0">
               <AccordionList items={tab.accordionItems} defaultValue={tab.accordionItems[0]?.value} />

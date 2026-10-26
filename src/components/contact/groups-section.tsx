@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 
 export function GroupsSection() {
   return (
-    <section className="flex w-full flex-col items-center gap-21 px-6 min-[1616px]:flex-row min-[1616px]:items-end min-[1616px]:px-36">
+    <section className="flex w-full flex-col items-center gap-block min-[1616px]:flex-row min-[1616px]:items-end">
       <div className="flex flex-col gap-6 text-center min-[1616px]:min-w-158 min-[1616px]:flex-1 min-[1616px]:text-start">
         <h2 className="typo-headline-medium md:typo-display-medium text-center min-[1616px]:text-start">
           Hai mille dubbi sul Poli?

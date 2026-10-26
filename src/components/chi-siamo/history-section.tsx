@@ -23,7 +23,7 @@ const blocks = [
 
 export function HistorySection() {
   return (
-    <section className="mx-auto grid w-full max-w-330 gap-6 px-6 md:grid-cols-2">
+    <section className="page-container grid gap-6 md:grid-cols-2">
       {blocks.map((block) => (
         <Glass key={block.title} className="flex flex-col items-start gap-6 rounded-rectangles p-6 sm:p-8">
           <GradientIcon icon={block.icon} className="size-10" />

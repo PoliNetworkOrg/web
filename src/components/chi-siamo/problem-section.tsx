@@ -9,7 +9,7 @@ const questions = [
 
 export function ProblemSection() {
   return (
-    <section className="mx-auto grid w-full max-w-330 items-center gap-10 px-6 lg:grid-cols-2 lg:gap-16">
+    <section className="page-container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <div className="flex min-w-0 flex-col gap-6">
         <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
           Il problema

@@ -14,7 +14,7 @@ export default async function FAQsPage() {
   const categories = await getAllFaqs()
 
   return (
-    <main className="mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-24 px-4 py-49">
+    <main className="page-layout flex flex-col items-center gap-section">
       <Hero title="FAQs" description="Risposte chiare per vivere al meglio la community" />
       <FaqsTabs categories={categories} />
     </main>

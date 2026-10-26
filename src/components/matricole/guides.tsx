@@ -4,8 +4,8 @@ import { guides, hub, materiali, techTools } from "./constants"
 
 export function MatricoleGuides() {
   return (
-    <section className="flex w-full flex-col items-center px-6 sm:px-10">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 text-start sm:gap-13">
+    <section className="page-container">
+      <div className="flex w-full flex-col gap-6 text-start sm:gap-13">
         <h3 className="typo-title-large sm:typo-display-medium">Guide e Utility</h3>
 
         <div className="grid w-full gap-6 sm:grid-cols-2">
