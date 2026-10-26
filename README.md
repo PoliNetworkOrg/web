@@ -21,3 +21,17 @@ backend accepts only while it allows legacy anonymous calls. Set all of these or
 
 ## Contributing
 If you are contributing, you may check [GUIDES.md](./GUIDES.md)
+
+## Freshman content
+
+`/matricole` reads resources, Telegram links and the five selected FAQs from `web.freshman.getContent`
+through the existing server-only website client. The route renders at request time so admin changes are
+visible on subsequent page loads. Titles, introductory text, group headings and responsive layout remain fixed.
+Cards resolve their icons from the backend's allowlist; empty destinations remain non-clickable placeholders.
+FAQ answers are rendered as text in the existing accordion. If content cannot be loaded, the page keeps its
+intro and displays an unavailable message instead of static fallback data.
+
+This integration requires a running backend with the Freshman router and migration. The pinned
+`@polinetwork/backend@1.4.0` does not yet include the Freshman type contract: once the updated package is
+published, update the dependency and lockfile, then run `pnpm check`, `pnpm typecheck` and `pnpm build`.
+Until then, typecheck reports the missing contract. No temporary declaration patches are included.

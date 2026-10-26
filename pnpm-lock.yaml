@@ -12,8 +12,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       '@polinetwork/backend':
-        specifier: ^2.3.0
-        version: 2.3.0
+        specifier: ^4.0.0
+        version: 4.0.0
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -460,8 +460,8 @@ packages:
     resolution: {integrity: sha512-SAf/cVSF4wW7UqP3EP/3IFPAJgYTL9po9qOXcJ9OvbRPCi9X4bmMTDDHYzuPCKMAQkHybuPbI6tzcKFBekw0Ag==}
     engines: {node: '>=20.19'}
 
-  '@polinetwork/backend@2.3.0':
-    resolution: {integrity: sha512-FqoJ0qL5OHP6UZ3Hrm9DfwgQaAWjHWwsThF9Mu18oO265OL41+ZS9JqN+ILejTE3P8ohOutXj/0NcV4VP4IuJA==}
+  '@polinetwork/backend@4.0.0':
+    resolution: {integrity: sha512-hKvjzwMMm8qZJojEhIGOA9sHg29xlw2Tu/XH2Wlq9xdkyucEFHp5QNLzGWccjzjHd8fja4qF20OQJppaFrEVtA==}
 
   '@radix-ui/number@1.1.1':
     resolution: {integrity: sha512-MkKCwxlXTgz6CFoJx3pCwn07GKp36+aZyu/u2Ln2VrA5DcdyCZkASEDBTd8x5whTQQL5CiYf4prXKLcgQdv29g==}
@@ -2132,7 +2132,7 @@ snapshots:
       jose: 6.2.12
       zod: 4.2.1
 
-  '@polinetwork/backend@2.3.0': {}
+  '@polinetwork/backend@4.0.0': {}
 
   '@radix-ui/number@1.1.1': {}
 
