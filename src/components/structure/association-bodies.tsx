@@ -4,7 +4,6 @@ import { Accordion } from "@/components/accordion-association/accordion"
 import { AccordionContent } from "@/components/accordion-association/accordion-content"
 import { AccordionItem } from "@/components/accordion-association/accordion-item"
 import { AccordionTrigger } from "@/components/accordion-association/accordion-trigger"
-import { GradientIcon } from "@/components/gradient-icon"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { associationBodies } from "./constants"
 
@@ -26,9 +25,11 @@ export function AssociationBodies() {
       <div className="hidden gap-6 md:grid md:grid-cols-2">
         {associationBodies.map((body) => (
           <Card key={body.id} className="h-auto w-full gap-6 border-white/50 p-6">
-            <CardHeader className="flex flex-row items-center gap-4">
-              <GradientIcon icon={body.icon} className="size-10 shrink-0" />
-              <CardTitle className="typo-headline-medium text-balance">{body.title}</CardTitle>
+            {/* Definitions, not objects: plain title as in Figma, no icon */}
+            <CardHeader>
+              <CardTitle gradient={false} className="typo-headline-medium text-balance">
+                {body.title}
+              </CardTitle>
             </CardHeader>
             <CardContent className="typo-body-large text-pretty">{body.description}</CardContent>
           </Card>
