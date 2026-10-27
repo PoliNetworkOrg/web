@@ -21,6 +21,20 @@
   @apply font-dm-sans font-normal text-[2.25rem]/[44px] tracking-normal;
 }
 
+/*
+  Fluid display, for page-level titles that would otherwise jump between fixed steps.
+  Figma only has 402px and 1728px frames; these interpolate between the two sizes it uses.
+*/
+@utility typo-display-fluid-large {
+  /* ~34px at 320px, 36px at 402px viewport → 72px from ~1600px (Figma hero: 77px at 1728) */
+  @apply font-dm-sans font-medium text-[clamp(2rem,1.5rem+3vw,4.5rem)] leading-[1.12] tracking-[-0.02em];
+}
+
+@utility typo-display-fluid-extralarge {
+  /* 44px at 402px viewport → 120px at 1728px (display-extralarge) */
+  @apply font-dm-sans font-medium text-[clamp(2.75rem,1.25rem+6vw,7.5rem)] leading-[1.05] tracking-[-0.02em];
+}
+
 /* Headline */
 @utility typo-headline-large {
   @apply font-dm-sans font-normal text-[2rem]/[40px] tracking-normal;
