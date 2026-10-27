@@ -17,6 +17,7 @@ import { GradientIcon } from "@/components/gradient-icon"
 import { Button } from "@/components/ui/button"
 import { Card, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { CONTAINER } from "./constants"
 
 const teamLeads = [
   { title: "Team lead HR", icon: LuBookUser },
@@ -176,7 +177,7 @@ function MobileChart() {
 
 export function Organization() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6" aria-labelledby="struttura-title">
+    <section className={`${CONTAINER} flex flex-col gap-10`} aria-labelledby="struttura-title">
       <div className="flex max-w-140 flex-col gap-6">
         <h2 id="struttura-title" className="typo-headline-medium sm:typo-display-medium text-balance">
           Come è organizzata PoliNetwork
