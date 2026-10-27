@@ -2,6 +2,7 @@ import { FiBook, FiClipboard, FiFileText, FiGift, FiUser, FiUserCheck } from "re
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
 import { cn } from "@/lib/utils"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "./constants"
 
 const steps = [
   { title: "TOL", description: "Simulazioni, guide e consigli per affrontarlo al meglio.", icon: FiBook },
@@ -18,10 +19,8 @@ const steps = [
 
 export function PathSection() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 md:gap-14">
-      <h2 className="typo-headline-medium md:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent md:text-start">
-        Il tuo percorso, sempre al tuo fianco
-      </h2>
+    <section className={`${CONTAINER} flex flex-col gap-10 md:gap-14`}>
+      <h2 className={SECTION_TITLE}>Il tuo percorso, sempre al tuo fianco</h2>
 
       <ol className="grid gap-10 lg:grid-cols-6 lg:gap-6">
         {steps.map((step, index) => (
@@ -46,7 +45,7 @@ export function PathSection() {
         ))}
       </ol>
 
-      <p className="typo-body-large sm:typo-headline-extrasmall mx-auto max-w-215 text-balance text-center">
+      <p className={`${SECTION_LEAD} max-w-215 lg:mx-auto lg:text-balance lg:text-center`}>
         Dalla prima simulazione del TOL fino alla laurea, ogni studente ha sempre{" "}
         <span className="text-blue-secondary">una risposta</span> a portata di mano e{" "}
         <span className="text-blue-secondary">qualcuno</span> a cui chiederla.
