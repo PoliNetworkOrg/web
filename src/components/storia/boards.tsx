@@ -1,17 +1,16 @@
 "use client"
 
 import Image from "next/image"
-import { Glass } from "@/components/glass"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
-import { boardMembers, boardTerms } from "./constants"
+import { boardMembers, boardTerms, CONTAINER } from "./constants"
 
 export function Boards() {
   return (
-    <section id="direttivi" className="mx-auto flex w-full max-w-330 scroll-mt-36 flex-col gap-6 px-6">
+    <section id="direttivi" className={`${CONTAINER} flex scroll-mt-36 flex-col gap-6`}>
       <h2 className="typo-title-large text-blue-secondary">I nostri direttivi</h2>
       <p className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
         Ogni mandato, un nuovo capitolo
@@ -27,7 +26,7 @@ export function Boards() {
                     {boardMembers.map((member) => (
                       <Card
                         key={member.name}
-                        className="motion-safe:hover:-translate-y-1 relative aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0 shadow-sm transition-transform sm:w-[calc((100%-48px)/3)] xl:w-[calc((100%-72px)/4)] min-[360px]:w-[calc((100%-24px)/2)]"
+                        className="relative aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0 shadow-sm sm:w-[calc((100%-48px)/3)] xl:w-[calc((100%-72px)/4)] min-[360px]:w-[calc((100%-24px)/2)]"
                       >
                         <Image
                           src={member.image}
@@ -50,14 +49,14 @@ export function Boards() {
                     Il Direttivo viene eletto ogni due anni dall’Assemblea dei Soci tra i soci dell’associazione.
                   </p>
                 </div>
-                <Glass className="order-first flex flex-col gap-4 rounded-rectangles border-white/50 bg-background-blur p-6 xl:order-last">
+                <div className="order-first flex flex-col gap-4 xl:order-last xl:pt-2">
                   <p className="typo-label-large text-blue-secondary">{term}</p>
                   <h3 className="typo-display-small text-balance">Il Direttivo</h3>
                   <p className="typo-body-large text-pretty">
                     Si concentra sul rafforzamento della struttura, sull’evoluzione dei servizi e sullo sviluppo di
                     nuovi progetti per la community.
                   </p>
-                </Glass>
+                </div>
               </div>
             ) : (
               <div className="flex min-h-70 flex-col items-center justify-center gap-4 text-center">
