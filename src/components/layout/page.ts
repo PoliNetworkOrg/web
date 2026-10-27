@@ -10,3 +10,16 @@ export const SECTION_LEAD = "typo-body-large sm:typo-headline-extrasmall text-pr
 /** A link inside running text: always underlined, so it reads as a link without relying on colour. */
 export const INLINE_LINK =
   "rounded-sm text-blue-secondary underline decoration-1 decoration-blue-secondary/40 underline-offset-4 outline-none transition-colors hover:decoration-blue-secondary focus-visible:ring-2 focus-visible:ring-blue-secondary"
+
+/**
+ * Vertical rhythm of the redesigned pages. Figma leaves 180px between section blocks at 1728px (Su di noi, Storia):
+ * 96px on phones, 128px on tablets, 180px from xl. The bottom padding repeats the gap before the footer.
+ */
+export const PAGE_MAIN = "flex w-full flex-col gap-24 pb-24 md:gap-32 md:pb-32 xl:gap-45 xl:pb-45"
+
+/**
+ * The page's opening section. The top padding clears the fixed header: with `Hero`'s own offset the title sits at
+ * y=286 on desktop, as in every Figma frame. Figma also leaves more air after the hero (~270px at 1728) than between
+ * sections (180px): the bottom padding adds that difference to the main gap.
+ */
+export const PAGE_HERO = "pt-52 pb-8 md:pt-57.5 md:pb-12 xl:pb-24"

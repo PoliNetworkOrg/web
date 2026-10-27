@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { FiUsers } from "react-icons/fi"
 import { ClosingCta } from "@/components/layout/closing-cta"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
 import { applicationHref, teams } from "@/components/team/constants"
 import { TeamSection } from "@/components/team/team-section"
 import { Button } from "@/components/ui/button"
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function TeamPage() {
   return (
-    <main className="flex w-full flex-col gap-24 pb-24 md:gap-36 md:pb-36 xl:gap-48">
-      <section className={`${CONTAINER} pt-52 md:pt-57.5`}>
+    <main className={PAGE_MAIN}>
+      <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero
           title="I Team"
           description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento."
