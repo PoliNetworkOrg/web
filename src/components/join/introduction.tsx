@@ -1,21 +1,29 @@
 import Image from "next/image"
-import { FiMessageCircle, FiUserCheck, FiUsers } from "react-icons/fi"
+import type { ReactNode } from "react"
 import networkLogo from "@/assets/images/join/network-logo.png"
-import { CardIcon } from "@/components/card-icon"
-import { Highlight, SectionTitle } from "@/components/collabora/section"
+import { Highlight } from "@/components/collabora/section"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { cn } from "@/lib/utils"
 
-const paths = [
-  { title: "Diventa Admin", icon: FiMessageCircle, href: "#admin" },
-  { title: "Entra in un Team", icon: FiUsers, href: "#team" },
-  { title: "Diventa Socio", icon: FiUserCheck, href: "#socio" },
-]
+function SectionLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="text-blue-secondary underline decoration-1 decoration-blue-secondary/40 underline-offset-4 transition-colors hover:decoration-blue-secondary focus-visible:decoration-2 focus-visible:outline-none"
+    >
+      {children}
+    </a>
+  )
+}
 
 export function Introduction() {
   return (
-    <section className="mx-auto grid w-full max-w-330 items-center gap-x-16 gap-y-10 px-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
-      <div className="flex min-w-0 flex-col gap-6 text-center md:text-start">
-        <SectionTitle>Cosa significa far parte di PoliNetwork</SectionTitle>
-        <div className="typo-body-large sm:typo-headline-extrasmall flex flex-col gap-5 text-pretty">
+    <section
+      className={cn(CONTAINER, "grid items-center gap-x-16 gap-y-10 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]")}
+    >
+      <div className="flex min-w-0 flex-col gap-6">
+        <h2 className={SECTION_TITLE}>Cosa significa far parte di PoliNetwork</h2>
+        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-5")}>
           <p>
             PoliNetwork è gestita interamente da <Highlight>studenti del Politecnico di Milano</Highlight>.
           </p>
@@ -31,23 +39,15 @@ export function Introduction() {
               tipo di esperienza che spesso si cerca dopo la laurea, ma che qui è disponibile durante.
             </Highlight>
           </p>
+          {/* The three ways are already listed here: they jump to their sections, instead of a row of extra cards */}
           <p>
-            Ci sono tre modi per fare parte di PoliNetwork: diventare admin, entrare in uno dei team operativi o
-            diventare socio.
+            Ci sono tre modi per fare parte di PoliNetwork: <SectionLink href="#admin">diventare admin</SectionLink>,{" "}
+            <SectionLink href="#team">entrare in uno dei team operativi</SectionLink> o{" "}
+            <SectionLink href="#socio">diventare socio</SectionLink>.
           </p>
         </div>
       </div>
       <Image src={networkLogo} alt="" sizes="224px" className="hidden h-auto w-56 justify-self-center xl:block" />
-      <ul
-        aria-label="Tre modi per fare parte di PoliNetwork"
-        className="grid w-full gap-4 md:grid-cols-3 xl:col-span-2"
-      >
-        {paths.map((path) => (
-          <li key={path.href} className="min-w-0">
-            <CardIcon {...path} align="inline" size="inline-sm" className="h-full" />
-          </li>
-        ))}
-      </ul>
     </section>
   )
 }

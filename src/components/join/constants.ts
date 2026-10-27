@@ -60,24 +60,28 @@ export const adminSteps: InfoCardData[] = [
 export const teamCards: InfoCardData[] = [
   {
     title: "Sviluppo Tecnico",
+    href: "/team#it",
     description: "Realizza prodotti digitali in produzione, usati da migliaia di persone",
     icon: code,
     iconClassName,
   },
   {
     title: "Comunicazione",
+    href: "/team#design-marketing",
     description: "Gestisce la comunicazione e l’identità visiva dell’associazione: Instagram, grafiche di eventi…",
     icon: palette,
     iconClassName,
   },
   {
     title: "Gestione HR",
+    href: "/team#hr",
     description: "Struttura i processi di recruiting e onboarding e gestisce i volontari del network",
     icon: hr,
     iconClassName,
   },
   {
     title: "Eventi/Partnership",
+    href: "/team#events-partnership",
     description: "Organizza eventi e costruisce collaborazioni con aziende e associazioni esterne",
     icon: events,
     iconClassName,
