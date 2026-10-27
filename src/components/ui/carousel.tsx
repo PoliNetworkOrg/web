@@ -177,8 +177,11 @@ function CarouselDots({ className, ...props }: React.ComponentProps<"div">) {
           onClick={() => api?.scrollTo(index)}
           // Figma "slider dots": 16px current dot, 12px others, 6px apart. The pseudo-element enlarges the hit area.
           className={cn(
-            "after:-inset-1.5 relative shrink-0 rounded-full border border-white/50 bg-background-blur backdrop-blur-md transition-[width,height] after:absolute after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
-            selectedIndex === index ? "size-4" : "size-3"
+            "after:-inset-1.5 relative shrink-0 rounded-full border backdrop-blur-md transition-[width,height] after:absolute after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
+            // Glass-only dots disappear on the light background: give the current one the brand colour
+            selectedIndex === index
+              ? "size-4 border-blue-primary bg-blue-primary"
+              : "size-3 border-slate-300 bg-background-blur"
           )}
         />
       ))}
