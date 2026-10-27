@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ChiSiamoPage() {
   return (
-    <main className="flex w-full flex-col gap-24 pb-24 md:gap-36 md:pb-36">
+    <main className="flex w-full flex-col gap-24 pt-44 pb-24 sm:pt-56 md:gap-36 md:pb-36">
       <VisionSection />
       <ProblemSection />
       <AnswerSection />
