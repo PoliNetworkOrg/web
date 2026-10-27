@@ -1,5 +1,6 @@
 import { Background } from "@/components/background"
 import { ConditionalFooter } from "@/components/conditional-footer"
+import { ForgottenManTrigger } from "@/components/easter-egg/trigger"
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header/header"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           disableTransitionOnChange
         >
           <div className="relative isolate flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
+            <ForgottenManTrigger />
             <Background />
             <Header />
             {children}
