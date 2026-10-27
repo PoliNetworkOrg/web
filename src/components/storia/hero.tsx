@@ -1,18 +1,18 @@
 import Link from "next/link"
 import { FiArrowDown } from "react-icons/fi"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
 
 // Figma: a centred XL title and nothing else. The board portraits appear further down, under "I nostri direttivi".
 export function HistoryHero() {
   return (
-    <section className={`${CONTAINER} flex flex-col items-center gap-10`}>
+    <section className={`${CONTAINER} ${PAGE_HERO} flex flex-col items-center gap-10`}>
       <Hero
         title="La nostra storia"
         description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
         gradientDescription
-        className="[&_h2]:typo-display-fluid-extralarge [&_h2]:py-0 [&_p]:max-w-145 [&_p]:text-balance"
+        className="[&_h2]:typo-display-fluid-extralarge [&_p]:max-w-145 [&_p]:text-balance"
       />
       <div className="flex flex-wrap justify-center gap-3">
         <Button asChild size="lg">

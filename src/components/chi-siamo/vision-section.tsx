@@ -1,9 +1,9 @@
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO } from "@/components/layout/page"
 
 // Both Figma versions open with the vision statement and no buttons: the two CTAs here existed in neither
 export function VisionSection() {
   return (
-    <section className={`${CONTAINER} flex flex-col items-center gap-6 text-center`}>
+    <section className={`${CONTAINER} ${PAGE_HERO} flex flex-col items-center gap-6 text-center`}>
       <p className="typo-title-large text-blue-secondary">La nostra visione</p>
       <h1 className="typo-display-small sm:typo-display-medium lg:typo-display-large max-w-260 text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
         Un Politecnico in cui nessuno studente resti indietro per mancanza di{" "}
