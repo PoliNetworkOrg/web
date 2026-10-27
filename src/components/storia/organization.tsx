@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { FiArrowDown } from "react-icons/fi"
+import { CONTAINER } from "@/components/layout/page"
 import { OrganizationDiagram } from "@/components/structure/organization-chart"
 import { Button } from "@/components/ui/button"
-import { CONTAINER } from "./constants"
 
 export function Organization() {
   return (

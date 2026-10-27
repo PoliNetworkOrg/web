@@ -4,9 +4,10 @@ import type { ReactNode } from "react"
 import { FiArrowDown, FiArrowRight, FiCheck, FiClipboard, FiClock, FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
 import telegram from "@/assets/icons/telegram-gradient.svg"
 import { GradientIcon, type GradientIconType } from "@/components/gradient-icon"
+import { CONTAINER } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { CONTAINER, chapters, milestones } from "./constants"
+import { chapters, milestones } from "./constants"
 
 const milestoneLinks = ["#capitolo-1", "#capitolo-1", "#capitolo-5", "#direttivi"]
 

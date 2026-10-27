@@ -1,12 +1,13 @@
 "use client"
 
 import Image from "next/image"
+import { CONTAINER } from "@/components/layout/page"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
-import { boardMembers, boardTerms, CONTAINER } from "./constants"
+import { boardMembers, boardTerms } from "./constants"
 
 export function Boards() {
   return (

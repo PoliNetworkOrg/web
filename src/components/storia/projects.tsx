@@ -4,9 +4,9 @@ import { FiAirplay, FiArrowUpRight, FiBarChart, FiBook, FiCheck, FiHeadphones } 
 import telegram from "@/assets/icons/telegram-gradient.svg"
 import projectsImage from "@/assets/images/storia/progetti.png"
 import { CardIcon } from "@/components/card-icon"
+import { CONTAINER } from "@/components/layout/page"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
 import { Button } from "@/components/ui/button"
-import { CONTAINER } from "./constants"
 
 const projects = [
   {

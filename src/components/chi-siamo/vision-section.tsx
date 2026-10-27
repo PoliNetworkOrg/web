@@ -1,4 +1,4 @@
-import { CONTAINER } from "./constants"
+import { CONTAINER } from "@/components/layout/page"
 
 // Both Figma versions open with the vision statement and no buttons: the two CTAs here existed in neither
 export function VisionSection() {

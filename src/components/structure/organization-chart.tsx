@@ -3,8 +3,9 @@ import { FiArrowDown, FiArrowLeft, FiUsers } from "react-icons/fi"
 import { LuCrown, LuShield, LuShieldCheck, LuUserCog, LuUsersRound } from "react-icons/lu"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
+import { CONTAINER } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
-import { CONTAINER, teamLeads } from "./constants"
+import { teamLeads } from "./constants"
 
 const CHART_LABEL =
   "Il Direttivo coordina i Capi admin e il Team growth. I Capi admin coordinano gli Admin. Il Team growth coordina i team lead HR, IT, Design & Marketing, International ed Eventi & Partnership, con i rispettivi membri."

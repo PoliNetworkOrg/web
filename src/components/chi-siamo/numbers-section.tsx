@@ -1,7 +1,7 @@
 import { FiBook, FiBookOpen, FiHeadphones, FiSend, FiUser, FiUsers } from "react-icons/fi"
 import { GradientIcon } from "@/components/gradient-icon"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Card } from "@/components/ui/card"
-import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "./constants"
 
 const stats = [
   { value: "500+", label: "gruppi Telegram e WhatsApp attivi", icon: FiSend },

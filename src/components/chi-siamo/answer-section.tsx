@@ -1,6 +1,6 @@
 import { FiAward, FiBookOpen, FiUsers } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
-import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "./constants"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 
 const cards = [
   {

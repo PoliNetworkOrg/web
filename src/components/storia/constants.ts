@@ -6,9 +6,6 @@ import gabriele from "@/assets/images/storia/gabriele-vigano.jpg"
 import lorenzo from "@/assets/images/storia/lorenzo-corallo.jpg"
 import tommaso from "@/assets/images/storia/tommaso-morganti.jpg"
 
-/** Shared section container: Figma's 1272px content column, with the homepage's 24/40/64px gutters (md:px-10 overrides TextOnlyLayout's md:px-36). */
-export const CONTAINER = "mx-auto w-full max-w-350 px-6 sm:px-10 md:px-10 lg:px-16"
-
 // Contenuti del design Figma “La nostra storia”, nodo 5368:5885.
 export const milestones = [
   {
