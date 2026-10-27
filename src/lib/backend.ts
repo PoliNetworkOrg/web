@@ -17,9 +17,11 @@ function parsePrivateKey(value: string): ServiceTokenSourceOptions["privateKey"]
   }
 }
 
-/** Client credentials for the `website` client, or null while the IdP is not configured. */
+/**
+ * Client credentials for the `website` client. env.js requires the IdP variables; they can only be missing in a build
+ * with `SKIP_ENV_VALIDATION`, where the token source is null and backend calls fail instead of going out without a token.
+ */
 function createTokenSource() {
-  // env.js enforces all or none of these, so a partial configuration never reaches this point.
   const publicUrl = env.IDP_PUBLIC_URL
   const resource = env.OAUTH_BACKEND_RESOURCE_URI
   const clientId = env.OAUTH_WEBSITE_CLIENT_ID
@@ -44,23 +46,26 @@ function createTokenSource() {
 const tokens = createTokenSource()
 const url = env.BACKEND_URL + TRPC_PATH
 
+function requireTokens() {
+  if (!tokens) throw new Error("The PoliNetwork IdP variables are not set: the backend refuses calls without a token")
+  return tokens
+}
+
 export const trpc = createTRPCClient<AppRouter>({
-  links: tokens
-    ? [
-        // A 401 is decided before the procedure runs, so retrying once with a new token is safe for
-        // mutations too. The backend may have rejected an expired or revoked token we still cached.
-        retryLink({
-          retry: ({ error, attempts }) => {
-            if (attempts > 1 || error.data?.httpStatus !== 401) return false
-            tokens.invalidate()
-            return true
-          },
-        }),
-        httpBatchLink({
-          url,
-          transformer: SuperJSON,
-          headers: async () => ({ Authorization: `Bearer ${await tokens.getToken()}` }),
-        }),
-      ]
-    : [httpBatchLink({ url, transformer: SuperJSON })],
+  links: [
+    // A 401 is decided before the procedure runs, so retrying once with a new token is safe for
+    // mutations too. The backend may have rejected an expired or revoked token we still cached.
+    retryLink({
+      retry: ({ error, attempts }) => {
+        if (attempts > 1 || error.data?.httpStatus !== 401) return false
+        requireTokens().invalidate()
+        return true
+      },
+    }),
+    httpBatchLink({
+      url,
+      transformer: SuperJSON,
+      headers: async () => ({ Authorization: `Bearer ${await requireTokens().getToken()}` }),
+    }),
+  ],
 })

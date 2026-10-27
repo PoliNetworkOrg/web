@@ -11,9 +11,8 @@ First, it will be a rewrite of our homepage.
 
 ## Backend authentication
 
-Backend calls are server-only (`src/lib/backend.ts`). When the PoliNetwork IdP is configured, they carry a
-service token for the `website` client (scope `backend:public:read`); without it they are anonymous, which the
-backend accepts only while it allows legacy anonymous calls. Set all of these or none (see `.env.example`):
+Backend calls are server-only (`src/lib/backend.ts`) and carry a service token for the `website` client (scope
+`backend:public:read`): the backend refuses calls without one. These variables are required (see `.env.example`):
 
 - `IDP_PUBLIC_URL`, and optionally `IDP_INTERNAL_URL` for in-cluster token requests
 - `OAUTH_BACKEND_RESOURCE_URI`: the backend's resource identifier, the token's audience
