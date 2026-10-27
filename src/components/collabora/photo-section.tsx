@@ -1,7 +1,8 @@
 import Image, { type StaticImageData } from "next/image"
 import type { ReactNode } from "react"
+import { CONTAINER } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
-import { SectionTitle, sectionContainerClass, sectionTextClass } from "./section"
+import { SectionTitle, sectionTextClass } from "./section"
 
 type PhotoSectionProps = {
   title: ReactNode
@@ -15,12 +16,12 @@ type PhotoSectionProps = {
   decorations: ReactNode
   /** Photo on the left on desktop. */
   photoFirst?: boolean
-  className?: string
 }
 
 /**
- * Heading + copy next to a photo. Stacked (copy, then photo) up to `xl`; from `xl` the two columns keep the
- * 719:611 ratio of the 1728px Figma frame, bottom-aligned.
+ * Heading + copy next to a photo. Stacked (copy, then a photo as wide as the copy) on phones and portrait tablets;
+ * from `lg` the two columns keep the 719:611 ratio of the 1728px Figma frame, centred on each other so a taller
+ * text column doesn't leave the photo hanging at one edge.
  */
 export function PhotoSection({
   title,
@@ -30,27 +31,26 @@ export function PhotoSection({
   frameClassName,
   decorations,
   photoFirst = false,
-  className,
 }: PhotoSectionProps) {
   return (
-    <section className={cn(sectionContainerClass, className)}>
+    <section className={CONTAINER}>
       <div
         className={cn(
-          "flex flex-col items-center gap-6 md:items-start md:gap-12 xl:grid xl:items-end xl:gap-x-27",
-          photoFirst ? "xl:grid-cols-[611fr_719fr]" : "xl:grid-cols-[719fr_611fr]"
+          "flex flex-col items-start gap-8 md:gap-12 lg:grid lg:items-center lg:gap-x-12 xl:gap-x-27",
+          photoFirst ? "lg:grid-cols-[611fr_719fr]" : "lg:grid-cols-[719fr_611fr]"
         )}
       >
-        <div className={cn("flex w-full flex-col gap-6 md:max-w-179.75 md:gap-3", photoFirst && "xl:order-last")}>
+        <div className={cn("flex w-full flex-col gap-6 md:max-w-179.75 md:gap-3", photoFirst && "lg:order-last")}>
           <SectionTitle>{title}</SectionTitle>
           <div className={cn(sectionTextClass, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>{children}</div>
         </div>
 
-        <div className={cn("relative w-full md:max-w-152.75 xl:max-w-none", frameClassName)}>
+        <div className={cn("relative w-full md:max-w-179.75 lg:max-w-none", frameClassName)}>
           <div className="absolute inset-0 overflow-hidden rounded-rectangles">
             <Image
               src={image}
               alt=""
-              sizes="(min-width: 768px) 611px, 100vw"
+              sizes="(min-width: 1024px) 611px, (min-width: 768px) 720px, 100vw"
               className={cn("absolute max-w-none", imageClassName)}
             />
           </div>

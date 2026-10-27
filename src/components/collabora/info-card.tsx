@@ -16,6 +16,8 @@ export type InfoCardData = {
   iconClassName: string
   /** Desktop description width: Figma wraps these copies at fixed widths (+1px, as Figma rounds text widths down). */
   descriptionClassName?: string
+  /** Title size/wrapping overrides, for cards whose titles don't fit the default single line. */
+  titleClassName?: string
   /** Makes the whole card a link: only then does it react to hover. */
   href?: string
 }
@@ -33,7 +35,8 @@ export function InfoCard({
   className?: string
   descriptionColorClassName?: string
 }) {
-  const { title, description, mobileDescription, icon, iconClassName, descriptionClassName, href } = card
+  const { title, description, mobileDescription, icon, iconClassName, descriptionClassName, titleClassName, href } =
+    card
 
   return (
     // Glass draws a 1px border inside the Figma box: padding is 1px less than in Figma (25px / 40px)
@@ -53,7 +56,12 @@ export function InfoCard({
           <Image src={icon} alt="" className={iconClassName} />
         </div>
         {/* On the narrowest phones an email title may not fit: let it wrap after the "@" */}
-        <h3 className="typo-title-large md:typo-headline-medium min-w-0 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent md:whitespace-nowrap">
+        <h3
+          className={cn(
+            "typo-title-large md:typo-headline-medium min-w-0 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent md:whitespace-nowrap",
+            titleClassName
+          )}
+        >
           {title.replace("@", "@\u200B")}
         </h3>
       </div>

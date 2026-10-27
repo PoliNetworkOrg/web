@@ -4,11 +4,12 @@ import chatIcon from "@/assets/icons/collabora/chat.svg"
 import groupIcon from "@/assets/icons/collabora/group.svg"
 import handshakeIcon from "@/assets/icons/collabora/handshake.svg"
 import schoolIcon from "@/assets/icons/collabora/school.svg"
+import { CONTAINER } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
 import { InfoCard, type InfoCardData } from "./info-card"
-import { Aside, Highlight, SectionTitle, sectionContainerClass, sectionTextClass } from "./section"
+import { Aside, Highlight, SectionTitle, sectionTextClass } from "./section"
 
 const cards: InfoCardData[] = [
   {
@@ -39,9 +40,7 @@ const cards: InfoCardData[] = [
     title: "1000+",
     description: (
       <>
-        <Highlight>Persone</Highlight> nel nostro evento
-        <br />
-        più grande
+        <Highlight>Persone</Highlight> nel nostro evento più grande
       </>
     ),
     mobileDescription: "Persone al nostro evento più grande",
@@ -65,9 +64,10 @@ const cards: InfoCardData[] = [
 
 export function AboutSection() {
   return (
-    <section className={cn(sectionContainerClass, "pt-30 pb-30 md:pt-18.75 md:pb-31.25")}>
-      <div className="flex 3xl:flex-row flex-col items-center 3xl:justify-between 3xl:gap-10 gap-8.75 md:items-start md:gap-12">
-        <div className="flex w-full flex-col items-center gap-6 md:max-w-179.75 md:items-start md:gap-2.5">
+    <section className={CONTAINER}>
+      {/* Copy and figures side by side from xl, as in Figma; below, the figures run as one row (two on tablets) */}
+      <div className="flex flex-col gap-8.75 md:gap-12 xl:flex-row xl:items-start xl:justify-between">
+        <div className="flex w-full flex-col items-start gap-6 md:max-w-179.75 md:gap-2.5">
           <div className="flex w-full flex-col gap-6 md:gap-3">
             <SectionTitle>Chi siamo?</SectionTitle>
             <div className={cn(sectionTextClass, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>
@@ -92,14 +92,14 @@ export function AboutSection() {
           </div>
         </div>
 
-        <div className="grid shrink-0 grid-cols-[repeat(2,17.5rem)] gap-x-13.75 gap-y-8.75 max-md:hidden">
+        <div className="grid shrink-0 3xl:grid-cols-[repeat(2,17.5rem)] grid-cols-2 gap-6 3xl:gap-x-13.75 3xl:gap-y-8.75 max-md:hidden lg:grid-cols-4 xl:grid-cols-[repeat(2,15rem)]">
           {cards.map((card) => (
-            <InfoCard key={card.title} card={card} descriptionColorClassName="text-black" className="min-h-61.25" />
+            <InfoCard key={card.title} card={card} className="h-full lg:max-3xl:p-6" />
           ))}
         </div>
 
         {/* Bleeds to the screen edges like the Figma carousel, so the next card peeks in */}
-        <Carousel opts={{ containScroll: false }} className="w-screen max-w-none md:hidden">
+        <Carousel opts={{ containScroll: false }} className="w-screen max-w-none self-center md:hidden">
           <CarouselContent className="-ml-2">
             {cards.map((card) => (
               <CarouselItem key={card.title} className="basis-auto pl-2">
