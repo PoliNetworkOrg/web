@@ -7,13 +7,14 @@ import { cn } from "@/lib/utils"
 export function BoardGallery() {
   return (
     <Carousel
-      opts={{ align: "center", breakpoints: { "(min-width: 768px)": { active: false } } }}
-      className="w-full min-w-0"
+      opts={{ align: "start", breakpoints: { "(min-width: 768px)": { active: false } } }}
+      // Full-bleed on mobile so the next portrait peeks in from the screen edge
+      className="-mx-6 sm:-mx-10 min-w-0 md:mx-0"
     >
-      <CarouselContent className="md:mx-auto md:max-w-242 md:flex-wrap md:justify-center md:gap-6">
+      <CarouselContent className="ml-2 sm:ml-6 md:mx-auto md:max-w-242 md:flex-wrap md:justify-center md:gap-6">
         {boardMembers.map((member) => (
-          <CarouselItem key={member.name} className="sm:basis-1/2 md:max-w-56 md:basis-[calc((100%-72px)/4)] md:pl-0">
-            <Card className="motion-safe:hover:-translate-y-1 relative mx-auto aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0 shadow-sm transition-transform">
+          <CarouselItem key={member.name} className="basis-60 md:max-w-56 md:basis-[calc((100%-72px)/4)] md:pl-0">
+            <Card className="relative mx-auto aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0 shadow-sm">
               <Image
                 src={member.image}
                 alt={member.name}
