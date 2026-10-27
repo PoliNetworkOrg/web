@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
-import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN, SECTION_TITLE } from "@/components/layout/page"
 import { AssociationBodies } from "@/components/structure/association-bodies"
 import { BoardGallery } from "@/components/structure/board-gallery"
 import { LegalStatus } from "@/components/structure/legal-status"
@@ -21,8 +21,8 @@ const titleClass = `${SECTION_TITLE} text-center`
 
 export default function StructurePage() {
   return (
-    <main className="flex w-full flex-col gap-24 pb-24 md:gap-36 md:pb-36">
-      <section className={`${CONTAINER} pt-52 md:pt-57.5`}>
+    <main className={PAGE_MAIN}>
+      <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero title="Struttura" description="Un’organizzazione pensata per durare" />
       </section>
       <OrganizationChart />
