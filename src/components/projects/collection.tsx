@@ -1,94 +1,69 @@
 "use client"
 
-import { useId, useState } from "react"
-import { FiArrowDown, FiArrowUp, FiSearch, FiUploadCloud } from "react-icons/fi"
-import type { ApiOutput } from "@/types"
-import { CardCaption } from "../card-caption"
-import { Button } from "../ui/button"
-import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "../ui/carousel"
+import { useState } from "react"
+import { FiSearch } from "react-icons/fi"
+import { SECTION_TITLE } from "../layout/page"
 import { Input } from "../ui/input"
+import { ProjectList, ProjectsEmpty } from "./project-list"
+import type { Project } from "./resources"
+import { SECTION } from "./section"
 
-type Project = ApiOutput["web"]["projects"]["getAllProjects"][number]
-
-const INITIAL_PROJECT_COUNT = 8
+/** Case- and accent-insensitive, so "universita" finds "Università". */
+function normalize(text: string) {
+  return text
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+}
 
 export function Collection({ projects }: { projects: Project[] }) {
-  const [expanded, setExpanded] = useState(false)
-  const gridId = useId()
-  const visibleProjects = expanded ? projects : projects.slice(0, INITIAL_PROJECT_COUNT)
+  const [query, setQuery] = useState("")
+  const needle = normalize(query.trim())
+  const matches = needle
+    ? projects.filter((project) => normalize(`${project.title} ${project.descriptionIt}`).includes(needle))
+    : projects
 
   return (
-    <section className="mx-auto flex min-h-screen max-w-400 flex-col items-center justify-center gap-12 px-4 sm:gap-22">
-      <div className="flex flex-col items-center gap-8">
-        <h2 className="typo-headline-medium sm:typo-display-medium text-center">
+    <section aria-labelledby="raccolta-title" className={SECTION}>
+      {/* The collection is the page's tool: its heading and search stay centred, as in Figma */}
+      <div className="flex flex-col items-center gap-8 text-center">
+        <h2 id="raccolta-title" className={SECTION_TITLE}>
           Esplora la raccolta completa dei progetti
         </h2>
-        <div className="flex w-full justify-center">
+        {projects.length > 0 && (
           <Input
             icon={<FiSearch className="h-5 w-5" />}
-            type="text"
-            placeholder="Search by name"
-            aria-label="Search by name"
-            containerClassName="max-w-xl"
+            type="search"
+            placeholder="Cerca un progetto"
+            aria-label="Cerca un progetto per nome o descrizione"
+            containerClassName="w-full max-w-xl"
             className="typo-body-medium"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
           />
-        </div>
+        )}
       </div>
 
-      {projects.length === 0 ? (
-        <p className="typo-body-large text-center">Nessun progetto disponibile al momento.</p>
-      ) : (
-        <>
-          <div className="hidden flex-col gap-12 sm:flex">
-            <div id={gridId} className="grid 1xl:grid-cols-4 grid-cols-2 justify-items-center gap-6">
-              {visibleProjects.map((project) => (
-                <CardCaption
-                  key={project.id}
-                  title={project.title}
-                  caption={project.descriptionIt}
-                  icon={FiUploadCloud}
-                  href={`/projects/${project.id}`}
-                />
-              ))}
-            </div>
-            {projects.length > INITIAL_PROJECT_COUNT && (
-              <div className="flex justify-center">
-                <Button
-                  type="button"
-                  variant="primary"
-                  size="lg"
-                  aria-expanded={expanded}
-                  aria-controls={gridId}
-                  onClick={() => setExpanded((previous) => !previous)}
-                >
-                  {expanded ? "Mostra di meno" : "Mostra di più"}
-                  {expanded ? <FiArrowUp aria-hidden="true" /> : <FiArrowDown aria-hidden="true" />}
-                </Button>
-              </div>
+      <ProjectList
+        // Remount on a new search, so the list starts collapsed and the carousel from the first card
+        key={needle}
+        projects={matches}
+        initialCount={needle ? undefined : 8}
+        empty={
+          <ProjectsEmpty>
+            {needle ? (
+              <>Nessun progetto corrisponde a “{query.trim()}”.</>
+            ) : (
+              <>
+                La raccolta è vuota per ora.{" "}
+                <a href="#proponi" className="text-blue-secondary underline underline-offset-4">
+                  Proponi il primo progetto
+                </a>
+              </>
             )}
-          </div>
-
-          <div className="flex w-full items-center justify-center sm:hidden">
-            <Carousel className="w-full">
-              <CarouselContent>
-                {projects.map((project) => (
-                  <CarouselItem key={project.id}>
-                    <div className="flex justify-center">
-                      <CardCaption
-                        title={project.title}
-                        caption={project.descriptionIt}
-                        icon={FiUploadCloud}
-                        href={`/projects/${project.id}`}
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselDots className="mt-8" />
-            </Carousel>
-          </div>
-        </>
-      )}
+          </ProjectsEmpty>
+        }
+      />
     </section>
   )
 }
