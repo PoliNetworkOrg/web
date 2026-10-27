@@ -1,6 +1,6 @@
 import { FiEdit, FiFileText, FiUsers } from "react-icons/fi"
 import { GradientIcon } from "@/components/gradient-icon"
-import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "./constants"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 
 const questions = [
   { text: "Dove trovo il gruppo del mio corso?", icon: FiUsers },

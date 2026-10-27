@@ -1,9 +1,6 @@
 import { FiBriefcase, FiCompass, FiFlag, FiUsers } from "react-icons/fi"
 import { LuBookUser, LuCodeXml, LuGlobe, LuHandshake, LuPencilRuler, LuShield, LuUsersRound } from "react-icons/lu"
 
-/** Same content column and 24/40/64px gutters as /storia and /chi-siamo. */
-export const CONTAINER = "mx-auto w-full max-w-350 px-6 sm:px-10 lg:px-16"
-
 export const associationBodies = [
   {
     id: "assemblea",

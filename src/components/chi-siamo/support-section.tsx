@@ -1,4 +1,4 @@
-import { CONTAINER, SECTION_TITLE } from "./constants"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 
 // Figma: text on the left, the 5x1000 details on the right, both on the background. The nested glass panels, the
 // 57px "5x1000" and the 36px tax code (bigger than the section title) are gone.

@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import { FiSearch } from "react-icons/fi"
+import { CONTAINER } from "@/components/layout/page"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
 import { Input } from "@/components/ui/input"
-import { CONTAINER, contributors } from "./constants"
+import { contributors } from "./constants"
 
 const categories = ["Tutti", "Direttivi", "Admin", "Collaboratori"]
 
@@ -34,7 +35,7 @@ export function Thanks() {
         </>
       }
       classNames={{
-        section: `${CONTAINER} gap-12 xl:flex-row xl:gap-16 [&>div>h2]:typo-title-large`,
+        section: `${CONTAINER} md:px-10 gap-12 xl:flex-row xl:gap-16 [&>div>h2]:typo-title-large`,
         textDiv: "items-start text-start xl:w-1/2",
         title: "text-start text-blue-secondary",
         descriptionDiv: "text-start",

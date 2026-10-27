@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { FiMessageCircle } from "react-icons/fi"
 import { GradientIcon } from "@/components/gradient-icon"
+import { CONTAINER } from "@/components/layout/page"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
 import { Boards } from "@/components/storia/boards"
-import { CONTAINER } from "@/components/storia/constants"
 import { Continuation } from "@/components/storia/continuation"
 import { HistoryHero } from "@/components/storia/hero"
 import { Organization } from "@/components/storia/organization"
@@ -43,7 +43,7 @@ export default function HistoryPage() {
             </>
           }
           classNames={{
-            section: `${CONTAINER} items-start [&>div>h2]:typo-title-large`,
+            section: `${CONTAINER} md:px-10 items-start [&>div>h2]:typo-title-large`,
             textDiv: "max-w-180 items-start",
             title: "text-balance text-start text-blue-secondary",
             descriptionDiv: "text-start",
@@ -74,7 +74,7 @@ export default function HistoryPage() {
             </>
           }
           classNames={{
-            section: `${CONTAINER} gap-12 xl:flex-row xl:items-center xl:gap-16 [&>div>h2]:typo-title-large`,
+            section: `${CONTAINER} md:px-10 gap-12 xl:flex-row xl:items-center xl:gap-16 [&>div>h2]:typo-title-large`,
             title: "text-balance text-start text-blue-secondary",
             textDiv: "min-w-0 items-start xl:w-1/2",
             descriptionDiv: "text-start",
