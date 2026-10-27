@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import { CONTAINER } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { CONTAINER } from "./constants"
 
 const years = ["2016", "2022", "2026", "?"]
 

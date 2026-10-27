@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { FiArrowDown } from "react-icons/fi"
+import { CONTAINER } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
-import { CONTAINER } from "./constants"
 
 // Figma: a centred XL title and nothing else. The board portraits appear further down, under "I nostri direttivi".
 export function HistoryHero() {

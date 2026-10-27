@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { AssociationBodies } from "@/components/structure/association-bodies"
 import { BoardGallery } from "@/components/structure/board-gallery"
-import { CONTAINER } from "@/components/structure/constants"
 import { LegalStatus } from "@/components/structure/legal-status"
 import { OrganizationChart } from "@/components/structure/organization-chart"
 import { Participation } from "@/components/structure/participation"
@@ -17,8 +17,7 @@ export const metadata: Metadata = {
 }
 
 const containerClass = `${CONTAINER} flex flex-col gap-10 md:gap-14`
-const titleClass =
-  "typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent"
+const titleClass = `${SECTION_TITLE} text-center`
 
 export default function StructurePage() {
   return (

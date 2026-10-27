@@ -1,8 +1,8 @@
 import { FiBook, FiClipboard, FiFileText, FiGift, FiUser, FiUserCheck } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
-import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "./constants"
 
 const steps = [
   { title: "TOL", description: "Simulazioni, guide e consigli per affrontarlo al meglio.", icon: FiBook },

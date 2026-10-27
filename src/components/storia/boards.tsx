@@ -1,10 +1,11 @@
 "use client"
 
+import { CONTAINER } from "@/components/layout/page"
 import { BoardMemberCard } from "@/components/structure/board-member-card"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
-import { boardMembers, boardTerms, CONTAINER } from "./constants"
+import { boardMembers, boardTerms } from "./constants"
 
 export function Boards() {
   return (

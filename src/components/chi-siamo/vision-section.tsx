@@ -1,4 +1,4 @@
-import { CONTAINER } from "./constants"
+import { CONTAINER } from "@/components/layout/page"
 
 export function VisionSection() {
   return (

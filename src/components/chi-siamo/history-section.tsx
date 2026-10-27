@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
-import { CONTAINER, SECTION_TITLE } from "./constants"
 
 const blocks = [
   {

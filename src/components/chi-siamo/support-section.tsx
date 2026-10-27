@@ -1,4 +1,4 @@
-import { CONTAINER, SECTION_TITLE } from "./constants"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 
 export function SupportSection() {
   return (
