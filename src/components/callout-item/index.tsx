@@ -12,7 +12,8 @@ export default function CalloutItem({ title, href, buttonText, className }: Call
     <Item className={cn("flex w-full flex-col", className)}>
       <ItemInner>
         <ItemContent>
-          <ItemTitle>{title}</ItemTitle>
+          {/* label-small (11px) was too small to read on phones */}
+          <ItemTitle className="typo-body-medium sm:typo-title-medium">{title}</ItemTitle>
         </ItemContent>
         <ItemActions>
           <Button variant="primary" size="lg" asChild className="gap-8 pr-6 pl-10 has-[>svg]:pr-6 has-[>svg]:pl-10">

@@ -9,7 +9,8 @@ export function TabsTrigger({ className, children, ...props }: React.ComponentPr
       data-slot="tabs-trigger"
       className={cn(
         "group typo-label-large relative flex items-center justify-center gap-1.5 overflow-hidden whitespace-nowrap rounded-xl bg-transparent px-3 py-1.5",
-        // "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/50", // TODO Focus ring for accessibility - do we have a standard focus style?
+        // Inactive tabs are buttons too: a light tint on hover, and the site's 2px focus ring for keyboard users
+        "outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset hover:data-[state=inactive]:bg-white/60",
         className
       )}
       {...props}
