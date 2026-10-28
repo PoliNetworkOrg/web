@@ -1,4 +1,6 @@
 import AccordionList from "@/components/accordion-list"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { cn } from "@/lib/utils"
 import type { FreshmanContent } from "@/queries/types"
 
 export function FAQsPage({ faqs }: { faqs: FreshmanContent["faqs"] }) {
@@ -8,12 +10,10 @@ export function FAQsPage({ faqs }: { faqs: FreshmanContent["faqs"] }) {
     content: faq.descriptionIt,
   }))
   return (
-    <section className="mx-auto flex w-full max-w-400 flex-col items-center justify-center gap-16 px-9 py-32 sm:gap-20 sm:py-38">
-      <h2 className="typo-headline-medium sm:typo-display-medium text-center text-text-primary">
-        Domande Frequenti tra le Matricole
-      </h2>
+    <section className={cn(CONTAINER, "flex flex-col items-center gap-10 sm:gap-14")}>
+      <h2 className={cn(SECTION_TITLE, "text-center")}>Domande Frequenti tra le Matricole</h2>
 
-      <div className="mx-auto flex w-full max-w-255 flex-col">
+      <div className="flex w-full max-w-255 flex-col">
         <AccordionList items={accordionItems} />
       </div>
     </section>
