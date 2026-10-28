@@ -1,5 +1,6 @@
 import { CardCourseGroup } from "@/components/card-course-group"
-import { GROUPS_COLUMN, GroupsPageHeader } from "@/components/groups/page-header"
+import { FLOW_MAIN, FlowHeader } from "@/components/layout/flow-header"
+import { EMPTY_STATE } from "@/components/layout/page"
 import { getVisibleGroups } from "@/queries/groups"
 import { EXTRA_LABEL, matchesLabelBranch } from "@/utils/labels"
 import { mergeGroupsByTitle } from "@/utils/merge-groups"
@@ -11,8 +12,8 @@ export async function ExtraGroups() {
   )
 
   return (
-    <main className={`${GROUPS_COLUMN} flex min-h-svh flex-col gap-12 pt-36 pb-32 md:gap-16 md:pt-52`}>
-      <GroupsPageHeader title="Gruppi Extra" backHref="/groups" />
+    <main className={FLOW_MAIN}>
+      <FlowHeader title="Gruppi Extra" backHref="/groups" />
 
       {extraGroups.length > 0 ? (
         <div className="flex flex-col gap-3">
@@ -28,7 +29,7 @@ export async function ExtraGroups() {
           ))}
         </div>
       ) : (
-        <p className="typo-body-medium text-center text-text-secondary">Nessun gruppo extra disponibile al momento.</p>
+        <p className={EMPTY_STATE}>Nessun gruppo extra disponibile al momento.</p>
       )}
     </main>
   )

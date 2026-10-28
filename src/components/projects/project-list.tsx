@@ -2,6 +2,7 @@
 
 import { type ReactNode, useId, useState } from "react"
 import { FiArrowDown, FiArrowUp } from "react-icons/fi"
+import { EMPTY_STATE } from "@/components/layout/page"
 import { Button } from "../ui/button"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "../ui/carousel"
 import { ProjectCard } from "./project-card"
@@ -72,9 +73,5 @@ export function ProjectList({
 
 /** Shown in place of an empty list: says so plainly and points to the one thing the reader can do about it. */
 export function ProjectsEmpty({ children }: { children: ReactNode }) {
-  return (
-    <div className="typo-body-large rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600">
-      {children}
-    </div>
-  )
+  return <div className={EMPTY_STATE}>{children}</div>
 }

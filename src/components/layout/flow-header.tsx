@@ -1,8 +1,11 @@
 import Link from "next/link"
 import { FiArrowLeft, FiX } from "react-icons/fi"
 
-/** Figma's list column for group results (~1040px at 1728), with the shared 24/40px gutters. */
-export const GROUPS_COLUMN = "mx-auto w-full min-w-0 max-w-5xl px-6 sm:px-10"
+/** Figma's column for the pages a wizard leads to (group results, guides: ~1040px at 1728), with the shared 24/40px gutters. */
+export const FLOW_COLUMN = "mx-auto w-full min-w-0 max-w-5xl px-6 sm:px-10"
+
+/** Page shell for those pages: the top padding leaves the fixed header ~48px of air on phones (it was 16px). */
+export const FLOW_MAIN = `${FLOW_COLUMN} flex min-h-svh flex-col gap-12 pt-44 pb-32 md:gap-16 md:pt-52`
 
 const iconLinkClass =
   "grid size-10 shrink-0 place-items-center rounded-full bg-white/60 outline-none transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-blue-secondary"
@@ -11,7 +14,7 @@ const iconLinkClass =
  * Back button, centred title and optional close button. A three-column grid keeps a long course name from running
  * under the buttons on phones.
  */
-export function GroupsPageHeader({
+export function FlowHeader({
   title,
   subtitle,
   backHref,

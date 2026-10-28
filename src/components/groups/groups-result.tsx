@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import { CardCourseGroup } from "@/components/card-course-group"
-import { GROUPS_COLUMN, GroupsPageHeader } from "@/components/groups/page-header"
+import { FLOW_MAIN, FlowHeader } from "@/components/layout/flow-header"
+import { EMPTY_STATE } from "@/components/layout/page"
 import { getLevel, getSchool } from "@/components/wizard/constants"
 import { getVisibleGroups } from "@/queries/groups"
 import type { VisibleGroup } from "@/queries/types"
@@ -107,8 +108,8 @@ export async function GroupsResult({
   ]
 
   return (
-    <main className={`${GROUPS_COLUMN} flex min-h-svh flex-col gap-12 pt-36 pb-32 md:gap-16 md:pt-52`}>
-      <GroupsPageHeader
+    <main className={FLOW_MAIN}>
+      <FlowHeader
         title={courseName}
         subtitle={`Laurea ${currentLevel.name}`}
         backHref={stepHref({ school: schoolSlug, level })}
@@ -133,11 +134,7 @@ export async function GroupsResult({
         />
       ))}
 
-      {!hasAnyGroup && (
-        <p className="typo-body-medium text-center text-text-secondary">
-          Nessun gruppo disponibile al momento per questo corso.
-        </p>
-      )}
+      {!hasAnyGroup && <p className={EMPTY_STATE}>Nessun gruppo disponibile al momento per questo corso.</p>}
     </main>
   )
 }
