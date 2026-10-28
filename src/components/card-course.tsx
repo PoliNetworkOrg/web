@@ -18,7 +18,8 @@ export function CardCourse({
   iconSelect?: IconType
 }) {
   return (
-    <Card className="typo-body-large flex h-fit w-full flex-row items-center gap-2 px-5 py-3.75 font-normal leading-6 tracking-[0.03125rem] sm:gap-0">
+    // Always rendered inside a link or button: the row itself is the hover target
+    <Card className="typo-body-large flex h-fit w-full flex-row items-center gap-2 px-5 py-3.75 font-normal leading-6 tracking-[0.03125rem] transition-colors hover:bg-white/70 sm:gap-0">
       <div className="flex min-w-0 flex-1 flex-col gap-1 sm:contents">
         <CardContent className="min-w-0 truncate sm:flex-1">{courseName}</CardContent>
         {(location || language) && (
@@ -37,7 +38,10 @@ export function CardCourse({
         )}
       </div>
       <CardContent className="flex shrink-0 items-center">
-        <IconSelect className="h-4 w-4 text-text-primary" strokeWidth={2} />
+        <IconSelect
+          className="h-4 w-4 text-text-primary transition-transform group-hover/card:translate-x-0.5"
+          strokeWidth={2}
+        />
       </CardContent>
     </Card>
   )
