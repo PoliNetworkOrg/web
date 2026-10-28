@@ -37,7 +37,10 @@ export function LevelStep({
             <Link
               key={level.slug}
               href={stepHref({ school: schoolSlug, level: level.slug })}
-              className={cn("block", isLastOdd && "md:col-span-2")}
+              className={cn(
+                "block rounded-rectangles outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
+                isLastOdd && "md:col-span-2"
+              )}
             >
               <CardPathSelection caption={level.name} className="w-full" icon={FiBook} />
             </Link>

@@ -84,7 +84,11 @@ export async function CourseStep({
           const courseCampus = campusFacet(facets)
           const courseLanguage = languageFacet(facets)
           return (
-            <Link key={course} href={stepHref({ school: schoolSlug, level, course })} className="block">
+            <Link
+              key={course}
+              href={stepHref({ school: schoolSlug, level, course })}
+              className="block rounded-rectangles outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary"
+            >
               <CardCourse
                 courseName={humanizeSlug(course)}
                 location={courseCampus ? campusLabel(courseCampus) : undefined}

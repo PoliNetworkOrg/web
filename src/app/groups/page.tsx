@@ -30,9 +30,9 @@ export default function Home() {
     <main className="w-full">
       <div className="flex min-h-svh flex-col items-center gap-16 px-6 py-64 md:gap-20 md:py-49">
         <div className="flex w-full flex-col items-center gap-5 text-center">
-          <h2 className="typo-display-large md:typo-display-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent md:py-14">
+          <h1 className="typo-display-fluid-extralarge w-fit bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-4 text-transparent md:py-10">
             Groups
-          </h2>
+          </h1>
           <GroupSearch />
         </div>
 
@@ -46,6 +46,7 @@ export default function Home() {
               icon={group.icon}
               cta={group.cta}
               align="start"
+              hoverEffect
               className="w-full max-w-108"
               size="compact"
             />
