@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { CONTAINER, PAGE_MAIN } from "@/components/layout/page"
 import { FAQsPage } from "@/components/matricole/faqs"
 import { MatricoleGuides } from "@/components/matricole/guides"
 import { MatricoleIntro } from "@/components/matricole/intro"
@@ -14,7 +15,7 @@ export const dynamic = "force-dynamic"
 export default async function MatricolePage() {
   const content = await getFreshmanContent()
   return (
-    <main className="w-full">
+    <main className={PAGE_MAIN}>
       <MatricoleIntro resources={content?.resources ?? []} />
       {content ? (
         <>
@@ -22,7 +23,7 @@ export default async function MatricolePage() {
           <FAQsPage faqs={content.faqs} />
         </>
       ) : (
-        <p className="typo-body-large px-6 pb-32 text-center text-text-primary">
+        <p className={`${CONTAINER} typo-body-large text-center text-text-primary`}>
           Le risorse per le matricole non sono disponibili al momento. Riprova più tardi.
         </p>
       )}
