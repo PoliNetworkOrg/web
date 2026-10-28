@@ -13,10 +13,9 @@ export function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "flex w-full items-center justify-between gap-2 text-left md:gap-4",
-          "typo-title-large md:typo-display-medium outline-none",
-          "p-4 transition-none",
-          "md:p-0 md:transition-all md:duration-500 md:data-[state=closed]:p-6 md:data-[state=open]:px-16 md:data-[state=open]:pt-16 md:data-[state=open]:pb-8",
+          // Same padding open or closed: the name doesn't jump when the item expands
+          "flex w-full cursor-pointer items-center justify-between gap-3 p-4 text-left outline-none sm:gap-4 sm:p-5 md:px-8 md:py-6",
+          "typo-headline-extrasmall sm:typo-title-large md:typo-headline-medium",
           "[&[data-state=open]>svg]:rotate-180",
           className
         )}

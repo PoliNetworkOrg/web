@@ -13,7 +13,6 @@ import {
 import AccordionAssociation from "@/components/accordion-association"
 import type { GradientIconType } from "@/components/gradient-icon"
 import type { ApiOutput } from "@/types"
-import esnLogo from "../../../public/logos/esn.svg"
 
 type Association = ApiOutput["web"]["associations"]["getAllAssociations"][number]
 type AssociationLinks = Association["links"]
@@ -33,13 +32,19 @@ const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: GradientI
 
 export function AssociationsList({ associations }: { associations: Association[] }) {
   if (associations.length === 0) {
-    return <p className="typo-body-large text-center">Nessuna associazione disponibile al momento.</p>
+    // The query returns an empty list on backend errors too, so the message covers both cases
+    return (
+      <p className="typo-body-large rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600">
+        Le associazioni non sono disponibili al momento. Riprova più tardi.
+      </p>
+    )
   }
 
   const accordionItems = associations.map((association) => ({
     value: String(association.id),
     name: association.name,
-    logo: association.logo ?? esnLogo,
+    // No placeholder logo: an association without one gets its initials (see AccordionAssociation)
+    logo: association.logo,
     content: association.descriptionIt,
     links: LINK_CONFIG.filter(({ key }) => association.links[key]).map(({ key, label, icon, mailto }) => {
       const value = association.links[key] as string
@@ -47,9 +52,5 @@ export function AssociationsList({ associations }: { associations: Association[]
     }),
   }))
 
-  return (
-    <div className="w-full max-w-300">
-      <AccordionAssociation accordionItems={accordionItems} defaultValue={accordionItems[0]?.value} />
-    </div>
-  )
+  return <AccordionAssociation accordionItems={accordionItems} defaultValue={accordionItems[0]?.value} />
 }
