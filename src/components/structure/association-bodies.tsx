@@ -13,12 +13,10 @@ export function AssociationBodies() {
       <Accordion type="single" collapsible className="md:hidden">
         {associationBodies.map((body) => (
           <AccordionItem key={body.id} value={body.id} className="rounded-rectangles">
-            <AccordionTrigger className="p-6 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset">
+            <AccordionTrigger className="typo-title-large p-6">
               <span className="min-w-0">{body.title}</span>
             </AccordionTrigger>
-            <AccordionContent className="group-data-[state=open]:px-6 group-data-[state=open]:pb-6">
-              {body.description}
-            </AccordionContent>
+            <AccordionContent className="px-6 pb-6">{body.description}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
