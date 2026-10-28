@@ -1,7 +1,6 @@
-import Link from "next/link"
 import { notFound } from "next/navigation"
-import { FiArrowLeft, FiX } from "react-icons/fi"
 import { CardCourseGroup } from "@/components/card-course-group"
+import { GROUPS_COLUMN, GroupsPageHeader } from "@/components/groups/page-header"
 import { getLevel, getSchool } from "@/components/wizard/constants"
 import { getVisibleGroups } from "@/queries/groups"
 import type { VisibleGroup } from "@/queries/types"
@@ -21,7 +20,7 @@ import { createStepHref } from "@/utils/step-href"
 
 const stepHref = createStepHref("/groups/didattica")
 
-function GroupCard({ group, secondary, stacked }: { group: MergedGroup; secondary?: boolean; stacked?: boolean }) {
+function GroupCard({ group, secondary }: { group: MergedGroup; secondary?: boolean }) {
   return (
     <CardCourseGroup
       key={group.key}
@@ -31,7 +30,6 @@ function GroupCard({ group, secondary, stacked }: { group: MergedGroup; secondar
       tgLink={group.tgLink}
       tgGroupId={group.tgGroupId}
       secondary={secondary}
-      stacked={stacked}
     />
   )
 }
@@ -41,19 +39,19 @@ function GroupSection({ title, groups }: { title: string; groups: VisibleGroup[]
   if (merged.length === 0) return null
 
   return (
-    <div className="flex flex-col gap-4 md:mt-16.25 md:gap-0">
-      <div className="relative flex items-center justify-center md:static md:justify-between">
-        <p className="typo-body-large md:typo-headline-small text-center text-text-primary md:text-left">{title}</p>
-        <p className="typo-label-small md:typo-label-medium -translate-y-1/2 absolute top-1/2 right-0 rounded-full border border-white/50 bg-background-blur px-3 py-1 text-text-secondary md:static md:translate-y-0 md:rounded-buttonsM md:border-0 md:py-2">
+    <section className="flex flex-col gap-4">
+      <div className="flex items-center justify-between gap-4">
+        <h2 className="typo-title-large md:typo-headline-small text-text-primary">{title}</h2>
+        <p className="typo-label-medium shrink-0 rounded-full border border-white/50 bg-background-blur px-3 py-1 text-text-secondary">
           {merged.length} Gruppi
         </p>
       </div>
-      <div className="flex flex-col gap-3 md:mt-6.75">
+      <div className="flex flex-col gap-3">
         {merged.map((g) => (
           <GroupCard key={g.key} group={g} />
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -101,48 +99,28 @@ export async function GroupsResult({
     mergedLevelGroups.length > 0 ||
     courseGroups.length > 0
 
-  return (
-    <main className="mx-auto flex min-h-svh w-full min-w-0 max-w-7xl flex-col gap-8 px-6 py-52 md:gap-0">
-      <header className="relative flex flex-col items-center gap-1 md:static md:flex-row md:items-center md:gap-4">
-        <Link
-          href={stepHref({ school: schoolSlug, level })}
-          replace
-          aria-label="Indietro"
-          className="absolute top-0 left-0 grid size-10 shrink-0 place-items-center rounded-full bg-white/60 md:static"
-        >
-          <FiArrowLeft className="size-5" />
-        </Link>
-        <div className="flex min-w-0 flex-col items-center gap-1 text-center md:flex-1">
-          <h1 className="typo-title-large md:typo-display-medium text-text-primary">{courseName}</h1>
-          <p className="typo-label-large md:typo-headline-small text-text-secondary md:text-text-primary">
-            Laurea {currentLevel.name}
-          </p>
-        </div>
-        <Link
-          href="/groups"
-          aria-label="Chiudi"
-          className="absolute top-0 right-0 grid size-10 shrink-0 place-items-center rounded-full bg-white/60 md:static"
-        >
-          <FiX className="size-5" />
-        </Link>
-      </header>
+  const generalGroups = [
+    ...mergedSiteGroups.map((group) => ({ group, secondary: false })),
+    ...mergedSchoolGroups.map((group) => ({ group, secondary: false })),
+    ...mergedLevelGroups.map((group) => ({ group, secondary: true })),
+    ...mergedGeneralCourseGroups.map((group) => ({ group, secondary: true })),
+  ]
 
-      {(mergedSiteGroups.length > 0 ||
-        mergedSchoolGroups.length > 0 ||
-        mergedLevelGroups.length > 0 ||
-        mergedGeneralCourseGroups.length > 0) && (
-        <div className="flex flex-row flex-wrap gap-3 md:mt-25.75">
-          {mergedSiteGroups.map((g) => (
-            <GroupCard key={g.key} group={g} stacked />
-          ))}
-          {mergedSchoolGroups.map((g) => (
-            <GroupCard key={g.key} group={g} stacked />
-          ))}
-          {mergedLevelGroups.map((g) => (
-            <GroupCard key={g.key} group={g} secondary stacked />
-          ))}
-          {mergedGeneralCourseGroups.map((g) => (
-            <GroupCard key={g.key} group={g} secondary stacked />
+  return (
+    <main className={`${GROUPS_COLUMN} flex min-h-svh flex-col gap-12 pt-36 pb-32 md:gap-16 md:pt-52`}>
+      <GroupsPageHeader
+        title={courseName}
+        subtitle={`Laurea ${currentLevel.name}`}
+        backHref={stepHref({ school: schoolSlug, level })}
+        replaceBack
+        closeHref="/groups"
+      />
+
+      {/* The general groups (site, school, level, course) sit two per row, as in Figma, instead of squeezing into one */}
+      {generalGroups.length > 0 && (
+        <div className="grid gap-3 lg:grid-cols-2 lg:gap-4">
+          {generalGroups.map(({ group, secondary }) => (
+            <GroupCard key={group.key} group={group} secondary={secondary} />
           ))}
         </div>
       )}
@@ -156,7 +134,7 @@ export async function GroupsResult({
       ))}
 
       {!hasAnyGroup && (
-        <p className="typo-body-medium text-center text-text-secondary md:mt-16.25">
+        <p className="typo-body-medium text-center text-text-secondary">
           Nessun gruppo disponibile al momento per questo corso.
         </p>
       )}
