@@ -12,6 +12,7 @@ import {
 } from "react-icons/fi"
 import AccordionAssociation from "@/components/accordion-association"
 import type { GradientIconType } from "@/components/gradient-icon"
+import { EMPTY_STATE } from "@/components/layout/page"
 import type { ApiOutput } from "@/types"
 
 type Association = ApiOutput["web"]["associations"]["getAllAssociations"][number]
@@ -33,11 +34,7 @@ const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: GradientI
 export function AssociationsList({ associations }: { associations: Association[] }) {
   if (associations.length === 0) {
     // The query returns an empty list on backend errors too, so the message covers both cases
-    return (
-      <p className="typo-body-large rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600">
-        Le associazioni non sono disponibili al momento. Riprova più tardi.
-      </p>
-    )
+    return <p className={EMPTY_STATE}>Le associazioni non sono disponibili al momento. Riprova più tardi.</p>
   }
 
   const accordionItems = associations.map((association) => ({

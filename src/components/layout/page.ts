@@ -19,3 +19,7 @@ export const PAGE_MAIN = "flex w-full flex-col gap-24 pb-24 md:gap-32 md:pb-32 x
  * sections (180px): the bottom padding adds that difference to the main gap.
  */
 export const PAGE_HERO = "pt-52 pb-8 md:pt-57.5 md:pb-12 xl:pb-24"
+
+/** Placeholder for a list with nothing to show yet: dashed, so it reads as "empty" rather than as a card. */
+export const EMPTY_STATE =
+  "typo-body-large rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600"
