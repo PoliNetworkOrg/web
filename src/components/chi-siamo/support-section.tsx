@@ -4,7 +4,8 @@ import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 // 57px "5x1000" and the 36px tax code (bigger than the section title) are gone.
 export function SupportSection() {
   return (
-    <section className={`${CONTAINER} grid gap-10 lg:grid-cols-2 lg:gap-16`}>
+    // `id`: the footer's 5x1000 card links here
+    <section id="sostienici" className={`${CONTAINER} grid scroll-mt-40 gap-10 lg:grid-cols-2 lg:gap-16`}>
       <div className="flex min-w-0 flex-col gap-6">
         <h2 className={SECTION_TITLE}>Sostieni PoliNetwork</h2>
         <p className="typo-body-large max-w-140 text-pretty">
