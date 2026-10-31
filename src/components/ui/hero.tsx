@@ -35,8 +35,9 @@ export function Hero({
   return (
     <div className={cn("flex flex-col items-center gap-6", className)}>
       {/* Figma "lightheme-XLarge text effect": #020618 → #6e6e6e at 82.69% */}
+      {/* The page title: the header logo is not a heading, so this is the h1 */}
       {/* The gradient is drawn per line (box-decoration-clone), so a title that wraps keeps the full effect on each line */}
-      <h2 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0">
+      <h1 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0">
         {/*
           A word can't wrap, so a long one ("Associazioni") overflowed narrow phones at 57px and tablets at 120px.
           The size is capped so the longest word fits the content width (DM Sans ≈ 0.55em per letter, measured on "Contattaci"); titles whose
@@ -48,7 +49,7 @@ export function Hero({
         >
           {title}
         </span>
-      </h2>
+      </h1>
       <p
         className={
           gradientDescription

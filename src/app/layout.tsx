@@ -74,9 +74,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           // storageKey="polinetwork_darkmode_temp" // TODO: enable when dark mode design is ready
           disableTransitionOnChange
         >
+          {/*
+            Outside the isolated, clipped wrapper: inside it the header glass could not blur what scrolls under it
+            (Chromium skipped the backdrop), so the page titles read sharp through the open menus.
+          */}
+          <Header />
           <div className="relative isolate flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
             <Background />
-            <Header />
             {children}
             <ConditionalFooter>
               <Footer />
