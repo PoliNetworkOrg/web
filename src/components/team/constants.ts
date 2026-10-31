@@ -21,7 +21,8 @@ export type Team = {
   title: string
   description: string
   roles: Pick<CardIconProps, "title" | "icon">[]
-  reverse?: boolean
+  /** Figma alternates the sections: text on the right for HR, title and text side by side for Events. */
+  layout?: "reverse" | "stacked"
 }
 
 // Copy and specialisms from the desktop Team frame (5546:10874).
@@ -62,7 +63,7 @@ export const teams: Team[] = [
       { title: "Community & Engagement", icon: FiAward },
       { title: "Crescita del team", icon: FiCornerRightUp },
     ],
-    reverse: true,
+    layout: "reverse",
   },
   {
     id: "events-partnership",
@@ -74,6 +75,7 @@ export const teams: Team[] = [
       { title: "Partnership", icon: FiUsers },
       { title: "Project Management", icon: FiSettings },
     ],
+    layout: "stacked",
   },
 ]
 

@@ -17,6 +17,10 @@ const descriptionGradientStyle = {
   "--hero-gradient-desktop": DESCRIPTION_GRADIENT_DESKTOP,
 } as CSSProperties
 
+function longestWord(text: string) {
+  return Math.max(...text.split(/\s+/).map((word) => word.length))
+}
+
 export function Hero({
   title,
   description,
@@ -31,12 +35,21 @@ export function Hero({
   return (
     <div className={cn("flex flex-col items-center gap-6", className)}>
       {/* Figma "lightheme-XLarge text effect": #020618 → #6e6e6e at 82.69% */}
+      {/* The page title: the header logo is not a heading, so this is the h1 */}
       {/* The gradient is drawn per line (box-decoration-clone), so a title that wraps keeps the full effect on each line */}
-      <h2 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0">
-        <span className="bg-linear-to-b from-text-primary to-83% to-[#6e6e6e] box-decoration-clone bg-clip-text text-transparent">
+      <h1 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0">
+        {/*
+          A word can't wrap, so a long one ("Associazioni") overflowed narrow phones at 57px and tablets at 120px.
+          The size is capped so the longest word fits the content width (DM Sans ≈ 0.55em per letter, measured on "Contattaci"); titles whose
+          words already fit keep the Figma sizes.
+        */}
+        <span
+          className="bg-linear-to-b from-text-primary to-83% to-[#6e6e6e] box-decoration-clone bg-clip-text text-[min(3.5625rem,calc((100vw-3rem)/var(--hero-fit)))] text-transparent sm:text-[min(7.5rem,calc((100vw-5rem)/var(--hero-fit)))]"
+          style={{ "--hero-fit": longestWord(title) * 0.55 } as CSSProperties}
+        >
           {title}
         </span>
-      </h2>
+      </h1>
       <p
         className={
           gradientDescription

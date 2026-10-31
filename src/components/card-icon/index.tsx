@@ -22,13 +22,14 @@ export function CardIcon(props: CardIconProps) {
     <Glass
       className={cn(
         "w-full overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground",
+        href && "has-[>a:focus-visible]:ring-2 has-[>a:focus-visible]:ring-blue-secondary",
         className
       )}
     >
       <Root
         href={href}
         className={cn(
-          "group/card relative flex h-full flex-col text-left",
+          "group/card relative flex h-full flex-col text-left outline-none",
           getCardPaddingClasses(size, isDescriptionCard)
         )}
       >

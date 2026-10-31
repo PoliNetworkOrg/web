@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { FiSearch } from "react-icons/fi"
-import { Glass } from "@/components/glass"
+import { CONTAINER } from "@/components/layout/page"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
@@ -35,14 +35,14 @@ export function Thanks() {
         </>
       }
       classNames={{
-        section: "mx-auto max-w-330 gap-12 px-6 md:px-6 xl:flex-row [&>div>h2]:typo-title-large",
-        textDiv: "xl:w-1/2 xl:items-start xl:text-start",
-        title: "text-blue-secondary xl:text-start",
-        descriptionDiv: "xl:text-start",
+        section: `${CONTAINER} md:px-10 gap-12 xl:flex-row xl:gap-16 [&>div>h2]:typo-title-large`,
+        textDiv: "items-start text-start xl:w-1/2",
+        title: "text-start text-blue-secondary",
+        descriptionDiv: "text-start",
         contentDiv: "min-w-0 xl:w-1/2",
       }}
     >
-      <Glass className="flex w-full flex-col gap-8 rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-8">
+      <div className="flex w-full flex-col gap-8 xl:pt-12">
         <Input
           type="search"
           icon={<FiSearch aria-hidden />}
@@ -80,7 +80,7 @@ export function Thanks() {
             )
           })}
         </Tabs>
-      </Glass>
+      </div>
     </TextOnlyLayout>
   )
 }

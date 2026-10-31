@@ -1,23 +1,21 @@
 import Image from "next/image"
 import externalLink from "@/assets/icons/join/external-link.svg"
 import membersPhoto from "@/assets/images/join/members.webp"
-import { Highlight, SectionTitle } from "@/components/collabora/section"
+import { Highlight } from "@/components/collabora/section"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { PhotoShapes } from "@/components/shapes"
 import { cn } from "@/lib/utils"
 import { membershipSteps } from "./constants"
 
 export function MembershipSection() {
   return (
-    <section
-      id="socio"
-      className={"mx-auto grid w-full max-w-330 scroll-mt-36 items-start gap-10 px-6 xl:grid-cols-2 xl:gap-x-16"}
-    >
-      <div className="flex min-w-0 flex-col gap-6 text-center md:text-start xl:col-start-1">
-        <SectionTitle>
+    <section id="socio" className={cn(CONTAINER, "grid scroll-mt-36 items-start gap-10 xl:grid-cols-2 xl:gap-x-16")}>
+      <div className="flex min-w-0 flex-col gap-6 xl:col-start-1">
+        <h2 className={SECTION_TITLE}>
           <span className="md:hidden">Diventa Socio</span>
           <span className="hidden md:inline">Diventa Socio di PoliNetwork</span>
-        </SectionTitle>
-        <div className="typo-body-large sm:typo-headline-extrasmall flex flex-col gap-5 text-pretty">
+        </h2>
+        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-5")}>
           <p>
             Il tesseramento è il modo per fare parte di PoliNetwork in modo formale, con{" "}
             <Highlight>diritto di voto</Highlight> nelle Assemblee dei Soci, di candidarsi alle elezioni del direttivo e{" "}
@@ -43,7 +41,7 @@ export function MembershipSection() {
             <div
               className={cn("flex min-w-0 flex-col gap-3 pt-2 md:pt-3", index < membershipSteps.length - 1 && "pb-8")}
             >
-              <h3 className="typo-title-medium sm:typo-title-large text-pretty text-blue-secondary">
+              <h3 className="typo-headline-extrasmall sm:typo-title-large text-pretty text-blue-secondary">
                 {"href" in step ? (
                   <a
                     href={step.href}
@@ -61,7 +59,7 @@ export function MembershipSection() {
                 )}
               </h3>
               {index === 3 && (
-                <ul className="typo-body-large list-disc space-y-1 text-pretty pl-5">
+                <ul className="typo-body-medium sm:typo-body-large list-disc space-y-1 text-pretty pl-5">
                   <li>Utilizza preferibilmente un indirizzo PoliMi valido.</li>
                   <li>Oggetto: “Richiesta ammissione sotto la qualifica di socio”.</li>
                   <li>Inserisci ogni informazione utile da avere, ad esempio il tuo username Telegram.</li>
@@ -69,7 +67,7 @@ export function MembershipSection() {
                 </ul>
               )}
               {index === 4 && (
-                <p className="typo-body-large text-pretty">
+                <p className="typo-body-medium sm:typo-body-large text-pretty">
                   Secondo le modalità descritte nella sezione “Ammissione” dello statuto.
                 </p>
               )}
@@ -82,8 +80,10 @@ export function MembershipSection() {
           <Image
             src={membersPhoto}
             alt="Un gruppo di volontari di PoliNetwork insieme all’aperto"
+            fill
             sizes="(min-width: 1280px) 40vw, 100vw"
-            className="-top-[37.19%] absolute left-0 h-[137.25%] w-full max-w-none"
+            // Figma's crop keeps the bottom of the photo (the people), whatever the box's aspect ratio
+            className="object-cover object-bottom"
           />
         </div>
         <PhotoShapes

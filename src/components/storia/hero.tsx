@@ -1,76 +1,30 @@
-import Image from "next/image"
 import Link from "next/link"
-import { FiArrowDown, FiUsers } from "react-icons/fi"
-import { Glass } from "@/components/glass"
-import { GradientIcon } from "@/components/gradient-icon"
+import { FiArrowDown } from "react-icons/fi"
+import { CONTAINER, PAGE_HERO } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Hero } from "@/components/ui/hero"
-import { cn } from "@/lib/utils"
-import { boardMembers } from "./constants"
 
-const portraits = [
-  { member: boardMembers[1], position: "top-12 left-0 -rotate-6" },
-  {
-    member: boardMembers[0],
-    position: "-translate-x-1/2 top-0 left-1/2 z-10",
-  },
-  { member: boardMembers[3], position: "top-12 right-0 rotate-6 sm:top-16" },
-]
-
+// Figma: a centred XL title and nothing else. The board portraits appear further down, under "I nostri direttivi".
 export function HistoryHero() {
   return (
-    <section className="mx-auto grid w-full max-w-330 items-center gap-12 px-6 xl:grid-cols-2 xl:gap-16">
-      <div className="flex min-w-0 flex-col items-center gap-6 xl:items-start">
-        <Hero
-          title="La nostra storia"
-          description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
-          gradientDescription
-          className="lg:[&_h2]:typo-display-extralarge [&_h2]:typo-display-large w-full xl:items-start [&_h2]:py-0 xl:[&_h2]:text-start [&_p]:max-w-145 [&_p]:text-balance xl:[&_p]:text-start"
-        />
-        <div className="flex flex-wrap justify-center gap-3 xl:justify-start">
-          <Button asChild size="lg">
-            <Link href="#capitoli">
-              Leggi la nostra storia <FiArrowDown aria-hidden />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="glass">
-            <Link href="#direttivi">
-              Conosci le persone <FiArrowDown aria-hidden />
-            </Link>
-          </Button>
-        </div>
-      </div>
-      <div className="relative mx-auto w-full max-w-140">
-        <div className="relative aspect-square w-full sm:aspect-4/3">
-          {portraits.map(({ member, position }) => (
-            <Card
-              key={member.name}
-              className={cn(
-                "absolute aspect-[223.429/263] h-auto w-2/5 rounded-rectangles border-white/50 p-0 shadow-lg",
-                position
-              )}
-            >
-              <Image
-                src={member.image}
-                alt={member.name}
-                sizes="(max-width: 639px) 40vw, 224px"
-                className={cn("absolute max-w-none", member.crop)}
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-blue-secondary/80 to-60% to-transparent" />
-              <CardContent className="typo-label-tiny sm:typo-label-medium absolute inset-x-3 bottom-4 whitespace-nowrap text-center text-white sm:inset-x-4 sm:bottom-6">
-                {member.role}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        <Glass className="-translate-x-1/2 absolute bottom-0 left-1/2 z-20 flex w-max max-w-full items-center gap-4 rounded-rectangles border-white/50 bg-background-blur px-6 py-4 shadow-sm">
-          <GradientIcon icon={FiUsers} className="size-10 shrink-0" />
-          <div>
-            <p className="typo-headline-small text-blue-secondary">200+</p>
-            <p className="typo-body-medium">admin volontari, oggi</p>
-          </div>
-        </Glass>
+    <section className={`${CONTAINER} ${PAGE_HERO} flex flex-col items-center gap-10`}>
+      <Hero
+        title="La nostra storia"
+        description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
+        gradientDescription
+        className="[&_h2]:typo-display-fluid-extralarge [&_p]:max-w-145 [&_p]:text-balance"
+      />
+      <div className="flex flex-wrap justify-center gap-3">
+        <Button asChild size="lg">
+          <Link href="#capitoli">
+            Leggi la nostra storia <FiArrowDown aria-hidden />
+          </Link>
+        </Button>
+        <Button asChild size="lg" variant="glass">
+          <Link href="#direttivi">
+            Conosci le persone <FiArrowDown aria-hidden />
+          </Link>
+        </Button>
       </div>
     </section>
   )

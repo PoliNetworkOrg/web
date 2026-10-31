@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN, SECTION_TITLE } from "@/components/layout/page"
 import { AssociationBodies } from "@/components/structure/association-bodies"
 import { BoardGallery } from "@/components/structure/board-gallery"
 import { LegalStatus } from "@/components/structure/legal-status"
@@ -15,14 +16,13 @@ export const metadata: Metadata = {
     "Un’organizzazione pensata per durare: scopri l’organigramma, il Direttivo, gli organi associativi e i ruoli di PoliNetwork APS.",
 }
 
-const containerClass = "mx-auto flex w-full max-w-330 flex-col gap-10 px-6 md:gap-14"
-const titleClass =
-  "typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent"
+const containerClass = `${CONTAINER} flex flex-col gap-10 md:gap-14`
+const titleClass = `${SECTION_TITLE} text-center`
 
 export default function StructurePage() {
   return (
-    <main className="flex w-full flex-col gap-24 pb-24 md:gap-36 md:pb-36">
-      <section className="mx-auto w-full max-w-330 px-6 pt-52 md:pt-57.5">
+    <main className={PAGE_MAIN}>
+      <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero title="Struttura" description="Un’organizzazione pensata per durare" />
       </section>
       <OrganizationChart />
@@ -49,8 +49,8 @@ export default function StructurePage() {
         </h2>
         <Participation />
       </section>
-      <section className="mx-auto flex w-full max-w-330 flex-col items-center gap-8 px-6 py-10 text-center md:py-16">
-        <h2 className="typo-headline-medium md:typo-display-medium max-w-160 text-balance bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+      <section className={`${CONTAINER} flex flex-col items-center gap-8 py-10 text-center md:py-16`}>
+        <h2 className="typo-headline-medium md:typo-display-medium max-w-160 text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
           Tutto ciò che c’è da sapere su PoliNetwork.
         </h2>
         <p className="typo-body-large sm:typo-headline-extrasmall max-w-110 text-balance">
@@ -63,7 +63,7 @@ export default function StructurePage() {
           </Link>
         </Button>
       </section>
-      <section aria-label="Forma giuridica e documenti associativi" className="mx-auto w-full max-w-330 px-6">
+      <section aria-label="Forma giuridica e documenti associativi" className={CONTAINER}>
         <LegalStatus />
       </section>
     </main>

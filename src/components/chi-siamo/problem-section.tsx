@@ -1,5 +1,6 @@
 import { FiEdit, FiFileText, FiUsers } from "react-icons/fi"
-import { Card, CardAction, CardContent } from "@/components/ui/card"
+import { GradientIcon } from "@/components/gradient-icon"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 
 const questions = [
   { text: "Dove trovo il gruppo del mio corso?", icon: FiUsers },
@@ -9,23 +10,23 @@ const questions = [
 
 export function ProblemSection() {
   return (
-    <section className="mx-auto grid w-full max-w-330 items-center gap-10 px-6 lg:grid-cols-2 lg:gap-16">
+    <section className={`${CONTAINER} grid items-center gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16`}>
       <div className="flex min-w-0 flex-col gap-6">
-        <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-          Il problema
-        </h2>
-        <p className="typo-body-large sm:typo-headline-extrasmall text-pretty">
-          Il PoliMi è complesso. Le informazioni non dovrebbero esserlo.
-        </p>
+        <h2 className={SECTION_TITLE}>Il problema</h2>
+        <p className={SECTION_LEAD}>Il PoliMi è complesso. Le informazioni non dovrebbero esserlo.</p>
       </div>
-      <div className="grid min-w-0 gap-4">
+      {/* Questions students ask, not actions: compact chips, icon first, no hover */}
+      <ul className="grid min-w-0 justify-items-start gap-3">
         {questions.map((question) => (
-          <Card key={question.text} className="h-auto w-full flex-row items-center justify-between gap-6 p-6">
-            <CardContent className="typo-body-large text-pretty">{question.text}</CardContent>
-            <CardAction icon={question.icon} className="shrink-0" />
-          </Card>
+          <li
+            key={question.text}
+            className="flex items-center gap-4 rounded-rectangles border border-white/50 bg-background-blur px-5 py-4 backdrop-blur-md"
+          >
+            <GradientIcon icon={question.icon} className="size-6 shrink-0" />
+            <span className="typo-body-large text-pretty">{question.text}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   )
 }

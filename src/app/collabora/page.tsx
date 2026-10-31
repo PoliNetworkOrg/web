@@ -4,9 +4,8 @@ import { AssociationSection } from "@/components/collabora/association-section"
 import { CollaborationSection } from "@/components/collabora/collaboration-section"
 import { CompanySection } from "@/components/collabora/company-section"
 import { ContactSection } from "@/components/collabora/contact-section"
-import { sectionContainerClass } from "@/components/collabora/section"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
-import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Collabora con Noi",
@@ -16,9 +15,8 @@ export const metadata: Metadata = {
 
 export default function CollaboraPage() {
   return (
-    <main className="flex w-full flex-col">
-      {/* Title at y=262 (mobile) / 286 (desktop) as in Figma; Hero adds 16px / 56px above it */}
-      <section className={cn(sectionContainerClass, "pt-61.5 pb-29 sm:pt-57.5 md:pb-64.5")}>
+    <main className={PAGE_MAIN}>
+      <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero
           title="Collabora con Noi"
           description="Mettiamo la nostra infrastruttura e i nostri talenti a disposizione di chi ha buone idee per gli studenti del PoliMi"

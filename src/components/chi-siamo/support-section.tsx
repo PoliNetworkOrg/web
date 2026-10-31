@@ -1,31 +1,28 @@
-import { FiHeart } from "react-icons/fi"
-import { Glass } from "@/components/glass"
-import { GradientIcon } from "@/components/gradient-icon"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 
+// Figma: text on the left, the 5x1000 details on the right, both on the background. The nested glass panels, the
+// 57px "5x1000" and the 36px tax code (bigger than the section title) are gone.
 export function SupportSection() {
   return (
-    <section className="mx-auto w-full max-w-330 px-6">
-      <Glass className="grid items-center gap-10 rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-10 lg:grid-cols-2 lg:gap-16">
-        <div className="flex min-w-0 flex-col gap-6">
-          <GradientIcon icon={FiHeart} className="size-10" />
-          <h2 className="typo-headline-medium sm:typo-display-medium text-balance">Sostieni PoliNetwork</h2>
-          <p className="typo-body-large text-pretty">
-            Se vuoi supportare PoliNetwork economicamente, puoi destinarci il 5x1000 nella dichiarazione dei redditi. Si
-            tratta di una quota IRPEF che verseresti comunque, e che puoi scegliere di indirizzare a noi senza alcun
-            costo aggiuntivo.
-          </p>
-        </div>
-        <Glass className="flex min-w-0 flex-col gap-5 rounded-rectangles bg-background p-6 sm:p-8">
-          <p className="typo-display-medium sm:typo-display-large text-blue-secondary">5x1000</p>
-          <h3 className="typo-title-large text-balance">Il tuo sostegno può fare la differenza</h3>
-          <p className="typo-body-large text-pretty">
-            Nella sezione dedicata agli Enti del Terzo Settore, indica il nostro codice fiscale:
-          </p>
-          <p className="typo-title-large sm:typo-display-small whitespace-nowrap text-blue-secondary tabular-nums">
-            97927490157
-          </p>
-        </Glass>
-      </Glass>
+    // `id`: the footer's 5x1000 card links here
+    <section id="sostienici" className={`${CONTAINER} grid scroll-mt-40 gap-10 lg:grid-cols-2 lg:gap-16`}>
+      <div className="flex min-w-0 flex-col gap-6">
+        <h2 className={SECTION_TITLE}>Sostieni PoliNetwork</h2>
+        <p className="typo-body-large max-w-140 text-pretty">
+          Se vuoi supportare PoliNetwork economicamente, puoi destinarci il 5x1000 nella dichiarazione dei redditi. Si
+          tratta di una quota IRPEF che verseresti comunque, e che puoi scegliere di indirizzare a noi senza alcun costo
+          aggiuntivo.
+        </p>
+      </div>
+      <div className="flex min-w-0 flex-col gap-4 lg:pt-3">
+        <h3 className="typo-headline-medium text-balance">
+          Il tuo <span className="text-blue-secondary">5x1000</span> può fare la differenza
+        </h3>
+        <p className="typo-body-large max-w-120 text-pretty">
+          Nella sezione dedicata agli Enti del Terzo Settore, indica il nostro codice fiscale:
+        </p>
+        <p className="typo-headline-small text-blue-secondary tabular-nums tracking-wide">97927490157</p>
+      </div>
     </section>
   )
 }

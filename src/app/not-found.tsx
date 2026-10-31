@@ -12,15 +12,16 @@ export default function NotFound() {
           <Image src={notFoundBackground} alt="" aria-hidden priority className="h-auto w-full max-w-4xl select-none" />
         </div>
 
-        <div className="relative z-10 flex flex-col items-center gap-12 text-center">
+        <div className="relative z-10 flex flex-col items-center gap-8 px-6 py-40 text-center sm:gap-12">
           <h1 className="typo-display-extralarge inline-block bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-9 text-transparent">
             404
           </h1>
 
-          <p className="typo-headline-large text-text-primary">
+          {/* 32px with no side padding ran edge to edge on phones: one step smaller there, and each sentence on its line */}
+          <p className="typo-headline-extrasmall sm:typo-headline-large max-w-3xl text-balance text-text-primary">
             Non trovo quello che cerchi.
             <br />
-            Controlla l'URL o visita un'altra sezione del sito.
+            Controlla l&apos;URL o visita un&apos;altra sezione del sito.
           </p>
 
           <Button asChild variant="primary" size="lg">

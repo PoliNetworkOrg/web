@@ -33,7 +33,6 @@ export function CompanySection() {
         />
       }
       photoFirst
-      className="py-30 md:py-31.25"
     >
       <p>
         PoliNetwork è un punto di accesso diretto alla community studentesca del Politecnico di Milano: migliaia di

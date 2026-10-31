@@ -1,6 +1,7 @@
 import { FiBook, FiBookOpen, FiHeadphones, FiSend, FiUser, FiUsers } from "react-icons/fi"
 import { GradientIcon } from "@/components/gradient-icon"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Card } from "@/components/ui/card"
 
 const stats = [
   { value: "500+", label: "gruppi Telegram e WhatsApp attivi", icon: FiSend },
@@ -13,35 +14,31 @@ const stats = [
 
 export function NumbersSection() {
   return (
-    <section className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 md:gap-14">
+    <section className={`${CONTAINER} flex flex-col gap-10 md:gap-14`}>
       <div className="flex flex-col gap-4">
-        <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-          I numeri
-        </h2>
-        <p className="typo-body-large sm:typo-headline-extrasmall max-w-160 text-pretty">
+        <h2 className={SECTION_TITLE}>I numeri</h2>
+        <p className={`${SECTION_LEAD} max-w-160`}>
           Un network in continua crescita, costruito dagli studenti, per gli studenti.
         </p>
       </div>
 
       <div className="flex flex-col gap-8">
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        {/* Figma sets the figures at headline size beside the icon: at 45px they outranked the section titles */}
+        <ul className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
           {stats.map((stat) => (
-            <Card key={stat.label} className="h-auto w-full gap-4 p-6 sm:p-8">
-              <CardHeader className="flex flex-row items-center justify-between gap-4">
-                <CardTitle
-                  gradient={false}
-                  className="typo-display-small sm:typo-display-medium text-blue-secondary tabular-nums"
-                >
-                  {stat.value}
-                </CardTitle>
-                <GradientIcon icon={stat.icon} className="size-8 shrink-0" />
-              </CardHeader>
-              <CardContent className="typo-body-large text-pretty">{stat.label}</CardContent>
-            </Card>
+            <li key={stat.label}>
+              <Card className="h-full w-full flex-row items-center gap-5 p-6">
+                <GradientIcon icon={stat.icon} className="size-10 shrink-0" />
+                <div className="flex min-w-0 flex-col gap-1">
+                  <p className="typo-headline-large text-blue-secondary tabular-nums">{stat.value}</p>
+                  <p className="typo-body-large text-pretty">{stat.label}</p>
+                </div>
+              </Card>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <p className="typo-body-large text-center">
+        <p className="typo-body-large lg:text-center">
           Dal <span className="text-blue-secondary">2016</span> al fianco degli studenti del PoliMi
         </p>
       </div>

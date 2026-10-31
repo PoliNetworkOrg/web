@@ -5,16 +5,18 @@ import type { CardGroupProps } from "./types"
 
 export function CardGroup({ icon, title, description, children, horizontal = false, className }: CardGroupProps) {
   return (
-    <Glass className={cn("w-full rounded-rectangles border-white/50 bg-background-blur p-12", className)}>
+    <Glass
+      className={cn("w-full rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-10 lg:p-12", className)}
+    >
       {horizontal ? (
-        <div className="flex flex-col gap-12 lg:flex-row lg:items-center">
+        <div className="flex flex-col gap-8 sm:gap-12 lg:flex-row lg:items-center">
           <CardGroupHeader icon={icon} title={title} description={description} horizontal />
           <div className="flex-1">{children}</div>
         </div>
       ) : (
         <>
           <CardGroupHeader icon={icon} title={title} description={description} />
-          <div className="mt-12">{children}</div>
+          <div className="mt-8 sm:mt-12">{children}</div>
         </>
       )}
     </Glass>
