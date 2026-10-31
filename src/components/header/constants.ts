@@ -1,4 +1,4 @@
-import { FiChevronRight } from "react-icons/fi"
+import { FiArrowUpRight, FiChevronRight } from "react-icons/fi"
 import type { HeaderMenuItem } from "./types"
 
 export const headerMenuItems: HeaderMenuItem[] = [
@@ -6,7 +6,8 @@ export const headerMenuItems: HeaderMenuItem[] = [
     title: "Resources",
     menu: [
       { title: "Progetti", href: "/projects", icon: FiChevronRight },
-      { title: "Appunti", href: "https://polinetwork.org/it/materials/view/", icon: FiChevronRight },
+      // Leaves the site: ↗ instead of ›, as in the rest of the site
+      { title: "Appunti", href: "https://polinetwork.org/it/materials/view/", icon: FiArrowUpRight },
       { title: "Guide", href: "/guides", icon: FiChevronRight },
       { title: "FAQs", href: "/faqs", icon: FiChevronRight },
     ],
@@ -36,3 +37,8 @@ export const headerMenuItems: HeaderMenuItem[] = [
     ],
   },
 ]
+
+/** The page is the item itself or one of its subpages (e.g. a project under `/projects`). */
+export function isActiveHref(pathname: string, href: string) {
+  return href.startsWith("/") && (pathname === href || pathname.startsWith(`${href}/`))
+}
