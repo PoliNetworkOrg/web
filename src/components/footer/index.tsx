@@ -72,118 +72,126 @@ function FooterLink({ href, children, className }: { href: string; children: Rea
 
 export function Footer() {
   return (
-    <footer className={cn(CONTAINER, "pt-8 pb-8 md:pt-16")}>
-      <div className="flex flex-col items-center gap-6">
-        {/* Grey gradient like the section titles: the style guide keeps the blue one off text over the background */}
-        <h2 className="typo-display-small md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent">
-          Keep in touch!
-        </h2>
-        <CardMultipleIcons
-          className="h-auto [&>div]:flex-nowrap [&>div]:justify-center [&>div]:gap-0.5 [&>div]:px-2 [&>div]:py-1 sm:[&>div]:gap-3 sm:[&>div]:px-5"
-          icons={socials.map(({ label, href, icon }) => (
-            // 40px targets around 24px glyphs: the bare icons were 24px, below the touch-target minimum
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="flex size-10 items-center justify-center rounded-full outline-none transition-colors hover:bg-white/70 focus-visible:ring-2 focus-visible:ring-blue-secondary"
-            >
-              {icon}
-            </a>
-          ))}
-        />
-      </div>
-
-      <div className="mx-auto mt-16 grid max-w-6xl gap-x-16 gap-y-12 md:mt-24 md:grid-cols-2 lg:grid-cols-12">
-        <div className="flex flex-col gap-8 lg:col-span-6">
-          <nav aria-labelledby="footer-site" className="flex flex-col gap-5">
-            <h3 id="footer-site" className={HEADING}>
-              Visita il sito
-            </h3>
-            <div className="grid grid-cols-[auto_1fr] gap-x-10 sm:gap-x-14 lg:gap-x-20">
-              <ul className="typo-body-large flex flex-col gap-3 text-text-primary">
-                {siteLinks.map((link) => (
-                  <li key={link.title}>
-                    <FooterLink href={link.href}>{link.title}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-              {/* Secondary column, as in Figma: smaller and grey */}
-              <ul className="typo-body-medium flex flex-col gap-3 pt-0.5 text-slate-600">
-                {documents.map((document) => (
-                  <li key={document.title}>
-                    <FooterLink href={document.href} className="whitespace-nowrap">
-                      {document.title}
-                    </FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </nav>
-
-          {/* The 5x1000 card of the Figma footer: it leads to the explanation on Su di noi */}
-          <Glass className="relative flex w-full items-center gap-4 rounded-rectangles border-white/50 bg-background-blur px-5 py-4 transition-colors hover:bg-white/60 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:w-fit sm:gap-8 sm:px-8">
-            <p className="typo-headline-large sm:typo-display-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
-              5x1000
-            </p>
-            <div className="flex flex-col gap-0.5">
-              <Link
-                href="/chi-siamo#sostienici"
-                className="typo-title-large text-text-primary outline-none after:absolute after:inset-0 after:content-['']"
+    <footer className={cn(CONTAINER, "pt-8 pb-6 md:pt-16 md:pb-10")}>
+      {/* The whole footer is one glass panel: it closes the page as a single object, like the header pill opens it */}
+      <Glass className="rounded-[32px] border-white/60 bg-background-blur px-4 py-10 backdrop-blur-xl sm:rounded-[36px] sm:px-10 sm:py-12 md:rounded-[48px] md:px-14 md:py-16">
+        <div className="flex flex-col items-center gap-6">
+          {/* Grey gradient like the section titles: the style guide keeps the blue one off text over the background */}
+          <h2 className="typo-headline-large sm:typo-display-small md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent">
+            Keep in touch!
+          </h2>
+          <CardMultipleIcons
+            className="h-auto [&>div]:flex-nowrap [&>div]:justify-center [&>div]:gap-0 [&>div]:px-1 [&>div]:py-1 sm:[&>div]:gap-3 sm:[&>div]:px-5"
+            icons={socials.map(({ label, href, icon }) => (
+              // 36–40px targets around 24px glyphs (the bare icons were the 24px glyphs alone); 36px keeps the row whole at 320px
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="flex size-9 items-center justify-center rounded-full outline-none transition-colors hover:bg-white/70 focus-visible:ring-2 focus-visible:ring-blue-secondary sm:size-10"
               >
-                Sostienici!
-              </Link>
-              <p className="typo-body-medium whitespace-nowrap text-slate-600 tabular-nums">C.F. 97927490157</p>
-            </div>
-          </Glass>
+                {icon}
+              </a>
+            ))}
+          />
         </div>
 
-        <div className="flex flex-col gap-10 lg:col-span-5 lg:col-start-8">
-          <section aria-labelledby="footer-contacts" className="flex flex-col gap-5">
-            <h3 id="footer-contacts" className={HEADING}>
-              Talk with us
-            </h3>
-            <dl className="flex flex-col gap-4">
-              {emails.map(({ label, email }) => (
-                <div key={email} className="flex flex-col gap-0.5">
-                  <dt className="typo-body-medium text-slate-600">{label}</dt>
-                  <dd className="typo-body-large text-text-primary">
-                    <a href={`mailto:${email}`} className={LINK}>
-                      {email}
-                    </a>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </section>
+        <div className="mx-auto mt-14 grid max-w-6xl gap-x-16 gap-y-12 md:mt-16 md:grid-cols-2 lg:grid-cols-12">
+          <div className="flex flex-col gap-8 lg:col-span-6">
+            <nav aria-labelledby="footer-site" className="flex flex-col gap-5">
+              <h3 id="footer-site" className={HEADING}>
+                Visita il sito
+              </h3>
+              <div className="grid grid-cols-[auto_1fr] gap-x-10 sm:gap-x-14 lg:gap-x-20">
+                <ul className="typo-body-large flex flex-col gap-3 text-text-primary">
+                  {siteLinks.map((link) => (
+                    <li key={link.title}>
+                      <FooterLink href={link.href} className="whitespace-nowrap">
+                        {link.title}
+                      </FooterLink>
+                    </li>
+                  ))}
+                </ul>
+                {/* Secondary column, as in Figma: smaller and grey */}
+                <ul className="typo-body-medium flex flex-col gap-3 pt-0.5 text-slate-600">
+                  {documents.map((document) => (
+                    <li key={document.title}>
+                      <FooterLink href={document.href} className="whitespace-nowrap">
+                        {document.title}
+                      </FooterLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </nav>
 
-          <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
-            <div className="flex flex-col items-start gap-4">
-              <h3 className={HEADING}>Sei interessato?</h3>
-              <Button variant="primary" size="lg" asChild>
-                <Link href="/join">Unisciti a noi!</Link>
-              </Button>
+            {/*
+            The 5x1000 card of the Figma footer, leading to the explanation on Su di noi. A lighter tile, not a second
+            glass layer inside the panel. Stacked wherever its column is narrow (phones, and the two columns at md).
+          */}
+            <div className="relative flex w-full flex-col items-start gap-1 rounded-rectangles border border-white/70 bg-white/40 px-5 py-4 transition-colors hover:bg-white/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:w-fit sm:flex-row sm:items-center sm:gap-8 sm:px-8 md:w-full md:flex-col md:items-start md:gap-1 lg:w-fit lg:flex-row lg:items-center lg:gap-8">
+              <p className="typo-headline-large sm:typo-display-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+                5x1000
+              </p>
+              <div className="flex flex-col gap-0.5">
+                <Link
+                  href="/chi-siamo#sostienici"
+                  className="typo-title-large text-text-primary outline-none after:absolute after:inset-0 after:content-['']"
+                >
+                  Sostienici!
+                </Link>
+                <p className="typo-body-medium whitespace-nowrap text-slate-600 tabular-nums">C.F. 97927490157</p>
+              </div>
             </div>
-            <div className="flex flex-col items-start gap-4">
-              <h3 className={HEADING}>Qualche problema?</h3>
-              <Button variant="tertiary" size="lg" asChild>
-                <a href="https://github.com/PoliNetworkOrg/web/issues/new" target="_blank" rel="noopener noreferrer">
-                  <FiGithub />
-                  Segnalalo
-                </a>
-              </Button>
+          </div>
+
+          <div className="flex flex-col gap-10 lg:col-span-5 lg:col-start-8">
+            <section aria-labelledby="footer-contacts" className="flex flex-col gap-5">
+              <h3 id="footer-contacts" className={HEADING}>
+                Talk with us
+              </h3>
+              <dl className="flex flex-col gap-4">
+                {emails.map(({ label, email }) => (
+                  <div key={email} className="flex flex-col gap-0.5">
+                    <dt className="typo-body-medium text-slate-600">{label}</dt>
+                    <dd className="typo-body-large text-text-primary">
+                      <a href={`mailto:${email}`} className={LINK}>
+                        {email}
+                      </a>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+
+            <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
+              <div className="flex flex-col items-start gap-4">
+                <h3 className={HEADING}>Sei interessato?</h3>
+                <Button variant="primary" size="lg" asChild>
+                  <Link href="/join">Unisciti a noi!</Link>
+                </Button>
+              </div>
+              <div className="flex flex-col items-start gap-4">
+                <h3 className={HEADING}>Qualche problema?</h3>
+                <Button variant="tertiary" size="lg" asChild>
+                  <a href="https://github.com/PoliNetworkOrg/web/issues/new" target="_blank" rel="noopener noreferrer">
+                    <FiGithub />
+                    Segnalalo
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* slate-600 rather than text-secondary (slate-500, 4.3:1 on the page background) so the small print passes AA */}
-      <div className="typo-body-small md:typo-body-medium mx-auto mt-16 flex max-w-6xl flex-col items-center gap-1 border-slate-300/70 border-t pt-6 text-slate-600 sm:flex-row sm:justify-between md:mt-24">
-        <p id="copyright">PoliNetwork APS 2016-{new Date().getFullYear()}</p>
-        <p>All rights reserved</p>
-      </div>
+        {/* slate-600 rather than text-secondary (slate-500, 4.3:1 on the page background) so the small print passes AA */}
+        <div className="typo-body-small md:typo-body-medium mx-auto mt-14 flex max-w-6xl flex-col items-center gap-1 border-slate-300/70 border-t pt-6 text-slate-600 sm:flex-row sm:justify-between md:mt-16">
+          <p id="copyright">PoliNetwork APS 2016-{new Date().getFullYear()}</p>
+          <p>All rights reserved</p>
+        </div>
+      </Glass>
     </footer>
   )
 }
