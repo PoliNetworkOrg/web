@@ -22,8 +22,8 @@ export default function TeamPage() {
           gradientDescription
         />
       </section>
-      {teams.map((team) => (
-        <TeamSection key={team.id} team={team} />
+      {teams.map((team, index) => (
+        <TeamSection key={team.id} team={team} reverse={index % 2 === 1} />
       ))}
       <ClosingCta
         title="Vuoi fare la differenza?"

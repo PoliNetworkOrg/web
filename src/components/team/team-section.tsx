@@ -34,7 +34,8 @@ function JoinButton({ team }: { team: Team }) {
   )
 }
 
-export function TeamSection({ team }: { team: Team }) {
+/** `reverse` puts the specialisms on the left: the page alternates sides from one team to the next. */
+export function TeamSection({ team, reverse = false }: { team: Team; reverse?: boolean }) {
   const title = (
     <h2 id={`${team.id}-title`} className={SECTION_TITLE}>
       {team.title}
@@ -49,10 +50,10 @@ export function TeamSection({ team }: { team: Team }) {
       className={cn(
         CONTAINER,
         "grid scroll-mt-36 items-center gap-10 xl:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] xl:gap-16",
-        team.layout === "reverse" && "xl:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]"
+        reverse && "xl:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]"
       )}
     >
-      <div className={cn("flex min-w-0 flex-col gap-6", team.layout === "reverse" && "xl:order-last")}>
+      <div className={cn("flex min-w-0 flex-col gap-6", reverse && "xl:order-last")}>
         {title}
         {description}
         <div className="pt-2">

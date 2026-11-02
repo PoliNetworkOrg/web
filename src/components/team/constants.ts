@@ -22,7 +22,6 @@ export type Team = {
   description: string
   roles: Pick<CardIconProps, "title" | "icon">[]
   /** Figma alternates the sections: text on the right for HR, title and text side by side for Events. */
-  layout?: "reverse"
 }
 
 export const teams: Team[] = [
@@ -62,7 +61,6 @@ export const teams: Team[] = [
       { title: "Community & Engagement", icon: FiAward },
       { title: "Crescita del team", icon: FiCornerRightUp },
     ],
-    layout: "reverse",
   },
   {
     id: "events-partnership",
