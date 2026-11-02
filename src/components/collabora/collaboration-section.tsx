@@ -1,13 +1,13 @@
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
-import { Aside, Highlight, SectionTitle, sectionTextClass } from "./section"
+import { Aside, Highlight } from "./section"
 
 export function CollaborationSection() {
   return (
     <section className={CONTAINER}>
       <div className="flex flex-col gap-6 md:gap-3">
-        <SectionTitle>Cosa possiamo fare insieme?</SectionTitle>
-        <div className={cn(sectionTextClass, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>
+        <h2 className={SECTION_TITLE}>Cosa possiamo fare insieme?</h2>
+        <div className={cn(SECTION_LEAD, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>
           {/* Figma runs this paragraph 959px wide at 24px; at 20px that is ~90 characters a line, so it narrows below 3xl */}
           <p className="3xl:max-w-239.75 md:max-w-180">
             Collaborare con noi significa <Highlight>accedere a questa community in modo diretto</Highlight>. Non siamo

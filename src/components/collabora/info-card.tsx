@@ -16,8 +16,6 @@ export type InfoCardData = {
   iconClassName: string
   /** Desktop description width: Figma wraps these copies at fixed widths (+1px, as Figma rounds text widths down). */
   descriptionClassName?: string
-  /** Title size/wrapping overrides, for cards whose titles don't fit the default single line. */
-  titleClassName?: string
   /** Makes the whole card a link: only then does it react to hover. */
   href?: string
 }
@@ -29,14 +27,16 @@ export type InfoCardData = {
 export function InfoCard({
   card,
   className,
+  titleClassName,
   descriptionColorClassName = "text-text-primary",
 }: {
   card: InfoCardData
   className?: string
+  /** Title size and wrapping, for rows where the default single-line title doesn't fit. */
+  titleClassName?: string
   descriptionColorClassName?: string
 }) {
-  const { title, description, mobileDescription, icon, iconClassName, descriptionClassName, titleClassName, href } =
-    card
+  const { title, description, mobileDescription, icon, iconClassName, descriptionClassName, href } = card
 
   return (
     // Glass draws a 1px border inside the Figma box: padding is 1px less than in Figma (25px / 40px)

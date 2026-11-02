@@ -1,8 +1,7 @@
 import Image, { type StaticImageData } from "next/image"
 import type { ReactNode } from "react"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
-import { SectionTitle, sectionTextClass } from "./section"
 
 type PhotoSectionProps = {
   title: ReactNode
@@ -41,8 +40,8 @@ export function PhotoSection({
         )}
       >
         <div className={cn("flex w-full flex-col gap-6 md:max-w-179.75 md:gap-3", photoFirst && "lg:order-last")}>
-          <SectionTitle>{title}</SectionTitle>
-          <div className={cn(sectionTextClass, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>{children}</div>
+          <h2 className={SECTION_TITLE}>{title}</h2>
+          <div className={cn(SECTION_LEAD, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>{children}</div>
         </div>
 
         <div className={cn("relative w-full md:max-w-179.75 lg:max-w-none", frameClassName)}>

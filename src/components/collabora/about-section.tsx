@@ -4,12 +4,12 @@ import chatIcon from "@/assets/icons/collabora/chat.svg"
 import groupIcon from "@/assets/icons/collabora/group.svg"
 import handshakeIcon from "@/assets/icons/collabora/handshake.svg"
 import schoolIcon from "@/assets/icons/collabora/school.svg"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
 import { InfoCard, type InfoCardData } from "./info-card"
-import { Aside, Highlight, SectionTitle, sectionTextClass } from "./section"
+import { Aside, Highlight } from "./section"
 
 const cards: InfoCardData[] = [
   {
@@ -69,8 +69,8 @@ export function AboutSection() {
       <div className="flex flex-col gap-8.75 md:gap-12 xl:flex-row xl:items-start xl:justify-between">
         <div className="flex w-full flex-col items-start gap-6 md:max-w-179.75 md:gap-2.5">
           <div className="flex w-full flex-col gap-6 md:gap-3">
-            <SectionTitle>Chi siamo?</SectionTitle>
-            <div className={cn(sectionTextClass, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>
+            <h2 className={SECTION_TITLE}>Chi siamo?</h2>
+            <div className={cn(SECTION_LEAD, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>
               <p>PoliNetwork è l'infrastruttura di comunicazione studentesca del Politecnico di Milano.</p>
               <p>
                 Gestiamo oltre 500 gruppi Telegram e WhatsApp, una presenza social in crescita e strumenti digitali

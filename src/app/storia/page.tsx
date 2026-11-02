@@ -23,8 +23,6 @@ export default function HistoryPage() {
     <main className={PAGE_MAIN}>
       <HistoryHero />
 
-      {/* Figma reserves the right column for an archive photo that doesn't exist yet: until then the text stands alone.
-            The two milestone cards that filled it repeated the timeline right below. */}
       <TextOnlyLayout
         title="Come è nato tutto"
         description={

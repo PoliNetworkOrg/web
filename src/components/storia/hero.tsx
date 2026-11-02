@@ -4,7 +4,6 @@ import { CONTAINER, PAGE_HERO } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
 
-// Figma: a centred XL title and nothing else. The board portraits appear further down, under "I nostri direttivi".
 export function HistoryHero() {
   return (
     <section className={`${CONTAINER} ${PAGE_HERO} flex flex-col items-center gap-10`}>

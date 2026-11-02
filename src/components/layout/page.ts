@@ -22,4 +22,5 @@ export const PAGE_MAIN = "flex w-full flex-col gap-24 pb-24 md:gap-32 md:pb-32 x
  * y=286 on desktop, as in every Figma frame. Figma also leaves more air after the hero (~270px at 1728) than between
  * sections (180px): the bottom padding adds that difference to the main gap.
  */
-export const PAGE_HERO = "pt-52 pb-8 md:pt-57.5 md:pb-12 xl:pb-24"
+export const PAGE_HERO_TOP = "pt-52 md:pt-57.5"
+export const PAGE_HERO = `${PAGE_HERO_TOP} pb-8 md:pb-12 xl:pb-24`
