@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
@@ -12,31 +12,47 @@ import { Logo } from "./logo"
 export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const pathname = usePathname()
   const [openOn, setOpenOn] = useState<string | null>(null)
-  // The menu belongs to the page it was opened on: following a link (or reaching a logo-only route, where the toggle
-  // is hidden) closes it, since this component instance persists across navigation
+  const panelRef = useRef<HTMLDivElement>(null)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  // Tied to the page it was opened on, so any navigation closes it: this component persists across pages
   const mobileMenuOpen = !logoOnly && openOn === pathname
+  const close = () => setOpenOn(null)
 
   useEffect(() => {
     if (!mobileMenuOpen) return
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpenOn(null)
+      if (event.key !== "Escape") return
+      setOpenOn(null)
+      toggleRef.current?.focus()
+    }
+    const onPointerDown = (event: PointerEvent) => {
+      if (!panelRef.current?.contains(event.target as Node)) setOpenOn(null)
     }
     document.addEventListener("keydown", onKeyDown)
-    return () => document.removeEventListener("keydown", onKeyDown)
+    document.addEventListener("pointerdown", onPointerDown)
+    return () => {
+      document.removeEventListener("keydown", onKeyDown)
+      document.removeEventListener("pointerdown", onPointerDown)
+    }
   }, [mobileMenuOpen])
 
   return (
     <Glass
+      ref={panelRef}
       className={cn(
         "fixed inset-x-6 top-14 z-20 box-border rounded-[36px] px-6 py-5",
         // Open, the panel covers the page: a stronger blur keeps the titles underneath from competing with the links
         mobileMenuOpen && "backdrop-blur-xl"
       )}
+      // Following any link, the current page and the logo included, closes the menu; so does tabbing out of it
+      onClick={(event) => (event.target as HTMLElement).closest("a") && close()}
+      onBlur={(event) => !event.currentTarget.contains(event.relatedTarget) && close()}
     >
       <div className={cn("flex w-full items-center", logoOnly ? "justify-center" : "justify-between")}>
         <Logo href={logoOnly ? "https://polinetwork.org" : "/"} />
         {!logoOnly && (
           <button
+            ref={toggleRef}
             type="button"
             onClick={() => setOpenOn(mobileMenuOpen ? null : pathname)}
             className="-m-2 ml-auto rounded-full p-2 outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary"
@@ -54,10 +70,13 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
       </div>
 
       {mobileMenuOpen && (
-        <nav id="mobile-menu" aria-label="Menu principale" className="max-h-[calc(100dvh-9rem)] overflow-y-auto pb-1">
+        <nav
+          id="mobile-menu"
+          aria-label="Menu principale"
+          className="max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain pb-1"
+        >
           {headerMenuItems.map((item) => (
             <div key={item.title} className="mt-5">
-              {/* Plain text: the style guide keeps colour gradients for display titles only */}
               <p className="typo-title-medium text-text-secondary">{item.title}</p>
               {"menu" in item && item.menu && (
                 <ul className="mt-1 flex flex-col">
@@ -66,12 +85,11 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                     const Icon = subItem.icon
                     return (
                       <li key={subItem.title}>
-                        {/* 40px rows: the old 20px links were hard to hit */}
                         <Link
                           href={subItem.href}
                           aria-current={active ? "page" : undefined}
                           className={cn(
-                            "typo-body-large flex min-h-10 items-center justify-between gap-2 rounded-md text-text-primary decoration-1 decoration-blue-secondary underline-offset-4 outline-none hover:underline focus-visible:underline",
+                            "typo-body-large flex min-h-10 items-center justify-between gap-2 rounded-md text-text-primary decoration-1 decoration-blue-secondary underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-blue-secondary",
                             active && "underline"
                           )}
                         >

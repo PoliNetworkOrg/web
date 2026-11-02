@@ -19,7 +19,8 @@ import { Logo } from "./logo"
 export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const pathname = usePathname()
   const removeDefaultHoverEffectClass = "hover:bg-transparent focus:bg-transparent bg-transparent!"
-  const customHoverEffectClass = "hover:underline focus-visible:underline decoration-1 decoration-blue-secondary "
+  const customHoverEffectClass =
+    "hover:underline decoration-1 decoration-blue-secondary focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-blue-secondary"
   // The current page, and the section that contains it, keep the hover underline
   const activeClass = "underline decoration-1 decoration-blue-secondary underline-offset-4"
 
