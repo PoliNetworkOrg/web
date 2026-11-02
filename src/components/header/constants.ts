@@ -1,13 +1,15 @@
 import { FiArrowUpRight, FiChevronRight } from "react-icons/fi"
 import type { HeaderMenuItem } from "./types"
 
+/** The materials archive, on the old site. */
+export const MATERIALS_URL = "https://polinetwork.org/it/materials/view/"
 export const headerMenuItems: HeaderMenuItem[] = [
   {
     title: "Resources",
     menu: [
       { title: "Progetti", href: "/projects", icon: FiChevronRight },
       // Leaves the site: ↗ instead of ›, as in the rest of the site
-      { title: "Appunti", href: "https://polinetwork.org/it/materials/view/", icon: FiArrowUpRight },
+      { title: "Appunti", href: MATERIALS_URL, icon: FiArrowUpRight },
       { title: "Guide", href: "/guides", icon: FiChevronRight },
       { title: "FAQs", href: "/faqs", icon: FiChevronRight },
     ],

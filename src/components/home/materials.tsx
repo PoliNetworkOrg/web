@@ -2,12 +2,11 @@ import Link from "next/link"
 import { Fragment } from "react"
 import { FiArrowUpRight, FiBook, FiBookOpen, FiClipboard, FiFileText, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
+import { MATERIALS_URL } from "@/components/header/constants"
 import { CONTAINER } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { CardCaption } from "../card-caption"
-
-const MATERIALS_URL = "https://polinetwork.org/it/materials/view/"
 
 // "Carica" has no destination yet, so it stays a plain card
 const featuredCards = [

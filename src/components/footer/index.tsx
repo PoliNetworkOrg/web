@@ -6,23 +6,18 @@ import discord from "@/assets/icons/discord.svg"
 import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { Glass } from "@/components/glass"
-import { CONTAINER } from "@/components/layout/page"
+import { MATERIALS_URL } from "@/components/header/constants"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { regulationsHref, statuteHref } from "@/components/structure/constants"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-
-/*
-  Built on the designers' footer exploration used across the Figma pages ("footer-francesca", 593:2123): the
-  "Keep in touch!" header of the official component (5107:12889), then a site map with the 5x1000 card, the contact
-  addresses and the two calls to action. Only content that exists is shown: no TikTok, no language selector (the site
-  has no translations), and the association's documents instead of policy pages that don't exist yet.
-*/
 
 const socials: { label: string; href: string; icon: ReactNode }[] = [
   { label: "Telegram", href: "https://t.me/polinetwork", icon: <Image src={telegram} alt="" className="size-6" /> },
   { label: "Instagram", href: "https://instagram.com/polinetwork_", icon: <FiInstagram /> },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/polinetwork", icon: <FiLinkedin /> },
   { label: "Facebook", href: "https://www.facebook.com/PolitecnicoDiMilanoNetwork", icon: <FiFacebook /> },
-  // The Discord glyph has a 34px canvas with its own padding: at 28px it matches the optical size of the others
+  // The Discord glyph has its own padding: at 28px it matches the others
   { label: "Discord", href: "https://discord.gg/Fp7ZHcC", icon: <Image src={discord} alt="" className="size-7" /> },
   { label: "GitHub", href: "https://github.com/PoliNetworkOrg", icon: <FiGithub /> },
 ]
@@ -31,21 +26,16 @@ const siteLinks = [
   { title: "Gruppi", href: "/groups" },
   { title: "Matricole", href: "/matricole" },
   { title: "Progetti", href: "/projects" },
-  { title: "Appunti", href: "https://polinetwork.org/it/materials/view/" },
+  { title: "Appunti", href: MATERIALS_URL },
   { title: "Su di noi", href: "/chi-siamo" },
   { title: "Contatti", href: "/contact" },
 ]
 
-// Already linked from /join. They stand in for "Terms", "Privacy" and "Cookie policy", which pointed to "#"
 const documents = [
-  { title: "Statuto", href: "https://github.com/PoliNetworkOrg/Statuto/blob/main/full.pdf" },
-  {
-    title: "Regolamento interno",
-    href: "https://github.com/PoliNetworkOrg/RegolamentoInterno/blob/main/RaccoltaRegolamentiInterni.pdf",
-  },
+  { title: "Statuto", href: statuteHref },
+  { title: "Regolamento interno", href: regulationsHref },
 ]
 
-// The addresses of the /contact page, with the Figma labels
 const emails = [
   { label: "Per collaborazioni ed eventi", email: "events@polinetwork.org" },
   { label: "Per domande e richieste", email: "info@polinetwork.org" },
@@ -58,7 +48,7 @@ const LINK =
 function FooterLink({ href, children, className }: { href: string; children: ReactNode; className?: string }) {
   const external = !href.startsWith("/")
   return external ? (
-    // Inline arrow: when the label wraps, it follows the last word instead of floating beside the block
+    // Inline arrow: when the label wraps, it follows the last word
     <a href={href} target="_blank" rel="noopener noreferrer" className={cn(LINK, className)}>
       {children}
       <FiArrowUpRight className="ml-1 inline size-4 align-[-0.125em]" aria-hidden />
@@ -73,17 +63,14 @@ function FooterLink({ href, children, className }: { href: string; children: Rea
 export function Footer() {
   return (
     <footer className={cn(CONTAINER, "pt-8 pb-6 md:pt-16 md:pb-10")}>
-      {/* The whole footer is one glass panel: it closes the page as a single object, like the header pill opens it */}
       <Glass className="rounded-[32px] border-white/60 bg-background-blur px-4 py-10 backdrop-blur-xl sm:rounded-[36px] sm:px-10 sm:py-12 md:rounded-[48px] md:px-14 md:py-16">
         <div className="flex flex-col items-center gap-6">
-          {/* Grey gradient like the section titles: the style guide keeps the blue one off text over the background */}
-          <h2 className="typo-headline-large sm:typo-display-small md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent">
+          <h2 lang="en" className={cn(SECTION_TITLE, "text-center")}>
             Keep in touch!
           </h2>
           <CardMultipleIcons
-            className="h-auto [&>div]:flex-nowrap [&>div]:justify-center [&>div]:gap-0 [&>div]:px-1 [&>div]:py-1 sm:[&>div]:gap-3 sm:[&>div]:px-5"
             icons={socials.map(({ label, href, icon }) => (
-              // 36–40px targets around 24px glyphs (the bare icons were the 24px glyphs alone); 36px keeps the row whole at 320px
+              // 36px targets below sm keep the row whole at 320px
               <a
                 key={label}
                 href={href}
@@ -114,23 +101,17 @@ export function Footer() {
                     </li>
                   ))}
                 </ul>
-                {/* Secondary column, as in Figma: smaller and grey */}
                 <ul className="typo-body-medium flex flex-col gap-3 pt-0.5 text-slate-600">
                   {documents.map((document) => (
                     <li key={document.title}>
-                      <FooterLink href={document.href} className="whitespace-nowrap">
-                        {document.title}
-                      </FooterLink>
+                      <FooterLink href={document.href}>{document.title}</FooterLink>
                     </li>
                   ))}
                 </ul>
               </div>
             </nav>
 
-            {/*
-            The 5x1000 card of the Figma footer, leading to the explanation on Su di noi. A lighter tile, not a second
-            glass layer inside the panel. Stacked wherever its column is narrow (phones, and the two columns at md).
-          */}
+            {/* A lighter tile, not a second glass layer inside the panel */}
             <div className="relative flex w-full flex-col items-start gap-1 rounded-rectangles border border-white/70 bg-white/40 px-5 py-4 transition-colors hover:bg-white/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:w-fit sm:flex-row sm:items-center sm:gap-8 sm:px-8 md:w-full md:flex-col md:items-start md:gap-1 lg:w-fit lg:flex-row lg:items-center lg:gap-8">
               <p className="typo-headline-large sm:typo-display-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
                 5x1000
@@ -149,7 +130,7 @@ export function Footer() {
 
           <div className="flex flex-col gap-10 lg:col-span-5 lg:col-start-8">
             <section aria-labelledby="footer-contacts" className="flex flex-col gap-5">
-              <h3 id="footer-contacts" className={HEADING}>
+              <h3 id="footer-contacts" lang="en" className={HEADING}>
                 Talk with us
               </h3>
               <dl className="flex flex-col gap-4">
@@ -169,13 +150,13 @@ export function Footer() {
             <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
               <div className="flex flex-col items-start gap-4">
                 <h3 className={HEADING}>Sei interessato?</h3>
-                <Button variant="primary" size="lg" asChild>
+                <Button variant="primary" size="lg" className="mt-auto" asChild>
                   <Link href="/join">Unisciti a noi!</Link>
                 </Button>
               </div>
               <div className="flex flex-col items-start gap-4">
                 <h3 className={HEADING}>Qualche problema?</h3>
-                <Button variant="tertiary" size="lg" asChild>
+                <Button variant="tertiary" size="lg" className="mt-auto" asChild>
                   <a href="https://github.com/PoliNetworkOrg/web/issues/new" target="_blank" rel="noopener noreferrer">
                     <FiGithub />
                     Segnalalo
@@ -188,8 +169,8 @@ export function Footer() {
 
         {/* slate-600 rather than text-secondary (slate-500, 4.3:1 on the page background) so the small print passes AA */}
         <div className="typo-body-small md:typo-body-medium mx-auto mt-14 flex max-w-6xl flex-col items-center gap-1 border-slate-300/70 border-t pt-6 text-slate-600 sm:flex-row sm:justify-between md:mt-16">
-          <p id="copyright">PoliNetwork APS 2016-{new Date().getFullYear()}</p>
-          <p>All rights reserved</p>
+          <p>PoliNetwork APS 2016–{new Date().getFullYear()}</p>
+          <p lang="en">All rights reserved</p>
         </div>
       </Glass>
     </footer>
