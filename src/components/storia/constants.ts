@@ -1,3 +1,5 @@
+import { FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
+import telegram from "@/assets/icons/telegram-gradient.svg"
 import ale from "@/assets/images/storia/ale-he.jpg"
 import alessandro from "@/assets/images/storia/alessandro-gabbini.jpg"
 import elia from "@/assets/images/storia/elia-falzoni.jpg"
@@ -13,19 +15,27 @@ export const CONTAINER = "mx-auto w-full max-w-350 px-6 sm:px-10 md:px-10 lg:px-
 export const milestones = [
   {
     year: "2016",
+    href: "#capitolo-1",
+    icon: FiUser,
     description:
       "Nasce il primo gruppo per rispondere a una necessità semplice: trovare informazioni e parlare con i compagni di corso.",
   },
   {
     year: "2017",
+    href: "#capitolo-1",
+    icon: telegram.src,
     description: "I gruppi si moltiplicano su Telegram e WhatsApp e iniziamo a coprire tutti i corsi di laurea.",
   },
   {
     year: "2022",
+    href: "#capitolo-5",
+    icon: FiUserCheck,
     description: "PoliNetwork diventa un’APS-ETS, con un direttivo eletto e una struttura ancora più democratica.",
   },
   {
     year: "OGGI",
+    href: "#direttivi",
+    icon: FiUsers,
     description:
       "Oltre 200 admin volontari e una community che accompagna ogni giorno migliaia di studenti del Politecnico di Milano.",
   },

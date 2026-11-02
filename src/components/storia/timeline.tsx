@@ -8,10 +8,6 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { CONTAINER, chapters, milestones } from "./constants"
 
-const milestoneLinks = ["#capitolo-1", "#capitolo-1", "#capitolo-5", "#direttivi"]
-
-const milestoneIcons = [FiUser, telegram.src, FiUserCheck, FiUsers]
-
 /** The small icon tile Figma uses for timeline nodes and diagram steps. */
 function IconTile({ icon, className }: { icon: GradientIconType | string; className?: string }) {
   return (
@@ -41,7 +37,7 @@ export function Timeline() {
 
       {/* Nodes on a line: vertical below lg, horizontal from lg (Figma) */}
       <ol className="grid lg:grid-cols-4">
-        {milestones.map((milestone, index) => (
+        {milestones.map((milestone) => (
           <li
             key={milestone.year}
             className={cn(
@@ -51,9 +47,9 @@ export function Timeline() {
               "lg:not-last:before:top-7 lg:not-last:before:bottom-auto lg:not-last:before:left-[calc(50%+2.25rem)] lg:not-last:before:h-px lg:not-last:before:w-[calc(100%-4.5rem)]"
             )}
           >
-            <IconTile icon={milestoneIcons[index] ?? FiUsers} className="row-span-2 size-14" />
+            <IconTile icon={milestone.icon} className="row-span-2 size-14" />
             <Link
-              href={milestoneLinks[index] ?? "#capitoli"}
+              href={milestone.href}
               className="typo-headline-small w-fit self-center text-blue-secondary underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-none lg:self-auto"
             >
               {milestone.year}
@@ -185,7 +181,7 @@ export function Chapters() {
             id={`capitolo-${index + 1}`}
             key={chapter.title}
             // A single vertical rule runs between the numerals and the text, across every chapter (Figma)
-            className="relative grid scroll-mt-36 grid-cols-[2.5rem_minmax(0,1fr)] gap-x-6 pb-16 before:absolute before:inset-y-0 before:left-[calc(2.5rem+0.75rem)] before:w-px before:bg-blue-primary/30 last:pb-0 sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:gap-x-10 sm:pb-24 sm:before:left-[calc(3.5rem+1.25rem)] xl:grid-cols-[3.5rem_minmax(0,7fr)_minmax(0,5fr)] xl:gap-x-16 xl:before:left-[calc(3.5rem+2rem)]"
+            className="relative grid scroll-mt-36 grid-cols-[3rem_minmax(0,1fr)] gap-x-6 pb-16 before:absolute before:inset-y-0 before:left-[calc(3rem+0.75rem)] before:w-px before:bg-blue-primary/30 last:pb-0 sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:gap-x-10 sm:pb-24 sm:before:left-[calc(3.5rem+1.25rem)] xl:grid-cols-[3.5rem_minmax(0,7fr)_minmax(0,5fr)] xl:gap-x-16 xl:before:left-[calc(3.5rem+2rem)]"
           >
             <span aria-hidden className="typo-display-small text-blue-secondary tabular-nums">
               {String(index + 1).padStart(2, "0")}

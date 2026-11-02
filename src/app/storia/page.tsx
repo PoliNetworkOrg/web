@@ -81,8 +81,7 @@ export default function HistoryPage() {
             contentDiv: "min-w-0 xl:w-1/2",
           }}
         >
-          {/* A closing statement, not a card: nothing here is clickable */}
-          <figure className="flex flex-col gap-4 border-blue-primary/30 border-l pl-6 sm:pl-10">
+          <div className="flex flex-col gap-4 border-blue-primary/30 border-l pl-6 sm:pl-10">
             <GradientIcon icon={FiMessageCircle} className="size-10 sm:size-14" />
             <p className="typo-headline-small sm:typo-headline-medium text-balance text-blue-secondary">
               L’obiettivo è raggiunto.
@@ -91,7 +90,7 @@ export default function HistoryPage() {
               Se anche un solo studente ha trovato casa grazie a un nostro gruppo, o si è laureato in tempo perché
               qualcuno gli ha risposto.
             </p>
-          </figure>
+          </div>
         </TextOnlyLayout>
 
         <Organization />
