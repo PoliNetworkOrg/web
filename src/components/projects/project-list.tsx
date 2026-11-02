@@ -2,8 +2,8 @@
 
 import { type ReactNode, useId, useState } from "react"
 import { FiArrowDown, FiArrowUp } from "react-icons/fi"
-import { PeekCarousel } from "../peek-carousel"
 import { EMPTY_STATE } from "@/components/layout/page"
+import { PeekCarousel } from "../peek-carousel"
 import { Button } from "../ui/button"
 import { ProjectCard } from "./project-card"
 import type { Project } from "./resources"

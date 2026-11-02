@@ -2,6 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FiChevronRight } from "react-icons/fi"
 import { CardCourse } from "@/components/card-course"
+import { EMPTY_STATE } from "@/components/layout/page"
 import { getLevel, getSchool } from "@/components/wizard/constants"
 import { CourseFilters, type FilterOption } from "@/components/wizard/course-filters"
 import { WizardShell } from "@/components/wizard/wizard-shell"
@@ -76,9 +77,7 @@ export async function CourseStep({
       }
     >
       <div className="flex flex-col gap-3">
-        {courseSlugs.length === 0 && (
-          <p className="typo-body-medium text-text-secondary">Nessun corso disponibile al momento.</p>
-        )}
+        {courseSlugs.length === 0 && <p className={EMPTY_STATE}>Nessun corso disponibile al momento.</p>}
         {courseSlugs.map((course) => {
           const facets = facetsByCourse.get(course) ?? []
           const courseCampus = campusFacet(facets)
