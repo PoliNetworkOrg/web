@@ -36,6 +36,7 @@ export const headerMenuItems: HeaderMenuItem[] = [
       { title: "I team", href: "/team", icon: FiChevronRight },
       { title: "Unisciti", href: "/join", icon: FiChevronRight },
       { title: "Collabora", href: "/collabora", icon: FiChevronRight },
+      { title: "Contatti", href: "/contact", icon: FiChevronRight },
     ],
   },
 ]

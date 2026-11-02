@@ -6,7 +6,6 @@ import discord from "@/assets/icons/discord.svg"
 import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { Glass } from "@/components/glass"
-import { MATERIALS_URL } from "@/components/header/constants"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { regulationsHref, statuteHref } from "@/components/structure/constants"
 import { Button } from "@/components/ui/button"
@@ -22,18 +21,9 @@ const socials: { label: string; href: string; icon: ReactNode }[] = [
   { label: "GitHub", href: "https://github.com/PoliNetworkOrg", icon: <FiGithub /> },
 ]
 
-const siteLinks = [
-  { title: "Gruppi", href: "/groups" },
-  { title: "Matricole", href: "/matricole" },
-  { title: "Progetti", href: "/projects" },
-  { title: "Appunti", href: MATERIALS_URL },
-  { title: "Su di noi", href: "/chi-siamo" },
-  { title: "Contatti", href: "/contact" },
-]
-
 const documents = [
-  { title: "Statuto", href: statuteHref },
-  { title: "Regolamento interno", href: regulationsHref },
+  { label: "Lo statuto dell'associazione", title: "Statuto", href: statuteHref },
+  { label: "Le regole di funzionamento interno", title: "Regolamento interno", href: regulationsHref },
 ]
 
 const emails = [
@@ -85,84 +75,80 @@ export function Footer() {
           />
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-6xl gap-x-16 gap-y-12 md:mt-16 md:grid-cols-2 lg:grid-cols-12">
-          <div className="flex flex-col gap-8 lg:col-span-6">
-            <nav aria-labelledby="footer-site" className="flex flex-col gap-5">
-              <h3 id="footer-site" className={HEADING}>
-                Visita il sito
-              </h3>
-              <div className="grid grid-cols-[auto_1fr] gap-x-10 sm:gap-x-14 lg:gap-x-20">
-                <ul className="typo-body-large flex flex-col gap-3 text-text-primary">
-                  {siteLinks.map((link) => (
-                    <li key={link.title}>
-                      <FooterLink href={link.href} className="whitespace-nowrap">
-                        {link.title}
-                      </FooterLink>
-                    </li>
-                  ))}
-                </ul>
-                <ul className="typo-body-medium flex flex-col gap-3 pt-0.5 text-slate-600">
-                  {documents.map((document) => (
-                    <li key={document.title}>
-                      <FooterLink href={document.href}>{document.title}</FooterLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </nav>
+        {/* Centred on phones, the two lists side by side from sm and the 5x1000 last; from md two rows: the lists, then the actions */}
+        <div className="mx-auto mt-14 grid max-w-6xl gap-x-10 gap-y-12 text-center sm:grid-cols-2 md:mt-16 md:gap-x-16 md:gap-y-10 md:text-left lg:grid-cols-12">
+          {/* Same shape as "Talk with us" on the other side, so the two columns balance */}
+          <section
+            aria-labelledby="footer-documents"
+            className="flex flex-col items-center gap-5 md:items-start lg:col-span-6"
+          >
+            <h3 id="footer-documents" className={HEADING}>
+              Documenti
+            </h3>
+            <dl className="flex flex-col gap-4">
+              {documents.map(({ label, title, href }) => (
+                <div key={title} className="flex flex-col gap-0.5">
+                  <dt className="typo-body-medium text-slate-600">{label}</dt>
+                  <dd className="typo-body-large text-text-primary">
+                    <FooterLink href={href}>{title}</FooterLink>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
 
-            {/* A lighter tile, not a second glass layer inside the panel */}
-            <div className="relative flex w-full flex-col items-start gap-1 rounded-rectangles border border-white/70 bg-white/40 px-5 py-4 transition-colors hover:bg-white/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:w-fit sm:flex-row sm:items-center sm:gap-8 sm:px-8 md:w-full md:flex-col md:items-start md:gap-1 lg:w-fit lg:flex-row lg:items-center lg:gap-8">
-              <p className="typo-headline-large sm:typo-display-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
-                5x1000
-              </p>
-              <div className="flex flex-col gap-0.5">
-                <Link
-                  href="/chi-siamo#sostienici"
-                  className="typo-title-large text-text-primary outline-none after:absolute after:inset-0 after:content-['']"
-                >
-                  Sostienici!
-                </Link>
-                <p className="typo-body-medium whitespace-nowrap text-slate-600 tabular-nums">C.F. 97927490157</p>
-              </div>
+          <section
+            aria-labelledby="footer-contacts"
+            className="flex flex-col items-center gap-5 md:items-start lg:col-span-5 lg:col-start-8"
+          >
+            <h3 id="footer-contacts" lang="en" className={HEADING}>
+              Talk with us
+            </h3>
+            <dl className="flex flex-col gap-4">
+              {emails.map(({ label, email }) => (
+                <div key={email} className="flex flex-col gap-0.5">
+                  <dt className="typo-body-medium text-slate-600">{label}</dt>
+                  <dd className="typo-body-large text-text-primary">
+                    <a href={`mailto:${email}`} className={LINK}>
+                      {email}
+                    </a>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <div className="grid gap-8 sm:col-span-2 sm:grid-cols-2 md:col-span-1 md:col-start-2 md:row-start-2 md:grid-cols-1 lg:col-span-5 lg:col-start-8 xl:grid-cols-2">
+            <div className="flex flex-col items-center gap-4 md:items-start">
+              <h3 className={HEADING}>Sei interessato?</h3>
+              <Button variant="primary" size="lg" className="mt-auto" asChild>
+                <Link href="/join">Unisciti a noi!</Link>
+              </Button>
+            </div>
+            <div className="flex flex-col items-center gap-4 md:items-start">
+              <h3 className={HEADING}>Qualche problema?</h3>
+              <Button variant="tertiary" size="lg" className="mt-auto" asChild>
+                <a href="https://github.com/PoliNetworkOrg/web/issues/new" target="_blank" rel="noopener noreferrer">
+                  <FiGithub />
+                  Segnalalo
+                </a>
+              </Button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-10 lg:col-span-5 lg:col-start-8">
-            <section aria-labelledby="footer-contacts" className="flex flex-col gap-5">
-              <h3 id="footer-contacts" lang="en" className={HEADING}>
-                Talk with us
-              </h3>
-              <dl className="flex flex-col gap-4">
-                {emails.map(({ label, email }) => (
-                  <div key={email} className="flex flex-col gap-0.5">
-                    <dt className="typo-body-medium text-slate-600">{label}</dt>
-                    <dd className="typo-body-large text-text-primary">
-                      <a href={`mailto:${email}`} className={LINK}>
-                        {email}
-                      </a>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
-
-            <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
-              <div className="flex flex-col items-start gap-4">
-                <h3 className={HEADING}>Sei interessato?</h3>
-                <Button variant="primary" size="lg" className="mt-auto" asChild>
-                  <Link href="/join">Unisciti a noi!</Link>
-                </Button>
-              </div>
-              <div className="flex flex-col items-start gap-4">
-                <h3 className={HEADING}>Qualche problema?</h3>
-                <Button variant="tertiary" size="lg" className="mt-auto" asChild>
-                  <a href="https://github.com/PoliNetworkOrg/web/issues/new" target="_blank" rel="noopener noreferrer">
-                    <FiGithub />
-                    Segnalalo
-                  </a>
-                </Button>
-              </div>
+          {/* A lighter tile, not a second glass layer inside the panel; as wide as its content at every size */}
+          <div className="relative flex w-fit flex-col items-center gap-1 self-start justify-self-center rounded-rectangles border border-white/70 bg-white/40 px-5 py-4 transition-colors hover:bg-white/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:col-span-2 sm:flex-row sm:gap-8 sm:px-8 sm:text-left md:col-span-1 md:col-start-1 md:row-start-2 md:flex-col md:items-start md:gap-1 md:justify-self-start lg:col-span-6 lg:flex-row lg:items-center lg:gap-8">
+            <p className="typo-headline-large sm:typo-display-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+              5x1000
+            </p>
+            <div className="flex flex-col gap-0.5">
+              <Link
+                href="/chi-siamo#sostienici"
+                className="typo-title-large text-text-primary outline-none after:absolute after:inset-0 after:content-['']"
+              >
+                Sostienici!
+              </Link>
+              <p className="typo-body-medium whitespace-nowrap text-slate-600 tabular-nums">C.F. 97927490157</p>
             </div>
           </div>
         </div>
