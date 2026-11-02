@@ -33,7 +33,7 @@ export function Collection({ projects, searchable }: { projects: Project[]; sear
         <h2 id="raccolta-title" className={SECTION_TITLE}>
           Esplora la raccolta completa dei progetti
         </h2>
-        {projects.length > 0 && (
+        {searchable.length > 0 && (
           <Input
             icon={<FiSearch className="h-5 w-5" />}
             type="search"

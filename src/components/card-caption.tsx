@@ -40,7 +40,12 @@ export function CardCaption({
       <CardHeader
         className={`typo-headline-medium relative flex ${iconPosition === "right" ? "justify-between" : "flex-col-reverse"}`}
       >
-        <CardTitle className={cn("typo-headline-medium", titleClassName)}>{title}</CardTitle>
+        <CardTitle gradient={false} className={cn("typo-headline-medium", titleClassName)}>
+          {/* Gradient per line (box-decoration-clone): a two-line title doesn't fade into a paler second line */}
+          <span className="bg-linear-to-b from-blue-secondary to-blue-primary box-decoration-clone bg-clip-text text-transparent">
+            {title}
+          </span>
+        </CardTitle>
         {image ? (
           <Image src={image} alt="" width={40} height={40} className="size-10 shrink-0 object-contain" />
         ) : (
