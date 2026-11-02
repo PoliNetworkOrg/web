@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
-import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { CONTAINER, INLINE_LINK, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 
 export function GroupsSection() {
@@ -16,7 +16,7 @@ export function GroupsSection() {
 
         <p className={`${SECTION_LEAD} max-w-2xl`}>
           Il modo più rapido per ottenere risposte su esami, burocrazia universitaria o sulla vita al Politecnico è{" "}
-          <Link href="/groups" className="text-blue-secondary hover:underline focus-visible:underline">
+          <Link href="/groups" className={INLINE_LINK}>
             entrare nel gruppo del tuo corso
           </Link>
           , su Telegram o su WhatsApp, dove gli admin sono presenti ogni giorno.
@@ -30,14 +30,13 @@ export function GroupsSection() {
         </Button>
       </div>
 
-      {/* Figma crops the photo to ~2.1:1 next to the text; it keeps that ratio at every width instead of growing tall */}
       <Image
         src="/contact-group.png"
         alt="Foto di gruppo della community PoliNetwork"
-        width={721}
-        height={342}
-        sizes="(min-width: 1280px) 50vw, 100vw"
-        className="aspect-[721/342] h-auto w-full max-w-3xl rounded-rectangles object-cover xl:max-w-none"
+        width={512}
+        height={246}
+        // The source is 512px wide: shown no larger, so it stays sharp
+        className="h-auto w-full max-w-128 rounded-rectangles"
       />
     </section>
   )
