@@ -11,8 +11,8 @@ export type DialogueAction =
   | { type: "move" }
   | { type: "select"; option: number }
   | { type: "choose"; option: number }
-  // Esc: non diegetico, ma nessuno deve restare bloccato qui
-  | { type: "leave" }
+  // Esc (non diegetico, ma nessuno deve restare bloccato qui) o la fine di una riga d'uscita
+  | { type: "leave"; exit: DialogueExit }
 
 export const initialDialogueState: DialogueState = { open: null, finished: false, exit: null }
 
@@ -24,8 +24,20 @@ export function stepChoices(step: DialogueStep) {
   return typeof step !== "string" && "choices" in step ? step.choices : null
 }
 
+function stepLine(step: DialogueStep) {
+  return typeof step !== "string" && !("choices" in step) ? step : null
+}
+
 export function stepEvent(step: DialogueStep) {
-  return typeof step !== "string" && "event" in step ? step.event : null
+  return stepLine(step)?.event ?? null
+}
+
+export function stepExit(step: DialogueStep) {
+  return stepLine(step)?.exit ?? null
+}
+
+export function stepTypeDelay(step: DialogueStep) {
+  return stepLine(step)?.typeDelay ?? null
 }
 
 function openNext(queue: DialogueStep[]): OpenDialogue | null {
@@ -33,7 +45,7 @@ function openNext(queue: DialogueStep[]): OpenDialogue | null {
   return step === undefined ? null : { step, queue: rest, typed: 0, selected: 0 }
 }
 
-function isTyped(open: OpenDialogue): boolean {
+export function isTyped(open: OpenDialogue): boolean {
   return open.typed >= stepText(open.step).length
 }
 
@@ -42,7 +54,7 @@ export function dialogueReducer(state: DialogueState, action: DialogueAction): D
 
   // una volta deciso di andarsene non succede più nulla
   if (state.exit) return state
-  if (action.type === "leave") return { ...state, open: null, exit: "instant" }
+  if (action.type === "leave") return { ...state, open: null, exit: action.exit }
 
   if (!open) {
     if (action.type === "start" && !state.finished) return { ...state, open: openNext(DIALOGUE) }
@@ -74,6 +86,8 @@ export function dialogueReducer(state: DialogueState, action: DialogueAction): D
     case "confirm": {
       if (!isTyped(open)) return dialogueReducer(state, { type: "skip" })
       if (choices) return dialogueReducer(state, { type: "choose", option: open.selected })
+      const exit = stepExit(open.step)
+      if (exit) return dialogueReducer(state, { type: "leave", exit })
       const next = openNext(open.queue)
       return { ...state, open: next, finished: state.finished || !next }
     }

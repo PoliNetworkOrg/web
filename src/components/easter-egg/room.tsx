@@ -11,6 +11,7 @@ import {
   DIALOGUE_START_DELAY,
   EGG_SOUND_SRC,
   EGG_SOUND_VOLUME,
+  EXIT_LINE_HOLD,
   MUSIC_SRC,
   MUSIC_VOLUME,
   PUNCTUATION_DELAY,
@@ -20,7 +21,15 @@ import {
   TREE,
   TYPE_DELAY,
 } from "./constants"
-import { dialogueReducer, initialDialogueState, stepEvent, stepText } from "./dialogue"
+import {
+  dialogueReducer,
+  initialDialogueState,
+  isTyped,
+  stepEvent,
+  stepExit,
+  stepText,
+  stepTypeDelay,
+} from "./dialogue"
 import { DialogueBox } from "./dialogue-box"
 import { getRoomReturnPath, hasRoomTicket, markEggReceived, subscribeRoomTicket } from "./storage"
 
@@ -70,7 +79,8 @@ function Room() {
     if (!open) return
     const text = stepText(open.step)
     if (open.typed >= text.length) return
-    const delay = PUNCTUATION.has(text[open.typed - 1] ?? "") ? PUNCTUATION_DELAY : TYPE_DELAY
+    const delay =
+      stepTypeDelay(open.step) ?? (PUNCTUATION.has(text[open.typed - 1] ?? "") ? PUNCTUATION_DELAY : TYPE_DELAY)
     const timeout = setTimeout(() => {
       if (VOICED.test(text.charAt(open.typed))) soundsRef.current?.text()
       dispatch({ type: "tick" })
@@ -83,6 +93,18 @@ function Room() {
     markEggReceived()
     soundsRef.current?.egg()
   }, [step, soundsRef])
+
+  // una riga d'uscita zittisce la musica appena compare, e una volta scritta chiude la stanza
+  useEffect(() => {
+    if (step && stepExit(step)) soundsRef.current?.stopMusic()
+  }, [step, soundsRef])
+
+  const pendingExit = open && isTyped(open) ? stepExit(open.step) : null
+  useEffect(() => {
+    if (!pendingExit) return
+    const timeout = setTimeout(() => dispatch({ type: "leave", exit: pendingExit }), EXIT_LINE_HOLD)
+    return () => clearTimeout(timeout)
+  }, [pendingExit])
 
   useEffect(() => {
     if (!exit) return
@@ -100,7 +122,7 @@ function Room() {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.repeat) return
-      if (LEAVE_KEYS.has(event.key)) dispatch({ type: "leave" })
+      if (LEAVE_KEYS.has(event.key)) dispatch({ type: "leave", exit: "abrupt" })
       else if (CONFIRM_KEYS.has(event.key)) dispatch({ type: "confirm" })
       else if (SKIP_KEYS.has(event.key)) dispatch({ type: "skip" })
       else if (MOVE_KEYS.has(event.key)) dispatch({ type: "move" })
@@ -176,7 +198,7 @@ async function loadBuffer(context: AudioContext, sources: string[], signal: Abor
   return null
 }
 
-type RoomSounds = { text: () => void; egg: () => void; stop: () => void }
+type RoomSounds = { text: () => void; egg: () => void; stopMusic: () => void; stop: () => void }
 
 /**
  * Musica in loop senza stacchi ed effetti sonori, tutti via Web Audio: partono appena il browser lo consente (al più
@@ -200,13 +222,14 @@ function useRoomAudio() {
       return gain
     }
 
+    const music = output(MUSIC_VOLUME)
     const loadMusic = async () => {
       const buffer = await loadBuffer(context, [MUSIC_SRC.ogg, MUSIC_SRC.mp3], controller.signal)
       if (!buffer || controller.signal.aborted) return
       const source = context.createBufferSource()
       source.buffer = buffer
       source.loop = true
-      source.connect(output(MUSIC_VOLUME))
+      source.connect(music)
       source.start()
     }
     void loadMusic()
@@ -231,6 +254,7 @@ function useRoomAudio() {
     soundsRef.current = {
       text: soundEffect(TEXT_SOUND_SRC, TEXT_SOUND_VOLUME),
       egg: soundEffect(EGG_SOUND_SRC, EGG_SOUND_VOLUME),
+      stopMusic: () => music.disconnect(),
       stop: () => master.disconnect(),
     }
 

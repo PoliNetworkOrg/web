@@ -50,6 +50,8 @@ export const TYPE_DELAY = 35
 export const PUNCTUATION_DELAY = 200
 export const DIALOGUE_START_DELAY = 1500
 export const ABRUPT_EXIT_DELAY = 800
+// quanto resta a schermo l'ultima riga, già scritta, prima del buio
+export const EXIT_LINE_HOLD = 500
 
 export const DIALOGUE: DialogueStep[] = [
   "(C'è qualcuno dietro l'albero.)",
@@ -63,7 +65,7 @@ export const DIALOGUE: DialogueStep[] = [
     text: "Vuoi l'uovo?",
     choices: [
       { label: "Sì", reply: ["Bene.", { text: "(Hai ricevuto un Uovo.)", event: "receive-egg" }] },
-      { label: "No", exit: "abrupt" },
+      { label: "No", reply: [{ text: "...", exit: "abrupt", typeDelay: 300 }] },
     ],
   },
 ]
