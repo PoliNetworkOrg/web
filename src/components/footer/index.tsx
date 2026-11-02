@@ -7,8 +7,8 @@ import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
-import { regulationsHref, statuteHref } from "@/components/structure/constants"
 import { Button } from "@/components/ui/button"
+import { regulationsHref, statuteHref } from "@/lib/documents"
 import { cn } from "@/lib/utils"
 
 const socials: { label: string; href: string; icon: ReactNode }[] = [

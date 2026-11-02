@@ -15,6 +15,7 @@ import report from "@/assets/icons/join/report.svg"
 import starShine from "@/assets/icons/join/star-shine.svg"
 import statute from "@/assets/icons/join/statute.svg"
 import type { InfoCardData } from "@/components/collabora/info-card"
+import { memberPrivacyHref, regulationsHref, statuteHref } from "@/lib/documents"
 
 const iconClassName = "mr-3 h-auto w-7 md:mr-0 md:w-13"
 
@@ -94,17 +95,17 @@ export const membershipSteps = [
   {
     title: "Consulta lo Statuto dell’Associazione",
     icon: statute,
-    href: "https://github.com/PoliNetworkOrg/Statuto/blob/main/full.pdf",
+    href: statuteHref,
   },
   {
     title: "Leggi il Regolamento Interno",
     icon: regulations,
-    href: "https://github.com/PoliNetworkOrg/RegolamentoInterno/blob/main/RaccoltaRegolamentiInterni.pdf",
+    href: regulationsHref,
   },
   {
     title: "Dai un occhio alle Privacy Policy",
     icon: privacy,
-    href: "https://github.com/PoliNetworkOrg/PrivacyPolicies/releases/download/v1.0/regolamento_soci.pdf",
+    href: memberPrivacyHref,
   },
   { title: "Invia una mail a info@polinetwork.org", icon: mail, href: membershipEmail },
   { title: "Attendi la nostra risposta", icon: reply },

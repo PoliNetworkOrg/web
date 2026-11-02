@@ -3,8 +3,9 @@ import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
 import { SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
+import { regulationsHref, statuteHref } from "@/lib/documents"
 import { cn } from "@/lib/utils"
-import { legalFacts, regulationsHref, statuteHref } from "./constants"
+import { legalFacts } from "./constants"
 
 export function LegalStatus() {
   return (
