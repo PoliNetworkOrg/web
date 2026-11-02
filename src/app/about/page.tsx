@@ -51,7 +51,7 @@ export default function StructurePage() {
         <Participation />
       </section>
       <section className={`${CONTAINER} flex flex-col items-center gap-8 py-10 text-center md:py-16`}>
-        <h2 className="typo-headline-medium md:typo-display-medium max-w-160 text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+        <h2 className="typo-headline-medium md:typo-display-medium max-w-160 text-balance bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
           Tutto ciò che c’è da sapere su PoliNetwork.
         </h2>
         <p className="typo-body-large sm:typo-headline-extrasmall max-w-110 text-balance">

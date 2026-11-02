@@ -24,7 +24,7 @@ export function LegalStatus() {
         ))}
       </div>
       <div className="flex flex-col items-center gap-6 text-center lg:col-start-1 lg:row-start-2 lg:items-start lg:self-start lg:text-start">
-        <h3 className="typo-headline-small max-w-64 text-balance bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+        <h3 className="typo-headline-small text-balance bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
           Consulta Statuto e Regolamenti
         </h3>
         <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
