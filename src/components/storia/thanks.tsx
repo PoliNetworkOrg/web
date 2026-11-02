@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import { FiSearch } from "react-icons/fi"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
 import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 import { contributors } from "./constants"
 
 const categories = ["Tutti", "Direttivi", "Admin", "Collaboratori"]
@@ -21,21 +22,17 @@ export function Thanks() {
       title="Un grazie speciale"
       description={
         <>
-          <h3 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-            Centinaia di persone, una sola comunità.
-          </h3>
-          <p className="typo-body-large sm:typo-headline-extrasmall mt-3 text-pretty">
+          <h3 className={SECTION_TITLE}>Centinaia di persone, una sola comunità.</h3>
+          <p className={cn(SECTION_LEAD, "mt-3")}>
             PoliNetwork esiste grazie a tutte le persone che, in modi diversi, hanno dedicato tempo, energie e idee alla
             sua crescita. Alcune hanno coordinato un corso, altre sviluppato uno strumento, organizzato un evento,
             moderato un gruppo o semplicemente aiutato qualcuno nel momento giusto.
           </p>
-          <p className="typo-body-large sm:typo-headline-extrasmall text-pretty">
-            Questa è la nostra memoria collettiva.
-          </p>
+          <p className={SECTION_LEAD}>Questa è la nostra memoria collettiva.</p>
         </>
       }
       classNames={{
-        section: `${CONTAINER} md:px-10 gap-12 xl:flex-row xl:gap-16 [&>div>h2]:typo-title-large`,
+        section: `${CONTAINER} gap-12 xl:flex-row xl:gap-16 [&>div>h2]:typo-title-large`,
         textDiv: "items-start text-start xl:w-1/2",
         title: "text-start text-blue-secondary",
         descriptionDiv: "text-start",

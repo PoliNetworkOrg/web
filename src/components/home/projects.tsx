@@ -1,7 +1,9 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
+import { CONTAINER } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "../ui/carousel"
 
 const featuredCards = [
@@ -47,7 +49,12 @@ function ProjectCard({ className, ...card }: (typeof featuredCards)[number] & { 
 
 export function Projects() {
   return (
-    <section className="mx-auto grid w-full max-w-384 grid-cols-1 gap-y-6 px-6 py-20 sm:gap-y-8 sm:px-10 sm:py-24 lg:px-16 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] xl:gap-x-16 xl:gap-y-10 xl:py-32">
+    <section
+      className={cn(
+        CONTAINER,
+        "grid grid-cols-1 gap-y-6 py-20 sm:gap-y-8 sm:py-24 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] xl:gap-x-16 xl:gap-y-10 xl:py-32"
+      )}
+    >
       <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-span-2 xl:text-start">
         15+ Projects
       </h2>

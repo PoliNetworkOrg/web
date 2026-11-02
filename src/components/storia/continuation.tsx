@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -15,13 +15,10 @@ export function Continuation() {
       aria-labelledby="continua-title"
     >
       <div className="flex min-w-0 flex-col items-start gap-6">
-        <h2
-          id="continua-title"
-          className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent"
-        >
+        <h2 id="continua-title" className={SECTION_TITLE}>
           La storia continua.
         </h2>
-        <p className="typo-body-large sm:typo-headline-extrasmall max-w-145 text-pretty">
+        <p className={cn(SECTION_LEAD, "max-w-145")}>
           Ogni anno qualcuno arriva, qualcuno si laurea e qualcun altro raccoglie il testimone. Nuove persone, nuove
           idee, nuovi progetti. La missione rimane la stessa: rendere la vita universitaria più semplice, accessibile e
           umana.

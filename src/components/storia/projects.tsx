@@ -4,9 +4,10 @@ import { FiAirplay, FiArrowUpRight, FiBarChart, FiBook, FiCheck, FiHeadphones } 
 import telegram from "@/assets/icons/telegram-gradient.svg"
 import projectsImage from "@/assets/images/storia/progetti.png"
 import { CardIcon } from "@/components/card-icon"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 const projects = [
   {
@@ -40,10 +41,8 @@ export function HistoryProjects() {
         title="I nostri progetti"
         description={
           <>
-            <h3 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-              Le cose che abbiamo costruito.
-            </h3>
-            <p className="typo-body-large sm:typo-headline-extrasmall mt-3 text-pretty">
+            <h3 className={SECTION_TITLE}>Le cose che abbiamo costruito.</h3>
+            <p className={cn(SECTION_LEAD, "mt-3")}>
               Nel corso degli anni PoliNetwork ha sviluppato e mantenuto un ecosistema di{" "}
               <strong>strumenti gratuiti e open source</strong> pensati per rispondere ai bisogni concreti degli
               studenti.
@@ -51,7 +50,7 @@ export function HistoryProjects() {
           </>
         }
         classNames={{
-          section: "gap-12 px-0 md:px-0 xl:flex-row xl:items-center [&>div>h2]:typo-title-large",
+          section: "gap-12 xl:flex-row xl:items-center [&>div>h2]:typo-title-large",
           textDiv: "min-w-0 items-start xl:w-1/2",
           title: "text-start text-blue-secondary",
           descriptionDiv: "text-start",

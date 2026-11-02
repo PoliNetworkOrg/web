@@ -3,6 +3,8 @@ import { FiMessageCircle, FiUserCheck, FiUsers } from "react-icons/fi"
 import networkLogo from "@/assets/images/join/network-logo.png"
 import { CardIcon } from "@/components/card-icon"
 import { Highlight, SectionTitle } from "@/components/collabora/section"
+import { SECTION_LEAD } from "@/components/layout/page"
+import { cn } from "@/lib/utils"
 
 const paths = [
   { title: "Diventa Admin", icon: FiMessageCircle, href: "#admin" },
@@ -15,7 +17,7 @@ export function Introduction() {
     <section className="mx-auto grid w-full max-w-330 items-center gap-x-16 gap-y-10 px-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
       <div className="flex min-w-0 flex-col gap-6 text-center md:text-start">
         <SectionTitle>Cosa significa far parte di PoliNetwork</SectionTitle>
-        <div className="typo-body-large sm:typo-headline-extrasmall flex flex-col gap-5 text-pretty">
+        <div className={cn(SECTION_LEAD, "flex flex-col gap-5")}>
           <p>
             PoliNetwork è gestita interamente da <Highlight>studenti del Politecnico di Milano</Highlight>.
           </p>

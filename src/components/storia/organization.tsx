@@ -1,8 +1,9 @@
 import Link from "next/link"
 import { FiArrowDown } from "react-icons/fi"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD } from "@/components/layout/page"
 import { OrganizationDiagram } from "@/components/structure/organization-chart"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export function Organization() {
   return (
@@ -11,7 +12,7 @@ export function Organization() {
         <h2 id="struttura-title" className="typo-headline-medium sm:typo-display-medium text-balance">
           Come è organizzata PoliNetwork
         </h2>
-        <p className="typo-body-large sm:typo-headline-extrasmall max-w-94 text-pretty">
+        <p className={cn(SECTION_LEAD, "max-w-94")}>
           Direttivo, team operativi, admin e soci. Guarda come funziona la macchina dall’interno.
         </p>
         <Button asChild className="w-fit">

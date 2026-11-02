@@ -6,10 +6,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { applicationHref, type Team } from "./constants"
 
-/**
- * The specialisms are not links, so they are set as a plain list (icon + label on a hairline) rather than as tiles:
- * Figma draws them in four different tile variants and which one becomes the standard is still a design decision.
- */
+/** The specialisms are not links: a plain list, not tiles. */
 function RoleList({ team }: { team: Team }) {
   return (
     <ul
@@ -48,7 +45,6 @@ export function TeamSection({ team }: { team: Team }) {
   )
   const description = <p className={cn(SECTION_LEAD, "max-w-145")}>{team.description}</p>
 
-  // Figma closes the sequence with a different composition: title and text side by side, specialisms underneath
   if (team.layout === "stacked") {
     return (
       <section

@@ -25,7 +25,6 @@ export type Team = {
   layout?: "reverse" | "stacked"
 }
 
-// Copy and specialisms from the desktop Team frame (5546:10874).
 export const teams: Team[] = [
   {
     id: "it",

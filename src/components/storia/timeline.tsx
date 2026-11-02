@@ -4,7 +4,7 @@ import type { ReactNode } from "react"
 import { FiArrowDown, FiArrowRight, FiCheck, FiClipboard, FiClock, FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
 import telegram from "@/assets/icons/telegram-gradient.svg"
 import { GradientIcon, type GradientIconType } from "@/components/gradient-icon"
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { chapters, milestones } from "./constants"
@@ -31,7 +31,7 @@ function IconTile({ icon, className }: { icon: GradientIconType | string; classN
 export function Timeline() {
   return (
     <section className={`${CONTAINER} flex flex-col gap-12 sm:gap-16`}>
-      <h2 className="typo-headline-medium sm:typo-display-medium max-w-240 text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
+      <h2 className={cn(SECTION_TITLE, "max-w-240")}>
         Da un semplice gruppo a una rete costruita dagli studenti,{" "}
         <span className="text-blue-secondary">per gli studenti.</span>
       </h2>
@@ -63,7 +63,7 @@ export function Timeline() {
       </ol>
 
       <div className="flex flex-col items-center gap-6 text-center">
-        <p className="typo-body-large sm:typo-headline-extrasmall max-w-145 text-balance">
+        <p className={cn(SECTION_LEAD, "max-w-145 text-balance")}>
           Dieci anni di crescita, persone e progetti. La nostra storia{" "}
           <span className="text-blue-secondary">continua, insieme a te.</span>
         </p>
@@ -189,12 +189,8 @@ export function Chapters() {
             </span>
             <div className="flex min-w-0 flex-col gap-3">
               <h2 className="typo-headline-medium lg:typo-display-small text-balance">{chapter.title}</h2>
-              <p className="typo-body-large sm:typo-headline-extrasmall text-pretty text-blue-secondary">
-                {chapter.subtitle}
-              </p>
-              <p className="typo-body-large sm:typo-headline-extrasmall mt-2 max-w-170 text-pretty">
-                {chapter.description}
-              </p>
+              <p className={cn(SECTION_LEAD, "text-blue-secondary")}>{chapter.subtitle}</p>
+              <p className={cn(SECTION_LEAD, "mt-2 max-w-170")}>{chapter.description}</p>
             </div>
             <div className="col-start-2 mt-10 flex min-w-0 xl:col-start-3 xl:mt-0 xl:items-center xl:justify-center">
               {chapterVisuals[index]}

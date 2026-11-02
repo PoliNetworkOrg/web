@@ -1,15 +1,15 @@
 import { FiArrowUpRight } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
+import { SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { legalFacts, regulationsHref, statuteHref } from "./constants"
 
 export function LegalStatus() {
   return (
     <Glass className="grid gap-8 rounded-rectangles border-white/50 p-6 lg:grid-cols-2 lg:gap-16 lg:p-10">
-      <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent lg:text-start">
-        Forma giuridica
-      </h2>
+      <h2 className={cn(SECTION_TITLE, "text-center lg:text-start")}>Forma giuridica</h2>
       <div className="flex min-w-0 flex-col gap-8 lg:row-span-2">
         {legalFacts.map((fact) => (
           <div key={fact.title} className="flex flex-col gap-4 md:flex-row md:gap-8">

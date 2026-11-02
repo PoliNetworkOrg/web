@@ -1,6 +1,6 @@
 "use client"
 
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { BoardMemberCard } from "@/components/structure/board-member-card"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
@@ -11,9 +11,7 @@ export function Boards() {
   return (
     <section id="direttivi" className={`${CONTAINER} flex scroll-mt-36 flex-col gap-6`}>
       <h2 className="typo-title-large text-blue-secondary">I nostri direttivi</h2>
-      <p className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-        Ogni mandato, un nuovo capitolo
-      </p>
+      <p className={SECTION_TITLE}>Ogni mandato, un nuovo capitolo</p>
       <Tabs defaultValue="2024-OGGI" className="mt-2 gap-12">
         <TabsNavigation items={boardTerms.map((term) => ({ value: term, label: term }))} />
         {boardTerms.map((term) => (

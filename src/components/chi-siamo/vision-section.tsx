@@ -1,4 +1,5 @@
-import { CONTAINER } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD } from "@/components/layout/page"
+import { cn } from "@/lib/utils"
 
 export function VisionSection() {
   return (
@@ -8,7 +9,7 @@ export function VisionSection() {
         Un Politecnico in cui nessuno studente resti indietro per mancanza di{" "}
         <span className="text-blue-secondary">informazioni.</span>
       </h1>
-      <p className="typo-body-large sm:typo-headline-extrasmall max-w-180 text-balance">
+      <p className={cn(SECTION_LEAD, "max-w-180 text-balance")}>
         Rendiamo le informazioni sul PoliMi più accessibili, comprensibili e facili da trovare.
       </p>
     </section>
