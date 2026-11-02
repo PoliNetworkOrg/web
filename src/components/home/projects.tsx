@@ -1,53 +1,19 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
-import { CardCaption } from "@/components/card-caption"
 import { CONTAINER } from "@/components/layout/page"
 import { PeekCarousel } from "@/components/peek-carousel"
+import { ProjectCard } from "@/components/projects/project-card"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { getAllProjects } from "@/queries/projects"
 
-const featuredCards = [
-  {
-    title: "WeBeepSync",
-    caption:
-      "WeBeep Sync è una semplice app, user-friendly e senza compromessi che serve per tenere sincronizzati tutti i tuoi file di WeBeep.",
-    href: "https://github.com/toto04/webeep-sync",
-  },
-  {
-    title: "PolimiSchedule",
-    caption:
-      "Genera un file iCalendar (.ics) a partire dal formato testuale dell’Orario delle lezioni. Possibilità di importare su Google Calendar.",
-    href: "https://github.com/jacopo-j/polimi-schedule",
-  },
-  {
-    title: "WiFiLinux",
-    caption: "Scarica ed esegui lo script Python per attivare la connessione permanente al WiFi Polimi",
-    href: "https://github.com/PoliNetworkOrg/WiFiLinux",
-  },
-  {
-    title: "The TOL Project",
-    caption: "Un simulatore gratuito del test di ammissione per le aspiranti matricole di Ingegneria del PoliMi.",
-    href: "https://tol.polinetwork.org/",
-  },
-] as const
+export async function Projects() {
+  const live = (await getAllProjects()).filter((project) => project.category !== "deprecated")
+  // The first four, in the order set from the admin dashboard
+  const featured = live.slice(0, 4)
+  // Without the backend there is nothing to count: the title then stays a plain "Projects"
+  const title = live.length > 1 ? `${live.length} Projects` : live.length === 1 ? "1 Project" : "Projects"
 
-function FeaturedProjectCard({ className, ...card }: (typeof featuredCards)[number] & { className?: string }) {
-  return (
-    <CardCaption
-      {...card}
-      className={className}
-      // Figma reserves the bottom-right corner for an action: show where the card leads
-      footer={
-        <span className="typo-label-large flex items-center justify-end gap-1 text-blue-secondary">
-          {new URL(card.href).hostname}
-          <FiArrowUpRight className="size-4" />
-        </span>
-      }
-    />
-  )
-}
-
-export function Projects() {
   return (
     <section
       className={cn(
@@ -56,7 +22,7 @@ export function Projects() {
       )}
     >
       <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-span-2 xl:text-start">
-        15+ Projects
+        {title}
       </h2>
 
       <div className="flex flex-col items-center gap-8 text-center xl:items-start xl:text-start">
@@ -77,18 +43,24 @@ export function Projects() {
         </Button>
       </div>
 
-      <div className="mx-auto hidden w-full max-w-4xl auto-rows-fr gap-6 pt-8 sm:grid sm:grid-cols-2 xl:max-w-none xl:pt-0">
-        {featuredCards.map((card) => (
-          <FeaturedProjectCard key={card.title} {...card} className="h-auto w-full p-6" />
-        ))}
-      </div>
+      {featured.length > 0 && (
+        <>
+          <ul className="mx-auto hidden w-full max-w-4xl auto-rows-fr gap-6 pt-8 sm:grid sm:grid-cols-2 xl:max-w-none xl:pt-0">
+            {featured.map((project) => (
+              <li key={project.id} className="min-w-0">
+                <ProjectCard project={project} />
+              </li>
+            ))}
+          </ul>
 
-      <PeekCarousel
-        items={featuredCards}
-        getKey={(card) => card.title}
-        render={(card) => <FeaturedProjectCard {...card} className="h-full w-full p-6" />}
-        className="pt-6 sm:hidden"
-      />
+          <PeekCarousel
+            items={featured}
+            getKey={(project) => project.id}
+            render={(project) => <ProjectCard project={project} />}
+            className="pt-6 sm:hidden"
+          />
+        </>
+      )}
     </section>
   )
 }
