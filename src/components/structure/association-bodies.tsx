@@ -25,7 +25,6 @@ export function AssociationBodies() {
       <div className="hidden gap-6 md:grid md:grid-cols-2">
         {associationBodies.map((body) => (
           <Card key={body.id} className="h-auto w-full gap-6 border-white/50 p-6">
-            {/* Definitions, not objects: plain title as in Figma, no icon */}
             <CardHeader>
               <CardTitle gradient={false} className="typo-headline-medium text-balance">
                 {body.title}

@@ -6,19 +6,20 @@ import { GradientIcon } from "@/components/gradient-icon"
 import { cn } from "@/lib/utils"
 import { CONTAINER, teamLeads } from "./constants"
 
-const CHART_LABEL =
-  "Il Direttivo coordina i Capi admin e il Team growth. I Capi admin coordinano gli Admin. Il Team growth coordina i team lead HR, IT, Design & Marketing, International ed Eventi & Partnership, con i rispettivi membri."
+const teamNames = new Intl.ListFormat("it").format(teamLeads.map((lead) => lead.title.replace("Team lead ", "")))
+const CHART_LABEL = `Il Direttivo coordina i Capi admin e il Team growth. I Capi admin coordinano gli Admin. Il Team growth coordina i team lead ${teamNames}, con i rispettivi membri.`
 
-// Figma "Nodo organigramma": a glass tile with the icon above a 22px label. Nodes are not links, so no hover.
+// Nodes are not links, so they have no hover state
 const tileClassName = "rounded-rectangles border-white/50 bg-background-blur text-text-primary"
 
-function Node({ icon, label, className }: { icon: IconType; label: string; className?: string }) {
+/** `fill` stretches the node to its column instead of sizing it by its label. */
+function Node({ icon, label, fill = false }: { icon: IconType; label: string; fill?: boolean }) {
   return (
     <Glass
       className={cn(
         tileClassName,
-        "flex min-w-32 flex-col items-center gap-2 px-5 py-4 lg:min-w-44 lg:gap-3 lg:px-6 lg:py-5",
-        className
+        "flex flex-col items-center gap-2 py-4 lg:gap-3 lg:py-5",
+        fill ? "w-full min-w-0 px-2 lg:px-3" : "min-w-32 px-5 lg:min-w-44 lg:px-6"
       )}
     >
       <GradientIcon icon={icon} className="size-8 shrink-0 lg:size-12" />
@@ -84,9 +85,9 @@ function DesktopChart() {
           <Arrow className="-translate-x-1/2 absolute top-0 left-[58.333%]" />
         </div>
         <div className="flex min-w-0 flex-col items-center px-2">
-          <Node icon={LuShieldCheck} label="Capi admin" className="w-full min-w-0 px-2 lg:min-w-0 lg:px-3" />
+          <Node icon={LuShieldCheck} label="Capi admin" fill />
           <BranchArrow position="only" />
-          <Node icon={LuShield} label="Admin" className="w-full min-w-0 px-2 lg:min-w-0 lg:px-3" />
+          <Node icon={LuShield} label="Admin" fill />
         </div>
         <div className="col-span-5 flex min-w-0 flex-col items-center">
           <Node icon={LuUserCog} label="Team growth" />
@@ -127,11 +128,11 @@ function MobileChart() {
           <Arrow className="-translate-x-1/2 absolute top-0 left-3/4" />
         </div>
         <div className="flex min-w-0 flex-col items-center">
-          <Node icon={LuShieldCheck} label="Capi admin" className="w-full min-w-0 px-2 lg:min-w-0 lg:px-3" />
+          <Node icon={LuShieldCheck} label="Capi admin" fill />
           <BranchArrow position="only" />
-          <Node icon={LuShield} label="Admin" className="w-full min-w-0 px-2 lg:min-w-0 lg:px-3" />
+          <Node icon={LuShield} label="Admin" fill />
           <div className="relative mt-auto w-full pt-6">
-            <Node icon={LuUsersRound} label="Membri Team" className="w-full min-w-0 px-2 lg:min-w-0 lg:px-3" />
+            <Node icon={LuUsersRound} label="Membri Team" fill />
             {/* Arrow from the team leads' rail, across the column gap */}
             <span
               aria-hidden
@@ -143,8 +144,12 @@ function MobileChart() {
           </div>
         </div>
         <div className="flex min-w-0 flex-col items-center">
-          <Node icon={LuUserCog} label="Team growth" className="w-full min-w-0 px-2 lg:min-w-0 lg:px-3" />
-          <Stem />
+          <Node icon={LuUserCog} label="Team growth" fill />
+          {/* Down from the node, then left to the rail the team leads hang from */}
+          <div aria-hidden className="relative h-5 w-full">
+            <span className="absolute inset-y-0 left-1/2 w-px bg-text-secondary" />
+            <span className="absolute right-1/2 bottom-0 left-2 h-px bg-text-secondary sm:left-3" />
+          </div>
           <ul className="ml-2 flex w-[calc(100%-0.5rem)] flex-col gap-2 border-text-secondary border-l py-2 sm:ml-3 sm:w-[calc(100%-0.75rem)]">
             {teamLeads.map((lead) => (
               <li key={lead.title} className="flex items-center">
@@ -177,7 +182,6 @@ export function OrganizationDiagram({ id, className }: { id?: string; className?
 export function OrganizationChart() {
   return (
     <section aria-label="Organigramma di PoliNetwork" className={cn(CONTAINER, "flex flex-col gap-10")}>
-      {/* Chart and Soci share one column, as in Figma */}
       <div className="mx-auto flex w-full max-w-280 flex-col gap-10">
         <OrganizationDiagram />
         <Glass className={cn(tileClassName, "flex flex-col gap-3 p-6 md:flex-row md:items-start md:gap-6")}>
@@ -188,7 +192,6 @@ export function OrganizationChart() {
                 <GradientIcon icon={FiUsers} className="size-8 shrink-0 md:hidden" />
                 Soci
               </h3>
-              {/* A label, not an action: Figma's "Ruolo trasversale" tag */}
               <span className="typo-label-medium rounded-buttonsM bg-blue-tertiary-blur px-3 py-1 text-blue-secondary">
                 Ruolo trasversale
               </span>

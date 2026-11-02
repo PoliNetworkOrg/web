@@ -1,11 +1,9 @@
 "use client"
 
-import Image from "next/image"
+import { BoardMemberCard } from "@/components/structure/board-member-card"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
-import { Card, CardContent } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
 import { boardMembers, boardTerms, CONTAINER } from "./constants"
 
 export function Boards() {
@@ -24,25 +22,12 @@ export function Boards() {
                 <div className="flex flex-col items-center gap-8">
                   <div className="flex w-full flex-wrap justify-center gap-6">
                     {boardMembers.map((member) => (
-                      <Card
+                      <BoardMemberCard
                         key={member.name}
-                        className="relative aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0 shadow-sm sm:w-[calc((100%-48px)/3)] xl:w-[calc((100%-72px)/4)] min-[360px]:w-[calc((100%-24px)/2)]"
-                      >
-                        <Image
-                          src={member.image}
-                          alt={member.name}
-                          sizes="(max-width: 639px) 45vw, (max-width: 1279px) 30vw, 224px"
-                          className={cn("absolute max-w-none", member.crop)}
-                        />
-                        <div
-                          aria-hidden
-                          className="absolute inset-0 bg-linear-to-t from-5% from-blue-secondary/70 to-60% to-transparent"
-                        />
-                        <CardContent className="absolute inset-x-4 bottom-5 text-white">
-                          <h3 className="typo-body-large font-poppins">{member.name}</h3>
-                          {member.role && <p className="typo-body-small">{member.role}</p>}
-                        </CardContent>
-                      </Card>
+                        member={member}
+                        sizes="(max-width: 639px) 45vw, (max-width: 1279px) 30vw, 224px"
+                        className="sm:w-[calc((100%-48px)/3)] xl:w-[calc((100%-72px)/4)] min-[360px]:w-[calc((100%-24px)/2)]"
+                      />
                     ))}
                   </div>
                   <p className="typo-label-large max-w-145 text-center text-text-secondary">

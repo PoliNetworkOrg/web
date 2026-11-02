@@ -20,6 +20,7 @@ export function Organization() {
           </Link>
         </Button>
       </div>
+      {/* From xl the diagram rises beside the intro: its narrow top (the Direttivo node) fits next to the text */}
       <OrganizationDiagram id="organigramma" className="xl:-mt-57 scroll-mt-32 xl:max-w-220 xl:self-end" />
     </section>
   )
