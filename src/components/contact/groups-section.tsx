@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 export function GroupsSection() {
   return (
     <section className={`${CONTAINER} grid items-center gap-10 xl:grid-cols-2 xl:gap-16`}>
-      <div className="flex flex-col items-start gap-6">
+      <div className="flex flex-col items-center gap-6 text-center xl:items-start xl:text-start">
         <h2 className={SECTION_TITLE}>
           Hai mille dubbi sul Poli?
           <br />
