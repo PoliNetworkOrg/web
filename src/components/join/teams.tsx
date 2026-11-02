@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
-import { Highlight, SectionTitle } from "@/components/collabora/section"
-import { SECTION_LEAD } from "@/components/layout/page"
+import { Highlight } from "@/components/collabora/section"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { JoinCards } from "./cards"
@@ -9,13 +9,10 @@ import { teamCards } from "./constants"
 
 export function TeamsSection() {
   return (
-    <section
-      id="team"
-      className={"mx-auto grid w-full max-w-330 scroll-mt-36 items-start gap-10 px-6 xl:grid-cols-2 xl:gap-16"}
-    >
-      <div className="flex min-w-0 flex-col items-center gap-6 text-center md:items-start md:text-start">
-        <SectionTitle>Entra in un Team</SectionTitle>
-        <div className={cn(SECTION_LEAD, "flex flex-col gap-5")}>
+    <section id="team" className={cn(CONTAINER, "grid scroll-mt-36 items-start gap-10 xl:grid-cols-2 xl:gap-16")}>
+      <div className="flex min-w-0 flex-col items-start gap-6">
+        <h2 className={SECTION_TITLE}>Entra in un Team</h2>
+        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-5")}>
           <p>
             Entrare in un team significa avere un <Highlight>ruolo operativo con deliverable reali</Highlight>, non
             essere osservatori di un progetto altrui.
