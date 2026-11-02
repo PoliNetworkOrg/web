@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
-import { CONTAINER } from "./constants"
+import { CONTAINER, SECTION_TITLE } from "./constants"
 
 const blocks = [
   {
@@ -18,15 +18,12 @@ const blocks = [
   },
 ] as const
 
-// Figma lays these out as two free columns: in glass cards each held a section title, and the hierarchy broke
 export function HistorySection() {
   return (
     <section className={`${CONTAINER} grid gap-16 md:grid-cols-2 md:gap-10 lg:gap-16`}>
       {blocks.map((block) => (
         <div key={block.title} className="flex flex-col items-start gap-5">
-          <h2 className="typo-headline-medium lg:typo-display-small text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-            {block.title}
-          </h2>
+          <h2 className={SECTION_TITLE}>{block.title}</h2>
           <p className="typo-body-large max-w-120 text-pretty">{block.description}</p>
           <Button variant="primary" size="lg" className="mt-auto w-fit" asChild>
             <Link href={block.href}>

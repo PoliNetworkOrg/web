@@ -15,7 +15,6 @@ export function ProblemSection() {
         <h2 className={SECTION_TITLE}>Il problema</h2>
         <p className={SECTION_LEAD}>Il PoliMi è complesso. Le informazioni non dovrebbero esserlo.</p>
       </div>
-      {/* Questions students ask, not actions: compact chips, icon first, no hover */}
       <ul className="grid min-w-0 justify-items-start gap-3">
         {questions.map((question) => (
           <li

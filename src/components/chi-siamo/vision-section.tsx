@@ -1,6 +1,5 @@
 import { CONTAINER } from "./constants"
 
-// Both Figma versions open with the vision statement and no buttons: the two CTAs here existed in neither
 export function VisionSection() {
   return (
     <section className={`${CONTAINER} flex flex-col items-center gap-6 text-center`}>

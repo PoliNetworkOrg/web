@@ -24,7 +24,7 @@ const cards = [
 
 export function AnswerSection() {
   return (
-    <section id="cosa-facciamo" className={`${CONTAINER} flex scroll-mt-32 flex-col gap-10 md:gap-14`}>
+    <section className={`${CONTAINER} flex flex-col gap-10 md:gap-14`}>
       <div className="flex flex-col gap-4">
         <h2 className={SECTION_TITLE}>La nostra risposta</h2>
         <p className={`${SECTION_LEAD} max-w-200`}>

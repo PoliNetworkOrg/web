@@ -23,7 +23,6 @@ export function NumbersSection() {
       </div>
 
       <div className="flex flex-col gap-8">
-        {/* Figma sets the figures at headline size beside the icon: at 45px they outranked the section titles */}
         <ul className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
           {stats.map((stat) => (
             <li key={stat.label}>
