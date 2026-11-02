@@ -22,6 +22,7 @@ export type SharedCardProps = {
   size?: ResponsiveCardSize
   align?: CardAlign
   href?: string
+  /** Defaults to whether the card has an `href`: only cards that lead somewhere react to hover. */
   hoverEffect?: boolean
   className?: string
 }

@@ -79,7 +79,6 @@ export function Materials() {
                 description={card.description}
                 icon={card.icon}
                 href={card.href}
-                hoverEffect={Boolean(card.href)}
                 size="md"
                 className="hidden h-full xl:block"
               />

@@ -41,8 +41,6 @@ export function freshmanCardProps(card: FreshmanCard): CardIconProps {
     description: card.description,
     icon: icons[card.icon],
     href: card.href || undefined,
-    // Only resources that lead somewhere react to hover
-    hoverEffect: Boolean(card.href),
   }
 }
 

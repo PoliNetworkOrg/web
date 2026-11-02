@@ -9,7 +9,7 @@ import type { CardIconProps } from "./types"
 import { getAlignmentClasses, getCardPaddingClasses, getContentGapClasses, getTitleSizeClasses } from "./utils"
 
 export function CardIcon(props: CardIconProps) {
-  const { title, icon, size = "md", href, hoverEffect = false, align = "center", className } = props
+  const { title, icon, size = "md", href, hoverEffect = Boolean(props.href), align = "center", className } = props
   const description = "description" in props ? props.description : undefined
   const cta = "cta" in props ? props.cta : undefined
   const Root = href ? "a" : "div"

@@ -15,12 +15,9 @@ export function MatricoleGuides({ content }: { content: FreshmanContent }) {
       <h2 className={SECTION_TITLE}>Guide e Utility</h2>
 
       <div className="flex flex-col gap-16 sm:gap-6">
-        {/*
-          The large guide sits beside the small ones only from xl, and gets 5/12: at 1:1 the 2×2 grid squeezed the
-          titles onto two lines. The Materiali / Tech Tools row repeats the split so the columns line up.
-        */}
+        {/* 5/12 for the large card: at 1:1 the 2×2 grid next to it squeezed its titles onto two lines */}
         <div className="grid w-full gap-6 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          {/* Hidden on phones, as in the Figma mobile frame */}
+          {/* Hidden on phones, as in the mobile design */}
           {guides.slice(0, 1).map((guide) => (
             <CardIcon
               key={guide.id}
@@ -50,8 +47,8 @@ export function MatricoleGuides({ content }: { content: FreshmanContent }) {
           </div>
         </CardGroup>
 
-        <div className="grid w-full gap-6 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          {/* Hidden on phones, as in the Figma mobile frame */}
+        <div className="grid w-full gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+          {/* Hidden on phones, as in the mobile design */}
           {materials.map((material) => (
             <CardIcon
               key={material.id}
