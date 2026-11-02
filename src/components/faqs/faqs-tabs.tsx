@@ -4,6 +4,7 @@ import type { IconType } from "react-icons"
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiHelpCircle, FiSend } from "react-icons/fi"
 import AccordionList from "@/components/accordion-list"
 import CalloutItem from "@/components/callout-item"
+import { EMPTY_STATE } from "@/components/layout/page"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
@@ -18,9 +19,6 @@ const ICONS: Record<string, IconType> = {
   "file-text": FiFileText,
   send: FiSend,
 }
-
-const EMPTY_STATE =
-  "typo-body-large rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600"
 
 export function FaqsTabs({ categories }: { categories: FaqCategory[] }) {
   const tabs = categories.map((category) => ({

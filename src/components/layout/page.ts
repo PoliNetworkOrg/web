@@ -27,3 +27,7 @@ export const PAGE_HERO = `${PAGE_HERO_TOP} pb-8 md:pb-12 xl:pb-24`
 
 /** A section made of a heading block followed by its content. */
 export const SECTION_STACK = `${CONTAINER} flex flex-col gap-10 md:gap-14`
+
+/** Placeholder for a list with nothing to show yet: dashed, so it reads as "empty" rather than as a card. */
+export const EMPTY_STATE =
+  "typo-body-large wrap-anywhere rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600"
