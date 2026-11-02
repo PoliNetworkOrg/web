@@ -1,12 +1,15 @@
 import Image from "next/image"
+import Link from "next/link"
+import { FiMail } from "react-icons/fi"
 import connectorFirst from "@/assets/icons/join/connector-first.svg"
 import connectorSecond from "@/assets/icons/join/connector-second.svg"
 import { InfoCard } from "@/components/collabora/info-card"
 import { Highlight } from "@/components/collabora/section"
-import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { CONTAINER, INLINE_LINK, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { JoinCards } from "./cards"
-import { adminCards, adminSteps } from "./constants"
+import { adminApplicationEmail, adminCards, adminSteps } from "./constants"
 
 const connectors = [connectorFirst, connectorSecond]
 
@@ -55,6 +58,21 @@ export function AdminSection() {
             </li>
           ))}
         </ol>
+        <div className="flex flex-col items-start gap-6 pt-4">
+          <p className={cn(SECTION_LEAD, "max-w-200")}>
+            Il primo passo è farti conoscere nel{" "}
+            <Link href="/groups" className={INLINE_LINK}>
+              gruppo del tuo corso
+            </Link>
+            , rispondendo a chi ha bisogno. Se vuoi proporti, scrivi al team HR: ti diremo come continuare.
+          </p>
+          <Button asChild size="lg">
+            <a href={adminApplicationEmail}>
+              Scrivi al team HR
+              <FiMail aria-hidden />
+            </a>
+          </Button>
+        </div>
       </div>
     </section>
   )

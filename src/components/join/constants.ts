@@ -89,6 +89,8 @@ export const teamCards: InfoCardData[] = [
   },
 ]
 
+export const adminApplicationEmail = `mailto:hr@polinetwork.org?subject=${encodeURIComponent("Candidatura admin")}`
+
 export const membershipEmail = `mailto:info@polinetwork.org?subject=${encodeURIComponent("Richiesta ammissione sotto la qualifica di socio")}`
 
 export const membershipSteps = [

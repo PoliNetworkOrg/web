@@ -17,12 +17,11 @@ const contactCards: ContactCardData[] = [
     title: "Candidature",
     description: (
       <>
-        Se vuoi candidarti come admin o come membro di un team, ti consigliamo di passare dal form disponibile nella
-        pagina{" "}
+        Se vuoi candidarti come admin o come membro di un team, nella pagina{" "}
         <Link href="/join" className={INLINE_LINK}>
           Unisciti a noi
-        </Link>
-        .
+        </Link>{" "}
+        trovi come fare.
       </>
     ),
     email: "hr@polinetwork.org",
