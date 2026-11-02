@@ -5,7 +5,7 @@ import { GroupSearch } from "./group-search"
 
 export function Hero() {
   return (
-    <section className="flex w-full flex-col items-center justify-center px-6 pt-36 pb-16 sm:px-10 sm:pt-40 sm:pb-24">
+    <section className="flex min-h-svh w-full flex-col items-center justify-center px-6 py-36 sm:px-10">
       <div className="flex w-full max-w-6xl flex-col items-center gap-10 text-center sm:gap-14">
         <h1 className="typo-display-fluid-large text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
           Trova gruppi, risorse e supporto tra gli studenti del Polimi
