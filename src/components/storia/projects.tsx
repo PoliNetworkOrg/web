@@ -60,7 +60,7 @@ export function HistoryProjects() {
         <Image
           src={projectsImage}
           alt="Il sito PoliNetwork su computer e smartphone"
-          className="mx-auto h-auto w-full max-w-2xl object-contain mix-blend-multiply"
+          className="mx-auto h-auto w-full max-w-2xl object-contain"
           sizes="(max-width: 1279px) 100vw, 670px"
         />
       </TextOnlyLayout>
