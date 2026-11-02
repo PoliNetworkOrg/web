@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Fragment } from "react"
 import { FiArrowUpRight, FiBook, FiBookOpen, FiClipboard, FiFileText, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { Button } from "@/components/ui/button"
@@ -6,7 +7,7 @@ import { CardCaption } from "../card-caption"
 
 const MATERIALS_URL = "https://polinetwork.org/it/materials/view/"
 
-// "Carica" has no destination yet (the old upload page is empty), so it stays a plain card instead of a dead link
+// "Carica" has no destination yet, so it stays a plain card
 const featuredCards = [
   {
     title: "Carica",
@@ -23,8 +24,8 @@ const featuredCards = [
   },
 ]
 
-// The archive has no per-type pages: every shortcut opens it
-const quickLinks = [
+// What the archive holds. Not links: the archive has no per-type pages to open
+const archiveTypes = [
   { title: "Dispense", icon: FiBook },
   { title: "Esami", icon: FiFileText },
   { title: "Appunti", icon: FiClipboard },
@@ -55,11 +56,10 @@ export function Materials() {
         </Button>
       </div>
 
-      {/* Below xl the cards follow the text, centered and capped so they keep their proportions on tablets */}
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 pt-6 sm:gap-6 sm:pt-8 xl:col-start-1 xl:row-start-2 xl:max-w-none xl:pt-0">
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           {featuredCards.map((card) => (
-            <div key={card.title} className="contents">
+            <Fragment key={card.title}>
               <CardCaption
                 title={card.title}
                 caption={card.description}
@@ -76,20 +76,13 @@ export function Materials() {
                 size="md"
                 className="hidden h-full xl:block"
               />
-            </div>
+            </Fragment>
           ))}
         </div>
 
         <div className="grid grid-cols-3 gap-4 sm:gap-6">
-          {quickLinks.map((card) => (
-            <CardIcon
-              key={card.title}
-              {...card}
-              href={MATERIALS_URL}
-              hoverEffect
-              size={{ base: "xs", sm: "sm" }}
-              className="h-full"
-            />
+          {archiveTypes.map((card) => (
+            <CardIcon key={card.title} {...card} size={{ base: "xs", sm: "sm" }} className="h-full" />
           ))}
         </div>
       </div>
