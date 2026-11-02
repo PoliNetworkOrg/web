@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { FiArrowLeft, FiArrowUpRight, FiUploadCloud } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
+import { SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { getProjectResources, resourceDetails } from "@/components/projects/resources"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
@@ -66,12 +67,8 @@ export default async function ProjectPage({ params }: Props) {
             {project.category in categoryLabels && (
               <p className="typo-label-large text-blue-secondary">{categoryLabels[project.category]}</p>
             )}
-            <h1 className="typo-headline-medium sm:typo-display-medium wrap-anywhere text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-              {project.title}
-            </h1>
-            <p className="typo-body-large sm:typo-headline-extrasmall wrap-anywhere max-w-200 text-pretty">
-              {project.descriptionIt}
-            </p>
+            <h1 className={cn(SECTION_TITLE, "wrap-anywhere")}>{project.title}</h1>
+            <p className={cn(SECTION_LEAD, "wrap-anywhere max-w-200")}>{project.descriptionIt}</p>
           </div>
         </Glass>
       </section>
@@ -82,13 +79,10 @@ export default async function ProjectPage({ params }: Props) {
           className="mx-auto flex w-full max-w-330 flex-col gap-10 px-6 md:gap-14"
         >
           <div className="flex flex-col gap-4 text-center md:text-start">
-            <h2
-              id="risorse-title"
-              className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent"
-            >
+            <h2 id="risorse-title" className={SECTION_TITLE}>
               Come usarlo
             </h2>
-            <p className="typo-body-large sm:typo-headline-extrasmall text-pretty">
+            <p className={SECTION_LEAD}>
               {resources.length > 1
                 ? "Scegli la versione più adatta a te."
                 : "Apri il progetto e segui le istruzioni per iniziare."}
@@ -143,10 +137,8 @@ export default async function ProjectPage({ params }: Props) {
 
       <section className="mx-auto w-full max-w-330 px-6">
         <Glass className="flex flex-col items-center gap-6 rounded-rectangles border-white/50 bg-linear-to-br from-background-blur to-blue-tertiary/30 p-6 text-center sm:p-12">
-          <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-            Scopri gli altri progetti
-          </h2>
-          <p className="typo-body-large sm:typo-headline-extrasmall max-w-200 text-balance">
+          <h2 className={SECTION_TITLE}>Scopri gli altri progetti</h2>
+          <p className={cn(SECTION_LEAD, "max-w-200 text-balance")}>
             Strumenti e app realizzati dagli studenti del Politecnico, per gli studenti del Politecnico.
           </p>
           <Button asChild size="lg" className="w-full sm:w-fit">

@@ -3,6 +3,8 @@ import connectorFirst from "@/assets/icons/join/connector-first.svg"
 import connectorSecond from "@/assets/icons/join/connector-second.svg"
 import { InfoCard } from "@/components/collabora/info-card"
 import { Highlight, SectionTitle } from "@/components/collabora/section"
+import { SECTION_LEAD } from "@/components/layout/page"
+import { cn } from "@/lib/utils"
 import { JoinCards } from "./cards"
 import { adminCards, adminSteps } from "./constants"
 
@@ -14,7 +16,7 @@ export function AdminSection() {
       <div className="grid min-w-0 items-start gap-10 xl:grid-cols-2 xl:gap-16">
         <div className="flex min-w-0 flex-col gap-6 text-center md:text-start">
           <SectionTitle>Diventa Admin</SectionTitle>
-          <div className="typo-body-large sm:typo-headline-extrasmall flex flex-col gap-5 text-pretty">
+          <div className={cn(SECTION_LEAD, "flex flex-col gap-5")}>
             <p>Un admin è la presenza di PoliNetwork nei gruppi ogni giorno.</p>
             <p>
               Non servono competenze specifiche ma solamente{" "}

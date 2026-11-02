@@ -2,6 +2,7 @@ import Image from "next/image"
 import externalLink from "@/assets/icons/join/external-link.svg"
 import membersPhoto from "@/assets/images/join/members.webp"
 import { Highlight, SectionTitle } from "@/components/collabora/section"
+import { SECTION_LEAD } from "@/components/layout/page"
 import { PhotoShapes } from "@/components/shapes"
 import { cn } from "@/lib/utils"
 import { membershipSteps } from "./constants"
@@ -17,7 +18,7 @@ export function MembershipSection() {
           <span className="md:hidden">Diventa Socio</span>
           <span className="hidden md:inline">Diventa Socio di PoliNetwork</span>
         </SectionTitle>
-        <div className="typo-body-large sm:typo-headline-extrasmall flex flex-col gap-5 text-pretty">
+        <div className={cn(SECTION_LEAD, "flex flex-col gap-5")}>
           <p>
             Il tesseramento è il modo per fare parte di PoliNetwork in modo formale, con{" "}
             <Highlight>diritto di voto</Highlight> nelle Assemblee dei Soci, di candidarsi alle elezioni del direttivo e{" "}

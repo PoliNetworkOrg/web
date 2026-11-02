@@ -2,7 +2,9 @@ import Link from "next/link"
 import { Fragment } from "react"
 import { FiArrowUpRight, FiBook, FiBookOpen, FiClipboard, FiFileText, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
+import { CONTAINER } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { CardCaption } from "../card-caption"
 
 const MATERIALS_URL = "https://polinetwork.org/it/materials/view/"
@@ -33,7 +35,12 @@ const archiveTypes = [
 
 export function Materials() {
   return (
-    <section className="mx-auto grid w-full max-w-384 grid-cols-1 gap-y-6 px-6 py-20 sm:gap-y-8 sm:px-10 sm:py-24 lg:px-16 xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] xl:gap-x-16 xl:gap-y-10 xl:py-32">
+    <section
+      className={cn(
+        CONTAINER,
+        "grid grid-cols-1 gap-y-6 py-20 sm:gap-y-8 sm:py-24 xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] xl:gap-x-16 xl:gap-y-10 xl:py-32"
+      )}
+    >
       <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-start-2 xl:text-start">
         Materials
       </h2>
