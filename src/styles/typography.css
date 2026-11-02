@@ -31,6 +31,11 @@
   @apply font-dm-sans font-medium text-[clamp(2rem,1.5rem+3vw,4.5rem)] leading-[1.2] tracking-[-0.02em];
 }
 
+@utility typo-display-fluid-medium {
+  /* 28px at 320px viewport → 48px from ~1600px, for statements that sit between sections */
+  @apply font-dm-sans font-medium text-[clamp(1.75rem,1.25rem+1.6vw,3rem)] leading-[1.2] tracking-[-0.02em];
+}
+
 @utility typo-display-fluid-extralarge {
   /* 44px at 402px viewport → 120px at 1728px (display-extralarge) */
   @apply font-dm-sans font-medium text-[clamp(2.75rem,1.25rem+6vw,7.5rem)] leading-[1.2] tracking-[-0.02em];
