@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-type GlassProps = React.HTMLAttributes<HTMLDivElement>
+type GlassProps = React.ComponentProps<"div">
 
 export function Glass({ children, ...props }: GlassProps) {
   return (
