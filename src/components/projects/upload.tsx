@@ -29,8 +29,7 @@ const cards = [
 export function Upload() {
   return (
     <section id="proponi" aria-labelledby="proponi-title" className={`${CONTAINER} scroll-mt-32`}>
-      {/* Figma keeps this block narrow and centred: the text and its two reference cards side by side */}
-      <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-center lg:gap-16">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-center lg:gap-16">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <h2 id="proponi-title" className={SECTION_TITLE}>

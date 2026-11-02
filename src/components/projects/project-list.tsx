@@ -2,8 +2,8 @@
 
 import { type ReactNode, useId, useState } from "react"
 import { FiArrowDown, FiArrowUp } from "react-icons/fi"
+import { PeekCarousel } from "../peek-carousel"
 import { Button } from "../ui/button"
-import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "../ui/carousel"
 import { ProjectCard } from "./project-card"
 import type { Project } from "./resources"
 
@@ -54,18 +54,12 @@ export function ProjectList({
         )}
       </div>
 
-      <div className="-mx-6 sm:hidden">
-        <Carousel opts={{ align: "start" }}>
-          <CarouselContent className="mr-6 ml-2">
-            {projects.map((project) => (
-              <CarouselItem key={project.id} className="basis-[85%]">
-                <ProjectCard project={project} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselDots className="mt-6" />
-        </Carousel>
-      </div>
+      <PeekCarousel
+        items={projects}
+        getKey={(project) => project.id}
+        render={(project) => <ProjectCard project={project} />}
+        className="sm:hidden"
+      />
     </>
   )
 }
@@ -73,7 +67,7 @@ export function ProjectList({
 /** Shown in place of an empty list: says so plainly and points to the one thing the reader can do about it. */
 export function ProjectsEmpty({ children }: { children: ReactNode }) {
   return (
-    <div className="typo-body-large rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600">
+    <div className="typo-body-large wrap-anywhere rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600">
       {children}
     </div>
   )

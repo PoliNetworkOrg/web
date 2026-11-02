@@ -2,9 +2,9 @@ import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
 import { CONTAINER } from "@/components/layout/page"
+import { PeekCarousel } from "@/components/peek-carousel"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "../ui/carousel"
 
 const featuredCards = [
   {
@@ -31,7 +31,7 @@ const featuredCards = [
   },
 ] as const
 
-function ProjectCard({ className, ...card }: (typeof featuredCards)[number] & { className?: string }) {
+function FeaturedProjectCard({ className, ...card }: (typeof featuredCards)[number] & { className?: string }) {
   return (
     <CardCaption
       {...card}
@@ -79,23 +79,16 @@ export function Projects() {
 
       <div className="mx-auto hidden w-full max-w-4xl auto-rows-fr gap-6 pt-8 sm:grid sm:grid-cols-2 xl:max-w-none xl:pt-0">
         {featuredCards.map((card) => (
-          <ProjectCard key={card.title} {...card} className="h-auto w-full p-6" />
+          <FeaturedProjectCard key={card.title} {...card} className="h-auto w-full p-6" />
         ))}
       </div>
 
-      {/* Mobile: the next card peeks in from the edge, so the row reads as scrollable */}
-      <div className="-mx-6 pt-6 sm:hidden">
-        <Carousel opts={{ align: "start" }}>
-          <CarouselContent className="mr-6 ml-2">
-            {featuredCards.map((card) => (
-              <CarouselItem key={card.title} className="basis-[85%]">
-                <ProjectCard {...card} className="h-full w-full p-6" />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselDots className="mt-6" />
-        </Carousel>
-      </div>
+      <PeekCarousel
+        items={featuredCards}
+        getKey={(card) => card.title}
+        render={(card) => <FeaturedProjectCard {...card} className="h-full w-full p-6" />}
+        className="pt-6 sm:hidden"
+      />
     </section>
   )
 }

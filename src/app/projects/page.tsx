@@ -26,7 +26,7 @@ export default async function ProjectsPage() {
         <Hero title="Projects" description="Esplora e contribuisci ai progetti degli studenti" />
       </section>
       <CommunityNews projects={news} />
-      <Collection projects={general} />
+      <Collection projects={general} searchable={projects} />
       <Upload />
       <Deprecated projects={deprecated} />
     </main>

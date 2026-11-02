@@ -24,3 +24,6 @@ export const PAGE_MAIN = "flex w-full flex-col gap-24 pb-24 md:gap-32 md:pb-32 x
  */
 export const PAGE_HERO_TOP = "pt-52 md:pt-57.5"
 export const PAGE_HERO = `${PAGE_HERO_TOP} pb-8 md:pb-12 xl:pb-24`
+
+/** A section made of a heading block followed by its content. */
+export const SECTION_STACK = `${CONTAINER} flex flex-col gap-10 md:gap-14`

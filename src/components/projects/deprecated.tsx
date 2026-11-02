@@ -1,11 +1,10 @@
-import { SECTION_LEAD, SECTION_TITLE } from "../layout/page"
+import { SECTION_LEAD, SECTION_STACK, SECTION_TITLE } from "../layout/page"
 import { ProjectList, ProjectsEmpty } from "./project-list"
 import type { Project } from "./resources"
-import { SECTION } from "./section"
 
 export function Deprecated({ projects }: { projects: Project[] }) {
   return (
-    <section aria-labelledby="deprecati-title" className={SECTION}>
+    <section aria-labelledby="deprecati-title" className={SECTION_STACK}>
       <div className="flex flex-col gap-4">
         <h2 id="deprecati-title" className={SECTION_TITLE}>
           Progetti deprecati

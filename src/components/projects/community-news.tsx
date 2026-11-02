@@ -1,11 +1,10 @@
-import { SECTION_LEAD, SECTION_TITLE } from "../layout/page"
+import { INLINE_LINK, SECTION_LEAD, SECTION_STACK, SECTION_TITLE } from "../layout/page"
 import { ProjectList, ProjectsEmpty } from "./project-list"
 import type { Project } from "./resources"
-import { SECTION } from "./section"
 
 export function CommunityNews({ projects }: { projects: Project[] }) {
   return (
-    <section aria-labelledby="novita-title" className={SECTION}>
+    <section aria-labelledby="novita-title" className={SECTION_STACK}>
       <div className="flex flex-col gap-4">
         <h2 id="novita-title" className={SECTION_TITLE}>
           Le novità della community
@@ -17,7 +16,7 @@ export function CommunityNews({ projects }: { projects: Project[] }) {
         empty={
           <ProjectsEmpty>
             Nessuna novità al momento.{" "}
-            <a href="#proponi" className="text-blue-secondary underline underline-offset-4">
+            <a href="#proponi" className={INLINE_LINK}>
               Hai un'idea? Proponila
             </a>
           </ProjectsEmpty>

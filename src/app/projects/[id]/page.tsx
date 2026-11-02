@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { FiArrowLeft, FiArrowUpRight, FiUploadCloud } from "react-icons/fi"
+import { FiArrowLeft, FiArrowUpRight } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
 import { ClosingCta } from "@/components/layout/closing-cta"
-import { CONTAINER, PAGE_HERO, PAGE_MAIN, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN, SECTION_LEAD, SECTION_STACK, SECTION_TITLE } from "@/components/layout/page"
 import { getProjectResources, resourceDetails } from "@/components/projects/resources"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
@@ -44,12 +44,17 @@ export default async function ProjectPage({ params }: Props) {
       <section className={`${CONTAINER} ${PAGE_HERO} flex flex-col gap-6`}>
         <Link
           href="/projects"
-          className="typo-body-medium flex w-fit items-center gap-2 text-blue-secondary underline-offset-4 hover:underline focus-visible:underline"
+          className="typo-body-medium flex w-fit items-center gap-2 rounded-sm text-blue-secondary underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-blue-secondary"
         >
           <FiArrowLeft aria-hidden className="size-4 shrink-0" /> Tutti i progetti
         </Link>
-        <Glass className="grid items-center gap-8 rounded-rectangles border-white/50 bg-background-blur p-6 text-center sm:p-12 md:grid-cols-[auto_minmax(0,1fr)] md:gap-12 md:text-start">
-          {project.logo ? (
+        <Glass
+          className={cn(
+            "grid items-center gap-8 rounded-rectangles border-white/50 bg-background-blur p-6 text-center sm:p-12 md:gap-12 md:text-start",
+            project.logo && "md:grid-cols-[auto_minmax(0,1fr)]"
+          )}
+        >
+          {project.logo && (
             // Project logos are app icons with their own background and corners: shown as they are, not framed
             <Image
               src={project.logo}
@@ -59,10 +64,6 @@ export default async function ProjectPage({ params }: Props) {
               sizes="(min-width: 768px) 160px, 112px"
               className="mx-auto size-28 object-contain md:size-40"
             />
-          ) : (
-            <Glass className="mx-auto flex size-28 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0 shadow-sm md:size-40">
-              <GradientIcon icon={FiUploadCloud} className="size-12 md:size-16" />
-            </Glass>
           )}
           <div className="flex min-w-0 flex-col gap-4">
             {project.category in categoryLabels && (
@@ -75,7 +76,7 @@ export default async function ProjectPage({ params }: Props) {
       </section>
 
       {resources.length > 0 && (
-        <section aria-labelledby="risorse-title" className={`${CONTAINER} flex flex-col gap-10 md:gap-14`}>
+        <section aria-labelledby="risorse-title" className={SECTION_STACK}>
           <div className="flex flex-col gap-4 text-center md:text-start">
             <h2 id="risorse-title" className={SECTION_TITLE}>
               Come usarlo

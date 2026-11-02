@@ -2,11 +2,10 @@
 
 import { useState } from "react"
 import { FiSearch } from "react-icons/fi"
-import { SECTION_TITLE } from "../layout/page"
+import { INLINE_LINK, SECTION_STACK, SECTION_TITLE } from "../layout/page"
 import { Input } from "../ui/input"
 import { ProjectList, ProjectsEmpty } from "./project-list"
 import type { Project } from "./resources"
-import { SECTION } from "./section"
 
 /** Case- and accent-insensitive, so "universita" finds "Università". */
 function normalize(text: string) {
@@ -16,16 +15,20 @@ function normalize(text: string) {
     .toLowerCase()
 }
 
-export function Collection({ projects }: { projects: Project[] }) {
+/** Lists the collection; a search looks through every project on the page, novelties and deprecated ones included. */
+export function Collection({ projects, searchable }: { projects: Project[]; searchable: Project[] }) {
   const [query, setQuery] = useState("")
   const needle = normalize(query.trim())
+  const words = needle.split(/\s+/)
   const matches = needle
-    ? projects.filter((project) => normalize(`${project.title} ${project.descriptionIt}`).includes(needle))
+    ? searchable.filter((project) => {
+        const text = normalize(`${project.title} ${project.descriptionIt}`)
+        return words.every((word) => text.includes(word))
+      })
     : projects
 
   return (
-    <section aria-labelledby="raccolta-title" className={SECTION}>
-      {/* The collection is the page's tool: its heading and search stay centred, as in Figma */}
+    <section aria-labelledby="raccolta-title" className={SECTION_STACK}>
       <div className="flex flex-col items-center gap-8 text-center">
         <h2 id="raccolta-title" className={SECTION_TITLE}>
           Esplora la raccolta completa dei progetti
@@ -44,6 +47,9 @@ export function Collection({ projects }: { projects: Project[] }) {
         )}
       </div>
 
+      <p aria-live="polite" className="sr-only">
+        {needle && `${matches.length} progetti trovati`}
+      </p>
       <ProjectList
         // Remount on a new search, so the list starts collapsed and the carousel from the first card
         key={needle}
@@ -56,7 +62,7 @@ export function Collection({ projects }: { projects: Project[] }) {
             ) : (
               <>
                 La raccolta è vuota per ora.{" "}
-                <a href="#proponi" className="text-blue-secondary underline underline-offset-4">
+                <a href="#proponi" className={INLINE_LINK}>
                   Proponi il primo progetto
                 </a>
               </>

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { ClosingCta } from "@/components/layout/closing-cta"
-import { CONTAINER, PAGE_HERO, PAGE_MAIN, SECTION_TITLE } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN, SECTION_STACK, SECTION_TITLE } from "@/components/layout/page"
 import { AssociationBodies } from "@/components/structure/association-bodies"
 import { BoardGallery } from "@/components/structure/board-gallery"
 import { LegalStatus } from "@/components/structure/legal-status"
@@ -17,7 +17,6 @@ export const metadata: Metadata = {
     "Un’organizzazione pensata per durare: scopri l’organigramma, il Direttivo, gli organi associativi e i ruoli di PoliNetwork APS.",
 }
 
-const containerClass = `${CONTAINER} flex flex-col gap-10 md:gap-14`
 const titleClass = `${SECTION_TITLE} text-center`
 
 export default function StructurePage() {
@@ -27,7 +26,7 @@ export default function StructurePage() {
         <Hero title="Struttura" description="Un’organizzazione pensata per durare" />
       </section>
       <OrganizationChart />
-      <section aria-labelledby="direttivo-title" className={containerClass}>
+      <section aria-labelledby="direttivo-title" className={SECTION_STACK}>
         <h2 id="direttivo-title" className={titleClass}>
           Il Direttivo in carica
         </h2>
@@ -38,13 +37,13 @@ export default function StructurePage() {
           </p>
         </div>
       </section>
-      <section aria-labelledby="associazione-title" className={containerClass}>
+      <section aria-labelledby="associazione-title" className={SECTION_STACK}>
         <h2 id="associazione-title" className={titleClass}>
           Come funziona l’associazione
         </h2>
         <AssociationBodies />
       </section>
-      <section aria-labelledby="partecipa-title" className={containerClass}>
+      <section aria-labelledby="partecipa-title" className={SECTION_STACK}>
         <h2 id="partecipa-title" className={titleClass}>
           Trova il tuo posto in PoliNetwork
         </h2>
