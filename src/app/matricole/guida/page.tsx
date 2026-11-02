@@ -3,7 +3,6 @@ import { FiDownload } from "react-icons/fi"
 import { CardSplit } from "@/components/card-split"
 import { CONTAINER } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
-import { Hero } from "@/components/ui/hero"
 import { cn } from "@/lib/utils"
 import { getLatestGuidaMatricola } from "@/queries/guida-matricola"
 
@@ -28,11 +27,15 @@ export default async function GuidaMatricolaPage() {
     // Standalone page (no header or footer, see `HIDDEN_ROUTES`): the content stays centered on screen, with the
     // shared gutters. The vertical padding keeps it off the edges on short landscape screens.
     <main className={cn(CONTAINER, "flex min-h-svh flex-col items-center justify-center gap-10 py-16 sm:gap-12")}>
-      <Hero
-        title="Guida della Matricola"
-        description="Controlla l'ultima versione disponibile e scarica il PDF aggiornato."
-        descriptionClassName="text-balance"
-      />
+      {/* Not Hero: this page has no header, and Hero's spacing would push the download below the fold on phones */}
+      <div className="flex flex-col items-center gap-4 text-center sm:gap-6">
+        <h1 className="typo-display-fluid-extralarge text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text pb-2 text-transparent">
+          Guida della Matricola
+        </h1>
+        <p className="typo-title-medium sm:typo-headline-small max-w-2xl text-balance">
+          Controlla l&apos;ultima versione disponibile e scarica il PDF aggiornato.
+        </p>
+      </div>
       <CardSplit
         textPrimary={guida.version}
         textSecondary="Versione Attuale"
