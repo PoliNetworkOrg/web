@@ -49,7 +49,7 @@ export function CardCourseGroup({
   )
   return (
     <Card className={cardCourseGroupVariants({ secondary })}>
-      {/* Name and buttons share a row; in a card narrower than 20rem the name gets its own line instead of wrapping word by word */}
+      {/* In a card narrower than 20rem the name gets its own line, so it doesn't wrap word by word */}
       <div className="flex min-w-0 @max-xs:flex-col @max-xs:items-start items-center gap-3 sm:gap-5">
         <CardTitle
           gradient={false}
@@ -57,7 +57,7 @@ export function CardCourseGroup({
         >
           {groupName}
         </CardTitle>
-        <div className="flex shrink-0 items-center gap-0.5 sm:gap-1.5">
+        <div className="flex shrink-0 items-center gap-1.5">
           <PlatformAction
             platform="wa"
             platformLabel="WhatsApp"

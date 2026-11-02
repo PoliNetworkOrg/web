@@ -116,13 +116,16 @@ export async function GroupsResult({
         closeHref="/groups"
       />
 
-      {/* The general groups (site, school, level, course) sit two per row, as in Figma, instead of squeezing into one */}
+      {/* The site, school, level and course groups */}
       {generalGroups.length > 0 && (
-        <div className="grid gap-3 lg:grid-cols-2 lg:gap-4">
+        <section aria-labelledby="gruppi-generali" className="grid gap-3 lg:grid-cols-2 lg:gap-4">
+          <h2 id="gruppi-generali" className="sr-only">
+            Gruppi generali
+          </h2>
           {generalGroups.map(({ group, secondary }) => (
             <GroupCard key={group.key} group={group} secondary={secondary} />
           ))}
-        </div>
+        </section>
       )}
 
       {cohorts.map((cohort) => (
