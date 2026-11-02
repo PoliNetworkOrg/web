@@ -11,7 +11,7 @@ export function HistoryHero() {
         title="La nostra storia"
         description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
         gradientDescription
-        className="[&_h2]:typo-display-fluid-extralarge [&_p]:max-w-145 [&_p]:text-balance"
+        descriptionClassName="max-w-145 text-balance"
       />
       <div className="flex flex-wrap justify-center gap-3">
         <Button asChild size="lg">
