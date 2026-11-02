@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ContactCard, type ContactCardData } from "../contact-card"
+import { CONTAINER, INLINE_LINK, SECTION_LEAD, SECTION_TITLE } from "../layout/page"
 
 const contactCards: ContactCardData[] = [
   {
@@ -18,8 +19,8 @@ const contactCards: ContactCardData[] = [
       <>
         Se vuoi candidarti come admin o come membro di un team, ti consigliamo di passare dal form disponibile nella
         pagina{" "}
-        <Link href="/join" className="text-blue-secondary underline underline-offset-2">
-          Struttura
+        <Link href="/join" className={INLINE_LINK}>
+          Unisciti a noi
         </Link>
         .
       </>
@@ -31,7 +32,7 @@ const contactCards: ContactCardData[] = [
     description: (
       <>
         Se sei un&apos;azienda o associazione e vuoi proporre una collaborazione, puoi anche consultare la pagina{" "}
-        <Link href="/collabora" className="text-blue-secondary underline underline-offset-2">
+        <Link href="/collabora" className={INLINE_LINK}>
           Collabora con Noi
         </Link>{" "}
         per capire cosa offriamo.
@@ -43,13 +44,11 @@ const contactCards: ContactCardData[] = [
 
 export function EmailSection() {
   return (
-    <section className="flex w-full flex-col gap-6 px-6 min-[1616px]:px-36">
-      <h2 className="typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent min-[1616px]:text-start">
-        Hai una richiesta specifica?
-      </h2>
-      <p className="typo-body-large md:typo-headline-small pb-6 text-center text-text-primary min-[1616px]:text-start">
+    <section className={`${CONTAINER} flex flex-col gap-6`}>
+      <h2 className={SECTION_TITLE}>Hai una richiesta specifica?</h2>
+      <p className={SECTION_LEAD}>
         Per tutto il resto,{" "}
-        <a href="mailto:info@polinetwork.org" className="text-blue-secondary hover:underline focus-visible:underline">
+        <a href="mailto:info@polinetwork.org" className={INLINE_LINK}>
           puoi scriverci direttamente
         </a>
         .
@@ -57,7 +56,8 @@ export function EmailSection() {
         Qui sotto trovi i contatti in base al tipo di richiesta.
       </p>
 
-      <div className="flex w-full flex-wrap justify-center gap-12 xl:gap-16 min-[1616px]:justify-start">
+      {/* 2×2 between one and four columns, so no card is left alone on a row */}
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
         {contactCards.map((card) => (
           <ContactCard key={card.email} {...card} />
         ))}
