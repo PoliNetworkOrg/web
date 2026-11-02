@@ -8,8 +8,11 @@ import { cn } from "@/lib/utils"
 import { getAllProjects } from "@/queries/projects"
 
 export async function Projects() {
-  // The first four live projects, in the order set from the admin dashboard
-  const featured = (await getAllProjects()).filter((project) => project.category !== "deprecated").slice(0, 4)
+  const live = (await getAllProjects()).filter((project) => project.category !== "deprecated")
+  // The first four, in the order set from the admin dashboard
+  const featured = live.slice(0, 4)
+  // Without the backend there is nothing to count: the title then stays a plain "Projects"
+  const title = live.length > 1 ? `${live.length} Projects` : live.length === 1 ? "1 Project" : "Projects"
 
   return (
     <section
@@ -19,7 +22,7 @@ export async function Projects() {
       )}
     >
       <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-span-2 xl:text-start">
-        15+ Projects
+        {title}
       </h2>
 
       <div className="flex flex-col items-center gap-8 text-center xl:items-start xl:text-start">
