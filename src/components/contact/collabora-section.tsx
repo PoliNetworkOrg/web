@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 export function CollaboraSection() {
   return (
     <section className={CONTAINER}>
-      <div className="flex max-w-3xl flex-col items-start gap-6">
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
         <h2 className={SECTION_TITLE}>Vuoi sviluppare un progetto insieme a noi?</h2>
 
         <div className={`${SECTION_LEAD} flex flex-col gap-3`}>

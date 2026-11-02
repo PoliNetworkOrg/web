@@ -35,8 +35,9 @@ export function GroupsSection() {
         alt="Foto di gruppo della community PoliNetwork"
         width={512}
         height={246}
-        // The source is 512px wide: shown no larger, so it stays sharp
-        className="h-auto w-full max-w-128 rounded-rectangles"
+        sizes="(min-width: 80rem) 600px, (min-width: 42rem) 672px, 100vw"
+        // The source is only 512px wide: capped at 672px so it never stretches past ~1.3x
+        className="mx-auto h-auto w-full max-w-2xl rounded-rectangles xl:max-w-none"
       />
     </section>
   )
