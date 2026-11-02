@@ -76,5 +76,5 @@ export const teams: Team[] = [
 ]
 
 export function applicationHref(team?: string) {
-  return `mailto:direttivo@polinetwork.org?subject=${encodeURIComponent(team ? `Candidatura – ${team}` : "Candidatura PoliNetwork")}`
+  return `mailto:hr@polinetwork.org?subject=${encodeURIComponent(team ? `Candidatura – ${team}` : "Candidatura PoliNetwork")}`
 }
