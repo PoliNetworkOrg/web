@@ -41,7 +41,8 @@ export function AdminSection() {
             <li key={card.title} className="relative min-w-0">
               <InfoCard
                 card={card}
-                className="[&_h3]:typo-title-large h-full md:p-8 [&_h3]:whitespace-normal [&_h3]:text-balance"
+                className="h-full md:p-8"
+                titleClassName="md:typo-title-large md:whitespace-normal text-balance"
               />
               {index < connectors.length && (
                 <Image

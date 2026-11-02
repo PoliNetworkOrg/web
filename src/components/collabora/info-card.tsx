@@ -27,10 +27,13 @@ export type InfoCardData = {
 export function InfoCard({
   card,
   className,
+  titleClassName,
   descriptionColorClassName = "text-text-primary",
 }: {
   card: InfoCardData
   className?: string
+  /** Title size and wrapping, for rows where the default single-line title doesn't fit. */
+  titleClassName?: string
   descriptionColorClassName?: string
 }) {
   const { title, description, mobileDescription, icon, iconClassName, descriptionClassName, href } = card
@@ -53,7 +56,12 @@ export function InfoCard({
           <Image src={icon} alt="" className={iconClassName} />
         </div>
         {/* On the narrowest phones an email title may not fit: let it wrap after the "@" */}
-        <h3 className="typo-title-large md:typo-headline-medium min-w-0 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent md:whitespace-nowrap">
+        <h3
+          className={cn(
+            "typo-title-large md:typo-headline-medium min-w-0 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent md:whitespace-nowrap",
+            titleClassName
+          )}
+        >
           {title.replace("@", "@\u200B")}
         </h3>
       </div>
