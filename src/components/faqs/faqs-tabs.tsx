@@ -4,6 +4,7 @@ import type { IconType } from "react-icons"
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiHelpCircle, FiSend } from "react-icons/fi"
 import AccordionList from "@/components/accordion-list"
 import CalloutItem from "@/components/callout-item"
+import { EMPTY_STATE } from "@/components/layout/page"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
@@ -27,20 +28,33 @@ export function FaqsTabs({ categories }: { categories: FaqCategory[] }) {
     accordionItems: category.faqs.map((faq) => ({
       value: String(faq.faqId),
       trigger: faq.titleIt,
-      content: faq.descriptionIt,
+      // Answers are plain text: keep the line breaks the editors typed
+      content: <p className="whitespace-pre-line">{faq.descriptionIt}</p>,
     })),
   }))
+  // Open on a category that has answers
+  const defaultTab = tabs.find((tab) => tab.accordionItems.length > 0) ?? tabs[0]
 
   return (
-    <div className="mx-auto flex w-full max-w-255 flex-col gap-68 sm:gap-79">
+    <div className="mx-auto flex w-full max-w-225 flex-col gap-16 md:gap-24">
       {tabs.length === 0 ? (
-        <p className="typo-body-large text-center">Nessuna FAQ disponibile al momento.</p>
+        <p className={EMPTY_STATE}>Nessuna FAQ disponibile al momento.</p>
       ) : (
-        <Tabs defaultValue={tabs[0]?.value} className="flex w-full flex-col items-center">
-          <TabsNavigation items={tabs} className="max-md:-mx-2 mb-19 max-md:w-[calc(100%+1rem)] max-md:rounded-none" />
+        <Tabs defaultValue={defaultTab?.value} className="flex w-full flex-col items-center gap-10 sm:gap-14">
+          {/* With several categories the strip scrolls: on phones it runs to the screen edges */}
+          {tabs.length > 1 && (
+            <TabsNavigation
+              items={tabs}
+              className="max-sm:-mx-6 max-sm:w-[calc(100%+3rem)] max-sm:rounded-none max-sm:border-x-0"
+            />
+          )}
           {tabs.map((tab) => (
             <TabsContent value={tab.value} key={tab.value} className="w-full min-w-0">
-              <AccordionList items={tab.accordionItems} defaultValue={tab.accordionItems[0]?.value} />
+              {tab.accordionItems.length > 0 ? (
+                <AccordionList items={tab.accordionItems} defaultValue={tab.accordionItems[0]?.value} />
+              ) : (
+                <p className={EMPTY_STATE}>Non ci sono ancora domande in questa categoria.</p>
+              )}
             </TabsContent>
           ))}
         </Tabs>

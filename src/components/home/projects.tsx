@@ -1,8 +1,10 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
+import { CONTAINER } from "@/components/layout/page"
+import { PeekCarousel } from "@/components/peek-carousel"
 import { Button } from "@/components/ui/button"
-import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "../ui/carousel"
+import { cn } from "@/lib/utils"
 
 const featuredCards = [
   {
@@ -29,14 +31,36 @@ const featuredCards = [
   },
 ] as const
 
+function FeaturedProjectCard({ className, ...card }: (typeof featuredCards)[number] & { className?: string }) {
+  return (
+    <CardCaption
+      {...card}
+      className={className}
+      // Figma reserves the bottom-right corner for an action: show where the card leads
+      footer={
+        <span className="typo-label-large flex items-center justify-end gap-1 text-blue-secondary">
+          {new URL(card.href).hostname}
+          <FiArrowUpRight className="size-4" />
+        </span>
+      }
+    />
+  )
+}
+
 export function Projects() {
   return (
-    <section className="mx-auto flex max-w-400 flex-col gap-24 p-11 py-40 sm:px-20 2xl:flex-row 2xl:items-start 2xl:gap-32">
-      <div className="flex flex-col items-center gap-8 text-center sm:items-start sm:text-start">
-        <h2 className="typo-display-large sm:typo-display-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent leading-[0.8] sm:py-6 md:whitespace-nowrap">
-          15+ Projects
-        </h2>
-        <p className="typo-body-large hidden max-w-lg sm:block">
+    <section
+      className={cn(
+        CONTAINER,
+        "grid grid-cols-1 gap-y-6 py-20 sm:gap-y-8 sm:py-24 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] xl:gap-x-16 xl:gap-y-10 xl:py-32"
+      )}
+    >
+      <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-span-2 xl:text-start">
+        15+ Projects
+      </h2>
+
+      <div className="flex flex-col items-center gap-8 text-center xl:items-start xl:text-start">
+        <p className="typo-body-large hidden max-w-xl sm:block">
           Progetti e strumenti creati dalla nostra community. Qui trovi le iniziative nate dagli studenti del
           Politecnico per semplificare la vita universitaria e creare innovazione. Hai un'idea o un progetto? Proponilo!
           Puoi trovare collaboratori, ricevere supporto dal nostro team e dare vita alla tua soluzione.
@@ -46,35 +70,25 @@ export function Projects() {
           l’innovazione. Hai un’idea? Proponila, trova collaboratori e realizza la tua soluzione.
         </p>
         <Button variant="primary" size="lg" className="w-fit" asChild>
-          <Link href="/projects" className="flex items-center gap-2">
+          <Link href="/projects">
             Esplora la raccolta
             <FiArrowUpRight />
           </Link>
         </Button>
       </div>
 
-      <div className="hidden flex-col gap-6 sm:flex lg:gap-10 2xl:pt-30">
-        <div className="grid grid-cols-2 gap-6 xl:grid-cols-4 2xl:grid-cols-2">
-          {featuredCards.map((card) => (
-            <CardCaption key={card.title} {...card} className="w-full" />
-          ))}
-        </div>
+      <div className="mx-auto hidden w-full max-w-4xl auto-rows-fr gap-6 pt-8 sm:grid sm:grid-cols-2 xl:max-w-none xl:pt-0">
+        {featuredCards.map((card) => (
+          <FeaturedProjectCard key={card.title} {...card} className="h-auto w-full p-6" />
+        ))}
       </div>
 
-      <div className="flex w-full items-center justify-center sm:hidden">
-        <Carousel className="w-full">
-          <CarouselContent>
-            {featuredCards.map((card) => (
-              <CarouselItem key={card.title}>
-                <div className="flex justify-center">
-                  <CardCaption {...card} />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselDots className="mt-8" />
-        </Carousel>
-      </div>
+      <PeekCarousel
+        items={featuredCards}
+        getKey={(card) => card.title}
+        render={(card) => <FeaturedProjectCard {...card} className="h-full w-full p-6" />}
+        className="pt-6 sm:hidden"
+      />
     </section>
   )
 }

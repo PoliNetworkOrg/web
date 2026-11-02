@@ -2,9 +2,9 @@ import { Fragment } from "react"
 import favoriteIcon from "@/assets/icons/collabora/favorite.svg"
 import mailIcon from "@/assets/icons/collabora/mail.svg"
 import promptSuggestionIcon from "@/assets/icons/collabora/prompt-suggestion.svg"
+import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
 import { InfoCard, type InfoCardData } from "./info-card"
-import { SectionTitle, sectionContainerClass } from "./section"
 
 const cards: InfoCardData[] = [
   {
@@ -14,6 +14,8 @@ const cards: InfoCardData[] = [
     icon: mailIcon,
     iconClassName: "mr-2.5 h-5.5 w-7 md:mr-0 md:h-12 md:w-15",
     descriptionClassName: "max-w-56",
+    // The only step that is an action: it opens the mail client
+    href: "mailto:events@polinetwork.org",
   },
   {
     title: "Condividi la tua visione",
@@ -46,18 +48,24 @@ const connectorClassNames = [
 
 export function ContactSection() {
   return (
-    <section className={cn(sectionContainerClass, "pt-15 pb-33.25 md:pt-31.25 md:pb-54.5")}>
-      <SectionTitle className="mb-7.5 md:mb-9.25">Come contattarci</SectionTitle>
+    <section className={CONTAINER}>
+      <h2 className={cn(SECTION_TITLE, "mb-7.5 md:mb-9.25")}>Come contattarci</h2>
 
-      <div className="flex flex-col items-center md:max-[1615px]:items-start min-[1616px]:flex-row">
+      {/* A row of equal steps from lg (tighter padding until 3xl); stacked below, at Figma's card width */}
+      <div className="flex flex-col items-center md:items-start lg:flex-row lg:items-stretch">
         {cards.map((card, index) => (
           <Fragment key={card.title}>
-            <InfoCard card={card} className="w-full md:min-h-61.25 md:w-104.25 md:shrink-0" />
+            <InfoCard
+              card={card}
+              // In a row the three titles share the width, so they shrink and may wrap
+              titleClassName="md:typo-headline-small lg:whitespace-normal"
+              className="w-full md:w-104.25 md:shrink-0 lg:w-auto lg:min-w-0 lg:flex-1 lg:max-3xl:p-6"
+            />
             {index < connectorClassNames.length && (
               <div
                 aria-hidden
                 className={cn(
-                  "h-10 w-1 shrink-0 bg-linear-to-b md:max-[1615px]:ml-51.5 min-[1616px]:h-1 min-[1616px]:w-auto min-[1616px]:min-w-10 min-[1616px]:flex-1 min-[1616px]:bg-linear-to-r",
+                  "h-10 w-1 shrink-0 bg-linear-to-b md:max-lg:ml-51.5 lg:h-1 lg:w-10 lg:self-center lg:bg-linear-to-r",
                   connectorClassNames[index]
                 )}
               />

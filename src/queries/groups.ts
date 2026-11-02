@@ -10,8 +10,13 @@ export async function searchGroups(query: string, limit: number = 6) {
 }
 
 export async function getVisibleGroups(): Promise<VisibleGroup[]> {
-  const groups = await trpc.groups.search.getAll.query()
-  return groups.filter((g): g is VisibleGroup => !g.hide && !!g.link)
+  try {
+    const groups = await trpc.groups.search.getAll.query()
+    return groups.filter((g): g is VisibleGroup => !g.hide && !!g.link)
+  } catch (error) {
+    console.error(error)
+    return []
+  }
 }
 
 export async function getCoursesForLevel(school: string, level: string) {
