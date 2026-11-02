@@ -1,10 +1,12 @@
 "use client"
 
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import type { CSSProperties } from "react"
 import { useEffect, useReducer, useRef, useSyncExternalStore } from "react"
 import NotFound from "@/app/not-found"
 import {
+  ABRUPT_EXIT_DELAY,
   COLORS,
   DIALOGUE_START_DELAY,
   EGG_SOUND_SRC,
@@ -20,7 +22,7 @@ import {
 } from "./constants"
 import { dialogueReducer, initialDialogueState, stepEvent, stepText } from "./dialogue"
 import { DialogueBox } from "./dialogue-box"
-import { hasRoomTicket, markEggReceived, subscribeRoomTicket } from "./storage"
+import { getRoomReturnPath, hasRoomTicket, markEggReceived, subscribeRoomTicket } from "./storage"
 
 // la stanza è larga ~8 tile e alta ~9.5: scala a multipli interi finché ci sta nello schermo
 const ROOM_PX = "max(1px, round(down, min(100vw / 170, 100svh / 190), 1px))"
@@ -41,6 +43,7 @@ const VOICED = /[\p{L}\p{N}]/u
 const CONFIRM_KEYS = new Set(["Enter", " ", "z", "Z"])
 const SKIP_KEYS = new Set(["x", "X", "Shift"])
 const MOVE_KEYS = new Set(["ArrowLeft", "ArrowRight", "a", "A", "d", "D"])
+const LEAVE_KEYS = new Set(["Escape"])
 
 export function ForgottenManRoom() {
   // null durante l'SSR/idratazione, poi true solo se ci si arriva dal trigger in navigazione
@@ -53,8 +56,9 @@ export function ForgottenManRoom() {
 
 function Room() {
   const [state, dispatch] = useReducer(dialogueReducer, initialDialogueState)
-  const { open } = state
+  const { open, exit } = state
   const soundsRef = useRoomAudio()
+  const router = useRouter()
   const step = open?.step
 
   useEffect(() => {
@@ -81,9 +85,23 @@ function Room() {
   }, [step, soundsRef])
 
   useEffect(() => {
+    if (!exit) return
+    const leave = () => router.replace(getRoomReturnPath())
+    if (exit === "instant") {
+      leave()
+      return
+    }
+    // uscita brusca: buio e silenzio, una breve pausa, poi di nuovo il sito
+    soundsRef.current?.stop()
+    const timeout = setTimeout(leave, ABRUPT_EXIT_DELAY)
+    return () => clearTimeout(timeout)
+  }, [exit, router, soundsRef])
+
+  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.repeat) return
-      if (CONFIRM_KEYS.has(event.key)) dispatch({ type: "confirm" })
+      if (LEAVE_KEYS.has(event.key)) dispatch({ type: "leave" })
+      else if (CONFIRM_KEYS.has(event.key)) dispatch({ type: "confirm" })
       else if (SKIP_KEYS.has(event.key)) dispatch({ type: "skip" })
       else if (MOVE_KEYS.has(event.key)) dispatch({ type: "move" })
       else return
@@ -100,6 +118,8 @@ function Room() {
       document.body.style.overflow = overflow
     }
   }, [])
+
+  if (exit === "abrupt") return <div className="fixed inset-0 z-10000 bg-black" />
 
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents lint/a11y/noStaticElementInteractions: la tastiera è gestita a livello di window
@@ -156,7 +176,7 @@ async function loadBuffer(context: AudioContext, sources: string[], signal: Abor
   return null
 }
 
-type RoomSounds = { text: () => void; egg: () => void }
+type RoomSounds = { text: () => void; egg: () => void; stop: () => void }
 
 /**
  * Musica in loop senza stacchi ed effetti sonori, tutti via Web Audio: partono appena il browser lo consente (al più
@@ -169,10 +189,14 @@ function useRoomAudio() {
     const context = new AudioContext()
     const controller = new AbortController()
 
+    // tutto passa da qui, così staccarlo zittisce musica ed effetti in un colpo
+    const master = context.createGain()
+    master.connect(context.destination)
+
     const output = (volume: number) => {
       const gain = context.createGain()
       gain.gain.value = volume
-      gain.connect(context.destination)
+      gain.connect(master)
       return gain
     }
 
@@ -207,6 +231,7 @@ function useRoomAudio() {
     soundsRef.current = {
       text: soundEffect(TEXT_SOUND_SRC, TEXT_SOUND_VOLUME),
       egg: soundEffect(EGG_SOUND_SRC, EGG_SOUND_VOLUME),
+      stop: () => master.disconnect(),
     }
 
     const resume = () => void context.resume()

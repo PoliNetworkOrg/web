@@ -1,8 +1,8 @@
 import { DIALOGUE, EPILOGUE } from "./constants"
-import type { DialogueStep } from "./types"
+import type { DialogueExit, DialogueStep } from "./types"
 
 type OpenDialogue = { step: DialogueStep; queue: DialogueStep[]; typed: number; selected: number }
-export type DialogueState = { open: OpenDialogue | null; finished: boolean }
+export type DialogueState = { open: OpenDialogue | null; finished: boolean; exit: DialogueExit | null }
 export type DialogueAction =
   | { type: "start" }
   | { type: "tick" }
@@ -11,8 +11,10 @@ export type DialogueAction =
   | { type: "move" }
   | { type: "select"; option: number }
   | { type: "choose"; option: number }
+  // Esc: non diegetico, ma nessuno deve restare bloccato qui
+  | { type: "leave" }
 
-export const initialDialogueState: DialogueState = { open: null, finished: false }
+export const initialDialogueState: DialogueState = { open: null, finished: false, exit: null }
 
 export function stepText(step: DialogueStep): string {
   return typeof step === "string" ? step : step.text
@@ -38,6 +40,10 @@ function isTyped(open: OpenDialogue): boolean {
 export function dialogueReducer(state: DialogueState, action: DialogueAction): DialogueState {
   const { open } = state
 
+  // una volta deciso di andarsene non succede più nulla
+  if (state.exit) return state
+  if (action.type === "leave") return { ...state, open: null, exit: "instant" }
+
   if (!open) {
     if (action.type === "start" && !state.finished) return { ...state, open: openNext(DIALOGUE) }
     // a dialogo finito, interagire di nuovo mostra l'epilogo
@@ -61,13 +67,15 @@ export function dialogueReducer(state: DialogueState, action: DialogueAction): D
     case "choose": {
       const choice = choices?.[action.option]
       if (!choice) return state
-      return { ...state, open: openNext([...choice.reply, ...open.queue]) }
+      if (choice.exit) return { ...state, open: null, exit: choice.exit }
+      const next = openNext([...(choice.reply ?? []), ...open.queue])
+      return { ...state, open: next, finished: state.finished || !next }
     }
     case "confirm": {
       if (!isTyped(open)) return dialogueReducer(state, { type: "skip" })
       if (choices) return dialogueReducer(state, { type: "choose", option: open.selected })
       const next = openNext(open.queue)
-      return { open: next, finished: state.finished || !next }
+      return { ...state, open: next, finished: state.finished || !next }
     }
     case "start":
       return state

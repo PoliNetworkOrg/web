@@ -49,6 +49,7 @@ export const COLORS = {
 export const TYPE_DELAY = 35
 export const PUNCTUATION_DELAY = 200
 export const DIALOGUE_START_DELAY = 1500
+export const ABRUPT_EXIT_DELAY = 800
 
 export const DIALOGUE: DialogueStep[] = [
   "(C'è qualcuno dietro l'albero.)",
@@ -62,10 +63,16 @@ export const DIALOGUE: DialogueStep[] = [
     text: "Vuoi l'uovo?",
     choices: [
       { label: "Sì", reply: ["Bene.", { text: "(Hai ricevuto un Uovo.)", event: "receive-egg" }] },
-      { label: "No", reply: ["..."] },
+      { label: "No", exit: "abrupt" },
     ],
   },
 ]
 
-// ciò che compare interagendo di nuovo dopo la fine del dialogo
-export const EPILOGUE: DialogueStep[] = ["(Non c'è nessuno dietro l'albero.)"]
+// ciò che compare interagendo di nuovo dopo la fine del dialogo: rispondendo "No" si resta, e alla prossima interazione lo richiede
+export const EPILOGUE: DialogueStep[] = [
+  "(Non c'è nessuno dietro l'albero.)",
+  {
+    text: "(Vuoi tornare indietro?)",
+    choices: [{ label: "Sì", exit: "instant" }, { label: "No" }],
+  },
+]

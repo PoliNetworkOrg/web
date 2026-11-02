@@ -20,7 +20,8 @@ export function ForgottenManTrigger() {
     lastCategoryRef.current = category === "other" ? null : category
 
     if (category === "other" || !lastCategory || lastCategory === category) return
-    if (rollForgottenMan()) router.push(FORGOTTEN_MAN_PATH)
+    // la stanza prende il posto della pagina appena aperta, anche nella cronologia
+    if (rollForgottenMan(`${pathname}${window.location.search}`)) router.replace(FORGOTTEN_MAN_PATH)
   }, [pathname, router])
 
   return null
