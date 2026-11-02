@@ -9,10 +9,7 @@ import { applicationHref, type Team } from "./constants"
 /** The specialisms are not links: a plain list, not tiles. */
 function RoleList({ team }: { team: Team }) {
   return (
-    <ul
-      aria-label={`Specializzazioni di ${team.title}`}
-      className={cn("grid w-full min-w-0 gap-x-10 sm:grid-cols-2", team.layout === "stacked" && "xl:grid-cols-3")}
-    >
+    <ul aria-label={`Specializzazioni di ${team.title}`} className="grid w-full min-w-0 gap-x-10 sm:grid-cols-2">
       {team.roles.map(({ title, icon }) => (
         <li key={title} className="flex min-w-0 items-center gap-4 border-slate-300/70 border-t py-5">
           {typeof icon === "string" ? (
@@ -44,25 +41,6 @@ export function TeamSection({ team }: { team: Team }) {
     </h2>
   )
   const description = <p className={cn(SECTION_LEAD, "max-w-145")}>{team.description}</p>
-
-  if (team.layout === "stacked") {
-    return (
-      <section
-        id={team.id}
-        aria-labelledby={`${team.id}-title`}
-        className={cn(CONTAINER, "flex scroll-mt-36 flex-col gap-10 xl:gap-14")}
-      >
-        <div className="grid gap-6 xl:grid-cols-2 xl:gap-16">
-          {title}
-          <div className="flex flex-col gap-8 xl:pt-3">
-            {description}
-            <JoinButton team={team} />
-          </div>
-        </div>
-        <RoleList team={team} />
-      </section>
-    )
-  }
 
   return (
     <section
