@@ -47,7 +47,7 @@ export function MembershipSection() {
                     href={step.href}
                     target={step.href.startsWith("https:") ? "_blank" : undefined}
                     rel={step.href.startsWith("https:") ? "noopener noreferrer" : undefined}
-                    className="decoration-1 underline-offset-4 hover:underline focus-visible:underline"
+                    className="rounded-sm decoration-1 underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-blue-secondary"
                   >
                     {step.title}
                     {step.href.startsWith("https:") && (
