@@ -22,7 +22,9 @@ export type SharedCardProps = {
   size?: ResponsiveCardSize
   align?: CardAlign
   href?: string
-  /** Defaults to whether the card has an `href`: only cards that lead somewhere react to hover. */
+  /** An action card uses a native button instead of a link. */
+  onClick?: () => void
+  /** Defaults to whether the card has a link or an action. */
   hoverEffect?: boolean
   className?: string
 }
