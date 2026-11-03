@@ -1,14 +1,17 @@
+"use client"
+
 import Link from "next/link"
 import { Fragment } from "react"
 import { FiArrowUpRight, FiBook, FiBookOpen, FiClipboard, FiFileText, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { MATERIALS_URL } from "@/components/header/constants"
 import { CONTAINER } from "@/components/layout/page"
+import { useActivationToast } from "@/components/ui/activation-toast"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { CardCaption } from "../card-caption"
 
-// "Carica" has no destination yet, so it stays a plain card
+// Upload and per-type archive pages will be activated later.
 const featuredCards = [
   {
     title: "Carica",
@@ -25,7 +28,6 @@ const featuredCards = [
   },
 ]
 
-// What the archive holds. Not links: the archive has no per-type pages to open
 const archiveTypes = [
   { title: "Dispense", icon: FiBook },
   { title: "Esami", icon: FiFileText },
@@ -33,6 +35,7 @@ const archiveTypes = [
 ]
 
 export function Materials() {
+  const { showActivationToast, activationToast } = useActivationToast()
   return (
     <section
       className={cn(
@@ -71,6 +74,7 @@ export function Materials() {
                 caption={card.description}
                 icon={card.icon}
                 href={card.href}
+                onClick={card.href ? undefined : showActivationToast}
                 className="h-auto w-full p-6 xl:hidden"
               />
               <CardIcon
@@ -78,6 +82,7 @@ export function Materials() {
                 description={card.description}
                 icon={card.icon}
                 href={card.href}
+                onClick={card.href ? undefined : showActivationToast}
                 size="md"
                 className="hidden h-full xl:block"
               />
@@ -87,10 +92,17 @@ export function Materials() {
 
         <div className="grid grid-cols-3 gap-4 sm:gap-6">
           {archiveTypes.map((card) => (
-            <CardIcon key={card.title} {...card} size={{ base: "xs", sm: "sm" }} className="h-full" />
+            <CardIcon
+              key={card.title}
+              {...card}
+              onClick={showActivationToast}
+              size={{ base: "xs", sm: "sm" }}
+              className="h-full"
+            />
           ))}
         </div>
       </div>
+      {activationToast}
     </section>
   )
 }

@@ -12,6 +12,7 @@ export function CardCaption({
   iconPosition = "right",
   image,
   href,
+  onClick,
   footer,
   className,
   titleClassName,
@@ -24,6 +25,7 @@ export function CardCaption({
   /** An image shown in place of the icon, e.g. a project's logo. */
   image?: string
   href?: string
+  onClick?: () => void
   /** Pinned to the bottom of the card, e.g. where a link leads to. */
   footer?: ReactNode
   className?: string
@@ -31,12 +33,18 @@ export function CardCaption({
   captionClassName?: string
 }) {
   return (
-    // Only cards that lead somewhere react to hover
     <Card
-      hoverBackground={Boolean(href)}
-      className={cn(href && "has-[>a:focus-visible]:ring-2 has-[>a:focus-visible]:ring-blue-secondary", className)}
+      hoverBackground={Boolean(href || onClick)}
+      className={cn(
+        (href || onClick) && "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-blue-secondary",
+        className
+      )}
     >
-      {href && <Link href={href} className="absolute inset-0 z-10 outline-none" aria-label={title} />}
+      {href ? (
+        <Link href={href} className="absolute inset-0 z-10 outline-none" aria-label={title} />
+      ) : onClick ? (
+        <button type="button" onClick={onClick} className="absolute inset-0 z-10 outline-none" aria-label={title} />
+      ) : null}
       <CardHeader
         className={`typo-headline-medium relative flex ${iconPosition === "right" ? "justify-between" : "flex-col-reverse"}`}
       >

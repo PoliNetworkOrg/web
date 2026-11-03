@@ -11,7 +11,7 @@ export function AboutUs() {
 
       <Button variant="primary" size="lg" asChild>
         <Link href="/about">
-          About us
+          Scopri di più
           <FiArrowUpRight />
         </Link>
       </Button>
