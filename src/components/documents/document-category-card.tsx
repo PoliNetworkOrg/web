@@ -1,7 +1,9 @@
+import Link from "next/link"
 import { FiDownload, FiEye, FiFile } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { Button } from "@/components/ui/button"
 import type { DocumentCategory } from "./types"
+import { getDocumentViewerHref } from "./utils"
 
 export function DocumentCategoryCard({ category }: { category: DocumentCategory }) {
   return (
@@ -32,14 +34,12 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
                   size="icon-lg"
                   className="size-11 bg-transparent hover:bg-blue-tertiary/30"
                 >
-                  <a
-                    href={document.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visualizza ${document.title} (PDF dimostrativo, nuova scheda)`}
+                  <Link
+                    href={getDocumentViewerHref(document)}
+                    aria-label={`Visualizza ${document.title} (PDF dimostrativo)`}
                   >
                     <FiEye aria-hidden="true" className="size-6" />
-                  </a>
+                  </Link>
                 </Button>
                 <Button
                   asChild
