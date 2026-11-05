@@ -22,17 +22,24 @@ export function Hero({
   description,
   gradientDescription = false,
   className,
+  titleClassName,
 }: {
   title: string
   description: string
   gradientDescription?: boolean
   className?: string
+  titleClassName?: string
 }) {
   return (
     <div className={cn("flex flex-col items-center gap-6", className)}>
       {/* Figma "lightheme-XLarge text effect": #020618 → #6e6e6e at 82.69% */}
       {/* The gradient is drawn per line (box-decoration-clone), so a title that wraps keeps the full effect on each line */}
-      <h2 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0">
+      <h2
+        className={cn(
+          "typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0",
+          titleClassName
+        )}
+      >
         <span className="bg-linear-to-b from-text-primary to-83% to-[#6e6e6e] box-decoration-clone bg-clip-text text-transparent">
           {title}
         </span>
