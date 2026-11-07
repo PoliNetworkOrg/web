@@ -27,7 +27,7 @@ export function SchoolStep({
             title={school.name}
             icon={SCHOOL_ICONS[school.slug] ?? DEFAULT_SCHOOL_ICON}
             href={stepHref({ school: school.slug })}
-            hoverEffect
+            size={{ base: "sm", md: "md" }}
           />
         ))}
       </div>

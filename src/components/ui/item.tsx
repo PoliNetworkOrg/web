@@ -30,7 +30,7 @@ function ItemTitle({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="item-title"
-      className={cn("typo-label-small sm:typo-title-medium text-blue-secondary", className)}
+      className={cn("typo-body-medium sm:typo-title-medium text-blue-secondary", className)}
       {...props}
     />
   )

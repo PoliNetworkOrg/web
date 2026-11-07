@@ -39,7 +39,6 @@ export function AssociationSection() {
           }}
         />
       }
-      className="py-30 md:py-37.5"
     >
       <p>
         Se fai parte dell'ecosistema universitario del Politecnico di Milano o di un'altra università, possiamo valutare
@@ -48,11 +47,8 @@ export function AssociationSection() {
       </p>
       <p>
         Le collaborazioni più efficaci che abbiamo avuto nel tempo sono nate da gruppi studenteschi che condividevano
-        <br className="hidden min-[1728px]:inline" /> una parte degli obiettivi che perseguiamo:{" "}
-        <Highlight>
-          rendere la vita universitaria meno complicata e più ricca per chi studia
-          <br className="hidden min-[1728px]:inline" /> al Politecnico.
-        </Highlight>
+        una parte degli obiettivi che perseguiamo:{" "}
+        <Highlight>rendere la vita universitaria meno complicata e più ricca per chi studia al Politecnico.</Highlight>
       </p>
     </PhotoSection>
   )

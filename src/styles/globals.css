@@ -8,6 +8,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  CardIcon's responsive `size` ({ base, sm, md, lg }) prefixes the classes in card-icon/classes.ts at runtime, so
+  Tailwind never sees "sm:h-14" and friends in the source. Generate every prefixed variant here.
+  tests/card-icon-classes.test.mjs fails if classes.ts gains a class that is missing from this list.
+*/
+@source inline("{sm:,md:,lg:}{gap-2,gap-4,gap-6,h-6,h-10,h-12,h-14,h-16,h-32,h-44,w-6,w-10,w-12,w-14,w-16,w-32,w-44,p-3,p-6,p-8,px-8,py-4,typo-headline-extrasmall,typo-headline-medium,typo-label-large,typo-title-large}");
+
 @theme {
   --breakpoint-1xl: 85rem; /* 1360px */
   --breakpoint-3xl: 90rem; /* 1440px */

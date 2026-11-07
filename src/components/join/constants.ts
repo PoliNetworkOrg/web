@@ -15,6 +15,7 @@ import report from "@/assets/icons/join/report.svg"
 import starShine from "@/assets/icons/join/star-shine.svg"
 import statute from "@/assets/icons/join/statute.svg"
 import type { InfoCardData } from "@/components/collabora/info-card"
+import { memberPrivacyHref, regulationsHref, statuteHref } from "@/lib/documents"
 
 const iconClassName = "mr-3 h-auto w-7 md:mr-0 md:w-13"
 
@@ -60,29 +61,35 @@ export const adminSteps: InfoCardData[] = [
 export const teamCards: InfoCardData[] = [
   {
     title: "Sviluppo Tecnico",
+    href: "/team#it",
     description: "Realizza prodotti digitali in produzione, usati da migliaia di persone",
     icon: code,
     iconClassName,
   },
   {
     title: "Comunicazione",
+    href: "/team#design-marketing",
     description: "Gestisce la comunicazione e l’identità visiva dell’associazione: Instagram, grafiche di eventi…",
     icon: palette,
     iconClassName,
   },
   {
     title: "Gestione HR",
+    href: "/team#hr",
     description: "Struttura i processi di recruiting e onboarding e gestisce i volontari del network",
     icon: hr,
     iconClassName,
   },
   {
     title: "Eventi/Partnership",
+    href: "/team#events-partnership",
     description: "Organizza eventi e costruisce collaborazioni con aziende e associazioni esterne",
     icon: events,
     iconClassName,
   },
 ]
+
+export const adminApplicationEmail = `mailto:hr@polinetwork.org?subject=${encodeURIComponent("Candidatura admin")}`
 
 export const membershipEmail = `mailto:info@polinetwork.org?subject=${encodeURIComponent("Richiesta ammissione sotto la qualifica di socio")}`
 
@@ -90,17 +97,17 @@ export const membershipSteps = [
   {
     title: "Consulta lo Statuto dell’Associazione",
     icon: statute,
-    href: "https://github.com/PoliNetworkOrg/Statuto/blob/main/full.pdf",
+    href: statuteHref,
   },
   {
     title: "Leggi il Regolamento Interno",
     icon: regulations,
-    href: "https://github.com/PoliNetworkOrg/RegolamentoInterno/blob/main/RaccoltaRegolamentiInterni.pdf",
+    href: regulationsHref,
   },
   {
     title: "Dai un occhio alle Privacy Policy",
     icon: privacy,
-    href: "https://github.com/PoliNetworkOrg/PrivacyPolicies/releases/download/v1.0/regolamento_soci.pdf",
+    href: memberPrivacyHref,
   },
   { title: "Invia una mail a info@polinetwork.org", icon: mail, href: membershipEmail },
   { title: "Attendi la nostra risposta", icon: reply },

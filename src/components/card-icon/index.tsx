@@ -9,10 +9,19 @@ import type { CardIconProps } from "./types"
 import { getAlignmentClasses, getCardPaddingClasses, getContentGapClasses, getTitleSizeClasses } from "./utils"
 
 export function CardIcon(props: CardIconProps) {
-  const { title, icon, size = "md", href, hoverEffect = false, align = "center", className } = props
+  const {
+    title,
+    icon,
+    size = "md",
+    href,
+    onClick,
+    hoverEffect = Boolean(href || onClick),
+    align = "center",
+    className,
+  } = props
   const description = "description" in props ? props.description : undefined
   const cta = "cta" in props ? props.cta : undefined
-  const Root = href ? "a" : "div"
+  const Root = href ? "a" : onClick ? "button" : "div"
   const isDescriptionCard = Boolean(description)
   const isInlineAligned = align === "inline"
   const isCompactDescriptionCard = isDescriptionCard && size === "compact"
@@ -22,13 +31,17 @@ export function CardIcon(props: CardIconProps) {
     <Glass
       className={cn(
         "w-full overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground",
+        (href || onClick) && "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-blue-secondary",
         className
       )}
     >
       <Root
         href={href}
+        type={onClick && !href ? "button" : undefined}
+        onClick={onClick}
+        aria-label={onClick && !href ? title : undefined}
         className={cn(
-          "group/card relative flex h-full flex-col text-left",
+          "group/card relative flex h-full w-full flex-col text-left outline-none",
           getCardPaddingClasses(size, isDescriptionCard)
         )}
       >

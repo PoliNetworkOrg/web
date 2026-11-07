@@ -17,32 +17,42 @@ const descriptionGradientStyle = {
   "--hero-gradient-desktop": DESCRIPTION_GRADIENT_DESKTOP,
 } as CSSProperties
 
+function longestWord(text: string) {
+  return Math.max(...text.split(/\s+/).map((word) => word.length))
+}
+
 export function Hero({
   title,
   description,
   gradientDescription = false,
   className,
+  descriptionClassName,
 }: {
   title: string
   description: string
   gradientDescription?: boolean
   className?: string
+  descriptionClassName?: string
 }) {
   return (
     <div className={cn("flex flex-col items-center gap-6", className)}>
-      {/* Figma "lightheme-XLarge text effect": #020618 → #6e6e6e at 82.69% */}
-      {/* The gradient is drawn per line (box-decoration-clone), so a title that wraps keeps the full effect on each line */}
-      <h2 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0">
-        <span className="bg-linear-to-b from-text-primary to-83% to-[#6e6e6e] box-decoration-clone bg-clip-text text-transparent">
+      {/* The page's h1: the header logo is not a heading. The gradient is drawn per line (box-decoration-clone) */}
+      <h1 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-14 sm:pb-0">
+        {/* Capped so the longest word fits the width, since a word can't wrap (DM Sans is about 0.55em per letter) */}
+        <span
+          className="bg-linear-to-b from-text-primary to-83% to-[#6e6e6e] box-decoration-clone bg-clip-text text-[min(3.5625rem,calc((100vw-3rem)/var(--hero-fit)))] text-transparent sm:text-[min(7.5rem,calc((100vw-5rem)/var(--hero-fit)))]"
+          style={{ "--hero-fit": longestWord(title) * 0.55 } as CSSProperties}
+        >
           {title}
         </span>
-      </h2>
+      </h1>
       <p
-        className={
+        className={cn(
           gradientDescription
             ? "typo-title-large sm:typo-headline-small bg-(image:--hero-gradient-mobile) sm:bg-(image:--hero-gradient-desktop) max-w-195 bg-clip-text text-center text-transparent"
-            : "typo-title-large sm:typo-headline-small max-w-2xl text-center"
-        }
+            : "typo-title-large sm:typo-headline-small max-w-2xl text-center",
+          descriptionClassName
+        )}
         style={gradientDescription ? descriptionGradientStyle : undefined}
       >
         {description}
