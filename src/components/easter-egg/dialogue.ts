@@ -86,8 +86,8 @@ export function dialogueReducer(state: DialogueState, action: DialogueAction): D
     case "confirm": {
       if (!isTyped(open)) return dialogueReducer(state, { type: "skip" })
       if (choices) return dialogueReducer(state, { type: "choose", option: open.selected })
-      const exit = stepExit(open.step)
-      if (exit) return dialogueReducer(state, { type: "leave", exit })
+      // una riga d'uscita già scritta resta a schermo finché non scade la pausa (gestita dalla stanza)
+      if (stepExit(open.step)) return state
       const next = openNext(open.queue)
       return { ...state, open: next, finished: state.finished || !next }
     }

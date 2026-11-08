@@ -208,7 +208,13 @@ function useRoomAudio() {
   const soundsRef = useRef<RoomSounds | null>(null)
 
   useEffect(() => {
-    const context = new AudioContext()
+    let context: AudioContext
+    try {
+      context = new AudioContext()
+    } catch {
+      // senza audio la stanza resta muta, ma il dialogo deve funzionare lo stesso
+      return
+    }
     const controller = new AbortController()
 
     // tutto passa da qui, così staccarlo zittisce musica ed effetti in un colpo
