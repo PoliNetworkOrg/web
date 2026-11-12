@@ -40,7 +40,11 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
     <Glass
       ref={panelRef}
       className={cn(
-        "fixed inset-x-6 top-14 z-20 box-border rounded-[36px] px-6 py-5",
+        "fixed inset-x-6 top-(--nav-top) z-20 box-border rounded-[36px] px-6 py-5",
+        // The Figma frame is a full device screen, so its 56px offset includes the status bar, while the
+        // browser viewport already starts below it. Keep a small gap that grows toward the desktop's 40px,
+        // and fall back to the safe-area inset when the page is drawn under the status bar.
+        "[--nav-top:max(1rem,env(safe-area-inset-top))] sm:[--nav-top:max(1.5rem,env(safe-area-inset-top))] md:[--nav-top:max(2rem,env(safe-area-inset-top))]",
         // Open, the panel covers the page: a stronger blur keeps the titles underneath from competing with the links
         mobileMenuOpen && "backdrop-blur-xl"
       )}
@@ -73,7 +77,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
         <nav
           id="mobile-menu"
           aria-label="Menu principale"
-          className="max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain pb-1"
+          className="max-h-[calc(100dvh-var(--nav-top)*2-4.5rem)] overflow-y-auto overscroll-contain pb-1"
         >
           {headerMenuItems.map((item) => (
             <div key={item.title} className="mt-5">
