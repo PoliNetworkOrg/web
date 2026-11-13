@@ -18,7 +18,8 @@ export function PeekCarousel<T>({
   className?: string
 }) {
   return (
-    <div className={cn("-mx-6", className)}>
+    // `min-w-0`: as a grid item the slide row would otherwise widen its column to fit every card side by side
+    <div className={cn("-mx-6 min-w-0", className)}>
       <Carousel opts={{ align: "start" }}>
         <CarouselContent className="mr-6 ml-2">
           {items.map((item) => (

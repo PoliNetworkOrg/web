@@ -79,11 +79,11 @@ export function MembershipSection() {
         <div className="absolute inset-0 overflow-hidden rounded-rectangles">
           <Image
             src={membersPhoto}
-            alt="Un gruppo di volontari di PoliNetwork insieme all’aperto"
+            alt="Lo staff di PoliNetwork in posa su una scalinata, con la bandiera dell’associazione"
             fill
             sizes="(min-width: 1280px) 40vw, 100vw"
-            // Figma's crop keeps the bottom of the photo (the people), whatever the box's aspect ratio
-            className="object-cover object-bottom"
+            // The box is wider than the photo: the crop keeps the whole group, from the back row's heads to the feet
+            className="object-cover object-[center_85%]"
           />
         </div>
         <PhotoShapes

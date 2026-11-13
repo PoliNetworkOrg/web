@@ -20,7 +20,6 @@ export default function CollaboraPage() {
         <Hero
           title="Collabora con Noi"
           description="Mettiamo la nostra infrastruttura e i nostri talenti a disposizione di chi ha buone idee per gli studenti del PoliMi"
-          gradientDescription
         />
       </section>
       <AboutSection />

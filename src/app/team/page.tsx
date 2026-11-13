@@ -19,7 +19,6 @@ export default function TeamPage() {
         <Hero
           title="I Team"
           description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento."
-          gradientDescription
         />
       </section>
       {teams.map((team, index) => (

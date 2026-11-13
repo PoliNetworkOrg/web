@@ -1,6 +1,7 @@
 import { FiAward, FiBookOpen, FiUsers } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { PeekCarousel } from "@/components/peek-carousel"
 
 const cards = [
   {
@@ -22,6 +23,8 @@ const cards = [
   },
 ] as const
 
+const CARD_CLASS = "h-full p-0 [&_h3]:text-balance [&_p]:max-w-none"
+
 export function AnswerSection() {
   return (
     <section className={`${CONTAINER} flex flex-col gap-10 md:gap-14`}>
@@ -32,17 +35,18 @@ export function AnswerSection() {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="hidden gap-6 sm:grid lg:grid-cols-3">
         {cards.map((card) => (
-          <CardIcon
-            key={card.title}
-            {...card}
-            size="compact"
-            align="start"
-            className="h-full p-0 [&_h3]:text-balance [&_p]:max-w-none"
-          />
+          <CardIcon key={card.title} {...card} size="compact" align="start" className={CARD_CLASS} />
         ))}
       </div>
+      {/* Phones: a carousel instead of three stacked cards */}
+      <PeekCarousel
+        items={cards}
+        getKey={(card) => card.title}
+        render={(card) => <CardIcon {...card} size="compact" align="start" className={CARD_CLASS} />}
+        className="sm:hidden"
+      />
     </section>
   )
 }

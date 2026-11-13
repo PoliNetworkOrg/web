@@ -6,6 +6,7 @@ import projectsImage from "@/assets/images/storia/progetti.png"
 import { CardIcon } from "@/components/card-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
+import { PeekCarousel } from "@/components/peek-carousel"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -66,17 +67,26 @@ export function HistoryProjects() {
       </TextOnlyLayout>
       {/* Figma: the six tools on the left, the note about where they come from beside them, without a panel */}
       <div className="grid gap-10 xl:grid-cols-[minmax(0,5fr)_minmax(0,2fr)] xl:items-center xl:gap-16">
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <div className="hidden gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <CardIcon
               key={project.title}
               {...project}
-              size={{ base: "inline-sm", sm: "inline" }}
+              size="inline"
               align="start"
               className="h-full [&_h3]:text-balance"
             />
           ))}
         </div>
+        {/* Phones: a carousel instead of six stacked cards */}
+        <PeekCarousel
+          items={projects}
+          getKey={(project) => project.title}
+          render={(project) => (
+            <CardIcon {...project} size="inline-sm" align="start" className="h-full [&_h3]:text-balance" />
+          )}
+          className="sm:hidden"
+        />
         <div className="typo-body-large flex max-w-145 flex-col gap-4 text-pretty">
           <p>
             Molti dei progetti di PoliNetwork sono nati da <strong>idee individuali</strong>: studenti che hanno creato
