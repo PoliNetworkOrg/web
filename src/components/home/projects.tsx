@@ -18,7 +18,7 @@ export async function Projects() {
     <section
       className={cn(
         CONTAINER,
-        "grid grid-cols-1 gap-y-6 py-20 sm:gap-y-8 sm:py-24 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] xl:gap-x-16 xl:gap-y-10 xl:py-32"
+        "grid grid-cols-1 gap-y-6 py-12 sm:gap-y-8 sm:py-24 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] xl:gap-x-16 xl:gap-y-10 xl:py-32"
       )}
     >
       <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-span-2 xl:text-start">
@@ -45,7 +45,7 @@ export async function Projects() {
 
       {featured.length > 0 && (
         <>
-          <ul className="mx-auto hidden w-full max-w-4xl auto-rows-fr gap-6 pt-8 sm:grid sm:grid-cols-2 xl:max-w-none xl:pt-0">
+          <ul className="mx-auto hidden w-full max-w-4xl auto-rows-fr gap-6 pt-8 md:grid md:grid-cols-2 xl:max-w-none xl:pt-0">
             {featured.map((project) => (
               <li key={project.id} className="min-w-0">
                 <ProjectCard project={project} />
@@ -57,7 +57,7 @@ export async function Projects() {
             items={featured}
             getKey={(project) => project.id}
             render={(project) => <ProjectCard project={project} />}
-            className="pt-6 sm:hidden"
+            className="pt-6 md:hidden"
           />
         </>
       )}

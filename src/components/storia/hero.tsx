@@ -10,8 +10,6 @@ export function HistoryHero() {
       <Hero
         title="La nostra storia"
         description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
-        gradientDescription
-        descriptionClassName="max-w-145 text-balance"
       />
       <div className="flex flex-wrap justify-center gap-3">
         <Button asChild size="lg">

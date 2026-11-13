@@ -32,7 +32,7 @@ export function ProjectList({
 
   return (
     <>
-      <div className="hidden flex-col items-center gap-12 sm:flex">
+      <div className="hidden flex-col items-center gap-12 md:flex">
         <ul id={gridId} className="grid w-full grid-cols-[repeat(auto-fill,minmax(min(100%,16rem),1fr))] gap-6">
           {visible.map((project) => (
             <li key={project.id} className="min-w-0">
@@ -59,7 +59,7 @@ export function ProjectList({
         items={projects}
         getKey={(project) => project.id}
         render={(project) => <ProjectCard project={project} />}
-        className="sm:hidden"
+        className="md:hidden"
       />
     </>
   )

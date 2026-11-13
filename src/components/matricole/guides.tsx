@@ -1,5 +1,6 @@
 import { CardIcon } from "@/components/card-icon"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { PeekCarousel } from "@/components/peek-carousel"
 import { cn } from "@/lib/utils"
 import type { FreshmanContent } from "@/queries/types"
 import { CardGroup } from "../card-group"
@@ -26,7 +27,7 @@ export function MatricoleGuides({ content }: { content: FreshmanContent }) {
               className={cn(FEATURED_CARD.className, "hidden sm:block")}
             />
           ))}
-          <div className="grid w-full gap-3 sm:grid-cols-2 sm:gap-6">
+          <div className="hidden w-full gap-6 md:grid md:grid-cols-2">
             {guides.slice(1).map((guide) => (
               <CardIcon
                 key={guide.id}
@@ -37,6 +38,15 @@ export function MatricoleGuides({ content }: { content: FreshmanContent }) {
               />
             ))}
           </div>
+          {/* Phones and small tablets: a carousel instead of stacked cards */}
+          <PeekCarousel
+            items={guides.slice(1)}
+            getKey={(guide) => guide.id}
+            render={(guide) => (
+              <CardIcon {...freshmanCardProps(guide)} align="inline" className="h-full" size="inline-sm" />
+            )}
+            className="md:hidden"
+          />
         </div>
 
         <CardGroup title={hub.title} description={hub.description}>

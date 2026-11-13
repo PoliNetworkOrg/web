@@ -5,8 +5,8 @@ import groupIcon from "@/assets/icons/collabora/group.svg"
 import handshakeIcon from "@/assets/icons/collabora/handshake.svg"
 import schoolIcon from "@/assets/icons/collabora/school.svg"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { PeekCarousel } from "@/components/peek-carousel"
 import { Button } from "@/components/ui/button"
-import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
 import { InfoCard, type InfoCardData } from "./info-card"
 import { Aside, Highlight } from "./section"
@@ -98,20 +98,12 @@ export function AboutSection() {
           ))}
         </div>
 
-        {/* Bleeds to the screen edges like the Figma carousel, so the next card peeks in */}
-        <Carousel opts={{ containScroll: false }} className="w-screen max-w-none self-center md:hidden">
-          <CarouselContent className="-ml-2">
-            {cards.map((card) => (
-              <CarouselItem key={card.title} className="basis-auto pl-2">
-                <InfoCard card={card} className="h-26.25 w-62.75" />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          {/* The dots only render once Embla has measured the slides: reserve their row to avoid a layout shift */}
-          <div className="mt-6 h-4">
-            <CarouselDots />
-          </div>
-        </Carousel>
+        <PeekCarousel
+          items={cards}
+          getKey={(card) => card.title}
+          render={(card) => <InfoCard card={card} className="h-full min-h-26.25" />}
+          className="md:hidden"
+        />
       </div>
     </section>
   )

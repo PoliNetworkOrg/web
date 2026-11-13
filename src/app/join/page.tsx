@@ -19,7 +19,6 @@ export default function JoinPage() {
         <Hero
           title="Unisciti a Noi"
           description="Nessuna simulazione, solo progetti reali. Scopri come fare la differenza per migliaia di studenti del PoliMi"
-          gradientDescription
         />
       </section>
       <Introduction />
