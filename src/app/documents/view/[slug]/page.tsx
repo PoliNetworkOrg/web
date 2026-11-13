@@ -10,12 +10,14 @@ type Props = { params: Promise<{ slug: string }> }
 export const dynamic = "force-dynamic"
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const document = await findDocument((await params).slug)
-  return { title: document?.title ?? "Documento non trovato" }
+  const { document } = await findDocument((await params).slug)
+  return { title: document?.title ?? "Documenti" }
 }
 
 export default async function DocumentViewerPage({ params }: Props) {
-  const document = await findDocument((await params).slug)
+  const { document, backendUnavailable } = await findDocument((await params).slug)
+  // A backend outage is not a missing document: show the error page instead of a 404
+  if (!document && backendUnavailable) throw new Error("Documents are temporarily unavailable")
   if (!document) notFound()
 
   return (

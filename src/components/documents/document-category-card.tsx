@@ -3,20 +3,29 @@ import { FiDownload, FiEye, FiFile } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { Button } from "@/components/ui/button"
 import type { DocumentCategory } from "./types"
-import { getDocumentFileHref, getDocumentFileName, getDocumentViewerHref } from "./utils"
+import {
+  getCategoryAnchor,
+  getCategoryHeadingId,
+  getDocumentFileHref,
+  getDocumentFileName,
+  getDocumentViewerHref,
+} from "./utils"
 
-const dateFormat = new Intl.DateTimeFormat("it-IT", { dateStyle: "long" })
+// Dates are plain YYYY-MM-DD (UTC midnight): format them in UTC so no server timezone shifts the day
+const dateFormat = new Intl.DateTimeFormat("it-IT", { dateStyle: "long", timeZone: "UTC" })
 
 function formatDate(date: string) {
   return dateFormat.format(new Date(date))
 }
 
 export function DocumentCategoryCard({ category }: { category: DocumentCategory }) {
+  const anchor = getCategoryAnchor(category.id)
+  const headingId = getCategoryHeadingId(category.id)
   return (
-    <section id={category.id} aria-labelledby={`${category.id}-title`} className="scroll-mt-36">
-      <Glass className="grid gap-6 rounded-rectangles border-white/50 bg-background-blur p-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-14">
-        <div className="flex flex-col gap-3">
-          <h2 id={`${category.id}-title`} className="typo-headline-medium sm:typo-display-small text-text-primary">
+    <section id={anchor} aria-labelledby={headingId} className="scroll-mt-36">
+      <Glass className="wrap-anywhere grid min-w-0 gap-6 rounded-rectangles border-white/50 bg-background-blur p-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-14">
+        <div className="flex min-w-0 flex-col gap-3">
+          <h2 id={headingId} className="typo-headline-medium sm:typo-display-small text-text-primary">
             {category.title}
           </h2>
           <p className="typo-body-large max-w-65 text-text-secondary">{category.description}</p>

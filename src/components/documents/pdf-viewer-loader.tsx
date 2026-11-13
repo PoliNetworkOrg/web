@@ -9,5 +9,5 @@ const PdfViewer = dynamic(() => import("./pdf-viewer"), {
 })
 
 export function PdfViewerLoader({ document }: { document: DocumentItem }) {
-  return <PdfViewer key={document.slug} document={document} />
+  return <PdfViewer key={`${document.slug}:${document.version ?? ""}`} document={document} />
 }

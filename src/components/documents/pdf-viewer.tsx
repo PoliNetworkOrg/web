@@ -8,7 +8,7 @@ import "react-pdf/dist/Page/TextLayer.css"
 import { Glass } from "@/components/glass"
 import { Button } from "@/components/ui/button"
 import type { DocumentItem } from "./types"
-import { getDocumentFileHref, getDocumentFileName } from "./utils"
+import { getDocumentFileHref, getDocumentFileName, getPdfPixelRatio } from "./utils"
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdfjs/pdf.worker.min.mjs"
 const pdfOptions = { cMapUrl: "/pdfjs/cmaps/", standardFontDataUrl: "/pdfjs/standard_fonts/", wasmUrl: "/pdfjs/wasm/" }
@@ -18,9 +18,15 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   const [page, setPage] = useState(1)
   const [pageCount, setPageCount] = useState(0)
   const [width, setWidth] = useState(0)
+  const [pageSize, setPageSize] = useState<{ page: number; width: number; height: number } | null>(null)
+  // The whole document failed to load: nothing to page or zoom through
   const [failed, setFailed] = useState(false)
+  // Only the current page failed to draw: cleared when the page or zoom changes, so the controls stay usable
+  const [pageError, setPageError] = useState(false)
   const viewport = useRef<HTMLElement>(null)
   const fileHref = getDocumentFileHref(document)
+  const pageWidth = Math.min(width, 900) * zoom
+  const pageMeasured = pageSize?.page === page
 
   useEffect(() => {
     const element = viewport.current
@@ -50,10 +56,15 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           <Button
             variant="glass"
             size="icon-lg"
-            className="size-11"
+            className="size-11 aria-disabled:opacity-50"
             aria-label="Riduci zoom"
-            disabled={zoom <= 0.5 || !pageCount || failed}
-            onClick={() => setZoom((value) => Math.max(0.5, value - 0.25))}
+            disabled={!pageCount || failed}
+            aria-disabled={zoom <= 0.5}
+            onClick={() => {
+              if (zoom <= 0.5) return
+              setPageError(false)
+              setZoom((value) => Math.max(0.5, value - 0.25))
+            }}
           >
             <FiZoomOut aria-hidden="true" className="size-5" />
           </Button>
@@ -62,17 +73,25 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             className="h-11 min-w-16"
             aria-label="Ripristina zoom al 100%"
             disabled={!pageCount || failed}
-            onClick={() => setZoom(1)}
+            onClick={() => {
+              setPageError(false)
+              setZoom(1)
+            }}
           >
             {Math.round(zoom * 100)}%
           </Button>
           <Button
             variant="glass"
             size="icon-lg"
-            className="size-11"
+            className="size-11 aria-disabled:opacity-50"
             aria-label="Aumenta zoom"
-            disabled={zoom >= 3 || !pageCount || failed}
-            onClick={() => setZoom((value) => Math.min(3, value + 0.25))}
+            disabled={!pageCount || failed}
+            aria-disabled={zoom >= 3}
+            onClick={() => {
+              if (zoom >= 3) return
+              setPageError(false)
+              setZoom((value) => Math.min(3, value + 0.25))
+            }}
           >
             <FiZoomIn aria-hidden="true" className="size-5" />
           </Button>
@@ -110,10 +129,31 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           >
             <Page
               pageNumber={page}
-              width={Math.min(width, 900) * zoom}
-              devicePixelRatio={Math.min(window.devicePixelRatio || 1, 2)}
+              width={pageWidth}
+              renderMode={pageMeasured ? "canvas" : "none"}
+              devicePixelRatio={
+                pageMeasured
+                  ? getPdfPixelRatio(
+                      pageWidth,
+                      (pageWidth * pageSize.height) / pageSize.width,
+                      window.devicePixelRatio || 1
+                    )
+                  : 1
+              }
               renderAnnotationLayer={false}
-              onRenderError={() => setFailed(true)}
+              onLoadSuccess={(loadedPage) => {
+                const dimensions = loadedPage.getViewport({ scale: 1 })
+                setPageSize((previous) =>
+                  previous?.page === page &&
+                  previous.width === dimensions.width &&
+                  previous.height === dimensions.height
+                    ? previous
+                    : { page, width: dimensions.width, height: dimensions.height }
+                )
+              }}
+              onLoadError={() => setPageError(true)}
+              onRenderError={() => setPageError(true)}
+              onRenderSuccess={() => setPageError(false)}
               loading={<output className="typo-body-large p-4">Caricamento della pagina…</output>}
               error={
                 <p role="alert" className="typo-body-large p-4">
@@ -125,15 +165,23 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           </Document>
         )}
       </section>
+      {pageError && (
+        <p role="alert" className="typo-body-medium text-center">
+          Impossibile visualizzare questa pagina a questo zoom. Prova a ridurre lo zoom, cambiare pagina o scaricare il
+          PDF.
+        </p>
+      )}
       {pageCount > 0 && !failed && (
         <div className="flex items-center justify-center gap-3">
           <Button
             variant="glass"
             size="icon-lg"
-            className="size-11"
+            className="size-11 aria-disabled:opacity-50"
             aria-label="Pagina precedente"
-            disabled={page <= 1}
+            aria-disabled={page <= 1}
             onClick={() => {
+              if (page <= 1) return
+              setPageError(false)
               setPage((value) => value - 1)
               viewport.current?.scrollTo(0, 0)
             }}
@@ -146,10 +194,12 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           <Button
             variant="glass"
             size="icon-lg"
-            className="size-11"
+            className="size-11 aria-disabled:opacity-50"
             aria-label="Pagina successiva"
-            disabled={page >= pageCount}
+            aria-disabled={page >= pageCount}
             onClick={() => {
+              if (page >= pageCount) return
+              setPageError(false)
               setPage((value) => value + 1)
               viewport.current?.scrollTo(0, 0)
             }}

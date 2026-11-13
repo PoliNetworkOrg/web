@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { DocumentCategoryCard } from "@/components/documents/document-category-card"
+import { getCategoryAnchor } from "@/components/documents/utils"
 import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
 import { getDocumentCategories } from "@/queries/documents"
@@ -27,7 +28,7 @@ export default async function DocumentsPage() {
             {categories.map((category) => (
               <li key={category.id}>
                 <a
-                  href={`#${category.id}`}
+                  href={`#${getCategoryAnchor(category.id)}`}
                   className="typo-body-large inline-block rounded-images py-3 text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-blue-primary focus-visible:outline-offset-[-2px]"
                 >
                   {category.title}
