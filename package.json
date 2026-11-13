@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "preinstall": "npx -y only-allow pnpm",
-    "build": "cross-env SKIP_ENV_VALIDATION=true next build",
-    "dev": "cross-env PORT=3002 next dev",
+    "build": "node scripts/copy-pdf-assets.mjs && cross-env SKIP_ENV_VALIDATION=true next build",
+    "dev": "node scripts/copy-pdf-assets.mjs && cross-env PORT=3002 next dev",
     "preview": "pnpm build && pnpm start",
     "start": "node .next/standalone/server.js",
     "typecheck": "tsc --noEmit",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@polinetwork/auth-kit": "^1.1.0",
-    "@polinetwork/backend": "^4.0.0",
+    "@polinetwork/backend": "^9.3.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-separator": "^1.1.8",
@@ -40,6 +40,7 @@
     "react-dom": "19.3.0",
     "react-hook-form": "^7.68.0",
     "react-icons": "^5.6.0",
+    "react-pdf": "^11.0.0",
     "superjson": "^2.2.6",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",

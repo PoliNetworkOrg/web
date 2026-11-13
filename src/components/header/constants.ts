@@ -11,6 +11,7 @@ export const headerMenuItems: HeaderMenuItem[] = [
       // Leaves the site: ↗ instead of ›, as in the rest of the site
       { title: "Appunti", href: MATERIALS_URL, icon: FiArrowUpRight },
       { title: "Guide", href: "/guides", icon: FiChevronRight },
+      { title: "Documenti", href: "/documents", icon: FiChevronRight },
       { title: "FAQs", href: "/faqs", icon: FiChevronRight },
     ],
   },
