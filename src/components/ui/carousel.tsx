@@ -14,7 +14,11 @@ type CarouselProps = {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
+  /** Milliseconds between automatic advances, or `false` to keep the carousel still. */
+  autoplay?: number | false
 }
+
+const AUTOPLAY_MS = 4000
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0]
@@ -44,10 +48,15 @@ function Carousel({
   opts,
   setApi,
   plugins,
+  autoplay = AUTOPLAY_MS,
   className,
   children,
+  onMouseEnter,
+  onMouseLeave,
+  onFocusCapture,
+  onBlurCapture,
   ...props
-}: React.ComponentProps<"div"> & CarouselProps) {
+}: React.ComponentProps<"section"> & CarouselProps) {
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
@@ -59,6 +68,9 @@ function Carousel({
   const [canScrollNext, setCanScrollNext] = React.useState(false)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
+  // Autoplay pauses while the pointer or focus is inside, and stops for good once someone drags the carousel
+  const [paused, setPaused] = React.useState(false)
+  const [stopped, setStopped] = React.useState(false)
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return
@@ -77,7 +89,7 @@ function Carousel({
   }, [api])
 
   const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
+    (event: React.KeyboardEvent<HTMLElement>) => {
       if (orientation === "vertical") {
         if (event.key === "ArrowUp") {
           event.preventDefault()
@@ -114,6 +126,28 @@ function Carousel({
     }
   }, [api, onSelect])
 
+  React.useEffect(() => {
+    if (!api) return
+    const stop = () => setStopped(true)
+    api.on("pointerDown", stop)
+    return () => {
+      api.off("pointerDown", stop)
+    }
+  }, [api])
+
+  React.useEffect(() => {
+    if (!api || autoplay === false || paused || stopped) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const interval = setInterval(() => {
+      // Inactive at this breakpoint (a grid instead) or nothing to scroll: stay put
+      if (api.scrollSnapList().length <= 1) return
+      // At the end, go back to the first card rather than stopping
+      if (api.canScrollNext()) api.scrollNext()
+      else api.scrollTo(0)
+    }, autoplay)
+    return () => clearInterval(interval)
+  }, [api, autoplay, paused, stopped])
+
   return (
     <CarouselContext.Provider
       value={{
@@ -129,7 +163,29 @@ function Carousel({
         scrollSnaps,
       }}
     >
-      <section onKeyDownCapture={handleKeyDown} className={cn("relative", className)} data-slot="carousel" {...props}>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: hover and focus only pause the autoplay; the slides and dots stay the controls */}
+      <section
+        onKeyDownCapture={handleKeyDown}
+        onMouseEnter={(event) => {
+          setPaused(true)
+          onMouseEnter?.(event)
+        }}
+        onMouseLeave={(event) => {
+          setPaused(false)
+          onMouseLeave?.(event)
+        }}
+        onFocusCapture={(event) => {
+          setPaused(true)
+          onFocusCapture?.(event)
+        }}
+        onBlurCapture={(event) => {
+          setPaused(false)
+          onBlurCapture?.(event)
+        }}
+        className={cn("relative", className)}
+        data-slot="carousel"
+        {...props}
+      >
         {children}
       </section>
     </CarouselContext.Provider>

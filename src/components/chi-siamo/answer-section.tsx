@@ -35,7 +35,7 @@ export function AnswerSection() {
         </p>
       </div>
 
-      <div className="hidden gap-6 sm:grid lg:grid-cols-3">
+      <div className="hidden gap-6 md:grid md:grid-cols-3">
         {cards.map((card) => (
           <CardIcon key={card.title} {...card} size="compact" align="start" className={CARD_CLASS} />
         ))}
@@ -45,7 +45,7 @@ export function AnswerSection() {
         items={cards}
         getKey={(card) => card.title}
         render={(card) => <CardIcon {...card} size="compact" align="start" className={CARD_CLASS} />}
-        className="sm:hidden"
+        className="md:hidden"
       />
     </section>
   )

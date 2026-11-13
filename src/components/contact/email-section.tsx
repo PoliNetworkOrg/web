@@ -58,7 +58,7 @@ export function EmailSection() {
       </p>
 
       {/* 2×2 between one and four columns, so no card is left alone on a row */}
-      <div className="mt-4 hidden gap-6 sm:grid sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-4 hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-4">
         {contactCards.map((card) => (
           <ContactCard key={card.email} {...card} />
         ))}
@@ -68,7 +68,7 @@ export function EmailSection() {
         items={contactCards}
         getKey={(card) => card.email}
         render={(card) => <ContactCard {...card} />}
-        className="mt-4 sm:hidden"
+        className="mt-4 md:hidden"
       />
     </section>
   )

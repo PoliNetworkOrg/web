@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { FiArrowDown } from "react-icons/fi"
-import { CONTAINER, SECTION_LEAD } from "@/components/layout/page"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { OrganizationDiagram } from "@/components/structure/organization-chart"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -9,7 +9,7 @@ export function Organization() {
   return (
     <section className={`${CONTAINER} flex flex-col gap-10`} aria-labelledby="struttura-title">
       <div className="flex max-w-140 flex-col gap-6">
-        <h2 id="struttura-title" className="typo-headline-medium sm:typo-display-medium text-balance">
+        <h2 id="struttura-title" className={SECTION_TITLE}>
           Come è organizzata PoliNetwork
         </h2>
         <p className={cn(SECTION_LEAD, "max-w-94")}>

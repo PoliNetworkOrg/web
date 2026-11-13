@@ -67,7 +67,7 @@ export function HistoryProjects() {
       </TextOnlyLayout>
       {/* Figma: the six tools on the left, the note about where they come from beside them, without a panel */}
       <div className="grid gap-10 xl:grid-cols-[minmax(0,5fr)_minmax(0,2fr)] xl:items-center xl:gap-16">
-        <div className="hidden gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+        <div className="hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <CardIcon
               key={project.title}
@@ -85,7 +85,7 @@ export function HistoryProjects() {
           render={(project) => (
             <CardIcon {...project} size="inline-sm" align="start" className="h-full [&_h3]:text-balance" />
           )}
-          className="sm:hidden"
+          className="md:hidden"
         />
         <div className="typo-body-large flex max-w-145 flex-col gap-4 text-pretty">
           <p>

@@ -11,7 +11,7 @@ type ParticipationPath = (typeof participationPaths)[number]
 export function Participation() {
   return (
     <>
-      <div className="hidden gap-6 sm:grid lg:grid-cols-3">
+      <div className="hidden gap-6 md:grid lg:grid-cols-3">
         {participationPaths.map((path) => (
           <ParticipationCard key={path.title} path={path} />
         ))}
@@ -21,7 +21,7 @@ export function Participation() {
         items={participationPaths}
         getKey={(path) => path.title}
         render={(path) => <ParticipationCard path={path} />}
-        className="sm:hidden"
+        className="md:hidden"
       />
     </>
   )
@@ -29,7 +29,7 @@ export function Participation() {
 
 function ParticipationCard({ path }: { path: ParticipationPath }) {
   return (
-    <Card className="h-auto w-full gap-6 border-white/50 p-6">
+    <Card className="h-full w-full gap-6 border-white/50 p-6">
       <CardHeader className="flex flex-row items-center justify-between gap-4 lg:flex-col lg:items-start">
         <GradientIcon icon={path.icon} className="order-2 size-10 shrink-0 lg:order-1 lg:size-16" />
         <CardTitle

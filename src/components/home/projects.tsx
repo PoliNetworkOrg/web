@@ -45,7 +45,7 @@ export async function Projects() {
 
       {featured.length > 0 && (
         <>
-          <ul className="mx-auto hidden w-full max-w-4xl auto-rows-fr gap-6 pt-8 sm:grid sm:grid-cols-2 xl:max-w-none xl:pt-0">
+          <ul className="mx-auto hidden w-full max-w-4xl auto-rows-fr gap-6 pt-8 md:grid md:grid-cols-2 xl:max-w-none xl:pt-0">
             {featured.map((project) => (
               <li key={project.id} className="min-w-0">
                 <ProjectCard project={project} />
@@ -57,7 +57,7 @@ export async function Projects() {
             items={featured}
             getKey={(project) => project.id}
             render={(project) => <ProjectCard project={project} />}
-            className="pt-6 sm:hidden"
+            className="pt-6 md:hidden"
           />
         </>
       )}
