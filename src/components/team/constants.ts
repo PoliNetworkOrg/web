@@ -21,10 +21,9 @@ export type Team = {
   title: string
   description: string
   roles: Pick<CardIconProps, "title" | "icon">[]
-  reverse?: boolean
+  /** Figma alternates the sections: text on the right for HR, title and text side by side for Events. */
 }
 
-// Copy and specialisms from the desktop Team frame (5546:10874).
 export const teams: Team[] = [
   {
     id: "it",
@@ -62,7 +61,6 @@ export const teams: Team[] = [
       { title: "Community & Engagement", icon: FiAward },
       { title: "Crescita del team", icon: FiCornerRightUp },
     ],
-    reverse: true,
   },
   {
     id: "events-partnership",
@@ -78,5 +76,5 @@ export const teams: Team[] = [
 ]
 
 export function applicationHref(team?: string) {
-  return `mailto:direttivo@polinetwork.org?subject=${encodeURIComponent(team ? `Candidatura – ${team}` : "Candidatura PoliNetwork")}`
+  return `mailto:hr@polinetwork.org?subject=${encodeURIComponent(team ? `Candidatura – ${team}` : "Candidatura PoliNetwork")}`
 }

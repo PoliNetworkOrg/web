@@ -8,6 +8,7 @@ import "react-pdf/dist/Page/TextLayer.css"
 import { Glass } from "@/components/glass"
 import { Button } from "@/components/ui/button"
 import type { DocumentItem } from "./types"
+import { getDocumentFileHref, getDocumentFileName } from "./utils"
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdfjs/pdf.worker.min.mjs"
 const pdfOptions = { cMapUrl: "/pdfjs/cmaps/", standardFontDataUrl: "/pdfjs/standard_fonts/", wasmUrl: "/pdfjs/wasm/" }
@@ -19,6 +20,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   const [width, setWidth] = useState(0)
   const [failed, setFailed] = useState(false)
   const viewport = useRef<HTMLElement>(null)
+  const fileHref = getDocumentFileHref(document)
 
   useEffect(() => {
     const element = viewport.current
@@ -39,7 +41,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
               <FiArrowLeft aria-hidden="true" className="size-5" />
             </Link>
           </Button>
-          <h2 className="typo-body-large min-w-0 break-words">{document.title}</h2>
+          <h1 className="typo-body-large min-w-0 break-words">{document.title}</h1>
         </div>
         <fieldset
           aria-label="Controlli del documento"
@@ -75,13 +77,12 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             <FiZoomIn aria-hidden="true" className="size-5" />
           </Button>
           <Button asChild variant="glass" size="icon-lg" className="size-11">
-            <a href={document.href} download aria-label={`Scarica ${document.title}`}>
+            <a href={fileHref} download={getDocumentFileName(document)} aria-label={`Scarica ${document.title}`}>
               <FiDownload aria-hidden="true" className="size-5" />
             </a>
           </Button>
         </fieldset>
       </div>
-      <p className="typo-body-small text-text-secondary">PDF dimostrativo, non ufficiale.</p>
       <section
         ref={viewport}
         className="min-h-0 flex-1 overflow-auto rounded-images"
@@ -91,7 +92,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
       >
         {width > 0 && (
           <Document
-            file={document.href}
+            file={fileHref}
             options={pdfOptions}
             suspense={false}
             onLoadSuccess={({ numPages }) => {
@@ -132,7 +133,10 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             className="size-11"
             aria-label="Pagina precedente"
             disabled={page <= 1}
-            onClick={() => setPage((value) => value - 1)}
+            onClick={() => {
+              setPage((value) => value - 1)
+              viewport.current?.scrollTo(0, 0)
+            }}
           >
             <FiChevronLeft aria-hidden="true" className="size-5" />
           </Button>

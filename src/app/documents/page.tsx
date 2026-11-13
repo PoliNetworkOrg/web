@@ -1,25 +1,30 @@
 import type { Metadata } from "next"
 import { DocumentCategoryCard } from "@/components/documents/document-category-card"
-import { mockDocumentCategories } from "@/components/documents/mock-data"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
+import { getDocumentCategories } from "@/queries/documents"
 
 export const metadata: Metadata = {
   title: "Documenti",
   description: "Tutti i documenti che cerchi, in un unico posto.",
 }
 
-export default function DocumentsPage() {
+// Uploaded from the admin dashboard: read from the backend at request time, like /projects
+export const dynamic = "force-dynamic"
+
+export default async function DocumentsPage() {
+  const categories = await getDocumentCategories()
+
   return (
-    <main className="mx-auto flex w-full max-w-432 flex-col gap-16 px-6 pt-36 pb-24 text-text-primary sm:px-10 sm:pt-35 lg:px-20 xl:gap-39 xl:px-36 xl:pb-49">
-      <Hero
-        title="Documenti"
-        description="Tutti i documenti che cerchi, in un unico posto."
-        titleClassName="typo-display-medium sm:typo-display-extralarge"
-      />
-      <div className="flex min-w-0 flex-col gap-6">
+    <main className={PAGE_MAIN}>
+      <section className={`${CONTAINER} ${PAGE_HERO}`}>
+        <Hero title="Documenti" description="Tutti i documenti che cerchi, in un unico posto." />
+      </section>
+
+      <div className={`${CONTAINER} flex min-w-0 flex-col gap-6`}>
         <nav aria-label="Categorie dei documenti" className="overflow-x-auto border-grey border-b">
           <ul className="flex w-max gap-6 px-3 sm:gap-16">
-            {mockDocumentCategories.map((category) => (
+            {categories.map((category) => (
               <li key={category.id}>
                 <a
                   href={`#${category.id}`}
@@ -31,10 +36,7 @@ export default function DocumentsPage() {
             ))}
           </ul>
         </nav>
-        <p className="typo-body-small text-text-secondary">
-          Anteprima dimostrativa: tutti i PDF presenti sono esempi e non sono documenti ufficiali.
-        </p>
-        {mockDocumentCategories.map((category) => (
+        {categories.map((category) => (
           <DocumentCategoryCard key={category.id} category={category} />
         ))}
       </div>

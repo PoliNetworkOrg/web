@@ -1,67 +1,112 @@
 "use client"
 
 import Link from "next/link"
-import { Fragment, useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
-import { headerMenuItems } from "./constants"
-import { IconButtonsMobile } from "./icon-buttons"
+import { headerMenuItems, isActiveHref } from "./constants"
 import { Logo } from "./logo"
 
 export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const [openOn, setOpenOn] = useState<string | null>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  // Tied to the page it was opened on, so any navigation closes it: this component persists across pages
+  const mobileMenuOpen = !logoOnly && openOn === pathname
+  const close = () => setOpenOn(null)
 
-  // logoOnly routes hide the toggle/nav entirely; close the menu so it doesn't reappear open
-  // when navigating back to a normal route (this component instance persists across navigation).
   useEffect(() => {
-    if (logoOnly) setMobileMenuOpen(false)
-  }, [logoOnly])
+    if (!mobileMenuOpen) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return
+      setOpenOn(null)
+      toggleRef.current?.focus()
+    }
+    const onPointerDown = (event: PointerEvent) => {
+      if (!panelRef.current?.contains(event.target as Node)) setOpenOn(null)
+    }
+    document.addEventListener("keydown", onKeyDown)
+    document.addEventListener("pointerdown", onPointerDown)
+    return () => {
+      document.removeEventListener("keydown", onKeyDown)
+      document.removeEventListener("pointerdown", onPointerDown)
+    }
+  }, [mobileMenuOpen])
 
   return (
-    <Glass className="fixed inset-x-6 top-14 z-20 box-border rounded-[36px] px-6 py-5">
+    <Glass
+      ref={panelRef}
+      className={cn(
+        "fixed inset-x-6 top-(--nav-top) z-20 box-border rounded-[36px] px-6 py-5",
+        // The Figma frame is a full device screen, so its 56px offset includes the status bar, while the
+        // browser viewport already starts below it. Keep a small gap that grows toward the desktop's 40px,
+        // and fall back to the safe-area inset when the page is drawn under the status bar.
+        "[--nav-top:max(1rem,env(safe-area-inset-top))] sm:[--nav-top:max(1.5rem,env(safe-area-inset-top))] md:[--nav-top:max(2rem,env(safe-area-inset-top))]",
+        // Open, the panel covers the page: a stronger blur keeps the titles underneath from competing with the links
+        mobileMenuOpen && "backdrop-blur-xl"
+      )}
+      // Following any link, the current page and the logo included, closes the menu; so does tabbing out of it
+      onClick={(event) => (event.target as HTMLElement).closest("a") && close()}
+      onBlur={(event) => !event.currentTarget.contains(event.relatedTarget) && close()}
+    >
       <div className={cn("flex w-full items-center", logoOnly ? "justify-center" : "justify-between")}>
         <Logo href={logoOnly ? "https://polinetwork.org" : "/"} />
         {!logoOnly && (
           <button
+            ref={toggleRef}
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="ml-auto rounded-md focus-visible:ring-2 focus-visible:ring-text-primary"
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setOpenOn(mobileMenuOpen ? null : pathname)}
+            className="-m-2 ml-auto rounded-full p-2 outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary"
+            aria-label={mobileMenuOpen ? "Chiudi il menu" : "Apri il menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
-            {mobileMenuOpen ? <FiX size={24} className="text-black" /> : <FiMenu size={24} className="text-black" />}
+            {mobileMenuOpen ? (
+              <FiX size={24} className="text-text-primary" />
+            ) : (
+              <FiMenu size={24} className="text-text-primary" />
+            )}
           </button>
         )}
       </div>
 
-      {!logoOnly && mobileMenuOpen && (
-        <nav className="flex max-h-[calc(100dvh-9rem)] flex-row gap-4 overflow-y-auto">
-          <div className="mr-auto flex flex-col">
-            {headerMenuItems.map((item) => (
-              <Fragment key={item.title}>
-                <span className="typo-title-large mt-6 bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text font-poppins text-transparent">
-                  {item.title}
-                </span>
-                {"menu" in item && item.menu && (
-                  <ul className="ml-3 flex flex-col gap-2">
-                    {item.menu.map((subItem) => (
-                      <li key={subItem.title} className="mt-3 flex items-center gap-1">
+      {mobileMenuOpen && (
+        <nav
+          id="mobile-menu"
+          aria-label="Menu principale"
+          className="max-h-[calc(100dvh-var(--nav-top)*2-4.5rem)] overflow-y-auto overscroll-contain pb-1"
+        >
+          {headerMenuItems.map((item) => (
+            <div key={item.title} className="mt-5">
+              <p className="typo-title-medium text-text-secondary">{item.title}</p>
+              {"menu" in item && item.menu && (
+                <ul className="mt-1 flex flex-col">
+                  {item.menu.map((subItem) => {
+                    const active = isActiveHref(pathname, subItem.href)
+                    const Icon = subItem.icon
+                    return (
+                      <li key={subItem.title}>
                         <Link
                           href={subItem.href}
-                          className="typo-body-medium text-text-primary decoration-1 decoration-blue-secondary hover:underline focus:underline"
+                          aria-current={active ? "page" : undefined}
+                          className={cn(
+                            "typo-body-large flex min-h-10 items-center justify-between gap-2 rounded-md text-text-primary decoration-1 decoration-blue-secondary underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-blue-secondary",
+                            active && "underline"
+                          )}
                         >
                           {subItem.title}
+                          <Icon size={18} className="text-text-secondary" aria-hidden />
                         </Link>
                       </li>
-                    ))}
-                  </ul>
-                )}
-              </Fragment>
-            ))}
-          </div>
-          <div className="mt-7.25 flex flex-col gap-5 pt-2">
-            <IconButtonsMobile />
-          </div>
+                    )
+                  })}
+                </ul>
+              )}
+            </div>
+          ))}
         </nav>
       )}
     </Glass>

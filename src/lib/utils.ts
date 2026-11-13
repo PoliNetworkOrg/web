@@ -11,6 +11,9 @@ const twMerge = extendTailwindMerge({
       "font-size": [
         {
           typo: [
+            "display-fluid-extralarge",
+            "display-fluid-large",
+            "display-fluid-medium",
             "display-extralarge",
             "display-large",
             "display-medium",

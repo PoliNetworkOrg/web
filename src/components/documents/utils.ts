@@ -1,9 +1,14 @@
 import type { DocumentItem } from "./types"
 
-export function getDocumentSlug(document: DocumentItem) {
-  return document.href.slice(document.href.lastIndexOf("/") + 1).replace(/\.pdf$/, "")
+export function getDocumentViewerHref(document: DocumentItem) {
+  return `/documents/view/${document.slug}`
 }
 
-export function getDocumentViewerHref(document: DocumentItem) {
-  return `/documents/view/${getDocumentSlug(document)}`
+/** Same-origin URL of the PDF: the viewer can read it without CORS and `download` saves it instead of navigating. */
+export function getDocumentFileHref(document: DocumentItem) {
+  return `/documents/file/${document.slug}`
+}
+
+export function getDocumentFileName(document: DocumentItem) {
+  return `${document.slug}.pdf`
 }

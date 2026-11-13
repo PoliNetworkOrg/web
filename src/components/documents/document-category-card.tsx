@@ -3,7 +3,13 @@ import { FiDownload, FiEye, FiFile } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { Button } from "@/components/ui/button"
 import type { DocumentCategory } from "./types"
-import { getDocumentViewerHref } from "./utils"
+import { getDocumentFileHref, getDocumentFileName, getDocumentViewerHref } from "./utils"
+
+const dateFormat = new Intl.DateTimeFormat("it-IT", { dateStyle: "long" })
+
+function formatDate(date: string) {
+  return dateFormat.format(new Date(date))
+}
 
 export function DocumentCategoryCard({ category }: { category: DocumentCategory }) {
   return (
@@ -17,13 +23,18 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
         </div>
         <ul className="flex min-w-0 flex-col gap-2.5">
           {category.documents.map((document) => (
-            <li key={document.href} className="flex items-center justify-between gap-3 border-grey border-b p-2">
+            <li key={document.slug} className="flex items-center justify-between gap-3 border-grey border-b p-2">
               <div className="flex min-w-0 items-start gap-3 sm:gap-6">
                 <FiFile aria-hidden="true" className="mt-1 size-6 shrink-0 text-text-primary" />
                 <div className="min-w-0">
                   <p className="typo-body-large break-words text-text-primary">{document.title}</p>
                   {document.description && (
                     <p className="typo-body-medium text-text-secondary">{document.description}</p>
+                  )}
+                  {document.version && document.date && (
+                    <p className="typo-body-small text-text-secondary">
+                      Versione {document.version} · aggiornato il {formatDate(document.date)}
+                    </p>
                   )}
                 </div>
               </div>
@@ -34,10 +45,7 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
                   size="icon-lg"
                   className="size-11 bg-transparent hover:bg-blue-tertiary/30"
                 >
-                  <Link
-                    href={getDocumentViewerHref(document)}
-                    aria-label={`Visualizza ${document.title} (PDF dimostrativo)`}
-                  >
+                  <Link href={getDocumentViewerHref(document)} aria-label={`Visualizza ${document.title}`}>
                     <FiEye aria-hidden="true" className="size-6" />
                   </Link>
                 </Button>
@@ -47,7 +55,11 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
                   size="icon-lg"
                   className="size-11 bg-transparent hover:bg-blue-tertiary/30"
                 >
-                  <a href={document.href} download aria-label={`Scarica ${document.title} (PDF dimostrativo)`}>
+                  <a
+                    href={getDocumentFileHref(document)}
+                    download={getDocumentFileName(document)}
+                    aria-label={`Scarica ${document.title}`}
+                  >
                     <FiDownload aria-hidden="true" className="size-6" />
                   </a>
                 </Button>

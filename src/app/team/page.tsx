@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { FiUsers } from "react-icons/fi"
-import { Glass } from "@/components/glass"
+import { ClosingCta } from "@/components/layout/closing-cta"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
 import { applicationHref, teams } from "@/components/team/constants"
 import { TeamSection } from "@/components/team/team-section"
 import { Button } from "@/components/ui/button"
@@ -13,34 +14,28 @@ export const metadata: Metadata = {
 
 export default function TeamPage() {
   return (
-    <main className="flex w-full flex-col gap-24 pb-24 md:gap-36 md:pb-36">
-      <section className="mx-auto flex w-full max-w-330 flex-col items-center gap-6 px-6 pt-52 md:pt-64">
+    <main className={PAGE_MAIN}>
+      <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero
           title="I Team"
           description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento."
           gradientDescription
         />
       </section>
-      {teams.map((team) => (
-        <TeamSection key={team.id} team={team} />
+      {teams.map((team, index) => (
+        <TeamSection key={team.id} team={team} reverse={index % 2 === 1} />
       ))}
-      <section className="mx-auto w-full max-w-330 px-6">
-        <Glass className="flex flex-col items-center gap-6 rounded-rectangles border-white/50 bg-linear-to-br from-background-blur to-blue-tertiary/30 p-6 text-center sm:p-12">
-          <h2 className="typo-headline-medium sm:typo-display-medium text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent">
-            Vuoi fare la differenza?
-          </h2>
-          <p className="typo-body-large sm:typo-headline-extrasmall max-w-200 text-balance">
-            Le porte di PoliNetwork sono aperte a tutti gli studenti del Politecnico di Milano. Segui i nostri social
-            per non perdere i periodi di recruiting ufficiali… ma se hai talento e motivazione, non aspettare: valutiamo
-            le candidature spontanee tutto l’anno.
-          </p>
+      <ClosingCta
+        title="Vuoi fare la differenza?"
+        lead="Le porte di PoliNetwork sono aperte a tutti gli studenti del Politecnico di Milano. Segui i nostri social per non perdere i periodi di recruiting ufficiali… ma se hai talento e motivazione, non aspettare: valutiamo le candidature spontanee tutto l’anno."
+        action={
           <Button asChild size="lg">
             <a href={applicationHref()}>
               Unisciti a noi <FiUsers aria-hidden />
             </a>
           </Button>
-        </Glass>
-      </section>
+        }
+      />
     </main>
   )
 }
