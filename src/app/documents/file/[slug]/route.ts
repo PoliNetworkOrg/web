@@ -10,7 +10,7 @@ const FORWARDED_HEADERS = ["etag", "last-modified"]
  * release downloads don't), and browsers ignore `download` on cross-origin links. Only slugs in the catalog resolve,
  * so this never fetches an arbitrary URL.
  */
-export async function GET(_request: Request, { params }: Context) {
+export async function GET(request: Request, { params }: Context) {
   const { slug } = await params
   const { document, backendUnavailable } = await findDocument(slug)
   if (!document) {
@@ -22,13 +22,22 @@ export async function GET(_request: Request, { params }: Context) {
       : new Response("Documento non trovato", { status: 404, headers: { "Cache-Control": "no-store" } })
   }
 
+  // The timeout bounds only the wait for the upstream headers: the body then streams at the client's pace, and a
+  // deadline on the whole transfer would truncate large PDFs on slow connections. A client that leaves cancels it.
+  const timeout = new AbortController()
+  const timer = setTimeout(
+    () => timeout.abort(new DOMException("Upstream timeout", "TimeoutError")),
+    UPSTREAM_TIMEOUT_MS
+  )
   const upstream = await fetch(document.source, {
     cache: "no-store",
-    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-  }).catch((error) => {
-    console.error(`Failed to fetch document ${slug}`, error)
-    return null
+    signal: AbortSignal.any([timeout.signal, request.signal]),
   })
+    .catch((error) => {
+      console.error(`Failed to fetch document ${slug}`, error)
+      return null
+    })
+    .finally(() => clearTimeout(timer))
   if (!upstream?.ok || !upstream.body) {
     if (upstream) console.error(`Document ${slug} answered ${upstream.status}`)
     return new Response("Documento non disponibile", { status: 502, headers: { "Cache-Control": "no-store" } })

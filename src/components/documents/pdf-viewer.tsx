@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { FiArrowLeft, FiChevronLeft, FiChevronRight, FiDownload, FiZoomIn, FiZoomOut } from "react-icons/fi"
 import { Document, Page, pdfjs } from "react-pdf"
+import "react-pdf/dist/Page/AnnotationLayer.css"
 import "react-pdf/dist/Page/TextLayer.css"
 import { Glass } from "@/components/glass"
 import { Button } from "@/components/ui/button"
@@ -47,7 +48,9 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
               <FiArrowLeft aria-hidden="true" className="size-5" />
             </Link>
           </Button>
-          <h1 className="typo-body-large min-w-0 break-words">{document.title}</h1>
+          <h1 title={document.title} className="typo-body-large line-clamp-2 min-w-0 break-words sm:line-clamp-none">
+            {document.title}
+          </h1>
         </div>
         <fieldset
           aria-label="Controlli del documento"
@@ -71,7 +74,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           <Button
             variant="glass"
             className="h-11 min-w-16"
-            aria-label="Ripristina zoom al 100%"
+            aria-label={`Zoom ${Math.round(zoom * 100)}%, ripristina al 100%`}
             disabled={!pageCount || failed}
             onClick={() => {
               setPageError(false)
@@ -119,6 +122,14 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
               setFailed(false)
             }}
             onLoadError={() => setFailed(true)}
+            externalLinkTarget="_blank"
+            externalLinkRel="noopener noreferrer"
+            // Links to another page of the same PDF: this viewer shows one page at a time
+            onItemClick={({ pageNumber }) => {
+              setPageError(false)
+              setPage(pageNumber)
+              viewport.current?.scrollTo(0, 0)
+            }}
             loading={<output className="typo-body-large p-4">Caricamento del PDF…</output>}
             error={
               <p role="alert" className="typo-body-large p-4">
@@ -140,7 +151,6 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
                     )
                   : 1
               }
-              renderAnnotationLayer={false}
               onLoadSuccess={(loadedPage) => {
                 const dimensions = loadedPage.getViewport({ scale: 1 })
                 setPageSize((previous) =>
@@ -151,7 +161,6 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
                     : { page, width: dimensions.width, height: dimensions.height }
                 )
               }}
-              onLoadError={() => setPageError(true)}
               onRenderError={() => setPageError(true)}
               onRenderSuccess={() => setPageError(false)}
               loading={<output className="typo-body-large p-4">Caricamento della pagina…</output>}

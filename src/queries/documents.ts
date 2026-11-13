@@ -75,7 +75,10 @@ function withFallback(backend: DocumentCategory[]): DocumentCategory[] {
   for (const fallback of FALLBACK_CATALOG) {
     const missing = fallback.documents.filter((document) => !published.has(document.slug))
     if (missing.length === 0) continue
-    const target = merged.find((category) => category.id === fallback.id)
+    // Admin may give the same category another slug: match its title too, so it doesn't show up twice
+    const target = merged.find(
+      (category) => category.id === fallback.id || category.title.trim().toLowerCase() === fallback.title.toLowerCase()
+    )
     if (target) target.documents.push(...missing)
     else merged.push({ ...fallback, documents: missing })
   }

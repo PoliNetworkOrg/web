@@ -23,7 +23,7 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
   const headingId = getCategoryHeadingId(category.id)
   return (
     <section id={anchor} aria-labelledby={headingId} className="scroll-mt-36">
-      <Glass className="wrap-anywhere grid min-w-0 gap-6 rounded-rectangles border-white/50 bg-background-blur p-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-14">
+      <Glass className="grid min-w-0 gap-6 hyphens-auto break-words rounded-rectangles border-white/50 bg-background-blur p-4 sm:p-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-14">
         <div className="flex min-w-0 flex-col gap-3">
           <h2 id={headingId} className="typo-headline-medium sm:typo-display-small text-text-primary">
             {category.title}
@@ -32,11 +32,14 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
         </div>
         <ul className="flex min-w-0 flex-col gap-2.5">
           {category.documents.map((document) => (
-            <li key={document.slug} className="flex items-center justify-between gap-3 border-grey border-b p-2">
+            <li
+              key={document.slug}
+              className="flex flex-col gap-2 border-grey border-b py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:p-2"
+            >
               <div className="flex min-w-0 items-start gap-3 sm:gap-6">
                 <FiFile aria-hidden="true" className="mt-1 size-6 shrink-0 text-text-primary" />
                 <div className="min-w-0">
-                  <p className="typo-body-large break-words text-text-primary">{document.title}</p>
+                  <p className="typo-body-large text-text-primary">{document.title}</p>
                   {document.description && (
                     <p className="typo-body-medium text-text-secondary">{document.description}</p>
                   )}
@@ -47,7 +50,7 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
                   )}
                 </div>
               </div>
-              <div className="flex shrink-0 flex-col gap-1 sm:flex-row sm:gap-2">
+              <div className="flex shrink-0 gap-2 pl-9 sm:pl-0">
                 <Button
                   asChild
                   variant="glass"

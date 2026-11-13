@@ -86,6 +86,50 @@ test("upstream failures produce a retryable, uncached error", async (t) => {
   assert.equal(response.headers.get("cache-control"), "no-store")
 })
 
+test("the upstream timeout bounds the wait for headers, not the streamed body", async (t) => {
+  backendReturns(category())
+  t.mock.method(console, "error", () => {})
+  t.mock.timers.enable({ apis: ["setTimeout"] })
+  let signal
+  t.mock.method(globalThis, "fetch", async (_url, options) => {
+    signal = options.signal
+    return new Response("%PDF-slow", { headers: { "content-type": "application/pdf" } })
+  })
+  const response = await requestFile("statuto")
+  t.mock.timers.tick(60_000)
+  assert.equal(signal.aborted, false)
+  assert.equal(await response.text(), "%PDF-slow")
+
+  t.mock.method(globalThis, "fetch", (_url, options) => new Promise((_resolve, reject) => {
+    options.signal.addEventListener("abort", () => reject(options.signal.reason))
+  }))
+  const pending = requestFile("statuto")
+  await new Promise((resolve) => setImmediate(resolve))
+  t.mock.timers.tick(15_000)
+  assert.equal((await pending).status, 502)
+})
+
+test("a client that disconnects cancels the upstream download", async (t) => {
+  backendReturns(category())
+  let signal
+  t.mock.method(globalThis, "fetch", async (_url, options) => {
+    signal = options.signal
+    return new Response("%PDF")
+  })
+  const client = new AbortController()
+  await GET(new Request("https://example.org/documents/file/statuto", { signal: client.signal }), {
+    params: Promise.resolve({ slug: "statuto" }),
+  })
+  client.abort()
+  assert.equal(signal.aborted, true)
+})
+
+test("a fallback category is merged into the admin category with the same title", async () => {
+  globalThis.documentCatalogQuery = async () => [{ ...category()[0], slug: "chi-siamo" }]
+  const categories = await getDocumentCategories()
+  assert.deepEqual(categories.map((item) => item.id), ["chi-siamo", "privacy"])
+})
+
 test("a category slug cannot collide with another category's heading", () => {
   const slugs = ["privacy", "privacy-title", "titolo-privacy", "categoria-privacy"]
   const ids = slugs.flatMap((slug) => [getCategoryAnchor(slug), getCategoryHeadingId(slug)])
