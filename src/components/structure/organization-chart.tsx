@@ -93,7 +93,7 @@ function DesktopChart() {
         <div className="col-span-5 flex min-w-0 flex-col items-center">
           <Node icon={LuUserCog} label="Team Growth" />
           <Stem />
-          <ul className="grid w-full grid-cols-5">
+          <ul className="grid w-full grid-cols-4">
             {teamLeads.map((lead, index) => (
               <li key={lead.title} className="flex min-w-0 flex-col">
                 <BranchArrow position={branchPosition(index, teamLeads.length)} />
