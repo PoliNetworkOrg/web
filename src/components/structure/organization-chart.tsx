@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import { teamLeads } from "./constants"
 
 const teamNames = new Intl.ListFormat("it").format(teamLeads.map((lead) => lead.title.replace("Team lead ", "")))
-const CHART_LABEL = `Il Direttivo coordina i Capi admin e il Team growth. I Capi admin coordinano gli Admin. Il Team growth coordina i team lead ${teamNames}, con i rispettivi membri.`
+const CHART_LABEL = `Il Direttivo coordina i Capi admin e il Team Growth. I Capi admin coordinano gli Admin. Il Team Growth coordina i team lead ${teamNames}, con i rispettivi membri.`
 
 // Nodes are not links, so they have no hover state
 const tileClassName = "rounded-rectangles border-white/50 bg-background-blur text-text-primary"
@@ -79,7 +79,7 @@ function DesktopChart() {
       <Node icon={LuCrown} label="Direttivo" />
       <Stem />
       <div className="grid w-full grid-cols-6">
-        {/* Rail from the center of the admin column (1/12) to the center of the Team growth columns (7/12) */}
+        {/* Rail from the center of the admin column (1/12) to the center of the Team Growth columns (7/12) */}
         <div aria-hidden className="relative col-span-6 h-7">
           <span className="absolute top-0 right-[41.667%] left-[8.333%] h-px bg-text-secondary" />
           <Arrow className="-translate-x-1/2 absolute top-0 left-[8.333%]" />
@@ -91,7 +91,7 @@ function DesktopChart() {
           <Node icon={LuShield} label="Admin" fill />
         </div>
         <div className="col-span-5 flex min-w-0 flex-col items-center">
-          <Node icon={LuUserCog} label="Team growth" />
+          <Node icon={LuUserCog} label="Team Growth" />
           <Stem />
           <ul className="grid w-full grid-cols-5">
             {teamLeads.map((lead, index) => (
@@ -145,7 +145,7 @@ function MobileChart() {
           </div>
         </div>
         <div className="flex min-w-0 flex-col items-center">
-          <Node icon={LuUserCog} label="Team growth" fill />
+          <Node icon={LuUserCog} label="Team Growth" fill />
           {/* Down from the node, then left to the rail the team leads hang from */}
           <div aria-hidden className="relative h-5 w-full">
             <span className="absolute inset-y-0 left-1/2 w-px bg-text-secondary" />
