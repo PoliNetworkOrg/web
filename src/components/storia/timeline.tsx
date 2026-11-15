@@ -91,7 +91,10 @@ function Steps({ items }: { items: { label: string; icon?: GradientIconType | st
           <div className="flex min-w-0 flex-1 flex-col items-center gap-2 px-1 text-center">
             {item.icon && <IconTile icon={item.icon} className="size-11 sm:size-14" />}
             {item.value && <span className="typo-headline-medium text-blue-secondary">{item.value}</span>}
-            <span className="typo-body-small sm:typo-body-medium text-balance">{item.label}</span>
+            {/* The columns are ~70px on phones: long words ("rappresentanti") ran into the next label */}
+            <span className="typo-body-small sm:typo-body-medium hyphens-auto text-balance break-words">
+              {item.label}
+            </span>
           </div>
         </li>
       ))}
