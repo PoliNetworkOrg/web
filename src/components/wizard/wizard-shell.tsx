@@ -49,8 +49,9 @@ export function WizardShell({
             {STEPS.map((label, index) => (
               <li
                 key={label}
+                aria-current={index === activeStep ? "step" : undefined}
                 className={cn(
-                  "md:typo-label-large typo-label-tiny border-b-5 pb-2 text-center uppercase md:flex-1",
+                  "md:typo-label-large typo-label-medium border-b-5 pb-2 text-center uppercase md:flex-1",
                   index === 1 ? "min-w-0 flex-1" : "shrink-0 whitespace-nowrap md:whitespace-normal",
                   index <= activeStep ? "border-blue-primary text-blue-primary" : "border-white/40 text-text-secondary"
                 )}

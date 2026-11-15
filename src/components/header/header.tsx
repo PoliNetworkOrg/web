@@ -20,13 +20,13 @@ export function Header() {
   const logoOnly = matchesAnyRoutePrefix(pathname, LOGO_ONLY_PREFIXES)
 
   return (
-    <>
+    <header>
       <div className="lg:hidden">
         <MobileLayout logoOnly={logoOnly} />
       </div>
       <div className="max-lg:hidden">
         <DesktopLayout logoOnly={logoOnly} />
       </div>
-    </>
+    </header>
   )
 }
