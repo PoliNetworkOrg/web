@@ -13,8 +13,8 @@ function Input({ icon, className, containerClassName, ...inputProps }: InputProp
       className={cn(
         "inline-flex w-full items-center gap-2.5",
         "border border-white/50",
-        // The input itself carries the vertical padding, so the whole field is clickable (and a 44px+ tap target)
-        icon ? "px-6" : "px-4",
+        // The input itself carries the vertical padding (py-0 drops Glass's p-4), so the whole field is clickable (and a 44px+ tap target)
+        icon ? "px-6 py-0" : "px-4 py-0",
         // The input drops its own outline: the field shows the focus instead
         "focus-within:ring-2 focus-within:ring-blue-secondary",
         "rounded-buttonsM",
