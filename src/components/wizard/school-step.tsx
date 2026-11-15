@@ -20,7 +20,7 @@ export function SchoolStep({
       backHref={landingHref}
       closeHref={landingHref}
     >
-      <div className="grid gap-4 md:grid-cols-2 md:gap-12.5">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:gap-12.5">
         {SCHOOLS.map((school) => (
           <CardIcon
             key={school.slug}
