@@ -53,7 +53,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
       onBlur={(event) => !event.currentTarget.contains(event.relatedTarget) && close()}
     >
       <div className={cn("flex w-full items-center", logoOnly ? "justify-center" : "justify-between")}>
-        <Logo href={logoOnly ? "https://polinetwork.org" : "/"} />
+        <Logo />
         {!logoOnly && (
           <button
             ref={toggleRef}
