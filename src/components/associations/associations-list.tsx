@@ -49,7 +49,8 @@ export function AssociationsList({ associations }: { associations: Association[]
             ? [{ key: "Email", href: `mailto:${association.links.email}`, icon: FiMail }]
             : []),
           ...association.extraLinks.map((link, index) => ({
-            key: `${link.label} · ${index + 1}`,
+            key: `${link.platform}-${index}`,
+            label: link.label,
             href: link.url,
             icon: LINK_CONFIG.find((config) => config.key === link.platform)?.icon ?? FiGlobe,
           })),

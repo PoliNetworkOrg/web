@@ -31,7 +31,16 @@ function AssociationLogo({ name, logo }: Pick<AccordionAssociationItem, "name" |
       </span>
     )
   }
-  return <Image src={logo} alt="" width={64} height={64} className={`${LOGO_CLASS} object-contain`} />
+  return (
+    <Image
+      unoptimized={typeof logo === "string"}
+      src={logo}
+      alt=""
+      width={64}
+      height={64}
+      className={`${LOGO_CLASS} object-contain`}
+    />
+  )
 }
 
 export default function AccordionAssociation({ accordionItems, defaultValue }: AccordionAssociationProps) {
@@ -58,15 +67,18 @@ export default function AccordionAssociation({ accordionItems, defaultValue }: A
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={link.key}
-                        title={link.key}
-                        className="group/icon relative flex size-10 items-center justify-center rounded-full outline-none transition-colors hover:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary"
+                        aria-label={link.label ?? link.key}
+                        title={link.label ?? link.key}
+                        className={`group/icon relative flex h-10 items-center justify-center gap-2 rounded-full outline-none transition-colors hover:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary ${link.label ? "px-3" : "w-10"}`}
                       >
-                        <link.icon className="size-6 transition-opacity duration-200 group-hover/icon:opacity-0" />
-                        <GradientIcon
-                          icon={link.icon}
-                          className="absolute size-6 opacity-0 transition-opacity duration-200 group-hover/icon:opacity-100"
-                        />
+                        <span className="relative flex size-6 shrink-0 items-center justify-center">
+                          <link.icon className="size-6 transition-opacity duration-200 group-hover/icon:opacity-0" />
+                          <GradientIcon
+                            icon={link.icon}
+                            className="absolute size-6 opacity-0 transition-opacity duration-200 group-hover/icon:opacity-100"
+                          />
+                        </span>
+                        {link.label && <span className="text-sm">{link.label}</span>}
                       </a>
                     </li>
                   ))}
