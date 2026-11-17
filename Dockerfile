@@ -21,6 +21,10 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 ENV SKIP_ENV_VALIDATION=true
+# Public origin for absolute URLs in metadata, robots.txt and the sitemap. The static pages are generated here, so it
+# is read at build time; empty falls back to https://polinetwork.org.
+ARG SITE_URL
+ENV SITE_URL=${SITE_URL}
 
 RUN corepack enable pnpm && pnpm run build
 
@@ -29,6 +33,9 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+# The pages rendered per request read it at runtime: keep it the same as at build time
+ARG SITE_URL
+ENV SITE_URL=${SITE_URL}
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
