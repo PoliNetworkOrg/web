@@ -1,8 +1,8 @@
 # Published association registry
 
-The association listing accepts the optional `extraLinks` field from the reviewed backend registry. It validates the additive payload and keeps the existing `links` fallback for older backend deployments. Multiple entries for the same platform have their own visible labels, including unsupported platforms with a generic web icon. Public email remains a mail link.
+The association listing accepts the optional `extraLinks` field from the reviewed backend registry. It validates the additive payload and keeps the existing `links` fallback for older backend deployments. Visible labels are shown only for repeated platforms and for Twitch/other links (single links keep the icon-only look); an invalid `extraLinks` payload falls back to the legacy `links` for that association instead of emptying the list. Multiple entries for the same platform have their own visible labels, including unsupported platforms with a generic web icon. Public email remains a mail link.
 
-The public page links representatives to `https://admin.polinetwork.org/dashboard/associations`. Registration, representative approvals, private evidence and draft content belong to the backend/admin portal; this website receives only the approved public version.
+The public page links representatives to `/dashboard/associations` on `ADMIN_URL` (default `https://admin.polinetwork.org`). Registration, representative approvals, private evidence and draft content belong to the backend/admin portal; this website receives only the approved public version.
 
 Reviewed external logo URLs are loaded by the browser as they are: the site has no server-side image optimizer, so it never fetches arbitrary remote images. Bundled static images keep their pre-resized copies.
 

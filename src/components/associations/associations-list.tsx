@@ -4,9 +4,10 @@ import { FiFacebook, FiGlobe, FiInstagram, FiLinkedin, FiMail, FiMusic, FiSend, 
 import AccordionList from "@/components/accordion-list"
 import { Image } from "@/components/image"
 import { EMPTY_STATE } from "@/components/layout/page"
-import type { fetchAssociations } from "@/queries/functions"
+import { isHttpUrl, platformName, withVisibleLabels } from "@/lib/association-links"
+import type { fetchAssociationsPage } from "@/queries/functions"
 
-type Association = Awaited<ReturnType<typeof fetchAssociations>>[number]
+type Association = Awaited<ReturnType<typeof fetchAssociationsPage>>["associations"][number]
 type AssociationLinks = Association["links"]
 
 const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: IconType; mailto?: boolean }[] = [
@@ -38,7 +39,8 @@ function initials(name: string) {
 
 function AssociationLogo({ name, logo }: Pick<Association, "name" | "logo">) {
   // The name sits right next to the logo, so both are decorative for screen readers
-  if (!logo) {
+  // Reviewed logos must be http(s); anything else falls back to the initials
+  if (!logo || !isHttpUrl(logo)) {
     return (
       <span
         aria-hidden
@@ -98,10 +100,10 @@ export function AssociationsList({ associations }: { associations: Association[]
           ...(association.links.email
             ? [{ label: "Email", href: `mailto:${association.links.email}`, icon: FiMail }]
             : []),
-          ...association.extraLinks.map((link, index) => ({
-            label: link.label,
+          ...withVisibleLabels(association.extraLinks).map((link, index) => ({
+            label: link.visibleLabel ? `${platformName(link.platform)}: ${link.label}` : platformName(link.platform),
             id: `${link.platform}-${index}`,
-            text: link.label,
+            text: link.visibleLabel ? link.label : undefined,
             href: link.url,
             icon: LINK_CONFIG.find((config) => config.key === link.platform)?.icon ?? FiGlobe,
           })),

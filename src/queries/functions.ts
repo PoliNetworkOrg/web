@@ -14,7 +14,7 @@ import {
 } from "@/utils/labels"
 import { mergeGroupsByTitle } from "@/utils/merge-groups"
 import { getAcknowledgements } from "./acknowledgements.server"
-import { getAllAssociations } from "./associations.server"
+import { associationPortalUrl, getAllAssociations } from "./associations.server"
 import { findDocument, getDocumentCatalog } from "./documents.server"
 import { getAllFaqs } from "./faqs.server"
 import { getFreshmanContent } from "./freshman.server"
@@ -55,7 +55,11 @@ export const fetchProject = createServerFn()
   .handler(({ data }) => getProject(data.id))
 
 export const fetchFaqs = createServerFn().handler(() => getAllFaqs())
-export const fetchAssociations = createServerFn().handler(() => getAllAssociations())
+/** The associations, and the address of the portal where their representatives manage them */
+export const fetchAssociationsPage = createServerFn().handler(async () => ({
+  associations: await getAllAssociations(),
+  portalUrl: associationPortalUrl(),
+}))
 export const fetchAcknowledgements = createServerFn().handler(() => getAcknowledgements())
 export const fetchFreshmanContent = createServerFn().handler(() => getFreshmanContent())
 export const fetchDocumentCatalog = createServerFn().handler(() => getDocumentCatalog())
