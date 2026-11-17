@@ -52,6 +52,8 @@ export function WizardShell({
                 aria-current={index === activeStep ? "step" : undefined}
                 className={cn(
                   "md:typo-label-large typo-label-medium border-b-5 pb-2 text-center uppercase md:flex-1",
+                  // Below 340px "MAGISTRALE" is wider than its column at 12px: 11px without tracking still fits
+                  "max-[339px]:typo-label-small max-[339px]:tracking-normal",
                   index === 1 ? "min-w-0 flex-1" : "shrink-0 whitespace-nowrap md:whitespace-normal",
                   index <= activeStep ? "border-blue-primary text-blue-primary" : "border-white/40 text-text-secondary"
                 )}
