@@ -1,16 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
-import { connection } from "next/server"
 import { FiHome } from "react-icons/fi"
 import notFoundBackground from "@/assets/shapes/not-found.svg"
 import { Button } from "@/components/ui/button"
 
-/**
- * Rendered per request: prerendered once, the page would carry the header, footer and background of `/_not-found`,
- * and hydrating it on the requested URL (e.g. under `/groups`, where the header is reduced) would not match.
- */
-export default async function NotFound() {
-  await connection()
+export default function NotFound() {
   return (
     <main className="relative isolate flex min-h-screen w-full items-center justify-center overflow-hidden">
       <section className="relative flex h-full w-full items-center justify-center">

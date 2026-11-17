@@ -1,7 +1,7 @@
 "use client"
 
-import { usePathname } from "next/navigation"
 import { matchesAnyRoutePrefix } from "@/utils/route-match"
+import { useRoutePathname } from "@/utils/use-route-pathname"
 import { DesktopLayout } from "./desktop-layout"
 import { MobileLayout } from "./mobile-layout"
 
@@ -11,7 +11,7 @@ const HIDDEN_ROUTES = ["/matricole/guida"]
 const LOGO_ONLY_PREFIXES = ["/groups"]
 
 export function Header() {
-  const pathname = usePathname()
+  const pathname = useRoutePathname()
 
   if (HIDDEN_ROUTES.includes(pathname)) {
     return null

@@ -1,8 +1,8 @@
 "use client"
 
-import { usePathname } from "next/navigation"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Shape } from "@/components/shapes"
+import { useRoutePathname } from "@/utils/use-route-pathname"
 import { animateScene } from "./animate"
 import { LOOPER_ASPECT, Looper } from "./looper"
 import { type SceneShape, sceneSegment } from "./scene"
@@ -17,7 +17,7 @@ const INITIAL_SEGMENTS = 2
  * Every page gets a fresh scene, rendered directly in its final place.
  */
 export function Background() {
-  const pathname = usePathname()
+  const pathname = useRoutePathname()
   return <Scene key={pathname} pathname={pathname} />
 }
 

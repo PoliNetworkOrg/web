@@ -1,16 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
+import { useRoutePathname } from "@/utils/use-route-pathname"
 import { headerMenuItems, isActiveHref } from "./constants"
 import { Logo } from "./logo"
 
 export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
-  const pathname = usePathname()
+  const pathname = useRoutePathname()
   const [openOn, setOpenOn] = useState<string | null>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const toggleRef = useRef<HTMLButtonElement>(null)
