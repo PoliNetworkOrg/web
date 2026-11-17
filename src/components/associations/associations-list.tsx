@@ -4,9 +4,9 @@ import { FiFacebook, FiGlobe, FiInstagram, FiLinkedin, FiMail, FiMusic, FiSend, 
 import AccordionList from "@/components/accordion-list"
 import { Image } from "@/components/image"
 import { EMPTY_STATE } from "@/components/layout/page"
-import type { ApiOutput } from "@/types"
+import type { fetchAssociations } from "@/queries/functions"
 
-type Association = ApiOutput["web"]["associations"]["getAllAssociations"][number]
+type Association = Awaited<ReturnType<typeof fetchAssociations>>[number]
 type AssociationLinks = Association["links"]
 
 const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: IconType; mailto?: boolean }[] = [
@@ -81,10 +81,21 @@ export function AssociationsList({ associations }: { associations: Association[]
   }
 
   const items = associations.map((association) => {
-    const links = LINK_CONFIG.filter(({ key }) => association.links[key]).map(({ key, label, icon, mailto }) => {
-      const value = association.links[key] as string
-      return { label, href: mailto ? `mailto:${value}` : value, icon }
-    })
+    const links = association.extraLinks
+      ? [
+          ...(association.links.email
+            ? [{ label: "Email", href: `mailto:${association.links.email}`, icon: FiMail }]
+            : []),
+          ...association.extraLinks.map((link, index) => ({
+            label: `${link.label} · ${index + 1}`,
+            href: link.url,
+            icon: LINK_CONFIG.find((config) => config.key === link.platform)?.icon ?? FiGlobe,
+          })),
+        ]
+      : LINK_CONFIG.filter(({ key }) => association.links[key]).map(({ key, label, icon, mailto }) => {
+          const value = association.links[key] as string
+          return { label, href: mailto ? `mailto:${value}` : value, icon }
+        })
 
     return {
       value: String(association.id),
