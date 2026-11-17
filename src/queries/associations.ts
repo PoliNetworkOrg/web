@@ -1,19 +1,7 @@
 "use server"
 
-import { z } from "zod"
+import { parseExtraLinks } from "@/lib/association-links"
 import { trpc } from "@/lib/backend"
-
-const extraLinksSchema = z.object({
-  extraLinks: z
-    .array(
-      z.object({
-        platform: z.string(),
-        label: z.string(),
-        url: z.url().refine((url) => /^https?:\/\//i.test(url)),
-      })
-    )
-    .optional(),
-})
 
 export async function getAllAssociations() {
   try {
@@ -21,7 +9,7 @@ export async function getAllAssociations() {
     // The published SDK predates repeated platform links. Validate the additive field, with old-server fallback.
     return associations.map((association) => ({
       ...association,
-      extraLinks: extraLinksSchema.parse(association).extraLinks,
+      extraLinks: parseExtraLinks((association as { extraLinks?: unknown }).extraLinks),
     }))
   } catch (error) {
     console.error("Failed to fetch associations", error)

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { isHttpUrl, isOptimizableImageHost } from "@/lib/association-links"
 import { GradientIcon } from "../gradient-icon"
 import { Accordion } from "./accordion"
 import { AccordionContent } from "./accordion-content"
@@ -21,7 +22,8 @@ function initials(name: string) {
 
 function AssociationLogo({ name, logo }: Pick<AccordionAssociationItem, "name" | "logo">) {
   // The name sits right next to the logo, so both are decorative for screen readers
-  if (!logo) {
+  // Reviewed logos must be http(s); anything else falls back to the initials
+  if (!logo || (typeof logo === "string" && !isHttpUrl(logo))) {
     return (
       <span
         aria-hidden
@@ -33,7 +35,7 @@ function AssociationLogo({ name, logo }: Pick<AccordionAssociationItem, "name" |
   }
   return (
     <Image
-      unoptimized={typeof logo === "string"}
+      unoptimized={typeof logo === "string" && !isOptimizableImageHost(logo)}
       src={logo}
       alt=""
       width={64}
@@ -62,13 +64,13 @@ export default function AccordionAssociation({ accordionItems, defaultValue }: A
                 <span className="typo-title-small text-text-primary">Segui l'associazione</span>
                 <ul className="-ml-2 flex flex-wrap gap-1">
                   {item.links.map((link) => (
-                    <li key={link.key}>
+                    <li key={link.id ?? link.key}>
                       <a
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={link.label ?? link.key}
-                        title={link.label ?? link.key}
+                        aria-label={link.key}
+                        title={link.key}
                         className={`group/icon relative flex h-10 items-center justify-center gap-2 rounded-full outline-none transition-colors hover:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary ${link.label ? "px-3" : "w-10"}`}
                       >
                         <span className="relative flex size-6 shrink-0 items-center justify-center">

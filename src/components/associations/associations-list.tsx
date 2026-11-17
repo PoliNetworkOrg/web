@@ -13,6 +13,7 @@ import {
 import AccordionAssociation from "@/components/accordion-association"
 import type { GradientIconType } from "@/components/gradient-icon"
 import { EMPTY_STATE } from "@/components/layout/page"
+import { platformName, withVisibleLabels } from "@/lib/association-links"
 import type { getAllAssociations } from "@/queries/associations"
 
 type Association = Awaited<ReturnType<typeof getAllAssociations>>[number]
@@ -48,9 +49,10 @@ export function AssociationsList({ associations }: { associations: Association[]
           ...(association.links.email
             ? [{ key: "Email", href: `mailto:${association.links.email}`, icon: FiMail }]
             : []),
-          ...association.extraLinks.map((link, index) => ({
-            key: `${link.platform}-${index}`,
-            label: link.label,
+          ...withVisibleLabels(association.extraLinks).map((link, index) => ({
+            key: link.visibleLabel ? `${platformName(link.platform)}: ${link.label}` : platformName(link.platform),
+            id: `${link.platform}-${index}`,
+            label: link.visibleLabel ? link.label : undefined,
             href: link.url,
             icon: LINK_CONFIG.find((config) => config.key === link.platform)?.icon ?? FiGlobe,
           })),
