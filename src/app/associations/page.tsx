@@ -24,6 +24,13 @@ export default async function AssociationsPage() {
       <section aria-label="Elenco delle associazioni" className={CONTAINER}>
         <div className="mx-auto w-full max-w-300">
           <AssociationsList associations={associations} />
+          <p className="mt-10 text-center">
+            Rappresenti un’associazione?{" "}
+            <a className="underline underline-offset-4" href="https://admin.polinetwork.org/dashboard/associations">
+              Registrala o richiedi accesso alla sua scheda
+            </a>
+            .
+          </p>
         </div>
       </section>
     </main>
