@@ -9,7 +9,7 @@ import { legalFacts } from "./constants"
 
 export function LegalStatus() {
   return (
-    <Glass className="grid gap-8 rounded-rectangles border-white/50 p-6 lg:grid-cols-2 lg:gap-16 lg:p-10">
+    <Glass className="grid gap-8 rounded-rectangles border-white/50 p-6 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-16 lg:p-10">
       <h2 className={cn(SECTION_TITLE, "text-center lg:text-start")}>Forma giuridica</h2>
       <div className="flex min-w-0 flex-col gap-8 lg:row-span-2">
         {legalFacts.map((fact) => (

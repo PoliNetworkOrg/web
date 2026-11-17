@@ -1,5 +1,5 @@
 import { FiBriefcase, FiCompass, FiFlag, FiUsers } from "react-icons/fi"
-import { LuBookUser, LuCodeXml, LuGlobe, LuHandshake, LuPencilRuler, LuShield, LuUsersRound } from "react-icons/lu"
+import { LuBookUser, LuCodeXml, LuHandshake, LuPencilRuler, LuShield, LuUsersRound } from "react-icons/lu"
 
 export const associationBodies = [
   {
@@ -24,7 +24,7 @@ export const associationBodies = [
     id: "growth",
     title: "Team Growth",
     description:
-      "È il livello di coordinamento tra i cinque team operativi: riunisce i Capi Dipartimento e alcuni membri del Direttivo per allineare le priorità comuni, le nomine, il recruiting e le decisioni che coinvolgono più team contemporaneamente. Non è un team a sé e non si aprono candidature dirette: si entra in Team Growth diventando Capo Dipartimento di uno dei cinque team.",
+      "È il livello di coordinamento tra i quattro team operativi: riunisce i Capi Dipartimento e alcuni membri del Direttivo per allineare le priorità comuni, le nomine, il recruiting e le decisioni che coinvolgono più team contemporaneamente. Non è un team a sé e non si aprono candidature dirette: si entra in Team Growth diventando Capo Dipartimento di uno dei quattro team.",
   },
 ]
 
@@ -33,7 +33,7 @@ export const participationPaths = [
     title: "I team operativi",
     icon: LuUsersRound,
     description:
-      "PoliNetwork lavora attraverso cinque team, ciascuno con un proprio ambito di responsabilità e un Capo Dipartimento che risponde al Consiglio Direttivo.",
+      "PoliNetwork lavora attraverso quattro team, ciascuno con un proprio ambito di responsabilità e un Capo Dipartimento che risponde al Consiglio Direttivo.",
     href: "/team",
     cta: "Esplora i team",
   },
@@ -59,7 +59,6 @@ export const teamLeads = [
   { title: "Team lead HR", icon: LuBookUser },
   { title: "Team lead IT", icon: LuCodeXml },
   { title: "Team lead Design & Marketing", icon: LuPencilRuler },
-  { title: "Team lead International", icon: LuGlobe },
   { title: "Team lead Eventi & Partnership", icon: LuHandshake },
 ]
 

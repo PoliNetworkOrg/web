@@ -9,6 +9,8 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     BACKEND_URL: z.url().default("http://localhost:3000"),
+    /** Public origin of the site, used for absolute URLs in metadata (Open Graph images, sitemap) */
+    SITE_URL: z.url().optional(),
 
     // PoliNetwork IdP (RFC v3 §6). Backend calls carry a service token for the `website` client; the
     // backend refuses calls without one.
@@ -37,6 +39,7 @@ export const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     BACKEND_URL: process.env.BACKEND_URL,
+    SITE_URL: process.env.SITE_URL,
     IDP_PUBLIC_URL: process.env.IDP_PUBLIC_URL,
     IDP_INTERNAL_URL: process.env.IDP_INTERNAL_URL,
     OAUTH_BACKEND_RESOURCE_URI: process.env.OAUTH_BACKEND_RESOURCE_URI,

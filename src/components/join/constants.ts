@@ -105,7 +105,7 @@ export const membershipSteps = [
     href: regulationsHref,
   },
   {
-    title: "Dai un occhio alle Privacy Policy",
+    title: "Dai un'occhiata all'informativa privacy",
     icon: privacy,
     href: memberPrivacyHref,
   },
