@@ -28,6 +28,8 @@ export function SchoolStep({
             icon={SCHOOL_ICONS[school.slug] ?? DEFAULT_SCHOOL_ICON}
             href={stepHref({ school: school.slug })}
             size={{ base: "sm", md: "md" }}
+            // At 28px the school names wrapped onto 4-5 lines on phones, above the page title's size
+            titleClassName="typo-headline-extrasmall md:typo-headline-medium"
           />
         ))}
       </div>

@@ -27,6 +27,8 @@ export type SharedCardProps = {
   /** Defaults to whether the card has a link or an action. */
   hoverEffect?: boolean
   className?: string
+  /** Overrides the title's type size from `size`, e.g. a smaller title on phones. */
+  titleClassName?: string
 }
 
 export type CardIconProps = SharedCardProps & {

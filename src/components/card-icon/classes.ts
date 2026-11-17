@@ -43,8 +43,7 @@ export const CONTENT_GAP_CLASSES: SizeClassMap = {
 export const TITLE_SIZE_CLASSES: SizeClassMap = {
   compact: "typo-headline-medium",
   xs: "typo-label-large",
-  // Between xs and md: at 28px the school names wrapped onto 4-5 lines on phones, above the page title's size
-  sm: "typo-headline-extrasmall",
+  sm: "typo-headline-medium",
   md: "typo-headline-medium",
   lg: "typo-headline-medium",
   inline: "typo-title-large",
