@@ -13,9 +13,10 @@ import {
 import AccordionAssociation from "@/components/accordion-association"
 import type { GradientIconType } from "@/components/gradient-icon"
 import { EMPTY_STATE } from "@/components/layout/page"
-import type { ApiOutput } from "@/types"
+import { platformName, withVisibleLabels } from "@/lib/association-links"
+import type { getAllAssociations } from "@/queries/associations"
 
-type Association = ApiOutput["web"]["associations"]["getAllAssociations"][number]
+type Association = Awaited<ReturnType<typeof getAllAssociations>>[number]
 type AssociationLinks = Association["links"]
 
 const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: GradientIconType; mailto?: boolean }[] = [
@@ -43,10 +44,23 @@ export function AssociationsList({ associations }: { associations: Association[]
     // No placeholder logo: an association without one gets its initials (see AccordionAssociation)
     logo: association.logo,
     content: association.descriptionIt,
-    links: LINK_CONFIG.filter(({ key }) => association.links[key]).map(({ key, label, icon, mailto }) => {
-      const value = association.links[key] as string
-      return { key: label, href: mailto ? `mailto:${value}` : value, icon }
-    }),
+    links: association.extraLinks
+      ? [
+          ...(association.links.email
+            ? [{ key: "Email", href: `mailto:${association.links.email}`, icon: FiMail }]
+            : []),
+          ...withVisibleLabels(association.extraLinks).map((link, index) => ({
+            key: link.visibleLabel ? `${platformName(link.platform)}: ${link.label}` : platformName(link.platform),
+            id: `${link.platform}-${index}`,
+            label: link.visibleLabel ? link.label : undefined,
+            href: link.url,
+            icon: LINK_CONFIG.find((config) => config.key === link.platform)?.icon ?? FiGlobe,
+          })),
+        ]
+      : LINK_CONFIG.filter(({ key }) => association.links[key]).map(({ key, label, icon, mailto }) => {
+          const value = association.links[key] as string
+          return { key: label, href: mailto ? `mailto:${value}` : value, icon }
+        }),
   }))
 
   return <AccordionAssociation accordionItems={accordionItems} defaultValue={accordionItems[0]?.value} />

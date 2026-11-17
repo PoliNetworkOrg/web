@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { isHttpUrl, isOptimizableImageHost } from "@/lib/association-links"
 import { GradientIcon } from "../gradient-icon"
 import { Accordion } from "./accordion"
 import { AccordionContent } from "./accordion-content"
@@ -21,7 +22,8 @@ function initials(name: string) {
 
 function AssociationLogo({ name, logo }: Pick<AccordionAssociationItem, "name" | "logo">) {
   // The name sits right next to the logo, so both are decorative for screen readers
-  if (!logo) {
+  // Reviewed logos must be http(s); anything else falls back to the initials
+  if (!logo || (typeof logo === "string" && !isHttpUrl(logo))) {
     return (
       <span
         aria-hidden
@@ -31,7 +33,16 @@ function AssociationLogo({ name, logo }: Pick<AccordionAssociationItem, "name" |
       </span>
     )
   }
-  return <Image src={logo} alt="" width={64} height={64} className={`${LOGO_CLASS} object-contain`} />
+  return (
+    <Image
+      unoptimized={typeof logo === "string" && !isOptimizableImageHost(logo)}
+      src={logo}
+      alt=""
+      width={64}
+      height={64}
+      className={`${LOGO_CLASS} object-contain`}
+    />
+  )
 }
 
 export default function AccordionAssociation({ accordionItems, defaultValue }: AccordionAssociationProps) {
@@ -53,20 +64,23 @@ export default function AccordionAssociation({ accordionItems, defaultValue }: A
                 <span className="typo-title-small text-text-primary">Segui l'associazione</span>
                 <ul className="-ml-2 flex flex-wrap gap-1">
                   {item.links.map((link) => (
-                    <li key={link.key}>
+                    <li key={link.id ?? link.key}>
                       <a
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={link.key}
                         title={link.key}
-                        className="group/icon relative flex size-10 items-center justify-center rounded-full outline-none transition-colors hover:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary"
+                        className={`group/icon relative flex h-10 items-center justify-center gap-2 rounded-full outline-none transition-colors hover:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary ${link.label ? "px-3" : "w-10"}`}
                       >
-                        <link.icon className="size-6 transition-opacity duration-200 group-hover/icon:opacity-0" />
-                        <GradientIcon
-                          icon={link.icon}
-                          className="absolute size-6 opacity-0 transition-opacity duration-200 group-hover/icon:opacity-100"
-                        />
+                        <span className="relative flex size-6 shrink-0 items-center justify-center">
+                          <link.icon className="size-6 transition-opacity duration-200 group-hover/icon:opacity-0" />
+                          <GradientIcon
+                            icon={link.icon}
+                            className="absolute size-6 opacity-0 transition-opacity duration-200 group-hover/icon:opacity-100"
+                          />
+                        </span>
+                        {link.label && <span className="text-sm">{link.label}</span>}
                       </a>
                     </li>
                   ))}

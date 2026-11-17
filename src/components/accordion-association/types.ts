@@ -9,6 +9,8 @@ export type AccordionAssociationItem = {
   content: React.ReactNode
   links: {
     key: string
+    id?: string
+    label?: string
     href: string
     icon: GradientIconType
   }[]
