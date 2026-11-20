@@ -14,11 +14,7 @@ export default function Contact() {
   return (
     <main className={PAGE_MAIN}>
       <section className={`${CONTAINER} ${PAGE_HERO}`}>
-        <Hero
-          title="Contattaci"
-          description="Qualunque sia la tua domanda, PoliNetwork è a disposizione."
-          gradientDescription
-        />
+        <Hero title="Contattaci" description="Qualunque sia la tua domanda, PoliNetwork è a disposizione." />
       </section>
       <GroupsSection />
       <CollaboraSection />

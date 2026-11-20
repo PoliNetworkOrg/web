@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ContactCard, type ContactCardData } from "../contact-card"
 import { CONTAINER, INLINE_LINK, SECTION_LEAD, SECTION_TITLE } from "../layout/page"
+import { PeekCarousel } from "../peek-carousel"
 
 const contactCards: ContactCardData[] = [
   {
@@ -57,11 +58,18 @@ export function EmailSection() {
       </p>
 
       {/* 2×2 between one and four columns, so no card is left alone on a row */}
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+      <div className="mt-4 hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-4">
         {contactCards.map((card) => (
           <ContactCard key={card.email} {...card} />
         ))}
       </div>
+      {/* Phones: a carousel instead of four stacked cards */}
+      <PeekCarousel
+        items={contactCards}
+        getKey={(card) => card.email}
+        render={(card) => <ContactCard {...card} />}
+        className="mt-4 md:hidden"
+      />
     </section>
   )
 }

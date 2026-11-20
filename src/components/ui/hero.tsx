@@ -24,13 +24,11 @@ function longestWord(text: string) {
 export function Hero({
   title,
   description,
-  gradientDescription = false,
   className,
   descriptionClassName,
 }: {
   title: string
   description: string
-  gradientDescription?: boolean
   className?: string
   descriptionClassName?: string
 }) {
@@ -47,13 +45,12 @@ export function Hero({
         </span>
       </h1>
       <p
+        // One style on every page: Figma's gradient, balanced so a two-line description doesn't leave a lone word
         className={cn(
-          gradientDescription
-            ? "typo-title-large sm:typo-headline-small bg-(image:--hero-gradient-mobile) sm:bg-(image:--hero-gradient-desktop) max-w-195 bg-clip-text text-center text-transparent"
-            : "typo-title-large sm:typo-headline-small max-w-2xl text-center",
+          "typo-title-large sm:typo-headline-small bg-(image:--hero-gradient-mobile) sm:bg-(image:--hero-gradient-desktop) max-w-195 text-balance bg-clip-text text-center text-transparent",
           descriptionClassName
         )}
-        style={gradientDescription ? descriptionGradientStyle : undefined}
+        style={descriptionGradientStyle}
       >
         {description}
       </p>

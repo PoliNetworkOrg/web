@@ -1,6 +1,7 @@
 import { FiBook, FiBookOpen, FiHeadphones, FiSend, FiUser, FiUsers } from "react-icons/fi"
 import { GradientIcon } from "@/components/gradient-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { PeekCarousel } from "@/components/peek-carousel"
 import { Card } from "@/components/ui/card"
 
 const stats = [
@@ -11,6 +12,18 @@ const stats = [
   { value: "5", label: "team operativi", icon: FiHeadphones },
   { value: "100%", label: "progetti tecnici rilasciati open source", icon: FiBookOpen },
 ] as const
+
+function StatCard({ stat }: { stat: (typeof stats)[number] }) {
+  return (
+    <Card className="h-full w-full flex-row items-center gap-5 p-6">
+      <GradientIcon icon={stat.icon} className="size-10 shrink-0" />
+      <div className="flex min-w-0 flex-col gap-1">
+        <p className="typo-headline-large text-blue-secondary tabular-nums">{stat.value}</p>
+        <p className="typo-body-large text-pretty">{stat.label}</p>
+      </div>
+    </Card>
+  )
+}
 
 export function NumbersSection() {
   return (
@@ -23,19 +36,19 @@ export function NumbersSection() {
       </div>
 
       <div className="flex flex-col gap-8">
-        <ul className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
+        <ul className="hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-3">
           {stats.map((stat) => (
             <li key={stat.label}>
-              <Card className="h-full w-full flex-row items-center gap-5 p-6">
-                <GradientIcon icon={stat.icon} className="size-10 shrink-0" />
-                <div className="flex min-w-0 flex-col gap-1">
-                  <p className="typo-headline-large text-blue-secondary tabular-nums">{stat.value}</p>
-                  <p className="typo-body-large text-pretty">{stat.label}</p>
-                </div>
-              </Card>
+              <StatCard stat={stat} />
             </li>
           ))}
         </ul>
+        <PeekCarousel
+          items={stats}
+          getKey={(stat) => stat.label}
+          render={(stat) => <StatCard stat={stat} />}
+          className="md:hidden"
+        />
 
         <p className="typo-body-large lg:text-center">
           Dal <span className="text-blue-secondary">2016</span> al fianco degli studenti del PoliMi
