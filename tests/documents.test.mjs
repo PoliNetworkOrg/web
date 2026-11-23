@@ -25,7 +25,7 @@ registerHooks({
 
 const { getDocumentCategories, findDocument } = await import("../src/queries/documents.ts")
 const { GET } = await import("../src/app/documents/file/[slug]/route.ts")
-const { getCategoryAnchor, getCategoryHeadingId, getPdfPixelRatio } = await import("../src/components/documents/utils.ts")
+const { getActiveCategory, getCategoryAnchor, getCategoryHeadingId, getPdfPixelRatio } = await import("../src/components/documents/utils.ts")
 const category = (slug = "statuto") => [{
   slug: "associazione", title: "Associazione", description: "Documenti ufficiali",
   documents: [{ slug, title: "Statuto caricato", description: null,
@@ -144,4 +144,14 @@ test("canvas resolution respects both dimensions at high zoom on retina displays
     assert.ok(ratio > 0 && ratio <= 2)
   }
   assert.equal(getPdfPixelRatio(300, 424, 1), 1)
+})
+
+test("the category tab follows the section being read", () => {
+  // Before the first section reaches the reading line no tab is selected
+  assert.equal(getActiveCategory([400, 900, 1400], 160, false), -1)
+  assert.equal(getActiveCategory([160, 700, 1200], 160, false), 0)
+  assert.equal(getActiveCategory([-600, 120, 640], 160, false), 1)
+  // A short last section never reaches the line: at the bottom of the page it is the one being read
+  assert.equal(getActiveCategory([-900, -300, 500], 160, true), 2)
+  assert.equal(getActiveCategory([], 160, true), -1)
 })
