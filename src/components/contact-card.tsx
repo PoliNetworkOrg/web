@@ -16,6 +16,8 @@ export function ContactCard({ title, description, email }: ContactCardData) {
   return (
     <CardCaption
       title={title}
+      // The overlay link covers the address: screen readers hear it in the label
+      ariaLabel={`${title}: scrivi a ${email}`}
       caption={<p>{description}</p>}
       href={`mailto:${email}`}
       className="h-full w-full gap-4 p-6"

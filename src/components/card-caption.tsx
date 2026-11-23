@@ -7,6 +7,7 @@ import { Card, CardAction, CardContent, CardHeader, CardTitle } from "./ui/card"
 
 export function CardCaption({
   title,
+  ariaLabel,
   caption,
   icon,
   iconPosition = "right",
@@ -19,6 +20,8 @@ export function CardCaption({
   captionClassName,
 }: {
   title: string
+  /** What the card's link or button is announced as, when the title alone doesn't say where it leads. */
+  ariaLabel?: string
   caption: ReactNode
   icon?: IconType
   iconPosition?: "top" | "right"
@@ -41,9 +44,14 @@ export function CardCaption({
       )}
     >
       {href ? (
-        <Link href={href} className="absolute inset-0 z-10 outline-none" aria-label={title} />
+        <Link href={href} className="absolute inset-0 z-10 outline-none" aria-label={ariaLabel ?? title} />
       ) : onClick ? (
-        <button type="button" onClick={onClick} className="absolute inset-0 z-10 outline-none" aria-label={title} />
+        <button
+          type="button"
+          onClick={onClick}
+          className="absolute inset-0 z-10 outline-none"
+          aria-label={ariaLabel ?? title}
+        />
       ) : null}
       <CardHeader
         className={`typo-headline-medium relative flex ${iconPosition === "right" ? "justify-between" : "flex-col-reverse"}`}

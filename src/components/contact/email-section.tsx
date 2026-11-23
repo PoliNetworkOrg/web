@@ -42,7 +42,13 @@ export function EmailSection() {
       <h2 className={SECTION_TITLE}>Hai una richiesta specifica?</h2>
       <p className={SECTION_LEAD}>
         Qui sotto trovi a chi scrivere in base al tipo di richiesta: per tutto il resto,{" "}
-        <Highlight>info@polinetwork.org</Highlight>.
+        <a
+          href="mailto:info@polinetwork.org"
+          className="rounded-sm text-blue-secondary outline-none transition-colors duration-200 hover:text-blue-primary focus-visible:ring-2 focus-visible:ring-blue-secondary"
+        >
+          info@polinetwork.org
+        </a>
+        .
       </p>
 
       {/* 2×2 between one and four columns, so no card is left alone on a row */}
