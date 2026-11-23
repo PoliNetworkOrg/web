@@ -117,7 +117,7 @@ function CreditList({
 export default function AcknowledgementsPage() {
   return (
     <main className="flex w-full flex-col 3xl:gap-75 gap-32 pb-24 md:gap-40 md:pb-32 xl:gap-60 xl:pb-37.5">
-      <div className={cn(CONTAINER, "pt-61.5 3xl:pb-8 pb-20 sm:pt-52 sm:pb-12 md:pt-57.5")}>
+      <div className={cn(content, "pt-61.5 3xl:pb-8 pb-20 sm:pt-52 sm:pb-12 md:pt-57.5")}>
         <Hero
           title="A chi siamo grati"
           description={description}
@@ -201,7 +201,7 @@ export default function AcknowledgementsPage() {
             strumenti open source utili a tutta la comunità
           </p>
         </div>
-        <Glass className={cn(glassPanel, "w-full max-w-265")}>
+        <Glass className={glassPanel}>
           <CreditList
             credits={projectCredits}
             className="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
@@ -221,7 +221,7 @@ export default function AcknowledgementsPage() {
             Abbiamo il supporto di professionisti che ci offrono consulenza fiscale, contabile, societaria e del lavoro
           </p>
         </div>
-        <Glass className={cn(glassPanel, "mx-auto w-fit lg:mx-0")}>
+        <Glass className={cn(glassPanel, "mx-auto w-fit lg:mx-0 lg:justify-self-end")}>
           <p className={cn("typo-title-large lg:typo-headline-medium flex items-center gap-5", accent)}>
             <GoLaw className="size-8 shrink-0 lg:size-11" aria-hidden />
             Studio Cappa-Pometto
