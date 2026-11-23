@@ -40,6 +40,8 @@ function SelectTrigger({
           paddingClass,
           "rounded-buttonsM",
           "border border-white/50 bg-background-blur",
+          // A clear hover and open state, like the accordions and course rows: the bare glass gave no feedback
+          "outline-none transition-colors duration-200 hover:border-white hover:bg-white/70 focus-visible:ring-2 focus-visible:ring-blue-secondary data-[state=open]:bg-white/70",
           "typo-body-medium text-text-primary",
           "disabled:cursor-not-allowed disabled:opacity-50",
           className

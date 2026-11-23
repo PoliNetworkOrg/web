@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation"
 import type { ReactNode } from "react"
 import { FiArrowLeft, FiX } from "react-icons/fi"
 import { ButtonIcon } from "@/components/button-icon"
-import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
 
 const STEPS = ["Scuola", "Triennale/​Magistrale", "Corso"] as const
@@ -32,70 +31,69 @@ export function WizardShell({
 }: WizardShellProps) {
   const router = useRouter()
 
+  // The card around the step is `WizardFrame`, rendered by the flow's layout so it persists between steps
   return (
-    <main className="flex min-h-svh w-full min-w-0 flex-col items-center px-6 py-50 md:py-52">
-      <Glass className="relative m-auto flex min-h-146 w-full max-w-7xl flex-col gap-10 border-0 bg-transparent p-0 backdrop-blur-none md:min-h-157 md:gap-15 md:rounded-rectangles md:border md:border-white/50 md:bg-background-blur md:px-10 md:py-12.5 md:backdrop-blur-md lg:px-25">
-        <div className="flex shrink-0 items-end gap-2 sm:gap-4 md:gap-6">
-          <ButtonIcon
-            variant="glass"
-            icon={FiArrowLeft}
-            iconClassName="size-5"
-            className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
-            aria-label="Indietro"
-            onClick={() => (backHref ? router.replace(backHref) : router.back())}
-          />
+    <>
+      <div className="flex shrink-0 items-end gap-2 sm:gap-4 md:gap-6">
+        <ButtonIcon
+          variant="glass"
+          icon={FiArrowLeft}
+          iconClassName="size-5"
+          className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
+          aria-label="Indietro"
+          onClick={() => (backHref ? router.replace(backHref) : router.back())}
+        />
 
-          <ol className="flex min-w-0 flex-1 items-end justify-between gap-1 md:gap-4">
-            {STEPS.map((label, index) => (
-              <li
-                key={label}
-                aria-current={index === activeStep ? "step" : undefined}
-                className={cn(
-                  "md:typo-label-large typo-label-medium border-b-5 pb-2 text-center uppercase md:flex-1",
-                  // Below 340px "MAGISTRALE" is wider than its column at 12px: 11px without tracking still fits
-                  "max-[339px]:typo-label-small max-[339px]:tracking-normal",
-                  index === 1 ? "min-w-0 flex-1" : "shrink-0 whitespace-nowrap md:whitespace-normal",
-                  index <= activeStep ? "border-blue-primary text-blue-primary" : "border-white/40 text-text-secondary"
-                )}
-              >
-                {label}
-              </li>
-            ))}
-          </ol>
-
-          <ButtonIcon
-            variant="glass"
-            icon={FiX}
-            iconClassName="size-5"
-            className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
-            aria-label="Chiudi"
-            onClick={() => router.push(closeHref)}
-          />
-        </div>
-
-        <div className="flex min-h-0 flex-1 flex-col gap-6 md:gap-10">
-          <div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div className="flex flex-col items-center gap-2.5 text-center md:items-start md:text-left">
-              {captionPosition === "above" && caption && (
-                <p className="typo-body-medium md:typo-body-large text-text-secondary">{caption}</p>
+        <ol className="flex min-w-0 flex-1 items-end justify-between gap-1 md:gap-4">
+          {STEPS.map((label, index) => (
+            <li
+              key={label}
+              aria-current={index === activeStep ? "step" : undefined}
+              className={cn(
+                "md:typo-label-large typo-label-medium border-b-5 pb-2 text-center uppercase md:flex-1",
+                // Below 340px "MAGISTRALE" is wider than its column at 12px: 11px without tracking still fits
+                "max-[339px]:typo-label-small max-[339px]:tracking-normal",
+                index === 1 ? "min-w-0 flex-1" : "shrink-0 whitespace-nowrap md:whitespace-normal",
+                index <= activeStep ? "border-blue-primary text-blue-primary" : "border-white/40 text-text-secondary"
               )}
-              <h1
-                className={cn(
-                  "typo-title-large md:typo-display-small text-text-primary",
-                  captionPosition === "below" && "order-1 md:order-2"
-                )}
-              >
-                {title}
-              </h1>
-              {captionPosition === "below" && caption && (
-                <p className="typo-body-medium md:typo-body-large order-2 text-text-secondary md:order-1">{caption}</p>
+            >
+              {label}
+            </li>
+          ))}
+        </ol>
+
+        <ButtonIcon
+          variant="glass"
+          icon={FiX}
+          iconClassName="size-5"
+          className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
+          aria-label="Chiudi"
+          onClick={() => router.push(closeHref)}
+        />
+      </div>
+
+      <div className="flex min-h-0 flex-1 flex-col gap-6 md:gap-10">
+        <div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col items-center gap-2.5 text-center md:items-start md:text-left">
+            {captionPosition === "above" && caption && (
+              <p className="typo-body-medium md:typo-body-large text-text-secondary">{caption}</p>
+            )}
+            <h1
+              className={cn(
+                "typo-title-large md:typo-display-small text-text-primary",
+                captionPosition === "below" && "order-1 md:order-2"
               )}
-            </div>
-            {action && <div className="shrink-0">{action}</div>}
+            >
+              {title}
+            </h1>
+            {captionPosition === "below" && caption && (
+              <p className="typo-body-medium md:typo-body-large order-2 text-text-secondary md:order-1">{caption}</p>
+            )}
           </div>
-          <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
+          {action && <div className="shrink-0">{action}</div>}
         </div>
-      </Glass>
-    </main>
+        <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
+      </div>
+    </>
   )
 }

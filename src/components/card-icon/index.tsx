@@ -1,3 +1,5 @@
+import Link from "next/link"
+import type { ElementType } from "react"
 import { Glass } from "@/components/glass"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -22,7 +24,8 @@ export function CardIcon(props: CardIconProps) {
   } = props
   const description = "description" in props ? props.description : undefined
   const cta = "cta" in props ? props.cta : undefined
-  const Root = href ? "a" : onClick ? "button" : "div"
+  // Internal links go through Next's router: a plain <a> reloaded the page, redrawing the background and the header
+  const Root: ElementType = href ? (href.startsWith("/") ? Link : "a") : onClick ? "button" : "div"
   const isDescriptionCard = Boolean(description)
   const isInlineAligned = align === "inline"
   const isCompactDescriptionCard = isDescriptionCard && size === "compact"
