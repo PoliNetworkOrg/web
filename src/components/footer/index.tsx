@@ -8,7 +8,6 @@ import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
-import { regulationsHref, statuteHref } from "@/lib/documents"
 import { cn } from "@/lib/utils"
 
 const socials: { label: string; href: string; icon: ReactNode }[] = [
@@ -21,9 +20,10 @@ const socials: { label: string; href: string; icon: ReactNode }[] = [
   { label: "GitHub", href: "https://github.com/PoliNetworkOrg", icon: <FiGithub /> },
 ]
 
-const documents = [
-  { label: "Lo statuto dell'associazione", title: "Statuto", href: statuteHref },
-  { label: "Le regole di funzionamento interno", title: "Regolamento interno", href: regulationsHref },
+// Site pages, not PDFs: they open in the same tab
+const legal = [
+  { label: "Come trattiamo i tuoi dati", title: "Privacy & Cookie Policy", href: "/privacy-policy" },
+  { label: "Le regole per usare il sito", title: "Termini e condizioni", href: "/termini-e-condizioni" },
 ]
 
 const emails = [
@@ -52,8 +52,8 @@ function FooterLink({ href, children, className }: { href: string; children: Rea
 
 export function Footer() {
   return (
-    <footer className={cn(CONTAINER, "pt-8 pb-6 md:pt-16 md:pb-10")}>
-      <Glass className="rounded-[32px] border-white/60 bg-background-blur px-4 py-10 backdrop-blur-xl sm:rounded-[36px] sm:px-10 sm:py-12 md:rounded-[48px] md:px-14 md:py-16">
+    <footer className={cn(CONTAINER, "pt-8 pb-6 md:pt-12 md:pb-8")}>
+      <Glass className="rounded-[32px] border-white/60 bg-background-blur px-4 py-8 backdrop-blur-xl sm:rounded-[36px] sm:px-10 sm:py-10 md:rounded-[48px] md:px-14 md:py-12">
         <div className="flex flex-col items-center gap-6">
           <h2 lang="en" className={cn(SECTION_TITLE, "text-center")}>
             Keep in touch!
@@ -76,17 +76,17 @@ export function Footer() {
         </div>
 
         {/* Centred on phones, the two lists side by side from sm and the 5x1000 last; from md two rows: the lists, then the actions */}
-        <div className="mx-auto mt-14 grid max-w-6xl gap-x-10 gap-y-12 text-center sm:grid-cols-2 md:mt-16 md:gap-x-16 md:gap-y-10 md:text-left lg:grid-cols-12">
+        <div className="mx-auto mt-10 grid max-w-6xl gap-x-10 gap-y-10 text-center sm:grid-cols-2 md:mt-12 md:gap-x-16 md:gap-y-10 md:text-left lg:grid-cols-12">
           {/* Same shape as "Talk with us" on the other side, so the two columns balance */}
           <section
-            aria-labelledby="footer-documents"
+            aria-labelledby="footer-legal"
             className="flex flex-col items-center gap-5 md:items-start lg:col-span-6"
           >
-            <h3 id="footer-documents" className={HEADING}>
-              Documenti
+            <h3 id="footer-legal" className={HEADING}>
+              Legale
             </h3>
             <dl className="flex flex-col gap-4">
-              {documents.map(({ label, title, href }) => (
+              {legal.map(({ label, title, href }) => (
                 <div key={title} className="flex flex-col gap-0.5">
                   <dt className="typo-body-medium text-slate-600">{label}</dt>
                   <dd className="typo-body-large text-text-primary">
@@ -154,8 +154,8 @@ export function Footer() {
         </div>
 
         {/* slate-600 rather than text-secondary (slate-500, 4.3:1 on the page background) so the small print passes AA */}
-        <div className="typo-body-small md:typo-body-medium mx-auto mt-14 flex max-w-6xl flex-col items-center gap-1 border-slate-300/70 border-t pt-6 text-slate-600 sm:flex-row sm:justify-between md:mt-16">
-          <p>PoliNetwork APS 2016–{new Date().getFullYear()}</p>
+        <div className="typo-body-small md:typo-body-medium mx-auto mt-10 flex max-w-6xl flex-col items-center gap-1 text-slate-600 sm:flex-row sm:justify-between md:mt-12">
+          <p>© PoliNetwork APS 2016–{new Date().getFullYear()}</p>
           <p lang="en">All rights reserved</p>
         </div>
       </Glass>
