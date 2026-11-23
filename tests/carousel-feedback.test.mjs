@@ -93,7 +93,10 @@ async function mount(file, name, props = {}) {
     event(handler, event = {}) { find(tree, "section").props[handler](event); render() },
     tick() { for (const fn of [...timers.values()]) fn(); render(); return advances },
     motion(matches) { media.matches = matches; for (const fn of listeners) fn(media); render() },
-    drag() { events.get("pointerDown")(); render() },
+    drag() { events.get("pointerDown")(); events.get("scroll")(); events.get("pointerUp")(); render() },
+    tap() { events.get("pointerDown")(); events.get("pointerUp")(); render() },
+    toggleAutoplay() { tree.props.value.toggleAutoplay(); render() },
+    navigateNext() { tree.props.value.scrollNext(); render() },
     async copy(reject) { rejectClipboard = reject; await find(tree, "button").props.onClick(); render() },
     unmount() { for (const slot of slots) slot?.cleanup?.() },
     listenerCount: () => listeners.size, timerCount: () => timers.size,
@@ -101,7 +104,11 @@ async function mount(file, name, props = {}) {
 }
 
 const carousel = () => mount("../src/components/ui/carousel.tsx", "Carousel")
-const focusEvent = (inside = false) => ({ currentTarget: { contains: () => inside }, relatedTarget: inside ? {} : null })
+const focusEvent = (inside = false, toggle = false) => ({
+  currentTarget: { contains: () => inside },
+  relatedTarget: inside ? {} : null,
+  target: { closest: () => toggle ? {} : null },
+})
 
 test("autoplay reacts to reduced motion and cleans up its listener", async () => {
   const view = await carousel()
@@ -122,13 +129,13 @@ test("hover and keyboard focus independently pause autoplay", async () => {
   view.event("onFocusCapture", focusEvent())
   view.motion(true); view.motion(false)
   assert.equal(view.tick(), 0)
-  view.event("onMouseEnter"); view.event("onMouseLeave")
+  view.event("onPointerEnter", { pointerType: "mouse" }); view.event("onPointerLeave", { pointerType: "mouse" })
   assert.equal(view.tick(), 0)
   view.event("onBlurCapture", focusEvent(true))
   assert.equal(view.tick(), 0)
-  view.event("onMouseEnter"); view.event("onBlurCapture", focusEvent())
+  view.event("onPointerEnter", { pointerType: "mouse" }); view.event("onBlurCapture", focusEvent())
   assert.equal(view.tick(), 0)
-  view.event("onMouseLeave")
+  view.event("onPointerLeave", { pointerType: "mouse" })
   assert.equal(view.tick(), 1)
   view.unmount()
 })
@@ -152,5 +159,40 @@ test("the mobile guides carousel keeps the first featured resource after merging
     content: { resources: guides, telegram: [] },
   })
   assert.deepEqual(view.node("peek").props.items.map((guide) => guide.id), [1, 2, 3, 4])
+  view.unmount()
+})
+
+
+test("a stationary tap keeps autoplay running while a drag stops it", async () => {
+  const view = await carousel()
+  view.tap()
+  assert.equal(view.tick(), 1)
+  view.drag()
+  assert.equal(view.tick(), 1)
+  view.unmount()
+})
+
+test("touch pointer entry does not leave autoplay hover-paused", async () => {
+  const view = await carousel()
+  view.event("onPointerEnter", { pointerType: "touch" })
+  assert.equal(view.tick(), 1)
+  view.event("onPointerLeave", { pointerType: "touch" })
+  assert.equal(view.tick(), 2)
+  view.unmount()
+})
+
+test("Pause persists after focus leaves, allows navigation, and Play resumes from toggle focus", async () => {
+  const view = await carousel()
+  view.event("onFocusCapture", focusEvent(false, true))
+  view.toggleAutoplay()
+  view.event("onBlurCapture", focusEvent())
+  assert.equal(view.tick(), 0)
+  view.navigateNext()
+  assert.equal(view.tick(), 1)
+  view.event("onFocusCapture", focusEvent())
+  assert.equal(view.tick(), 1)
+  view.event("onFocusCapture", focusEvent(true, true))
+  view.toggleAutoplay()
+  assert.equal(view.tick(), 2)
   view.unmount()
 })
