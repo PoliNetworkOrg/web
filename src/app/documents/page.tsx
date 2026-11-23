@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { DocumentCategoryCard } from "@/components/documents/document-category-card"
-import { getCategoryAnchor } from "@/components/documents/utils"
-import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
+import { DocumentCategoryNav } from "@/components/documents/document-category-nav"
+import { CONTAINER, PAGE_HERO_TOP } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
 import { getDocumentCategories } from "@/queries/documents"
 
@@ -17,26 +17,15 @@ export default async function DocumentsPage() {
   const categories = await getDocumentCategories()
 
   return (
-    <main className={PAGE_MAIN}>
-      <section className={`${CONTAINER} ${PAGE_HERO}`}>
+    // One block from the hero to the list: Figma leaves 156px under the description (136px on phones), less than the
+    // gap between the sections of the other pages, and nothing else sits on the page
+    <main className="flex w-full flex-col pb-24 md:pb-32 xl:pb-45">
+      <section className={`${CONTAINER} ${PAGE_HERO_TOP} pb-34 md:pb-39`}>
         <Hero title="Documenti" description="Tutti i documenti che cerchi, in un unico posto." />
       </section>
 
       <div className={`${CONTAINER} flex min-w-0 flex-col gap-6`}>
-        <nav aria-label="Categorie dei documenti" className="overflow-x-auto border-grey border-b">
-          <ul className="flex w-max gap-6 px-3 sm:gap-16">
-            {categories.map((category) => (
-              <li key={category.id}>
-                <a
-                  href={`#${getCategoryAnchor(category.id)}`}
-                  className="typo-body-large inline-block rounded-images py-3 text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-blue-primary focus-visible:outline-offset-[-2px]"
-                >
-                  {category.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <DocumentCategoryNav categories={categories.map(({ id, title }) => ({ id, title }))} />
         {categories.map((category) => (
           <DocumentCategoryCard key={category.id} category={category} />
         ))}

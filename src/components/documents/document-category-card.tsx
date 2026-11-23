@@ -23,7 +23,7 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
   const headingId = getCategoryHeadingId(category.id)
   return (
     <section id={anchor} aria-labelledby={headingId} className="scroll-mt-36">
-      <Glass className="grid min-w-0 gap-6 hyphens-auto break-words rounded-rectangles border-white/50 bg-background-blur p-4 sm:p-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-14">
+      <Glass className="grid min-w-0 gap-8 hyphens-auto break-words rounded-rectangles border-white/50 bg-background-blur p-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-14">
         <div className="flex min-w-0 flex-col gap-3">
           <h2 id={headingId} className="typo-headline-medium sm:typo-display-small text-text-primary">
             {category.title}
@@ -34,10 +34,11 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
           {category.documents.map((document) => (
             <li
               key={document.slug}
-              className="flex flex-col gap-2 border-grey border-b py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:p-2"
+              // Figma: title above the actions on phones, one row from sm; 8px padding and 16px between the icons
+              className="flex flex-col gap-3 border-grey border-b p-2 sm:flex-row sm:items-center sm:justify-between"
             >
-              <div className="flex min-w-0 items-start gap-3 sm:gap-6">
-                <FiFile aria-hidden="true" className="mt-1 size-6 shrink-0 text-text-primary" />
+              <div className="flex min-w-0 items-start gap-6">
+                <FiFile aria-hidden="true" className="size-6 shrink-0 text-text-primary" />
                 <div className="min-w-0">
                   <p className="typo-body-large text-text-primary">{document.title}</p>
                   {document.description && (
@@ -50,12 +51,13 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
                   )}
                 </div>
               </div>
-              <div className="flex shrink-0 gap-2 pl-9 sm:pl-0">
+              {/* 40px targets around 24px icons: the icons sit 16px apart and line up with the row's padding */}
+              <div className="-m-2 flex shrink-0 justify-end">
                 <Button
                   asChild
                   variant="glass"
                   size="icon-lg"
-                  className="size-11 bg-transparent hover:bg-blue-tertiary/30"
+                  className="size-10 bg-transparent backdrop-blur-none hover:bg-blue-tertiary/30"
                 >
                   <Link href={getDocumentViewerHref(document)} aria-label={`Visualizza ${document.title}`}>
                     <FiEye aria-hidden="true" className="size-6" />
@@ -65,7 +67,7 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
                   asChild
                   variant="glass"
                   size="icon-lg"
-                  className="size-11 bg-transparent hover:bg-blue-tertiary/30"
+                  className="size-10 bg-transparent backdrop-blur-none hover:bg-blue-tertiary/30"
                 >
                   <a
                     href={getDocumentFileHref(document)}

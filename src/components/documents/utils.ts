@@ -20,6 +20,19 @@ export function getCategoryHeadingId(id: string) {
   return `documenti-titolo-${id}`
 }
 
+/**
+ * Index of the category being read, from the sections' top edges in viewport order: the last one whose top has passed
+ * the reading line, or the last category once the page can't scroll further (a short last section never reaches the
+ * line). -1 before the first category.
+ */
+export function getActiveCategory(tops: number[], readingLine: number, atBottom: boolean) {
+  if (tops.length === 0) return -1
+  if (atBottom) return tops.length - 1
+  let active = -1
+  for (const [index, top] of tops.entries()) if (top <= readingLine) active = index
+  return active
+}
+
 /** Bound both canvas dimensions to keep large or unusually tall pages within mobile canvas budgets. */
 export function getPdfPixelRatio(width: number, height: number, devicePixelRatio: number) {
   return Math.min(devicePixelRatio, 2, 4096 / Math.max(width, height))
