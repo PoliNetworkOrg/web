@@ -1,12 +1,21 @@
 /* Animated page background, see src/components/background */
 
 .shape-scene {
+  /* the shapes of pages drawn in Figma are sized in `cqw`, as their frames are as wide as the screen */
+  container-type: inline-size;
   /* scales shapes with the screen, ≈1px on the 1440-1728px wide Figma frames */
   --bg-unit: clamp(0.5px, 0.064vw, 1.1px);
   /* height of the slices of page the background is generated in */
   --bg-segment: 900px;
+  /* height of the footer, measured once the page is interactive: until then, about the one it has */
+  --bg-footer: 1100px;
 
   @media (width >= 48rem) {
     --bg-segment: 1000px;
+    --bg-footer: 700px;
+  }
+
+  &[data-footer="none"] {
+    --bg-footer: 0px;
   }
 }
