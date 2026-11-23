@@ -1,14 +1,18 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import type { IconType } from "react-icons"
 import { BiCodeAlt, BiPalette } from "react-icons/bi"
-import { FiSettings, FiSmile } from "react-icons/fi"
+import { FiSettings, FiSmile, FiUsers } from "react-icons/fi"
 import { GoLaw } from "react-icons/go"
+import { LuMegaphone } from "react-icons/lu"
 import groupPhoto from "@/assets/images/ringraziamenti.webp"
 import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { PhotoShapes, type PhotoShapesLayout } from "@/components/shapes"
 import { Hero } from "@/components/ui/hero"
 import { cn } from "@/lib/utils"
+import { getAcknowledgements } from "@/queries/acknowledgements"
+import type { ApiOutput } from "@/types"
 
 const description =
   "PoliNetwork esiste grazie al tempo, alle idee e alle competenze di centinaia di persone che hanno scelto di contribuire"
@@ -17,6 +21,9 @@ export const metadata: Metadata = {
   title: "Ringraziamenti",
   description,
 }
+
+// The credits are edited from the admin dashboard (Web › Riconoscimenti), so each request reads the latest ones.
+export const dynamic = "force-dynamic"
 
 const content = CONTAINER
 const sectionTitle = cn(SECTION_TITLE, "max-sm:typo-headline-medium text-center sm:text-start")
@@ -41,59 +48,38 @@ const photoShapes: PhotoShapesLayout = {
   ],
 }
 
-// Both Figma frames use this sample name. Replace the entries with confirmed credits before publishing.
-const sampleName = "Mario Rossi"
-const websiteCredits = [
-  [
-    { title: "Project manager", icon: FiSettings, credits: [{}] },
-    { title: "Designer", icon: BiPalette, credits: [{ detail: "Design system" }, {}, {}, {}, {}, {}, {}, {}] },
-  ],
-  [
-    {
-      title: "Developer",
-      icon: BiCodeAlt,
-      credits: [{ detail: "Responsabile" }, { detail: "Backend" }, {}, {}, {}, {}],
-    },
-    { title: "Altri contributi", icon: FiSmile, credits: [{}, {}, {}, {}, {}, {}] },
-  ],
-] as const
+type Acknowledgements = ApiOutput["web"]["acknowledgements"]["getAll"]
+type Credit = Acknowledgements["projects"][number]
 
-const projectCredits = [
-  "PoliAule",
-  "Orario",
-  "MyPoliFile",
-  "MyPoliFile",
-  "Design system",
-  "PoliMi Schedule",
-  "PoliMi Schedule",
-  "PoliAuth & PoliDL",
-  "Graduatorie",
-  "Graduatorie",
-  "The TOL Project",
-  "The TOL Project",
-  "Webex Downloader",
-  "Design system",
-  "Design system",
-].map((detail) => ({ detail }))
+/** The backend's role group icons, drawn as in the Figma frames. */
+const groupIcons = {
+  settings: FiSettings,
+  palette: BiPalette,
+  code: BiCodeAlt,
+  smile: FiSmile,
+  users: FiUsers,
+  megaphone: LuMegaphone,
+} satisfies Record<Acknowledgements["website"][number]["icon"], IconType>
+
+/** Splits the groups into the two columns of the panel, the first one taking the extra group. */
+function inColumns<T>(groups: T[]) {
+  const half = Math.ceil(groups.length / 2)
+  return [groups.slice(0, half), groups.slice(half)].filter((column) => column.length > 0)
+}
 
 function CreditList({
   credits,
   className,
   compact = false,
 }: {
-  credits: readonly { name?: string; detail?: string }[]
+  credits: readonly Credit[]
   className: string
   compact?: boolean
 }) {
   return (
     <ul className={cn("grid list-disc gap-x-6 gap-y-3 pl-4", className)}>
-      {credits.map(({ name = sampleName, detail }, index) => (
-        <li
-          // The mockup repeats the same name and projects across distinct slots.
-          // biome-ignore lint/suspicious/noArrayIndexKey: the list is static
-          key={index}
-          className="min-w-0 pl-0.5 marker:text-blue-secondary dark:marker:text-sky-300"
-        >
+      {credits.map(({ id, name, detail }) => (
+        <li key={id} className="min-w-0 pl-0.5 marker:text-blue-secondary dark:marker:text-sky-300">
           <span className={cn("typo-title-large wrap-break-word block", compact && "max-lg:typo-label-extralarge")}>
             {name}
           </span>
@@ -114,7 +100,12 @@ function CreditList({
   )
 }
 
-export default function AcknowledgementsPage() {
+export default async function AcknowledgementsPage() {
+  const acknowledgements = await getAcknowledgements()
+  // A group or a section without people is not shown.
+  const websiteGroups = acknowledgements.website.filter((group) => group.entries.length > 0)
+  const projectCredits = acknowledgements.projects
+
   return (
     <main className="flex w-full flex-col 3xl:gap-75 gap-32 pb-24 md:gap-40 md:pb-32 xl:gap-60 xl:pb-37.5">
       <div className={cn(content, "pt-61.5 3xl:pb-8 pb-20 sm:pt-52 sm:pb-12 md:pt-57.5")}>
@@ -159,55 +150,62 @@ export default function AcknowledgementsPage() {
         </div>
       </section>
 
-      <section aria-labelledby="nuovo-sito" className={cn(content, "flex flex-col gap-6 max-sm:mt-28 lg:gap-12")}>
-        <div className="flex flex-col gap-6">
-          <h2 id="nuovo-sito" className={sectionTitle}>
-            Realizzazione del nuovo sito web
-          </h2>
-          <p className={cn(sectionCopy, "max-w-220")}>
-            Pubblicato a dicembre 2026, è frutto del lavoro di designer e sviluppatori che hanno reso le informazioni su
-            PoliNetwork più accessibili
-          </p>
-        </div>
-        <Glass className={cn(glassPanel, "grid gap-9 3xl:gap-x-24 md:grid-cols-2 md:gap-x-12")}>
-          {websiteCredits.map((column) => (
-            <div key={column[0].title} className="flex min-w-0 flex-col gap-9">
-              {column.map(({ title, icon: Icon, credits }) => (
-                <div key={title} className="flex flex-col gap-6">
-                  <h3
-                    className={cn(
-                      "typo-headline-extrasmall lg:typo-headline-small flex items-center gap-2.5 uppercase",
-                      accent
-                    )}
-                  >
-                    <Icon className="size-5 shrink-0 lg:size-6" aria-hidden />
-                    {title}
-                  </h3>
-                  <CreditList credits={credits} className="lg:grid-cols-2 xl:grid-cols-3" compact />
-                </div>
-              ))}
-            </div>
-          ))}
-        </Glass>
-      </section>
+      {websiteGroups.length > 0 && (
+        <section aria-labelledby="nuovo-sito" className={cn(content, "flex flex-col gap-6 max-sm:mt-28 lg:gap-12")}>
+          <div className="flex flex-col gap-6">
+            <h2 id="nuovo-sito" className={sectionTitle}>
+              Realizzazione del nuovo sito web
+            </h2>
+            <p className={cn(sectionCopy, "max-w-220")}>
+              Pubblicato a dicembre 2026, è frutto del lavoro di designer e sviluppatori che hanno reso le informazioni
+              su PoliNetwork più accessibili
+            </p>
+          </div>
+          <Glass className={cn(glassPanel, "grid gap-9 3xl:gap-x-24 md:grid-cols-2 md:gap-x-12")}>
+            {inColumns(websiteGroups).map((column) => (
+              <div key={column[0]?.id} className="flex min-w-0 flex-col gap-9">
+                {column.map(({ id, title, icon, entries }) => {
+                  const Icon = groupIcons[icon] ?? FiSmile
+                  return (
+                    <div key={id} className="flex flex-col gap-6">
+                      <h3
+                        className={cn(
+                          "typo-headline-extrasmall lg:typo-headline-small flex items-center gap-2.5 uppercase",
+                          accent
+                        )}
+                      >
+                        <Icon className="size-5 shrink-0 lg:size-6" aria-hidden />
+                        {title}
+                      </h3>
+                      <CreditList credits={entries} className="lg:grid-cols-2 xl:grid-cols-3" compact />
+                    </div>
+                  )
+                })}
+              </div>
+            ))}
+          </Glass>
+        </section>
+      )}
 
-      <section aria-labelledby="progetti" className={cn(content, "flex flex-col gap-6 max-sm:mt-28 lg:gap-12")}>
-        <div className="flex flex-col gap-6">
-          <h2 id="progetti" className={sectionTitle}>
-            I progetti di PoliNetwork
-          </h2>
-          <p className={cn(sectionCopy, "max-w-255")}>
-            Siamo grati ai molti studenti che negli anni hanno dedicato il loro tempo libero alla realizzazione di
-            strumenti open source utili a tutta la comunità
-          </p>
-        </div>
-        <Glass className={glassPanel}>
-          <CreditList
-            credits={projectCredits}
-            className="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-          />
-        </Glass>
-      </section>
+      {projectCredits.length > 0 && (
+        <section aria-labelledby="progetti" className={cn(content, "flex flex-col gap-6 max-sm:mt-28 lg:gap-12")}>
+          <div className="flex flex-col gap-6">
+            <h2 id="progetti" className={sectionTitle}>
+              I progetti di PoliNetwork
+            </h2>
+            <p className={cn(sectionCopy, "max-w-255")}>
+              Siamo grati ai molti studenti che negli anni hanno dedicato il loro tempo libero alla realizzazione di
+              strumenti open source utili a tutta la comunità
+            </p>
+          </div>
+          <Glass className={glassPanel}>
+            <CreditList
+              credits={projectCredits}
+              className="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+            />
+          </Glass>
+        </section>
+      )}
 
       <section
         aria-labelledby="consulenza"
