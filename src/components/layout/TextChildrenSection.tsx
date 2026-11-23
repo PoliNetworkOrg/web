@@ -84,7 +84,7 @@ export default function TextChildrenLayout({
       <div className={cn("flex flex-col gap-6", classNames.textDiv)}>
         <h2
           className={cn(
-            "typo-headline-medium md:typo-display-medium bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent",
+            "typo-headline-medium md:typo-display-medium text-gradient-grey",
             textAlignClass,
             classNames.title
           )}

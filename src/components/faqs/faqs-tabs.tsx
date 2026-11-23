@@ -64,7 +64,7 @@ export function FaqsTabs({ categories }: { categories: FaqCategory[] }) {
 
       <CalloutItem
         title="Non trovi ciò che stai cercando?"
-        href="/guides"
+        href="/guide"
         buttonText={
           <>
             <span className="sm:hidden">Guide</span>

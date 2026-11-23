@@ -5,22 +5,22 @@ import type { HeaderMenuItem } from "./types"
 export const MATERIALS_URL = "https://polinetwork.org/it/materials/view/"
 export const headerMenuItems: HeaderMenuItem[] = [
   {
-    title: "Resources",
+    title: "Risorse",
     menu: [
-      { title: "Progetti", href: "/projects", icon: FiChevronRight },
+      { title: "Progetti", href: "/progetti", icon: FiChevronRight },
       // Leaves the site: ↗ instead of ›, as in the rest of the site
       { title: "Appunti", href: MATERIALS_URL, icon: FiArrowUpRight },
-      { title: "Guide", href: "/guides", icon: FiChevronRight },
-      { title: "Documenti", href: "/documents", icon: FiChevronRight },
-      { title: "FAQs", href: "/faqs", icon: FiChevronRight },
+      { title: "Guide", href: "/guide", icon: FiChevronRight },
+      { title: "Documenti", href: "/documenti", icon: FiChevronRight },
+      { title: "FAQ", href: "/faq", icon: FiChevronRight },
     ],
   },
   {
-    title: "Community",
+    title: "Comunità",
     menu: [
-      { title: "Gruppi", href: "/groups", icon: FiChevronRight },
+      { title: "Gruppi", href: "/gruppi", icon: FiChevronRight },
       { title: "Matricole", href: "/matricole", icon: FiChevronRight },
-      { title: "Associazioni", href: "/associations", icon: FiChevronRight },
+      { title: "Associazioni", href: "/associazioni", icon: FiChevronRight },
     ],
   },
   {
@@ -34,16 +34,16 @@ export const headerMenuItems: HeaderMenuItem[] = [
   {
     title: "Collabora",
     menu: [
-      { title: "Struttura", href: "/about", icon: FiChevronRight },
+      { title: "Struttura", href: "/struttura", icon: FiChevronRight },
       { title: "I team", href: "/team", icon: FiChevronRight },
-      { title: "Unisciti", href: "/join", icon: FiChevronRight },
+      { title: "Unisciti a noi", href: "/unisciti", icon: FiChevronRight },
       { title: "Collabora", href: "/collabora", icon: FiChevronRight },
-      { title: "Contatti", href: "/contact", icon: FiChevronRight },
+      { title: "Contatti", href: "/contatti", icon: FiChevronRight },
     ],
   },
 ]
 
-/** The page is the item itself or one of its subpages (e.g. a project under `/projects`). */
+/** The page is the item itself or one of its subpages (e.g. a project under `/progetti`). */
 export function isActiveHref(pathname: string, href: string) {
   return href.startsWith("/") && (pathname === href || pathname.startsWith(`${href}/`))
 }

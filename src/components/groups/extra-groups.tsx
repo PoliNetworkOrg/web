@@ -13,7 +13,7 @@ export async function ExtraGroups() {
 
   return (
     <main className={FLOW_MAIN}>
-      <FlowHeader title="Gruppi Extra" backHref="/groups" />
+      <FlowHeader title="Gruppi Extra" backHref="/gruppi" />
 
       {extraGroups.length > 0 ? (
         <div className="flex flex-col gap-3">

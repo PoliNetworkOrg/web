@@ -61,7 +61,7 @@ export function AdminSection() {
         <div className="flex flex-col items-start gap-6 pt-4">
           <p className={cn(SECTION_LEAD, "max-w-200")}>
             Il primo passo è farti conoscere nel{" "}
-            <Link href="/groups" className={INLINE_LINK}>
+            <Link href="/gruppi" className={INLINE_LINK}>
               gruppo del tuo corso
             </Link>
             , rispondendo a chi ha bisogno. Se vuoi proporti, scrivi al team HR: ti diremo come continuare.

@@ -8,7 +8,7 @@ import { getVisibleGroups } from "@/queries/groups"
 import { courseFacetsForLevel, humanizeSlug } from "@/utils/labels"
 import { createStepHref } from "@/utils/step-href"
 
-const stepHref = createStepHref("/guides/corso")
+const stepHref = createStepHref("/guide/corso")
 
 export async function GuidesResult({
   school: schoolSlug,
@@ -37,7 +37,7 @@ export async function GuidesResult({
         subtitle={`Laurea ${currentLevel.name}`}
         backHref={stepHref({ school: schoolSlug, level })}
         replaceBack
-        closeHref="/guides"
+        closeHref="/guide"
       />
 
       {guides.length > 0 ? (

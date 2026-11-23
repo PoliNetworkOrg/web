@@ -1,105 +1,101 @@
-import Image from "next/image"
 import Link from "next/link"
-import { FiAirplay, FiArrowUpRight, FiBarChart, FiBook, FiCheck, FiHeadphones } from "react-icons/fi"
-import telegram from "@/assets/icons/telegram-gradient.svg"
-import projectsImage from "@/assets/images/storia/progetti.png"
-import { CardIcon } from "@/components/card-icon"
+import { FiArrowRight, FiArrowUpRight } from "react-icons/fi"
+import { CardCaption } from "@/components/card-caption"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
-import TextOnlyLayout from "@/components/layout/TextOnlySection"
 import { PeekCarousel } from "@/components/peek-carousel"
+import { ProjectCard } from "@/components/projects/project-card"
+import type { Project } from "@/components/projects/resources"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { getAllProjects } from "@/queries/projects"
+import { Devices } from "./devices"
 
-const projects = [
+/** The four tools shown here, matched by name against the projects from the backend */
+const FEATURED = [
   {
-    title: "Bot Telegram",
-    description: "Per moderare, smistare e aiutare gli studenti a trovare le informazioni.",
-    icon: telegram.src,
+    match: /graduatori/i,
+    title: "Graduatorie",
+    description: "Per consultare le graduatorie degli anni precedenti.",
   },
+  { match: /\btol\b/i, title: "TOL", description: "Per esercitarsi con prove e simulazioni del TOL." },
+  { match: /aule/i, title: "PoliAule", description: "Per trovare un’aula libera in cui studiare." },
   {
-    title: "Sito web",
-    description: "Per trovare il gruppo del proprio corso e orientarsi nella rete.",
-    icon: FiAirplay,
-  },
-  { title: "Graduatorie", description: "Per consultare le graduatorie degli anni precedenti.", icon: FiBarChart },
-  { title: "Progetto TOL", description: "Per esercitarsi con prove e simulazioni.", icon: FiBook },
-  {
-    title: "Sincronizzatore WeBeep",
+    match: /webeep/i,
+    title: "WeBeep Sync",
     description: "Per rendere più semplice l’accesso ai file dei corsi.",
-    icon: FiCheck,
   },
-  {
-    title: "Registrazioni delle lezioni",
-    description: "Strumenti per trovare, organizzare e condividere le registrazioni.",
-    icon: FiHeadphones,
-  },
-]
+] as const
 
-export function HistoryProjects() {
+type Featured = { project: Project } | { title: string; description: string }
+
+/**
+ * Without a match from the backend, a card with the same look as `ProjectCard`, pointing to the collection: four
+ * cards are always shown, like everywhere else on the site.
+ */
+function FallbackCard({ title, description }: { title: string; description: string }) {
   return (
-    <section className={`${CONTAINER} flex flex-col gap-16 sm:gap-20`}>
-      <TextOnlyLayout
-        title="I nostri progetti"
-        description={
-          <>
-            <h3 className={SECTION_TITLE}>Le cose che abbiamo costruito.</h3>
-            <p className={cn(SECTION_LEAD, "mt-3")}>
-              Nel corso degli anni PoliNetwork ha sviluppato e mantenuto un ecosistema di{" "}
-              <strong>strumenti gratuiti e open source</strong> pensati per rispondere ai bisogni concreti degli
-              studenti.
-            </p>
-          </>
-        }
-        classNames={{
-          section: "gap-12 xl:flex-row xl:items-center [&>div>h2]:typo-title-large",
-          textDiv: "min-w-0 items-start xl:w-1/2",
-          title: "text-start text-blue-secondary",
-          descriptionDiv: "text-start",
-          contentDiv: "min-w-0 xl:w-1/2",
-        }}
-      >
-        <Image
-          src={projectsImage}
-          alt="Il sito PoliNetwork su computer e smartphone"
-          className="mx-auto h-auto w-full max-w-2xl object-contain"
-          sizes="(max-width: 1279px) 100vw, 670px"
-        />
-      </TextOnlyLayout>
-      {/* Figma: the six tools on the left, the note about where they come from beside them, without a panel */}
-      <div className="grid gap-10 xl:grid-cols-[minmax(0,5fr)_minmax(0,2fr)] xl:items-center xl:gap-16">
-        <div className="hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <CardIcon
-              key={project.title}
-              {...project}
-              size="inline"
-              align="start"
-              className="h-full [&_h3]:text-balance"
-            />
-          ))}
-        </div>
-        {/* Phones: a carousel instead of six stacked cards */}
-        <PeekCarousel
-          items={projects}
-          getKey={(project) => project.title}
-          render={(project) => (
-            <CardIcon {...project} size="inline-sm" align="start" className="h-full [&_h3]:text-balance" />
-          )}
-          className="md:hidden"
-        />
-        <div className="typo-body-large flex max-w-145 flex-col gap-4 text-pretty">
-          <p>
-            Molti dei progetti di PoliNetwork sono nati da <strong>idee individuali</strong>: studenti che hanno creato
-            autonomamente uno strumento utile e che, nel tempo, sono entrati a far parte del network.
+    <CardCaption
+      title={title}
+      caption={description}
+      href="/progetti"
+      className="h-full w-full gap-3 p-6"
+      titleClassName="typo-title-large wrap-anywhere text-balance"
+      captionClassName="line-clamp-4 text-pretty"
+      footer={
+        <span className="typo-label-large flex items-center gap-3 pt-3">
+          <FiArrowRight aria-hidden className="ml-auto size-4 shrink-0 text-blue-secondary" />
+        </span>
+      }
+    />
+  )
+}
+
+function FeaturedCard({ item }: { item: Featured }) {
+  return "project" in item ? <ProjectCard project={item.project} /> : <FallbackCard {...item} />
+}
+
+export async function HistoryProjects() {
+  const projects = await getAllProjects()
+  const featured: Featured[] = FEATURED.map(({ match, title, description }) => {
+    const project = projects.find((candidate) => match.test(candidate.title))
+    return project ? { project } : { title, description }
+  })
+  const key = (item: Featured) => ("project" in item ? String(item.project.id) : item.title)
+
+  return (
+    <section className={`${CONTAINER} flex flex-col gap-12 md:gap-16`}>
+      <div className="grid items-center gap-12 xl:grid-cols-2 xl:gap-16">
+        <div className="flex min-w-0 flex-col items-start gap-6">
+          <h2 className={SECTION_TITLE}>Le cose che abbiamo costruito</h2>
+          <p className={cn(SECTION_LEAD, "max-w-160")}>
+            Nel corso degli anni PoliNetwork ha sviluppato e mantenuto un ecosistema di{" "}
+            <span className="text-blue-secondary">strumenti gratuiti e open source</span>, pensati per rispondere ai
+            bisogni concreti degli studenti. Molti sono nati da{" "}
+            <span className="text-blue-secondary">idee individuali</span> di studenti, poi entrate nel network.
           </p>
-          <p className="text-blue-secondary">Da un’idea di uno studente a uno strumento per migliaia di studenti.</p>
-          <Button asChild size="lg" className="mt-2 w-fit">
-            <Link href="/projects">
+          <Button asChild size="lg" className="mt-2">
+            <Link href="/progetti">
               Scopri tutti i progetti <FiArrowUpRight aria-hidden />
             </Link>
           </Button>
         </div>
+        <Devices />
       </div>
+
+      {/* Four in a row, like the projects on the home page; a carousel on phones */}
+      <ul className="hidden auto-rows-fr gap-6 md:grid md:grid-cols-2 xl:grid-cols-4">
+        {featured.map((item) => (
+          <li key={key(item)} className="min-w-0">
+            <FeaturedCard item={item} />
+          </li>
+        ))}
+      </ul>
+      <PeekCarousel
+        items={featured}
+        getKey={key}
+        render={(item) => <FeaturedCard item={item} />}
+        className="md:hidden"
+      />
     </section>
   )
 }

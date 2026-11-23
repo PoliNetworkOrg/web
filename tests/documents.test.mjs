@@ -24,7 +24,7 @@ registerHooks({
 })
 
 const { getDocumentCategories, findDocument } = await import("../src/queries/documents.ts")
-const { GET } = await import("../src/app/documents/file/[slug]/route.ts")
+const { GET } = await import("../src/app/documenti/file/[slug]/route.ts")
 const { getActiveCategory, getCategoryAnchor, getCategoryHeadingId, getPdfPixelRatio } = await import("../src/components/documents/utils.ts")
 const category = (slug = "statuto") => [{
   slug: "associazione", title: "Associazione", description: "Documenti ufficiali",

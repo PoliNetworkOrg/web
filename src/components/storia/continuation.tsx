@@ -1,13 +1,14 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-const years = ["2016", "2022", "2026", "?"]
+const years = ["2016", "2022", "Oggi"] as const
 
-// Figma: text on the left, the years on a line on the right. No panel or gradient behind it, and the "?" is a
-// quiet open slot rather than a filled pill that looks like a button.
+// The years on the same line as the other timelines: glass tiles on a 4px line, filled up to today. The next chapter
+// is an open, dashed tile at the end of a dashed stretch: it hasn't been written yet.
 export function Continuation() {
   return (
     <section
@@ -16,7 +17,7 @@ export function Continuation() {
     >
       <div className="flex min-w-0 flex-col items-start gap-6">
         <h2 id="continua-title" className={SECTION_TITLE}>
-          La storia continua.
+          La storia continua
         </h2>
         <p className={cn(SECTION_LEAD, "max-w-145")}>
           Ogni anno qualcuno arriva, qualcuno si laurea e qualcun altro raccoglie il testimone. Nuove persone, nuove
@@ -25,29 +26,29 @@ export function Continuation() {
         </p>
       </div>
 
-      <div className="flex min-w-0 flex-col items-start gap-8 xl:items-center">
-        <ol className="flex w-full max-w-120 items-center" aria-label="Dal primo gruppo al prossimo capitolo">
+      <div className="flex min-w-0 flex-col items-center gap-8">
+        <ol className="flex w-full max-w-130 items-center" aria-label="Dal primo gruppo al prossimo capitolo">
           {years.map((year, index) => (
             <li key={year} className={cn("flex items-center", index > 0 && "flex-1")}>
-              {index > 0 && <span aria-hidden className="mx-2 h-px flex-1 bg-blue-primary/40 sm:mx-3" />}
-              <span
-                className={cn(
-                  "typo-title-medium sm:typo-headline-small flex h-12 min-w-14 items-center justify-center rounded-rectangles border px-3 sm:h-16 sm:min-w-20",
-                  year === "?"
-                    ? "border-blue-primary/60 border-dashed text-blue-secondary"
-                    : "border-white/50 bg-background-blur text-blue-secondary"
-                )}
-              >
+              {index > 0 && <span aria-hidden className="mx-2 h-1 flex-1 rounded-full bg-blue-primary sm:mx-3" />}
+              <Glass className="typo-title-medium sm:typo-title-large flex h-14 min-w-16 items-center justify-center rounded-rectangles border-white bg-white/70 px-3 py-0 text-blue-secondary sm:h-18 sm:min-w-20">
                 {year}
-              </span>
+              </Glass>
             </li>
           ))}
+          <li className="flex flex-1 items-center">
+            <span aria-hidden className="mx-2 h-0 flex-1 border-blue-primary/50 border-t-4 border-dashed sm:mx-3" />
+            <span className="typo-title-medium sm:typo-title-large flex h-14 min-w-16 items-center justify-center rounded-rectangles border-2 border-blue-primary/60 border-dashed px-3 text-blue-secondary sm:h-18 sm:min-w-20">
+              <span aria-hidden>?</span>
+              <span className="sr-only">Il prossimo capitolo</span>
+            </span>
+          </li>
         </ol>
-        <p className="typo-title-large sm:typo-headline-medium text-balance text-blue-secondary xl:text-center">
+        <p className="typo-title-large sm:typo-headline-medium text-balance text-center text-blue-secondary">
           Il prossimo capitolo lo scriviamo insieme.
         </p>
         <Button asChild size="lg">
-          <Link href="/collabora">
+          <Link href="/unisciti">
             Unisciti a noi <FiArrowUpRight aria-hidden />
           </Link>
         </Button>

@@ -5,7 +5,7 @@ import { matchesAnyRoutePrefix } from "@/utils/route-match"
 import { useRoutePathname } from "@/utils/use-route-pathname"
 
 const HIDDEN_EXACT = ["/matricole/guida"]
-const HIDDEN_PREFIXES = ["/groups", "/documents/view"]
+const HIDDEN_PREFIXES = ["/gruppi", "/documenti/view"]
 
 /**
  * Hides the footer on full-screen routes. The footer itself is passed as `children` so it stays a server component

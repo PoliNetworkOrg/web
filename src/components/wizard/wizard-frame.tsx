@@ -3,6 +3,7 @@
 import { useSelectedLayoutSegments } from "next/navigation"
 import { type ReactNode, useLayoutEffect, useRef, useState } from "react"
 import { Glass } from "@/components/glass"
+import { PAGE_HERO_TOP } from "@/components/layout/page"
 
 /**
  * The wizard's card, rendered by the layout of the flow (school → level → course) so it stays mounted while the user
@@ -28,7 +29,7 @@ export function WizardFrame({ depth, children }: { depth: number; children: Reac
   if (!framed) return children
 
   return (
-    <main className="flex min-h-svh w-full min-w-0 flex-col items-center px-6 py-50 md:py-52">
+    <main className={`${PAGE_HERO_TOP} flex min-h-svh w-full min-w-0 flex-col items-center px-6 pb-50 md:pb-52`}>
       {/* Anchored to the top, not centred: centred, it would also move while changing height */}
       <Glass className="mx-auto w-full max-w-7xl border-0 bg-transparent p-0 backdrop-blur-none md:rounded-rectangles md:border md:border-white/50 md:bg-background-blur md:backdrop-blur-md">
         {/* The animated box clips the new step while it grows to its height */}

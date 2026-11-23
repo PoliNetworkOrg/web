@@ -3,7 +3,7 @@ import { getLevel, getSchool } from "@/components/wizard/constants"
 import { courseLabel, humanizeSlug, levelLabel, schoolLabel } from "@/utils/labels"
 
 export function missingLinkTargetFromPath(pathname: string): MissingLinkTarget | undefined {
-  if (pathname === "/groups/extra") {
+  if (pathname === "/gruppi/extra") {
     return { category: "extra", label: "Gruppi Extra", path: "Gruppi Extra" }
   }
 

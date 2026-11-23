@@ -29,7 +29,7 @@ const sectionTitle = cn(SECTION_TITLE, "text-center sm:text-start")
 const sectionLead = cn(SECTION_LEAD, "text-center max-sm:mx-auto sm:text-start")
 const glassPanel = "rounded-rectangles border-white/50 bg-background-blur p-6 min-[400px]:p-10"
 const accent = "text-blue-secondary dark:text-sky-300"
-const introGradient = "bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent"
+const introGradient = "text-gradient-grey"
 
 const photoShapes: PhotoShapesLayout = {
   width: 663,

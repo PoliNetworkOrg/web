@@ -44,7 +44,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex min-w-0 flex-1 basis-full items-center gap-3 sm:basis-auto">
           <Button asChild variant="glass" size="icon-lg" className="size-11">
-            <Link href="/documents" aria-label="Torna ai documenti">
+            <Link href="/documenti" aria-label="Torna ai documenti">
               <FiArrowLeft aria-hidden="true" className="size-5" />
             </Link>
           </Button>

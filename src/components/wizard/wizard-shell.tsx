@@ -25,7 +25,7 @@ export function WizardShell({
   caption,
   captionPosition = "below",
   backHref,
-  closeHref = "/groups",
+  closeHref = "/gruppi",
   action,
   children,
 }: WizardShellProps) {

@@ -23,7 +23,7 @@ const INITIAL_SEGMENTS = 2
  * Sections whose pages are steps of one flow: moving between them keeps the same background instead of drawing a
  * new one for every page (the groups wizard, its results, the extra groups; the course guides).
  */
-const SHARED_SCENES = ["/groups", "/guides/corso"]
+const SHARED_SCENES = ["/gruppi", "/guide/corso"]
 
 const sceneKey = (pathname: string) =>
   SHARED_SCENES.find((root) => pathname === root || pathname.startsWith(`${root}/`)) ?? pathname

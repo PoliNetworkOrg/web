@@ -16,14 +16,14 @@ export function GroupsSection() {
 
         <p className={`${SECTION_LEAD} max-w-2xl`}>
           Il modo più rapido per ottenere risposte su esami, burocrazia universitaria o sulla vita al Politecnico è{" "}
-          <Link href="/groups" className={INLINE_LINK}>
+          <Link href="/gruppi" className={INLINE_LINK}>
             entrare nel gruppo del tuo corso
           </Link>
           , su Telegram o su WhatsApp, dove gli admin sono presenti ogni giorno.
         </p>
 
         <Button variant="primary" size="lg" className="mt-2" asChild>
-          <Link href="/groups">
+          <Link href="/gruppi">
             Trova il tuo gruppo
             <FiArrowUpRight />
           </Link>

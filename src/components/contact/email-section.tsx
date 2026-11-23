@@ -19,7 +19,7 @@ const contactCards: ContactCardData[] = [
     description: (
       <>
         Se vuoi candidarti come admin o come membro di un team, segui le indicazioni nella pagina{" "}
-        <Link href="/join" className={INLINE_LINK}>
+        <Link href="/unisciti" className={INLINE_LINK}>
           Unisciti a noi
         </Link>
         .

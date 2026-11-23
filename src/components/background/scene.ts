@@ -150,48 +150,57 @@ const footerAt = (top: number) => FIGMA_FOOTER.map((shape) => ({ ...shape, y: to
  * page (1728px wide), mobile ones from "📱website-mobile" (402px wide).
  */
 const FIGMA_SCENES: Record<string, { desktop: FigmaFrame; mobile: FigmaFrame }> = {
-  // "homepage" and "Home-Mobile" without the Materials section, hidden from the home page for now: its shapes are
-  // left out and everything after it moves up (1117px on desktop, 1260px on mobile)
+  // "homepage" and "Home-Mobile", Materials section included
   "/": {
     desktop: {
       width: 1728,
-      height: 4468,
+      height: 5585,
       shapes: [
         // hero: a cluster behind the title and the search bar, crossed by a looper
         { variant: "big-blue", x: 918, y: 165, w: 1248 },
         { variant: "looper", x: 882, y: 393, w: 1401 },
         { variant: "big-teal", x: 900, y: 561, w: 974 },
         { variant: "small-blue", x: 470, y: 708, w: 437 },
+        // materials: behind the cards, on the left
+        { variant: "small-blue", x: 298, y: 1916, w: 499 },
+        { variant: "looper", x: 393, y: 2161, w: 1610 },
+        { variant: "big-teal", x: 90, y: 2173, w: 974 },
         // projects: behind the cards, on the right
-        { variant: "small-blue", x: 1443, y: 1806, w: 477 },
-        { variant: "big-teal", x: 1587, y: 2077, w: 662 },
-        ...footerAt(3351),
+        { variant: "small-blue", x: 1443, y: 2923, w: 477 },
+        { variant: "big-teal", x: 1587, y: 3194, w: 662 },
+        ...footerAt(4468),
       ],
     },
     mobile: {
       width: 402,
-      height: 4190,
+      height: 5450,
       shapes: [
         // hero
         { variant: "small-blue", x: 201, y: 265, w: 354 },
         { variant: "big-teal", x: 202, y: 399, w: 401 },
         { variant: "looper", x: 274, y: 472, w: 891 },
+        // materials: behind the cards
+        { variant: "big-teal", x: 88, y: 1118, w: 401 },
+        { variant: "small-blue", x: 38, y: 1161, w: 233 },
+        { variant: "big-teal", x: 314, y: 1680, w: 401 },
+        { variant: "big-teal", x: 88, y: 1998, w: 401 },
+        { variant: "looper", x: 249, y: 2053, w: 1000 },
         // projects: behind the carousel
-        { variant: "small-blue", x: 330, y: 1115, w: 222 },
-        { variant: "big-teal", x: 292, y: 1128, w: 401 },
-        { variant: "looper", x: 1539, y: 1439, w: 1855 },
-        { variant: "big-teal", x: 203, y: 1701, w: 401 },
+        { variant: "small-blue", x: 330, y: 2375, w: 222 },
+        { variant: "big-teal", x: 292, y: 2388, w: 401 },
+        { variant: "looper", x: 1539, y: 2699, w: 1855 },
+        { variant: "big-teal", x: 203, y: 2961, w: 401 },
         // footer
-        { variant: "small-blue", x: 330, y: 3056, w: 354 },
-        { variant: "looper", x: 1860, y: 3274, w: 2005 },
-        { variant: "big-teal", x: 74, y: 3858, w: 420 },
-        { variant: "big-teal", x: 212, y: 4240, w: 974 },
-        { variant: "big-blue", x: 202, y: 4509, w: 1062 },
+        { variant: "small-blue", x: 330, y: 4316, w: 354 },
+        { variant: "looper", x: 1860, y: 4534, w: 2005 },
+        { variant: "big-teal", x: 74, y: 5118, w: 420 },
+        { variant: "big-teal", x: 212, y: 5500, w: 974 },
+        { variant: "big-blue", x: 202, y: 5769, w: 1062 },
       ],
     },
   },
   // "progetti" and "Progetti-Mobile"
-  "/projects": {
+  "/progetti": {
     desktop: {
       width: 1728,
       height: 5587,

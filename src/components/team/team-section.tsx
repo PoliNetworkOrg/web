@@ -1,23 +1,28 @@
 import Image from "next/image"
 import { FiUsers } from "react-icons/fi"
+import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { applicationHref, type Team } from "./constants"
 
-/** The specialisms are not links: a plain list, not tiles. */
+/** Each specialism on a glass card. They are not links, so the cards have no hover state. */
 function RoleList({ team }: { team: Team }) {
   return (
-    <ul aria-label={`Specializzazioni di ${team.title}`} className="grid w-full min-w-0 gap-x-10 sm:grid-cols-2">
+    <ul aria-label={`Specializzazioni di ${team.title}`} className="grid w-full min-w-0 gap-4 sm:grid-cols-2 sm:gap-6">
       {team.roles.map(({ title, icon }) => (
-        <li key={title} className="flex min-w-0 items-center gap-4 border-slate-300/70 border-t py-5">
-          {typeof icon === "string" ? (
-            <Image src={icon} alt="" width={24} height={24} className="size-6 shrink-0" />
-          ) : (
-            <GradientIcon icon={icon} className="size-6 shrink-0" />
-          )}
-          <span className="typo-title-large text-text-primary">{title}</span>
+        <li key={title} className="min-w-0">
+          <Glass className="flex h-full min-w-0 items-center gap-4 rounded-rectangles border-white/50 bg-background-blur px-5 py-5">
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-rectangles bg-white/70">
+              {typeof icon === "string" ? (
+                <Image src={icon} alt="" width={24} height={24} className="size-6" />
+              ) : (
+                <GradientIcon icon={icon} className="size-6" />
+              )}
+            </span>
+            <span className="typo-title-large min-w-0 text-balance text-text-primary">{title}</span>
+          </Glass>
         </li>
       ))}
     </ul>

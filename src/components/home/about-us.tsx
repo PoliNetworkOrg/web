@@ -11,7 +11,7 @@ export function AboutUs() {
       </h2>
 
       <Button variant="primary" size="lg" asChild>
-        <Link href="/about">
+        <Link href="/struttura">
           Scopri di più
           <FiArrowUpRight />
         </Link>

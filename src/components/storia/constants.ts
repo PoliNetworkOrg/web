@@ -1,3 +1,4 @@
+import type { StaticImageData } from "next/image"
 import { FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
 import telegram from "@/assets/icons/telegram-gradient.svg"
 import ale from "@/assets/images/storia/ale-he.jpg"
@@ -12,26 +13,22 @@ import tommaso from "@/assets/images/storia/tommaso-morganti.jpg"
 export const milestones = [
   {
     year: "2016",
-    href: "#capitolo-1",
     icon: FiUser,
     description:
       "Nasce il primo gruppo per rispondere a una necessità semplice: trovare informazioni e parlare con i compagni di corso.",
   },
   {
     year: "2017",
-    href: "#capitolo-1",
     icon: telegram.src,
     description: "I gruppi si moltiplicano su Telegram e WhatsApp e iniziamo a coprire tutti i corsi di laurea.",
   },
   {
     year: "2022",
-    href: "#capitolo-5",
     icon: FiUserCheck,
     description: "PoliNetwork diventa un’APS-ETS, con un direttivo eletto e una struttura ancora più democratica.",
   },
   {
-    year: "OGGI",
-    href: "#direttivi",
+    year: "Oggi",
     icon: FiUsers,
     description:
       "Oltre 200 admin volontari e una community che accompagna ogni giorno migliaia di studenti del Politecnico di Milano.",
@@ -77,35 +74,68 @@ export const chapters = [
   },
 ] as const
 
-export const boardMembers = [
+export type BoardMember = {
+  name: string
+  role: string
+  image: StaticImageData
+  crop: string
+  /** The member's LinkedIn profile: when set, the portrait links to it */
+  linkedin?: string
+}
+
+// The LinkedIn URLs are built from first and last name: check that each one opens the right profile
+export const boardMembers: BoardMember[] = [
   {
     name: "Elisabeta Hoxhaj",
     role: "Presidente",
     image: elisabeta,
     crop: "-top-[6.05%] left-[-3.77%] h-[131.91%] w-[103.59%]",
+    linkedin: "https://www.linkedin.com/in/elisabeta-hoxhaj",
   },
   {
     name: "Alessandro Gabbini",
     role: "Vicepresidente",
     image: alessandro,
     crop: "-top-[10.85%] left-[-0.16%] h-[127.91%] w-full",
+    linkedin: "https://www.linkedin.com/in/alessandro-gabbini",
   },
   {
     name: "Gabriele Viganò",
     role: "Tesoriere",
     image: gabriele,
     crop: "-top-[8.21%] left-[0.2%] h-[127.48%] w-[99.66%]",
+    linkedin: "https://www.linkedin.com/in/gabriele-vigano",
   },
   {
     name: "Lorenzo Corallo",
     role: "Segretario",
     image: lorenzo,
     crop: "-top-[8.82%] left-[-0.03%] h-[127.91%] w-full",
+    linkedin: "https://www.linkedin.com/in/lorenzo-corallo",
   },
-  { name: "Elia Falzoni", role: "", image: elia, crop: "-top-[6.96%] left-0 h-[127.34%] w-full" },
-  { name: "Ale He", role: "", image: ale, crop: "-top-[8.01%] left-[0.22%] h-[127.06%] w-[99.78%]" },
-  { name: "Tommaso Morganti", role: "", image: tommaso, crop: "-top-[5.9%] left-0 h-[127.34%] w-full" },
-] as const
+  {
+    name: "Elia Falzoni",
+    role: "",
+    image: elia,
+    crop: "-top-[6.96%] left-0 h-[127.34%] w-full",
+    linkedin: "https://www.linkedin.com/in/elia-falzoni",
+  },
+  {
+    name: "Ale He",
+    role: "",
+    image: ale,
+    crop: "-top-[8.01%] left-[0.22%] h-[127.06%] w-[99.78%]",
+    linkedin: "https://www.linkedin.com/in/ale-he",
+  },
+  {
+    name: "Tommaso Morganti",
+    role: "",
+    image: tommaso,
+    crop: "-top-[5.9%] left-0 h-[127.34%] w-full",
+    linkedin: "https://www.linkedin.com/in/tommaso-morganti",
+  },
+]
 
-// Il mockup fornisce i ritratti soltanto per il mandato 2024–oggi.
-export const boardTerms = ["2016-2019", "2019-2021", "2022-2023", "2023-2024", "2024-OGGI"] as const
+// Numbered in order, with no dates. The mockup only has portraits for the current one, the last.
+export const boardTerms = ["Direttivo 1", "Direttivo 2", "Direttivo 3", "Direttivo 4", "Direttivo 5"] as const
+export const CURRENT_BOARD = boardTerms[boardTerms.length - 1]
