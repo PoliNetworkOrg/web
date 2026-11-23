@@ -1,22 +1,10 @@
-"use client"
-
-import { useState } from "react"
-import { FiSearch } from "react-icons/fi"
+import { FiHeart } from "react-icons/fi"
+import { GradientIcon } from "@/components/gradient-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import TextOnlyLayout from "@/components/layout/TextOnlySection"
-import TabsNavigation from "@/components/tabs"
-import { Tabs } from "@/components/tabs/tabs"
-import { TabsContent } from "@/components/tabs/tabs-content"
-import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { contributors } from "./constants"
-
-const categories = ["Tutti", "Direttivi", "Admin", "Collaboratori"]
 
 export function Thanks() {
-  const [search, setSearch] = useState("")
-  const query = search.trim().toLocaleLowerCase("it")
-
   return (
     <TextOnlyLayout
       title="Un grazie speciale"
@@ -32,51 +20,19 @@ export function Thanks() {
         </>
       }
       classNames={{
-        section: `${CONTAINER} gap-12 xl:flex-row xl:gap-16 [&>div>h2]:typo-title-large`,
+        section: `${CONTAINER} gap-12 xl:flex-row xl:items-center xl:gap-16 [&>div>h2]:typo-title-large`,
         textDiv: "items-start text-start xl:w-1/2",
         title: "text-start text-blue-secondary",
         descriptionDiv: "text-start",
         contentDiv: "min-w-0 xl:w-1/2",
       }}
     >
-      <div className="flex w-full flex-col gap-8 xl:pt-12">
-        <Input
-          type="search"
-          icon={<FiSearch aria-hidden />}
-          placeholder="Cerca per nome"
-          aria-label="Cerca nei ringraziamenti"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-        <Tabs defaultValue="Tutti" className="gap-10">
-          <TabsNavigation items={categories.map((category) => ({ value: category, label: category }))} />
-          {categories.map((category) => {
-            const names = contributors.filter(
-              (person) =>
-                (category === "Tutti" || person.category === category) &&
-                person.name.toLocaleLowerCase("it").includes(query)
-            )
-            return (
-              <TabsContent key={category} value={category}>
-                <div aria-live="polite" aria-atomic="true">
-                  {names.length > 0 ? (
-                    <ul className="typo-body-medium grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-3 xl:grid-cols-2 min-[360px]:grid-cols-2">
-                      {names.map((person) => (
-                        <li key={person.name} className="border-blue-primary/10 border-b pb-3">
-                          {person.name}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="typo-body-large text-text-secondary">
-                      {query ? "Nessun nome trovato." : "Nessun nome disponibile per questa categoria."}
-                    </p>
-                  )}
-                </div>
-              </TabsContent>
-            )
-          })}
-        </Tabs>
+      {/* Same quote block as "Quello che abbiamo fatto di più" further down the page */}
+      <div className="flex flex-col gap-4 border-blue-primary/30 border-l pl-6 sm:pl-10">
+        <GradientIcon icon={FiHeart} className="size-10 sm:size-14" />
+        <p className="typo-headline-small sm:typo-headline-medium text-balance text-blue-secondary">
+          Grazie a chi c’è stato, e a chi ci sarà.
+        </p>
       </div>
     </TextOnlyLayout>
   )

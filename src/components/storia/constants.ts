@@ -109,17 +109,3 @@ export const boardMembers = [
 
 // Il mockup fornisce i ritratti soltanto per il mandato 2024–oggi.
 export const boardTerms = ["2016-2019", "2019-2021", "2022-2023", "2023-2024", "2024-OGGI"] as const
-
-// Nomi unici presenti nei ringraziamenti del mockup; i ruoli non sono specificati.
-export const contributors = [
-  ...boardMembers.map(({ name }) => ({ name, category: "Direttivi" })),
-  ...[
-    "Elia Maggioni",
-    "Raif Muhammad",
-    "Diego Aldarese",
-    "Federico Armellini",
-    "Luca Cattaneo",
-    "Fabrizio Vasconi",
-    "Giulia La Ferla",
-  ].map((name) => ({ name, category: null })),
-]
