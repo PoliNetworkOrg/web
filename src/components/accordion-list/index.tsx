@@ -8,7 +8,13 @@ import { AccordionItem } from "./accordion-item"
 import { AccordionTrigger } from "./accordion-trigger"
 import type { AccordionListProps } from "./types"
 
-export default function AccordionList({ items, defaultValue, className }: AccordionListProps) {
+export default function AccordionList({
+  items,
+  defaultValue,
+  className,
+  triggerClassName,
+  contentClassName,
+}: AccordionListProps) {
   // Controlled, so each answer knows whether it is open and animates its own height
   const [value, setValue] = useState(defaultValue ?? "")
 
@@ -18,8 +24,10 @@ export default function AccordionList({ items, defaultValue, className }: Accord
       <Accordion type="single" collapsible value={value} onValueChange={setValue} className={className}>
         {items.map((item) => (
           <AccordionItem key={item.value} value={item.value}>
-            <AccordionTrigger>{item.trigger}</AccordionTrigger>
-            <AccordionContent open={value === item.value}>{item.content}</AccordionContent>
+            <AccordionTrigger className={triggerClassName}>{item.trigger}</AccordionTrigger>
+            <AccordionContent open={value === item.value} className={contentClassName}>
+              {item.content}
+            </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
