@@ -28,17 +28,21 @@ function CountUp({ value }: { value: string }) {
   const [, number = "0", suffix = ""] = value.match(/^(\d+)(.*)$/) ?? []
   const target = Number(number)
   const [count, setCount] = useState(target)
+  // Whether the figure has been in view yet
+  const seen = useRef(false)
 
   useEffect(() => {
     if (reduceMotion) return
     if (!inView) {
       // Ready to count again the next time it comes into view. `inView` also starts false right after hydration:
-      // a figure already on screen keeps the final value until the observer reports it, instead of flashing to 0
+      // until it has been seen once, a figure already on screen keeps the final value instead of flashing to 0
       const rect = ref.current?.getBoundingClientRect()
-      const onScreen = rect && rect.bottom > 0 && rect.top < window.innerHeight
-      if (!onScreen) setCount(0)
+      const onScreen =
+        rect && rect.bottom > 0 && rect.top < window.innerHeight && rect.right > 0 && rect.left < window.innerWidth
+      if (seen.current || !onScreen) setCount(0)
       return
     }
+    seen.current = true
     const controls = animate(0, target, {
       duration: 1.6,
       ease: [0.22, 1, 0.36, 1],
