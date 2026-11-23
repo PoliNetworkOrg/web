@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description,
 }
 
-const content = cn(CONTAINER, "3xl:max-w-392")
+const content = CONTAINER
 const sectionTitle = cn(SECTION_TITLE, "max-sm:typo-headline-medium text-center sm:text-start")
 const sectionCopy = "typo-body-large text-pretty lg:typo-headline-small"
 const glassPanel = "rounded-rectangles border-white/50 bg-background-blur p-6 min-[400px]:p-10"
