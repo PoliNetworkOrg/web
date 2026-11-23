@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { FiNavigation, FiUserPlus } from "react-icons/fi"
+import { FiNavigation } from "react-icons/fi"
 import { Button } from "../ui/button"
 import { GroupSearch } from "./group-search"
 
@@ -15,20 +15,12 @@ export function Hero() {
         <div className="flex w-full flex-col items-center gap-6">
           <GroupSearch />
 
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button variant="primary" size="lg" asChild>
-              <Link href="/groups">
-                More groups
-                <FiNavigation />
-              </Link>
-            </Button>
-            <Button variant="tertiaryBlur" size="lg" className="typo-label-large text-blue-secondary" asChild>
-              <Link href="/matricole">
-                <FiUserPlus />
-                Sei una matricola?
-              </Link>
-            </Button>
-          </div>
+          <Button variant="primary" size="lg" asChild>
+            <Link href="/groups">
+              Altri gruppi
+              <FiNavigation />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

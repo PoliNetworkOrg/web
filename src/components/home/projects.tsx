@@ -11,8 +11,6 @@ export async function Projects() {
   const live = (await getAllProjects()).filter((project) => project.category !== "deprecated")
   // The first four, in the order set from the admin dashboard
   const featured = live.slice(0, 4)
-  // Without the backend there is nothing to count: the title then stays a plain "Progetti"
-  const title = live.length > 1 ? `${live.length} Progetti` : live.length === 1 ? "1 Progetto" : "Progetti"
 
   return (
     <section
@@ -22,7 +20,7 @@ export async function Projects() {
       )}
     >
       <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-span-2 xl:text-start">
-        {title}
+        Progetti più amati
       </h2>
 
       <div className="flex flex-col items-center gap-8 text-center xl:items-start xl:text-start">

@@ -10,6 +10,7 @@ import { useActivationToast } from "@/components/ui/activation-toast"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { CardCaption } from "../card-caption"
+import { GradientIcon } from "../gradient-icon"
 
 // Upload and per-type archive pages will be activated later.
 const featuredCards = [
@@ -44,7 +45,7 @@ export function Materials() {
       )}
     >
       <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-start-2 xl:text-start">
-        Materials
+        Materiali
       </h2>
 
       <div className="flex flex-col items-center gap-8 text-center xl:col-start-2 xl:row-start-2 xl:items-start xl:text-start">
@@ -90,17 +91,15 @@ export function Materials() {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 gap-4 sm:gap-6">
-          {archiveTypes.map((card) => (
-            <CardIcon
-              key={card.title}
-              {...card}
-              onClick={showActivationToast}
-              size={{ base: "xs", sm: "sm" }}
-              className="h-full"
-            />
+        {/* What the archive holds: an illustration, not three more buttons, so no card surface and no hover */}
+        <ul className="grid grid-cols-3 gap-4 pt-2 sm:gap-6">
+          {archiveTypes.map(({ title, icon }) => (
+            <li key={title} className="flex flex-col items-center gap-2 text-center">
+              <GradientIcon icon={icon} className="size-10 sm:size-14" />
+              <span className="typo-title-medium sm:typo-title-large text-text-primary">{title}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
       {activationToast}
     </section>
