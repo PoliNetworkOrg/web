@@ -59,12 +59,6 @@ const groupIcons = {
   megaphone: LuMegaphone,
 } satisfies Record<Acknowledgements["website"][number]["icon"], IconType>
 
-/** Splits the groups into the two columns of the panel, the first one taking the extra group. */
-function inColumns<T>(groups: T[]) {
-  const half = Math.ceil(groups.length / 2)
-  return [groups.slice(0, half), groups.slice(half)].filter((column) => column.length > 0)
-}
-
 function CreditList({ credits, className }: { credits: readonly Credit[]; className: string }) {
   return (
     <ul className={cn("grid list-disc gap-x-6 gap-y-4 pl-4", className)}>
@@ -132,23 +126,19 @@ export default async function AcknowledgementsPage() {
               su PoliNetwork più accessibili
             </p>
           </div>
-          <Glass className={cn(glassPanel, "grid gap-8 md:grid-cols-2 md:gap-x-12")}>
-            {inColumns(websiteGroups).map((column) => (
-              <div key={column[0]?.id} className="flex min-w-0 flex-col gap-8">
-                {column.map(({ id, title, icon, entries }) => {
-                  const Icon = groupIcons[icon] ?? FiSmile
-                  return (
-                    <div key={id} className="flex flex-col gap-4">
-                      <h3 className={cn("typo-title-large flex items-center gap-2.5 uppercase", accent)}>
-                        <Icon className="size-5 shrink-0" aria-hidden />
-                        {title}
-                      </h3>
-                      <CreditList credits={entries} className="grid-cols-2 xl:grid-cols-3" />
-                    </div>
-                  )
-                })}
-              </div>
-            ))}
+          <Glass className={cn(glassPanel, "flex flex-col gap-10")}>
+            {websiteGroups.map(({ id, title, icon, entries }) => {
+              const Icon = groupIcons[icon] ?? FiSmile
+              return (
+                <div key={id} className="flex flex-col gap-4">
+                  <h3 className={cn("typo-title-large flex items-center gap-2.5 uppercase", accent)}>
+                    <Icon className="size-5 shrink-0" aria-hidden />
+                    {title}
+                  </h3>
+                  <CreditList credits={entries} className="grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" />
+                </div>
+              )
+            })}
           </Glass>
         </section>
       )}
