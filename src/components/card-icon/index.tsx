@@ -18,6 +18,7 @@ export function CardIcon(props: CardIconProps) {
     hoverEffect = Boolean(href || onClick),
     align = "center",
     className,
+    titleClassName,
   } = props
   const description = "description" in props ? props.description : undefined
   const cta = "cta" in props ? props.cta : undefined
@@ -54,6 +55,7 @@ export function CardIcon(props: CardIconProps) {
               <h3
                 className={cn(
                   getTitleSizeClasses(size),
+                  titleClassName,
                   "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent"
                 )}
               >
@@ -78,6 +80,7 @@ export function CardIcon(props: CardIconProps) {
               <h3
                 className={cn(
                   getTitleSizeClasses(size),
+                  titleClassName,
                   "bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent",
                   isDescriptionCard || align === "start" ? "text-left" : "text-center"
                 )}

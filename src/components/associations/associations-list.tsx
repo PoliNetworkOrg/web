@@ -1,15 +1,5 @@
-import {
-  FiFacebook,
-  FiGlobe,
-  FiInstagram,
-  FiLinkedin,
-  FiMail,
-  FiMusic,
-  FiSend,
-  FiVideo,
-  FiX,
-  FiYoutube,
-} from "react-icons/fi"
+import { FaTiktok, FaXTwitter } from "react-icons/fa6"
+import { FiFacebook, FiGlobe, FiInstagram, FiLinkedin, FiMail, FiMusic, FiSend, FiYoutube } from "react-icons/fi"
 import AccordionAssociation from "@/components/accordion-association"
 import type { GradientIconType } from "@/components/gradient-icon"
 import { EMPTY_STATE } from "@/components/layout/page"
@@ -23,8 +13,9 @@ const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: GradientI
   { key: "email", label: "Email", icon: FiMail, mailto: true },
   { key: "facebook", label: "Facebook", icon: FiFacebook },
   { key: "instagram", label: "Instagram", icon: FiInstagram },
-  { key: "tiktok", label: "TikTok", icon: FiVideo },
-  { key: "x", label: "X", icon: FiX },
+  { key: "tiktok", label: "TikTok", icon: FaTiktok },
+  // FiX is a close (×) icon, not the X logo
+  { key: "x", label: "X", icon: FaXTwitter },
   { key: "youtube", label: "Youtube", icon: FiYoutube },
   { key: "telegram", label: "Telegram", icon: FiSend },
   { key: "linkedin", label: "LinkedIn", icon: FiLinkedin },

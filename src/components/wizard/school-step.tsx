@@ -20,7 +20,7 @@ export function SchoolStep({
       backHref={landingHref}
       closeHref={landingHref}
     >
-      <div className="grid gap-4 md:grid-cols-2 md:gap-12.5">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:gap-12.5">
         {SCHOOLS.map((school) => (
           <CardIcon
             key={school.slug}
@@ -28,6 +28,8 @@ export function SchoolStep({
             icon={SCHOOL_ICONS[school.slug] ?? DEFAULT_SCHOOL_ICON}
             href={stepHref({ school: school.slug })}
             size={{ base: "sm", md: "md" }}
+            // At 28px the school names wrapped onto 4-5 lines on phones, above the page title's size
+            titleClassName="typo-headline-extrasmall md:typo-headline-medium"
           />
         ))}
       </div>

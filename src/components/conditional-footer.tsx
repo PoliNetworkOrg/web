@@ -1,8 +1,8 @@
 "use client"
 
-import { usePathname } from "next/navigation"
 import type { ReactNode } from "react"
 import { matchesAnyRoutePrefix } from "@/utils/route-match"
+import { useRoutePathname } from "@/utils/use-route-pathname"
 
 const HIDDEN_EXACT = ["/matricole/guida"]
 const HIDDEN_PREFIXES = ["/groups"]
@@ -12,7 +12,7 @@ const HIDDEN_PREFIXES = ["/groups"]
  * instead of being bundled under this client boundary.
  */
 export function ConditionalFooter({ children }: { children: ReactNode }) {
-  const pathname = usePathname()
+  const pathname = useRoutePathname()
   const hidden = HIDDEN_EXACT.includes(pathname) || matchesAnyRoutePrefix(pathname, HIDDEN_PREFIXES)
   if (hidden) return null
   return children

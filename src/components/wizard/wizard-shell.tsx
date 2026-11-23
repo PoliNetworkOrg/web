@@ -34,7 +34,7 @@ export function WizardShell({
 
   return (
     <main className="flex min-h-svh w-full min-w-0 flex-col items-center px-6 py-50 md:py-52">
-      <Glass className="relative m-auto flex min-h-146 w-full max-w-7xl flex-col gap-10 border-0 bg-transparent p-0 backdrop-blur-none md:min-h-157 md:gap-15 md:rounded-rectangles md:border md:border-white/50 md:bg-background-blur md:px-25 md:py-12.5 md:backdrop-blur-md">
+      <Glass className="relative m-auto flex min-h-146 w-full max-w-7xl flex-col gap-10 border-0 bg-transparent p-0 backdrop-blur-none md:min-h-157 md:gap-15 md:rounded-rectangles md:border md:border-white/50 md:bg-background-blur md:px-10 md:py-12.5 md:backdrop-blur-md lg:px-25">
         <div className="flex shrink-0 items-end gap-2 sm:gap-4 md:gap-6">
           <ButtonIcon
             variant="glass"
@@ -49,8 +49,11 @@ export function WizardShell({
             {STEPS.map((label, index) => (
               <li
                 key={label}
+                aria-current={index === activeStep ? "step" : undefined}
                 className={cn(
-                  "md:typo-label-large typo-label-tiny border-b-5 pb-2 text-center uppercase md:flex-1",
+                  "md:typo-label-large typo-label-medium border-b-5 pb-2 text-center uppercase md:flex-1",
+                  // Below 340px "MAGISTRALE" is wider than its column at 12px: 11px without tracking still fits
+                  "max-[339px]:typo-label-small max-[339px]:tracking-normal",
                   index === 1 ? "min-w-0 flex-1" : "shrink-0 whitespace-nowrap md:whitespace-normal",
                   index <= activeStep ? "border-blue-primary text-blue-primary" : "border-white/40 text-text-secondary"
                 )}

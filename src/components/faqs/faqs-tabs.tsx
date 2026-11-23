@@ -21,19 +21,21 @@ const ICONS: Record<string, IconType> = {
 }
 
 export function FaqsTabs({ categories }: { categories: FaqCategory[] }) {
-  const tabs = categories.map((category) => ({
-    value: String(category.categoryId),
-    label: category.titleIt,
-    icon: (category.icon && ICONS[category.icon]) || FiHelpCircle,
-    accordionItems: category.faqs.map((faq) => ({
-      value: String(faq.faqId),
-      trigger: faq.titleIt,
-      // Answers are plain text: keep the line breaks the editors typed
-      content: <p className="whitespace-pre-line">{faq.descriptionIt}</p>,
-    })),
-  }))
-  // Open on a category that has answers
-  const defaultTab = tabs.find((tab) => tab.accordionItems.length > 0) ?? tabs[0]
+  // A category without answers would only open on an empty panel
+  const tabs = categories
+    .filter((category) => category.faqs.length > 0)
+    .map((category) => ({
+      value: String(category.categoryId),
+      label: category.titleIt,
+      icon: (category.icon && ICONS[category.icon]) || FiHelpCircle,
+      accordionItems: category.faqs.map((faq) => ({
+        value: String(faq.faqId),
+        trigger: faq.titleIt,
+        // Answers are plain text: keep the line breaks the editors typed
+        content: <p className="whitespace-pre-line">{faq.descriptionIt}</p>,
+      })),
+    }))
+  const defaultTab = tabs[0]
 
   return (
     <div className="mx-auto flex w-full max-w-225 flex-col gap-16 md:gap-24">
