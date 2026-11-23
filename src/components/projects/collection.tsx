@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { FiSearch } from "react-icons/fi"
-import { INLINE_LINK, SECTION_STACK, SECTION_TITLE } from "../layout/page"
+import { Highlight } from "../collabora/section"
+import { SECTION_STACK, SECTION_TITLE } from "../layout/page"
 import { Input } from "../ui/input"
 import { ProjectList, ProjectsEmpty } from "./project-list"
 import type { Project } from "./resources"
@@ -61,10 +62,7 @@ export function Collection({ projects, searchable }: { projects: Project[]; sear
               <>Nessun progetto corrisponde a “{query.trim()}”.</>
             ) : (
               <>
-                La raccolta è vuota per ora.{" "}
-                <a href="#proponi" className={INLINE_LINK}>
-                  Proponi il primo progetto
-                </a>
+                La raccolta è vuota per ora: <Highlight>proponi il primo progetto</Highlight> qui sotto.
               </>
             )}
           </ProjectsEmpty>
