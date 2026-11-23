@@ -14,11 +14,21 @@ const INITIAL_SEGMENTS = 2
  * Animated decorative background shared by every page. It covers the whole
  * page (footer included) and is split into `--bg-segment` tall segments, each
  * filled with shapes from `sceneSegment` and animated by `animateScene`.
- * Every page gets a fresh scene, rendered directly in its final place.
+ * Every page (or flow, see `SHARED_SCENES`) gets a fresh scene, rendered
+ * directly in its final place.
  */
+/**
+ * Sections whose pages are steps of one flow: moving between them keeps the same background instead of drawing a
+ * new one for every page (the groups wizard, its results, the extra groups; the course guides).
+ */
+const SHARED_SCENES = ["/groups", "/guides/corso"]
+
+const sceneKey = (pathname: string) =>
+  SHARED_SCENES.find((root) => pathname === root || pathname.startsWith(`${root}/`)) ?? pathname
+
 export function Background() {
-  const pathname = useRoutePathname()
-  return <Scene key={pathname} pathname={pathname} />
+  const key = sceneKey(useRoutePathname())
+  return <Scene key={key} pathname={key} />
 }
 
 function Scene({ pathname }: { pathname: string }) {

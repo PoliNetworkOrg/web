@@ -29,7 +29,7 @@ export function LevelStep({
             className="rounded-rectangles text-left focus-visible:ring-2 focus-visible:ring-blue-primary"
             onClick={() => onSelectLevel(item.slug)}
           >
-            <CardPathSelection caption={item.name} className="w-full px-5 py-4" />
+            <CardPathSelection caption={item.name} className="w-full px-5 py-4" icon={item.icon} />
           </button>
         ))}
       </div>

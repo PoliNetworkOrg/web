@@ -1,4 +1,4 @@
-import { FiBox } from "react-icons/fi"
+import { FiAward, FiBook, FiBox, FiLayers } from "react-icons/fi"
 import type { GradientIconType } from "@/components/gradient-icon"
 import type { Level, School } from "@/components/wizard/types"
 
@@ -19,11 +19,12 @@ export const SCHOOL_ICONS: Record<string, GradientIconType | string> = {
 export const DEFAULT_SCHOOL_ICON: GradientIconType = FiBox
 
 export const LEVELS: Level[] = [
-  { slug: "triennale", name: "Triennale" },
-  { slug: "magistrale", name: "Magistrale" },
+  // The first degree, the advanced one, and the two in a single programme
+  { slug: "triennale", name: "Triennale", icon: FiBook },
+  { slug: "magistrale", name: "Magistrale", icon: FiAward },
 ]
 
-const CICLO_UNICO_LEVEL: Level = { slug: "ciclo-unico", name: "Ciclo Unico" }
+const CICLO_UNICO_LEVEL: Level = { slug: "ciclo-unico", name: "Ciclo Unico", icon: FiLayers }
 
 const SCHOOLS_WITH_CICLO_UNICO = new Set(["auic"])
 
