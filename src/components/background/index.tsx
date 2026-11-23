@@ -63,7 +63,12 @@ function Scene({ pathname }: { pathname: string }) {
   }, [])
 
   return (
-    <div ref={ref} aria-hidden className="shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip">
+    // A new page's scene fades in instead of popping in place of the previous one
+    <div
+      ref={ref}
+      aria-hidden
+      className="shape-scene -z-10 pointer-events-none absolute inset-0 animate-fade-in overflow-clip [animation-duration:0.6s]"
+    >
       {shapes.map((shape) => (
         <SceneItem key={shape.id} shape={shape} />
       ))}

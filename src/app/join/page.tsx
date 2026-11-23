@@ -3,7 +3,7 @@ import { AdminSection } from "@/components/join/admin"
 import { Introduction } from "@/components/join/introduction"
 import { MembershipSection } from "@/components/join/membership"
 import { TeamsSection } from "@/components/join/teams"
-import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
 
 export const metadata: Metadata = {
@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 
 export default function JoinPage() {
   return (
-    <main className={PAGE_MAIN}>
+    // 5/4 of PAGE_MAIN's rhythm (96/128/180px): a long page of dense text needs more air between its sections
+    <main className="flex w-full flex-col gap-30 pb-30 md:gap-40 md:pb-40 xl:gap-56.25 xl:pb-56.25">
       <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero
           title="Unisciti a Noi"
