@@ -9,6 +9,10 @@ export type SceneShape = {
   y: number
   /** Placed from a Figma frame: `y` is a fraction of the whole page, so each shape stays by its section */
   page?: boolean
+  /** CSS length of one `size` unit, `var(--bg-unit)` by default */
+  unit?: string
+  /** Shown only on phones (below md) or only from md: pages composed in Figma have a frame for each */
+  layout?: "mobile" | "desktop"
   /** Width, in `--bg-unit`s (≈px on a 1728px wide screen) */
   size: number
   /** Static rotation, in degrees */
@@ -116,10 +120,10 @@ export function sceneSegment(pathname: string, index: number): SceneShape[] {
   return shapes
 }
 
-/** A shape as Figma places it: center and width of the layer, in px of the 1728px wide frame */
+/** A shape as Figma places it: center and width of the layer, in px of its frame */
 type FigmaPlacement = { variant: SceneShape["variant"]; x: number; y: number; w: number }
 
-const FIGMA_WIDTH = 1728
+type FigmaFrame = { width: number; height: number; shapes: FigmaPlacement[] }
 
 /** Layer size of the blurred masters, whose images include 100px of blur bleed per side (see `@/components/shapes`) */
 const MASTER_SIZE: Record<SceneShape["variant"], number | null> = {
@@ -130,7 +134,7 @@ const MASTER_SIZE: Record<SceneShape["variant"], number | null> = {
 }
 const BLEED = 100
 
-/** The footer's shapes, the same on every Figma page: centers relative to the top of the footer frame */
+/** The desktop footer's shapes, the same on every Figma page: centers relative to the top of the footer frame */
 const FIGMA_FOOTER: FigmaPlacement[] = [
   { variant: "small-blue", x: 230, y: 593, w: 354 },
   { variant: "big-teal", x: 526, y: 966, w: 1444 },
@@ -142,46 +146,102 @@ const footerAt = (top: number) => FIGMA_FOOTER.map((shape) => ({ ...shape, y: to
 
 /**
  * Pages whose background Figma composes by hand: the shapes sit behind the content (the hero, the cards, the
- * footer), so the glass surfaces always have colour behind them. Frames from the "💻website-desktop" page.
+ * footer), so the glass surfaces always have colour behind them. Desktop frames come from the "💻website-desktop"
+ * page (1728px wide), mobile ones from "📱website-mobile" (402px wide).
  */
-const FIGMA_SCENES: Record<string, { height: number; shapes: FigmaPlacement[] }> = {
-  // "homepage" without the Materials section, hidden from the home page for now: everything after it moves up 1117px
+const FIGMA_SCENES: Record<string, { desktop: FigmaFrame; mobile: FigmaFrame }> = {
+  // "homepage" and "Home-Mobile" without the Materials section, hidden from the home page for now: its shapes are
+  // left out and everything after it moves up (1117px on desktop, 1260px on mobile)
   "/": {
-    height: 4468,
-    shapes: [
-      // hero: a cluster behind the title and the search bar, crossed by a looper
-      { variant: "big-blue", x: 918, y: 165, w: 1248 },
-      { variant: "looper", x: 882, y: 393, w: 1401 },
-      { variant: "big-teal", x: 900, y: 561, w: 974 },
-      { variant: "small-blue", x: 470, y: 708, w: 437 },
-      // projects: behind the cards, on the right
-      { variant: "small-blue", x: 1443, y: 1806, w: 477 },
-      { variant: "big-teal", x: 1587, y: 2077, w: 662 },
-      ...footerAt(3351),
-    ],
+    desktop: {
+      width: 1728,
+      height: 4468,
+      shapes: [
+        // hero: a cluster behind the title and the search bar, crossed by a looper
+        { variant: "big-blue", x: 918, y: 165, w: 1248 },
+        { variant: "looper", x: 882, y: 393, w: 1401 },
+        { variant: "big-teal", x: 900, y: 561, w: 974 },
+        { variant: "small-blue", x: 470, y: 708, w: 437 },
+        // projects: behind the cards, on the right
+        { variant: "small-blue", x: 1443, y: 1806, w: 477 },
+        { variant: "big-teal", x: 1587, y: 2077, w: 662 },
+        ...footerAt(3351),
+      ],
+    },
+    mobile: {
+      width: 402,
+      height: 4190,
+      shapes: [
+        // hero
+        { variant: "small-blue", x: 201, y: 265, w: 354 },
+        { variant: "big-teal", x: 202, y: 399, w: 401 },
+        { variant: "looper", x: 274, y: 472, w: 891 },
+        // projects: behind the carousel
+        { variant: "small-blue", x: 330, y: 1115, w: 222 },
+        { variant: "big-teal", x: 292, y: 1128, w: 401 },
+        { variant: "looper", x: 1539, y: 1439, w: 1855 },
+        { variant: "big-teal", x: 203, y: 1701, w: 401 },
+        // footer
+        { variant: "small-blue", x: 330, y: 3056, w: 354 },
+        { variant: "looper", x: 1860, y: 3274, w: 2005 },
+        { variant: "big-teal", x: 74, y: 3858, w: 420 },
+        { variant: "big-teal", x: 212, y: 4240, w: 974 },
+        { variant: "big-blue", x: 202, y: 4509, w: 1062 },
+      ],
+    },
   },
-  // "progetti"
+  // "progetti" and "Progetti-Mobile"
   "/projects": {
-    height: 5587,
-    shapes: [
-      // hero and the community news
-      { variant: "small-blue", x: 57, y: 179, w: 460 },
-      { variant: "big-teal", x: 37, y: 487, w: 974 },
-      { variant: "big-teal", x: 1691, y: 487, w: 974 },
-      { variant: "looper", x: 395, y: 867, w: 1918 },
-      // the collection
-      { variant: "big-teal", x: 864, y: 1643, w: 974 },
-      { variant: "big-blue", x: 859, y: 1920, w: 578 },
-      { variant: "looper", x: 864, y: 1986, w: 1918 },
-      // the proposal section
-      { variant: "big-blue", x: 1044, y: 2562, w: 460 },
-      { variant: "big-teal", x: 550, y: 2792, w: 974 },
-      { variant: "looper", x: 533, y: 2955, w: 1610 },
-      // deprecated projects
-      { variant: "big-teal", x: 1428, y: 3788, w: 974 },
-      { variant: "big-blue", x: 1401, y: 4451, w: 771 },
-      ...footerAt(4470),
-    ],
+    desktop: {
+      width: 1728,
+      height: 5587,
+      shapes: [
+        // hero and the community news
+        { variant: "small-blue", x: 57, y: 179, w: 460 },
+        { variant: "big-teal", x: 37, y: 487, w: 974 },
+        { variant: "big-teal", x: 1691, y: 487, w: 974 },
+        { variant: "looper", x: 395, y: 867, w: 1918 },
+        // the collection
+        { variant: "big-teal", x: 864, y: 1643, w: 974 },
+        { variant: "big-blue", x: 859, y: 1920, w: 578 },
+        { variant: "looper", x: 864, y: 1986, w: 1918 },
+        // the proposal section
+        { variant: "big-blue", x: 1044, y: 2562, w: 460 },
+        { variant: "big-teal", x: 550, y: 2792, w: 974 },
+        { variant: "looper", x: 533, y: 2955, w: 1610 },
+        // deprecated projects
+        { variant: "big-teal", x: 1428, y: 3788, w: 974 },
+        { variant: "big-blue", x: 1401, y: 4451, w: 771 },
+        ...footerAt(4470),
+      ],
+    },
+    mobile: {
+      width: 402,
+      height: 5231,
+      shapes: [
+        // hero and the community news
+        { variant: "big-teal", x: 358, y: 250, w: 401 },
+        { variant: "small-blue", x: 37, y: 402, w: 285 },
+        { variant: "looper", x: 862, y: 990, w: 1242 },
+        { variant: "big-teal", x: 202, y: 1037, w: 401 },
+        { variant: "small-blue", x: 208, y: 1132, w: 233 },
+        // the collection
+        { variant: "small-blue", x: 304, y: 1594, w: 233 },
+        { variant: "looper", x: 1084, y: 1654, w: 1168 },
+        { variant: "big-teal", x: 85, y: 1755, w: 401 },
+        // the proposal section and deprecated projects
+        { variant: "big-teal", x: 350, y: 2793, w: 401 },
+        { variant: "big-teal", x: 64, y: 3274, w: 401 },
+        { variant: "small-blue", x: 251, y: 3279, w: 233 },
+        // footer
+        { variant: "small-blue", x: 329, y: 4103, w: 354 },
+        { variant: "looper", x: 1859, y: 4321, w: 2005 },
+        { variant: "looper", x: 726, y: 4367, w: 1427 },
+        { variant: "big-teal", x: 73, y: 4905, w: 420 },
+        { variant: "big-teal", x: 211, y: 5287, w: 974 },
+        { variant: "big-blue", x: 201, y: 5556, w: 1062 },
+      ],
+    },
   },
 }
 
@@ -191,20 +251,26 @@ export function figmaScene(pathname: string): SceneShape[] | null {
   if (!scene) return null
   const rand = prng(hash(pathname))
 
-  return scene.shapes.map((shape, i) => {
-    const master = MASTER_SIZE[shape.variant]
-    return {
-      id: `figma-${i}`,
-      variant: shape.variant,
-      x: (shape.x / FIGMA_WIDTH) * 2 - 1,
-      y: shape.y / scene.height,
-      page: true,
-      // the layout box includes the image's blur bleed, scaled like the shape
-      size: master ? shape.w * (1 + (2 * BLEED) / master) : shape.w,
-      // drawn upright, as in Figma
-      rotate: 0,
-      // a gentler parallax than the generated scenes, so each shape stays behind its section
-      ...motionFor(rand, shape.variant, [-40, 40]),
-    }
+  return (["desktop", "mobile"] as const).flatMap((layout) => {
+    const frame = scene[layout]
+    return frame.shapes.map((shape, i) => {
+      const master = MASTER_SIZE[shape.variant]
+      return {
+        id: `figma-${layout}-${i}`,
+        variant: shape.variant,
+        x: (shape.x / frame.width) * 2 - 1,
+        y: shape.y / frame.height,
+        page: true,
+        layout,
+        // Figma's frame is as wide as the screen: one Figma px is 1/width of the viewport
+        unit: `${100 / frame.width}vw`,
+        // the layout box includes the image's blur bleed, scaled like the shape
+        size: master ? shape.w * (1 + (2 * BLEED) / master) : shape.w,
+        // drawn upright, as in Figma
+        rotate: 0,
+        // a gentler parallax than the generated scenes, so each shape stays behind its section
+        ...motionFor(rand, shape.variant, [-40, 40]),
+      }
+    })
   })
 }

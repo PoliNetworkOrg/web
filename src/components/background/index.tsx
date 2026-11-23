@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Shape } from "@/components/shapes"
+import { cn } from "@/lib/utils"
 import { useRoutePathname } from "@/utils/use-route-pathname"
 import { animateScene } from "./animate"
 import { LOOPER_ASPECT, Looper } from "./looper"
@@ -64,17 +65,22 @@ function SceneItem({ shape }: { shape: SceneShape }) {
   const looper = shape.variant === "looper"
   const width = shape.size
   const height = looper ? shape.size * LOOPER_ASPECT : shape.size
+  const unit = shape.unit ?? "var(--bg-unit)"
 
   return (
     <div
-      className="absolute"
+      className={cn(
+        "absolute",
+        shape.layout === "mobile" && "md:hidden",
+        shape.layout === "desktop" && "max-md:hidden"
+      )}
       style={{
-        left: `calc(${50 + shape.x * 50}% - ${width / 2} * var(--bg-unit))`,
+        left: `calc(${50 + shape.x * 50}% - ${width / 2} * ${unit})`,
         top: shape.page
-          ? `calc(${shape.y * 100}% - ${height / 2} * var(--bg-unit))`
-          : `calc(${shape.y} * var(--bg-segment) - ${height / 2} * var(--bg-unit))`,
-        width: `calc(${width} * var(--bg-unit))`,
-        height: `calc(${height} * var(--bg-unit))`,
+          ? `calc(${shape.y * 100}% - ${height / 2} * ${unit})`
+          : `calc(${shape.y} * var(--bg-segment) - ${height / 2} * ${unit})`,
+        width: `calc(${width} * ${unit})`,
+        height: `calc(${height} * ${unit})`,
       }}
     >
       <div className="size-full">
