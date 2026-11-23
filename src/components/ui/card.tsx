@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils"
 import { CardHoverBackground } from "../card-icon/hover-background"
 import { Glass } from "../glass"
 import { GradientIcon } from "../gradient-icon"
-import { Button } from "./button"
 
 function Card({
   className,
@@ -99,8 +98,4 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="card-content" className={cn("group-data-[size=sm]/card:px-3", className)} {...props} />
 }
 
-function CardBottomButton({ className, ...props }: React.ComponentProps<typeof Button>) {
-  return <Button data-slot="card-footer" className={cn("self-end", className)} {...props} />
-}
-
-export { Card, CardHeader, CardBottomButton, CardTitle, CardAction, CardDescription, CardContent }
+export { Card, CardHeader, CardTitle, CardAction, CardDescription, CardContent }

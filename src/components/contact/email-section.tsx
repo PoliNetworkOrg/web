@@ -44,7 +44,7 @@ export function EmailSection() {
         Qui sotto trovi a chi scrivere in base al tipo di richiesta: per tutto il resto,{" "}
         <a
           href="mailto:info@polinetwork.org"
-          className="rounded-sm text-blue-secondary outline-none transition-colors duration-200 hover:text-blue-primary focus-visible:ring-2 focus-visible:ring-blue-secondary"
+          className="rounded-sm text-blue-secondary outline-none transition-colors duration-200 decoration-1 underline-offset-4 hover:text-blue-primary hover:underline focus-visible:underline focus-visible:ring-2 focus-visible:ring-blue-secondary"
         >
           info@polinetwork.org
         </a>
