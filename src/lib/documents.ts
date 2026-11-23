@@ -1,6 +1,6 @@
 /** The association's public documents, linked from /about, /join and the footer. */
 export const statuteHref = "https://github.com/PoliNetworkOrg/Statuto/blob/main/full.pdf"
-export const regulationsHref =
-  "https://github.com/PoliNetworkOrg/RegolamentoInterno/blob/main/RaccoltaRegolamentiInterni.pdf"
-export const memberPrivacyHref =
-  "https://github.com/PoliNetworkOrg/PrivacyPolicies/releases/download/v1.0/regolamento_soci.pdf"
+/** The Raccolta dei Regolamenti Interni (RRI), where polinet.cc/rri redirects. */
+export const regulationsHref = "https://polinetwork.org/files/RaccoltaRegolamentiInterni.pdf"
+/** The members' privacy notice is section 3 of the RRI, on page 13. */
+export const memberPrivacyHref = `${regulationsHref}#page=13`
