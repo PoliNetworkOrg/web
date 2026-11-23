@@ -9,13 +9,13 @@ import { membershipSteps } from "./constants"
 
 export function MembershipSection() {
   return (
-    <section id="socio" className={cn(CONTAINER, "grid scroll-mt-36 items-start gap-10 xl:grid-cols-2 xl:gap-x-16")}>
-      <div className="flex min-w-0 flex-col gap-6 xl:col-start-1">
+    <section id="socio" className={cn(CONTAINER, "grid scroll-mt-36 items-start gap-12.5 xl:grid-cols-2 xl:gap-x-20")}>
+      <div className="flex min-w-0 flex-col gap-7.5 xl:col-start-1">
         <h2 className={SECTION_TITLE}>
           <span className="md:hidden">Diventa Socio</span>
           <span className="hidden md:inline">Diventa Socio di PoliNetwork</span>
         </h2>
-        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-5")}>
+        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-6.25")}>
           <p>
             Il tesseramento è il modo per fare parte di PoliNetwork in modo formale, con{" "}
             <Highlight>diritto di voto</Highlight> nelle Assemblee dei Soci, di candidarsi alle elezioni del direttivo e{" "}
@@ -39,7 +39,7 @@ export function MembershipSection() {
               )}
             </div>
             <div
-              className={cn("flex min-w-0 flex-col gap-3 pt-2 md:pt-3", index < membershipSteps.length - 1 && "pb-8")}
+              className={cn("flex min-w-0 flex-col gap-3 pt-2 md:pt-3", index < membershipSteps.length - 1 && "pb-10")}
             >
               <h3 className="typo-headline-extrasmall sm:typo-title-large text-pretty text-blue-secondary">
                 {"href" in step ? (
@@ -47,7 +47,8 @@ export function MembershipSection() {
                     href={step.href}
                     target={step.href.startsWith("https:") ? "_blank" : undefined}
                     rel={step.href.startsWith("https:") ? "noopener noreferrer" : undefined}
-                    className="rounded-sm decoration-1 underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-blue-secondary"
+                    // No underline: the link brightens on hover like the site's other blue text
+                    className="rounded-sm outline-none transition-colors duration-200 hover:text-blue-primary focus-visible:ring-2 focus-visible:ring-blue-secondary"
                   >
                     {step.title}
                     {step.href.startsWith("https:") && (
