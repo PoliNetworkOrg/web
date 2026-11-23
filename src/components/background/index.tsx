@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Shape } from "@/components/shapes"
 import { cn } from "@/lib/utils"
+import { hasFooter } from "@/utils/footer-routes"
 import { useRoutePathname } from "@/utils/use-route-pathname"
 import { animateScene } from "./animate"
 import { LOOPER_ASPECT, Looper } from "./looper"
@@ -13,7 +14,7 @@ const INITIAL_SEGMENTS = 2
 
 /**
  * Animated decorative background shared by every page. It covers the whole
- * page (footer included). Pages composed in Figma get their shapes from
+ * page (footer included). Pages drawn in Figma get their shapes from
  * `figmaScene`; the others are split into `--bg-segment` tall segments, each
  * filled with shapes from `sceneSegment`. Both are animated by `animateScene`.
  * Every page (or flow, see `SHARED_SCENES`) gets a fresh scene, rendered
@@ -29,29 +30,58 @@ const sceneKey = (pathname: string) =>
   SHARED_SCENES.find((root) => pathname === root || pathname.startsWith(`${root}/`)) ?? pathname
 
 export function Background() {
-  const key = sceneKey(useRoutePathname())
-  return <Scene key={key} pathname={key} />
+  const pathname = useRoutePathname()
+  const key = sceneKey(pathname)
+  return <Scene key={key} pathname={key} footer={hasFooter(pathname)} />
 }
 
-function Scene({ pathname }: { pathname: string }) {
+/** Consecutive shapes clipped to the same region of the page */
+type Group = { clip?: string; shapes: SceneShape[] }
+
+/** Groups the shapes by the region that clips them, keeping their order within each group */
+function groupByClip(shapes: SceneShape[]): Group[] {
+  const groups = new Map<string | undefined, Group>()
+  for (const shape of shapes) {
+    const group = groups.get(shape.clip) ?? { clip: shape.clip, shapes: [] }
+    group.shapes.push(shape)
+    groups.set(shape.clip, group)
+  }
+  return [...groups.values()]
+}
+
+function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const [segments, setSegments] = useState(INITIAL_SEGMENTS)
   // Pages composed in Figma keep their layout; the others get a generated segment per screen of page
-  const shapes = figmaScene(pathname) ?? Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat()
+  const groups = groupByClip(
+    figmaScene(pathname) ?? Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat()
+  )
+  // the order the shapes are rendered in, which `animateScene` relies on
+  const shapes = groups.flatMap((group) => group.shapes)
   const shapesRef = useRef(shapes)
 
   useEffect(() => {
     shapesRef.current = shapes
   })
 
-  useEffect(() => {
+  // a layout effect, so the shapes are placed by the measured footer before the new page is painted
+  useLayoutEffect(() => {
     const el = ref.current
-    if (!el) return
-    const observer = new ResizeObserver(() => {
+    const page = el?.parentElement
+    if (!el || !page) return
+    const measure = () => {
+      // the region from the top of the footer to the end of the page, which Figma's footer shapes are spread over
+      const footerEl = page.querySelector<HTMLElement>(":scope > footer")
+      if (footerEl) el.style.setProperty("--bg-footer", `${el.offsetHeight - footerEl.offsetTop}px`)
+      else el.style.removeProperty("--bg-footer")
       const segment = Number.parseFloat(getComputedStyle(el).getPropertyValue("--bg-segment"))
       setSegments(Math.max(1, Math.ceil(el.offsetHeight / segment)))
-    })
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
     observer.observe(el)
+    const footerEl = page.querySelector(":scope > footer")
+    if (footerEl) observer.observe(footerEl)
     return () => observer.disconnect()
   }, [])
 
@@ -63,41 +93,54 @@ function Scene({ pathname }: { pathname: string }) {
   }, [])
 
   return (
-    <div ref={ref} aria-hidden className="shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip">
-      {shapes.map((shape) => (
-        <SceneItem key={shape.id} shape={shape} />
+    <div
+      ref={ref}
+      aria-hidden
+      data-scene={pathname}
+      data-footer={footer ? undefined : "none"}
+      className="shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip"
+    >
+      {groups.map((group) => (
+        <div key={group.clip ?? "none"} className="absolute inset-0" style={{ clipPath: group.clip }}>
+          {group.shapes.map((shape) => (
+            <SceneItem key={shape.id} shape={shape} />
+          ))}
+        </div>
       ))}
     </div>
   )
 }
 
 function SceneItem({ shape }: { shape: SceneShape }) {
-  const looper = shape.variant === "looper"
-  const width = shape.size
-  const height = looper ? shape.size * LOOPER_ASPECT : shape.size
-  const unit = shape.unit ?? "var(--bg-unit)"
-
   return (
     <div
+      data-shape
       className={cn(
         "absolute",
         shape.layout === "mobile" && "md:hidden",
         shape.layout === "desktop" && "max-md:hidden"
       )}
-      style={{
-        left: `calc(${50 + shape.x * 50}% - ${width / 2} * ${unit})`,
-        top: shape.page
-          ? `calc(${shape.y * 100}% - ${height / 2} * ${unit})`
-          : `calc(${shape.y} * var(--bg-segment) - ${height / 2} * ${unit})`,
-        width: `calc(${width} * ${unit})`,
-        height: `calc(${height} * ${unit})`,
-      }}
+      style={shape.box}
     >
       <div className="size-full">
-        {looper ? (
-          <Looper className="size-full" style={{ rotate: `${shape.rotate}deg` }} />
+        {shape.variant === "looper" ? (
+          // drawn in its own aspect ratio, then stretched like the Figma instance and rotated
+          <Looper
+            className="absolute top-1/2 left-0 w-full"
+            style={{
+              aspectRatio: 1 / LOOPER_ASPECT,
+              translate: "0 -50%",
+              rotate: `${shape.rotate}deg`,
+              scale: shape.stretch ? `1 ${shape.stretch}` : undefined,
+            }}
+          />
         ) : (
-          <Shape variant={shape.variant} className="size-full" style={{ rotate: `${shape.rotate}deg` }} />
+          <Shape
+            variant={shape.variant}
+            src={shape.image}
+            className="size-full"
+            style={{ rotate: `${shape.rotate}deg` }}
+          />
         )}
       </div>
     </div>
