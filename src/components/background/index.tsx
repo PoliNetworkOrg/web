@@ -13,18 +13,13 @@ import { figmaScene, type SceneShape, sceneSegment } from "./scene"
 const INITIAL_SEGMENTS = 2
 
 /**
- * Animated decorative background shared by every page. It covers the whole
- * page (footer included). Pages drawn in Figma get their shapes from
- * `figmaScene`; the others are split into `--bg-segment` tall segments, each
- * filled with shapes from `sceneSegment`. Both are animated by `animateScene`.
- * Every page (or flow, see `SHARED_SCENES`) gets a fresh scene, rendered
- * directly in its final place.
- */
-/**
  * Sections whose pages are steps of one flow: moving between them keeps the same background instead of drawing a
  * new one for every page (the groups wizard, its results, the extra groups; the course guides).
  */
-const SHARED_SCENES = ["/groups", "/guides/corso"]
+const SHARED_SCENES = ["/gruppi", "/guide/corso"]
+
+const sceneKey = (pathname: string) =>
+  SHARED_SCENES.find((root) => pathname === root || pathname.startsWith(`${root}/`)) ?? pathname
 
 /**
  * False until the first scene has mounted: the first page's background is shown as the server rendered it, the scene
@@ -32,9 +27,14 @@ const SHARED_SCENES = ["/groups", "/guides/corso"]
  */
 const session: { navigated: boolean } = { navigated: false }
 
-const sceneKey = (pathname: string) =>
-  SHARED_SCENES.find((root) => pathname === root || pathname.startsWith(`${root}/`)) ?? pathname
-
+/**
+ * Animated decorative background shared by every page. It covers the whole
+ * page (footer included). Pages drawn in Figma get their shapes from
+ * `figmaScene`; the others are split into `--bg-segment` tall segments, each
+ * filled with shapes from `sceneSegment`. Both are animated by `animateScene`.
+ * Every page (or flow, see `SHARED_SCENES`) gets a fresh scene, rendered
+ * directly in its final place.
+ */
 export function Background() {
   const pathname = useRoutePathname()
   const key = sceneKey(pathname)

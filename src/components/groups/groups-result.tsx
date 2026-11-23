@@ -19,7 +19,7 @@ import {
 import { type MergedGroup, mergeGroupsByTitle } from "@/utils/merge-groups"
 import { createStepHref } from "@/utils/step-href"
 
-const stepHref = createStepHref("/groups/didattica")
+const stepHref = createStepHref("/gruppi/didattica")
 
 function GroupCard({ group, secondary }: { group: MergedGroup; secondary?: boolean }) {
   return (
@@ -114,7 +114,7 @@ export async function GroupsResult({
         subtitle={`Laurea ${currentLevel.name}`}
         backHref={stepHref({ school: schoolSlug, level })}
         replaceBack
-        closeHref="/groups"
+        closeHref="/gruppi"
       />
 
       {/* The site, school, level and course groups */}

@@ -1,12 +1,12 @@
 import type { DocumentItem } from "./types"
 
 export function getDocumentViewerHref(document: DocumentItem) {
-  return `/documents/view/${document.slug}`
+  return `/documenti/view/${document.slug}`
 }
 
 /** Same-origin URL of the PDF: the viewer can read it without CORS and `download` saves it instead of navigating. */
 export function getDocumentFileHref(document: DocumentItem) {
-  const path = `/documents/file/${document.slug}`
+  const path = `/documenti/file/${document.slug}`
   // A different version also makes PDF.js reload when navigating to an updated document.
   return document.version ? `${path}?v=${encodeURIComponent(document.version)}` : path
 }

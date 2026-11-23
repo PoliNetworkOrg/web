@@ -12,7 +12,7 @@ export function ProjectCard({ project }: { project: Project }) {
       title={project.title}
       caption={project.descriptionIt}
       image={project.logo ?? undefined}
-      href={`/projects/${project.id}`}
+      href={`/progetti/${project.id}`}
       className="h-full w-full gap-3 p-6"
       titleClassName="typo-title-large wrap-anywhere text-balance"
       captionClassName="line-clamp-4 text-pretty"

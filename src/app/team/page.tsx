@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
 
 export const metadata: Metadata = {
-  title: "I Team",
+  title: "I team",
   description: "Scopri i team di PoliNetwork: IT, Design & Marketing, HR ed Events & Partnership.",
 }
 
@@ -17,7 +17,7 @@ export default function TeamPage() {
     <main className={PAGE_MAIN}>
       <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero
-          title="I Team"
+          title="I team"
           description="PoliNetwork si muove grazie a quattro anime operative distinte, guidate dai rispettivi Capi Dipartimento."
         />
       </section>

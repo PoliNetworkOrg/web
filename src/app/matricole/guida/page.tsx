@@ -37,9 +37,7 @@ export default async function GuidaMatricolaPage() {
       </Link>
       {/* Not Hero: this page has no header, and Hero's spacing would push the download below the fold on phones */}
       <div className="flex flex-col items-center gap-4 text-center sm:gap-6">
-        <h1 className="typo-display-fluid-extralarge text-balance bg-linear-to-b from-text-primary to-text-secondary bg-clip-text pb-2 text-transparent">
-          Guida della Matricola
-        </h1>
+        <h1 className="typo-display-fluid-extralarge text-balance pb-2 text-gradient-grey">Guida della Matricola</h1>
         <p className="typo-title-medium sm:typo-headline-small max-w-2xl text-balance">
           Controlla l&apos;ultima versione disponibile e scarica il PDF aggiornato.
         </p>

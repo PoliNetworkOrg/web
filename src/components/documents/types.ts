@@ -1,5 +1,5 @@
 export type DocumentItem = {
-  /** Stable id in the site's URLs: `/documents/view/<slug>` and `/documents/file/<slug>`. */
+  /** Stable id in the site's URLs: `/documenti/view/<slug>` and `/documenti/file/<slug>`. */
   slug: string
   title: string
   description?: string | null

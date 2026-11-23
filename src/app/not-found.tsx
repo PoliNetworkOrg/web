@@ -13,9 +13,7 @@ export default function NotFound() {
         </div>
 
         <div className="relative z-10 flex flex-col items-center gap-8 px-6 pt-28 pb-16 text-center sm:gap-12">
-          <h1 className="typo-display-extralarge inline-block bg-linear-to-b from-text-primary to-text-secondary bg-clip-text py-9 text-transparent">
-            404
-          </h1>
+          <h1 className="typo-display-extralarge inline-block py-9 text-gradient-grey">404</h1>
 
           <p className="typo-headline-extrasmall sm:typo-headline-large max-w-3xl text-balance text-text-primary">
             Non trovo quello che cerchi.

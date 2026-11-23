@@ -18,8 +18,9 @@ function Input({ icon, className, containerClassName, ...inputProps }: InputProp
           "border border-white/50",
           // The input itself carries the vertical padding (py-0 drops Glass's p-4): a 44px+ tap target
           icon ? "px-6 py-0" : "px-4 py-0",
-          // The input drops its own outline: the field shows the focus instead
-          "focus-within:ring-2 focus-within:ring-blue-secondary",
+          // The input drops its own outline: the field brightens instead, like the site's other glass on hover. A blue
+          // ring showed on every click, since a text field is always :focus-visible
+          "transition-colors duration-200 focus-within:border-white focus-within:bg-white/70",
           "rounded-buttonsM",
           "bg-background-blur",
           containerClassName

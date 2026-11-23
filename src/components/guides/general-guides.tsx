@@ -6,7 +6,7 @@ import { EMPTY_STATE } from "@/components/layout/page"
 export function GeneralGuides() {
   return (
     <main className={FLOW_MAIN}>
-      <FlowHeader title="Guide Generali" backHref="/guides" replaceBack />
+      <FlowHeader title="Guide Generali" backHref="/guide" replaceBack />
 
       {GENERAL_GUIDES.length > 0 ? (
         <AccordionList items={GENERAL_GUIDES} />

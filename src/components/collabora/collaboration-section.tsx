@@ -1,6 +1,6 @@
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
-import { Aside, Highlight } from "./section"
+import { Highlight } from "./section"
 
 export function CollaborationSection() {
   return (
@@ -12,8 +12,8 @@ export function CollaborationSection() {
           <p className="3xl:max-w-239.75 md:max-w-180">
             Collaborare con noi significa <Highlight>accedere a questa community in modo diretto</Highlight>. Non siamo
             un canale pubblicitario e non accettiamo promozioni commerciali generiche: ogni collaborazione viene
-            valutata in termini di <Highlight>valore concreto per gli studenti del Politecnico</Highlight>{" "}
-            <Aside>(e nel rispetto dei valori sanciti dal nostro statuto).</Aside>
+            valutata in termini di <Highlight>valore concreto per gli studenti del Politecnico</Highlight> e nel
+            rispetto dei valori sanciti dal nostro statuto.
           </p>
           <p className="md:max-w-161">
             Se il progetto ha senso per la nostra community, siamo disponibili a costruirlo insieme!

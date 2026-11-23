@@ -1,28 +1,15 @@
-import Link from "next/link"
-import { FiArrowDown } from "react-icons/fi"
 import { CONTAINER, PAGE_HERO } from "@/components/layout/page"
-import { Button } from "@/components/ui/button"
 import { Hero } from "@/components/ui/hero"
 
 export function HistoryHero() {
   return (
-    <section className={`${CONTAINER} ${PAGE_HERO} flex flex-col items-center gap-10`}>
+    <section className={`${CONTAINER} ${PAGE_HERO}`}>
+      {/* A wider subtitle than the default: on one line from desktop, instead of wrapping in a narrow column */}
       <Hero
         title="La nostra storia"
         description="Da un gruppo Telegram a una rete costruita dagli studenti, per gli studenti."
+        descriptionClassName="max-w-260"
       />
-      <div className="flex flex-wrap justify-center gap-3">
-        <Button asChild size="lg">
-          <Link href="#capitoli">
-            Leggi la nostra storia <FiArrowDown aria-hidden />
-          </Link>
-        </Button>
-        <Button asChild size="lg" variant="glass">
-          <Link href="#direttivi">
-            Conosci le persone <FiArrowDown aria-hidden />
-          </Link>
-        </Button>
-      </div>
     </section>
   )
 }

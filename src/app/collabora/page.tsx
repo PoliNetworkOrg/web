@@ -4,11 +4,12 @@ import { AssociationSection } from "@/components/collabora/association-section"
 import { CollaborationSection } from "@/components/collabora/collaboration-section"
 import { CompanySection } from "@/components/collabora/company-section"
 import { ContactSection } from "@/components/collabora/contact-section"
+import { PhotoSlider } from "@/components/collabora/photo-slider"
 import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
 
 export const metadata: Metadata = {
-  title: "Collabora con Noi",
+  title: "Collabora con noi",
   description:
     "Mettiamo la nostra infrastruttura e i nostri talenti a disposizione di chi ha buone idee per gli studenti del PoliMi",
 }
@@ -18,7 +19,7 @@ export default function CollaboraPage() {
     <main className={PAGE_MAIN}>
       <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero
-          title="Collabora con Noi"
+          title="Collabora con noi"
           description="Mettiamo la nostra infrastruttura e i nostri talenti a disposizione di chi ha buone idee per gli studenti del PoliMi"
         />
       </section>
@@ -26,6 +27,7 @@ export default function CollaboraPage() {
       <CollaborationSection />
       <AssociationSection />
       <CompanySection />
+      <PhotoSlider />
       <ContactSection />
     </main>
   )

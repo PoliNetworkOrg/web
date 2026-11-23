@@ -9,7 +9,10 @@ import { PeekCarousel } from "@/components/peek-carousel"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { InfoCard, type InfoCardData } from "./info-card"
-import { Aside, Highlight } from "./section"
+import { Highlight } from "./section"
+
+/** The same icon box on every card, so the four read as one set (Figma sized each icon differently) */
+const ICON = "mr-3.75 size-7 object-contain md:mr-0 md:size-12.5"
 
 const cards: InfoCardData[] = [
   {
@@ -21,8 +24,7 @@ const cards: InfoCardData[] = [
     ),
     mobileDescription: "Membri del nostro gruppo Telegram",
     icon: chatIcon,
-    iconClassName: "mr-3.75 h-7 w-7.5 md:mt-px md:mr-0 md:h-12.5 md:w-13.25",
-    descriptionClassName: "md:-mr-px",
+    iconClassName: ICON,
   },
   {
     title: "45k+",
@@ -33,8 +35,7 @@ const cards: InfoCardData[] = [
     ),
     mobileDescription: "Studenti raggiunti ogni anno",
     icon: schoolIcon,
-    iconClassName: "mr-3.75 h-7 w-8.5 md:-mt-px md:mr-0 md:-ml-0.75 md:h-12.5 md:w-15.25",
-    descriptionClassName: "md:-mr-px",
+    iconClassName: ICON,
   },
   {
     title: "1000+",
@@ -45,8 +46,7 @@ const cards: InfoCardData[] = [
     ),
     mobileDescription: "Persone al nostro evento più grande",
     icon: groupIcon,
-    iconClassName: "mr-3.75 h-7 w-9.25 md:-mt-px md:mr-0 md:h-12.5 md:w-16.75",
-    descriptionClassName: "md:-mr-px",
+    iconClassName: ICON,
   },
   {
     title: "4",
@@ -57,8 +57,7 @@ const cards: InfoCardData[] = [
     ),
     mobileDescription: "Team operativi pronti a collaborare",
     icon: handshakeIcon,
-    iconClassName: "mr-3.75 h-7 w-7.75 md:mr-0 md:h-12.5 md:w-13.75",
-    descriptionClassName: "md:-mr-px",
+    iconClassName: ICON,
   },
 ]
 
@@ -71,14 +70,18 @@ export function AboutSection() {
           <div className="flex w-full flex-col gap-6 md:gap-3">
             <h2 className={SECTION_TITLE}>Chi siamo?</h2>
             <div className={cn(SECTION_LEAD, "flex flex-col gap-5 pb-2 md:gap-3 md:pb-0")}>
-              <p>PoliNetwork è l'infrastruttura di comunicazione studentesca del Politecnico di Milano.</p>
               <p>
-                Gestiamo oltre 500 gruppi Telegram e WhatsApp, una presenza social in crescita e strumenti digitali
-                usati ogni anno da decine di migliaia di studenti di ingegneria, architettura e design.
+                PoliNetwork è <Highlight>l'infrastruttura di comunicazione studentesca</Highlight> del Politecnico di
+                Milano.
               </p>
               <p>
-                <Highlight>Chi entra al PoliMi, prima o poi, incontra PoliNetwork</Highlight>.
-                <Aside className="block">(e persino studenti delle scuole superiori o altri atenei)</Aside>
+                Gestiamo <Highlight>oltre 500 gruppi Telegram e WhatsApp</Highlight>, una presenza social in crescita e
+                strumenti digitali usati ogni anno da decine di migliaia di studenti di ingegneria, architettura e
+                design.
+              </p>
+              <p>
+                Chi entra al PoliMi, prima o poi, <Highlight>incontra PoliNetwork</Highlight>: e persino studenti delle
+                scuole superiori o di altri atenei.
               </p>
             </div>
           </div>

@@ -45,26 +45,30 @@ export const MOBILE_FOOTER: FigmaFrame = {
 
 /** Frames of the "💻website-desktop" page, 1728px wide */
 export const DESKTOP_FRAMES = {
-  // "homepage", without the Materials section, hidden from the home page for now: its shapes are left out and everything after it moves up 1117px
+  // "homepage", Materials section included
   "/": {
     width: 1729,
-    height: 4461,
-    footer: 3351,
+    height: 5578,
+    footer: 4468,
     shapes: [
-      ["big-teal", 1587, 2077, 662, 662, 0],
-      ["small-blue", 1443, 1643, 354, 354, -27],
+      // Materials, back on the home page: from the frame's metadata (sizes and the small blob's 45° from its bounds)
+      ["small-blue", 298, 1916, 354, 354, 45],
+      ["big-teal", 90, 2173, 974, 974, 0],
+      ["looper", 393, 2161, 1610, 1560, 0],
+      ["big-teal", 1587, 3194, 662, 662, 0],
+      ["small-blue", 1443, 2760, 354, 354, -27],
       ["big-teal", 865, 561, 974, 974, 0],
       ["small-blue", 436, 612, 354, 354, -16],
       ["big-blue", 883, -41, 1062, 1062, -11],
       ["looper", 883, 393, 1401, 1358, 0],
-      ["big-teal", 526, 4317, 1444, 1444, 0],
-      ["small-blue", 230, 3944, 354, 354, 0],
-      ["big-blue", 1287, 4162, 1062, 1062, 27],
-      ["looper", 743, 4121, 1610, 1560, 31],
+      ["big-teal", 526, 5434, 1444, 1444, 0],
+      ["small-blue", 230, 5061, 354, 354, 0],
+      ["big-blue", 1287, 5279, 1062, 1062, 27],
+      ["looper", 743, 5238, 1610, 1560, 31],
     ],
   },
   // "progetti"
-  "/projects": {
+  "/progetti": {
     width: 1728,
     height: 5587,
     footer: 4470,
@@ -180,7 +184,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "Struttura"
-  "/about": {
+  "/struttura": {
     width: 1728,
     height: 6699,
     footer: 5593,
@@ -235,7 +239,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "Unisciti a Noi"
-  "/join": {
+  "/unisciti": {
     width: 1728,
     height: 5629,
     footer: 4551,
@@ -305,7 +309,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "Contattaci_new"
-  "/contact": {
+  "/contatti": {
     width: 1728,
     height: 3709,
     footer: 2603,
@@ -332,7 +336,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "groups - Home", the same background on every step of the wizard
-  "/groups": {
+  "/gruppi": {
     width: 1728,
     height: 1117,
     footer: 1117,
@@ -368,7 +372,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "Associazioni"
-  "/associations": {
+  "/associazioni": {
     width: 1728,
     height: 3257,
     footer: 2140,
@@ -386,7 +390,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "Guide 2.1", the course guides wizard; the frame has no footer, the standard one is added below
-  "/guides": {
+  "/guide": {
     width: 1728,
     height: 1117,
     footer: 1117,
@@ -398,7 +402,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "FAQs - 6"
-  "/faqs": {
+  "/faq": {
     width: 1728,
     height: 2856,
     footer: 1750,
@@ -414,7 +418,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "Pagina Documenti", the frame has no footer, the standard one is added below
-  "/documents": {
+  "/documenti": {
     width: 1728,
     height: 1703,
     footer: 1703,
@@ -430,7 +434,7 @@ export const DESKTOP_FRAMES = {
     ],
   },
   // "Pdf Viewer"
-  "/documents/view": {
+  "/documenti/view": {
     width: 1728,
     height: 1117,
     footer: 1117,
@@ -464,28 +468,34 @@ export const DESKTOP_FRAMES = {
 
 /** Frames of the "📱website-mobile" page, 402px wide */
 export const MOBILE_FRAMES = {
-  // "Home-Mobile", without the Materials section (see the desktop frame): everything after it moves up 1260px
+  // "Home-Mobile", Materials section included
   "/": {
     width: 402,
-    height: 4190,
-    footer: 2746,
+    height: 5450,
+    footer: 4006,
     shapes: [
+      // Materials: from the frame's metadata (the looper's size and angle estimated from its bounds)
+      ["big-teal", 88, 1118, 401, 401, 0],
+      ["small-blue", 38, 1161, 233, 233, 0],
+      ["big-teal", 314, 1680, 401, 401, 0],
+      ["big-teal", 88, 1998, 401, 401, 0],
+      ["looper", 249, 2053, 718, 696, 45],
       ["big-teal", 202, 399, 401, 401, 0],
       ["small-blue", 201, 265, 354, 354, 0],
       ["looper", 274, 472, 891, 866, 0],
-      ["big-teal", 292, 1128, 401, 401, 0],
-      ["big-teal", 203, 1701, 401, 401, 0],
-      ["small-blue", 330, 1115, 222, 222, 0],
-      ["looper", 388, 1439, 1377, 1339, 59],
-      ["big-teal", 74, 3438, 420, 420, 0],
-      ["small-blue", 330, 3056, 354, 354, 0],
-      ["looper", 388, 3274, 1610, 1560, 71],
-      ["big-teal", 212, 4240, 974, 974, 0],
-      ["big-blue", 202, 4509, 1062, 1062, 0],
+      ["big-teal", 292, 2388, 401, 401, 0],
+      ["big-teal", 203, 2961, 401, 401, 0],
+      ["small-blue", 330, 2375, 222, 222, 0],
+      ["looper", 388, 2699, 1377, 1339, 59],
+      ["big-teal", 74, 4698, 420, 420, 0],
+      ["small-blue", 330, 4316, 354, 354, 0],
+      ["looper", 388, 4534, 1610, 1560, 71],
+      ["big-teal", 212, 5500, 974, 974, 0],
+      ["big-blue", 202, 5769, 1062, 1062, 0],
     ],
   },
   // "Progetti-Mobile"
-  "/projects": {
+  "/progetti": {
     width: 402,
     height: 5231,
     footer: 3787,
@@ -562,7 +572,7 @@ export const MOBILE_FRAMES = {
     ],
   },
   // "Struttura"
-  "/about": {
+  "/struttura": {
     width: 402,
     height: 6829,
     footer: 5385,
@@ -620,7 +630,7 @@ export const MOBILE_FRAMES = {
     ],
   },
   // "Unisciti a noi (5584:11747)"
-  "/join": {
+  "/unisciti": {
     width: 402,
     height: 5288,
     footer: 4809,
@@ -676,7 +686,7 @@ export const MOBILE_FRAMES = {
     ],
   },
   // "Contattaci"
-  "/contact": {
+  "/contatti": {
     width: 402,
     height: 3963,
     footer: 3484,
@@ -703,7 +713,7 @@ export const MOBILE_FRAMES = {
     ],
   },
   // "Groups home", the wizard has no footer: the frame's one is left out
-  "/groups": {
+  "/gruppi": {
     width: 402,
     height: 1119,
     footer: 1119,
@@ -748,7 +758,7 @@ export const MOBILE_FRAMES = {
     ],
   },
   // "Associazioni"
-  "/associations": {
+  "/associazioni": {
     width: 402,
     height: 3546,
     footer: 2102,
@@ -768,7 +778,7 @@ export const MOBILE_FRAMES = {
     ],
   },
   // "Guide"
-  "/guides": {
+  "/guide": {
     width: 402,
     height: 5249,
     footer: 3804,
@@ -798,7 +808,7 @@ export const MOBILE_FRAMES = {
     ],
   },
   // "FAQ-Mobile"
-  "/faqs": {
+  "/faq": {
     width: 402,
     height: 2831,
     footer: 1406,
@@ -816,7 +826,7 @@ export const MOBILE_FRAMES = {
     ],
   },
   // "Documenti"
-  "/documents": {
+  "/documenti": {
     width: 402,
     height: 4177,
     footer: 2733,

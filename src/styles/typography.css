@@ -104,3 +104,27 @@
 @utility typo-title-small {
   @apply font-red-hat font-medium text-[0.875rem]/[20px] tracking-[0.1px];
 }
+
+/*
+  The site's black-to-grey title gradient, drawn once per line: a gradient over the whole block left the second line of
+  a two-line title paler than the first. `1lh` is the element's own line height, so it follows the typo-* size at
+  every breakpoint; the content-box origin keeps it aligned with the lines when the title has vertical padding.
+*/
+@utility text-gradient-grey {
+  background-image: linear-gradient(to bottom, var(--color-text-primary), var(--color-text-secondary));
+  background-size: 100% 1lh;
+  background-repeat: repeat-y;
+  background-origin: content-box;
+  background-clip: text;
+  color: transparent;
+}
+
+/* The same per-line gradient in blue, for closing statements (`ClosingCta`) */
+@utility text-gradient-blue {
+  background-image: linear-gradient(to bottom, var(--color-blue-secondary), var(--color-blue-primary));
+  background-size: 100% 1lh;
+  background-repeat: repeat-y;
+  background-origin: content-box;
+  background-clip: text;
+  color: transparent;
+}

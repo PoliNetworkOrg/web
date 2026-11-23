@@ -10,7 +10,7 @@ import { type ReactNode, useEffect } from "react"
 const session: { navigated: boolean } = { navigated: false }
 
 /**
- * Next remounts the root template whenever the first segment of the URL changes (/about → /team), not while moving
+ * Next remounts the root template whenever the first segment of the URL changes (/chi-siamo → /team), not while moving
  * inside a section (the groups wizard keeps its card). The new page fades in, so changing page reads as a change rather
  * than as the old page scrolling. Header, background and footer live in the root layout, outside it.
  *

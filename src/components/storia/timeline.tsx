@@ -1,98 +1,111 @@
 import Image from "next/image"
-import Link from "next/link"
 import type { ReactNode } from "react"
-import { FiArrowDown, FiArrowRight, FiCheck, FiClipboard, FiClock, FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
+import { FiCheck, FiClipboard, FiClock, FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
 import telegram from "@/assets/icons/telegram-gradient.svg"
+import { Glass } from "@/components/glass"
 import { GradientIcon, type GradientIconType } from "@/components/gradient-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { chapters, milestones } from "./constants"
 
-/** The small icon tile Figma uses for timeline nodes and diagram steps. */
+/** The glass icon tile of the timelines, the same as the steps of "Il tuo percorso" on /chi-siamo. */
 function IconTile({ icon, className }: { icon: GradientIconType | string; className?: string }) {
   return (
-    <span
+    <Glass
       aria-hidden
       className={cn(
-        "flex shrink-0 items-center justify-center rounded-rectangles border border-white/50 bg-background-blur backdrop-blur-md",
+        "flex shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0",
         className
       )}
     >
       {typeof icon === "string" ? (
-        <Image src={icon} alt="" width={28} height={28} className="size-1/2" />
+        <Image src={icon} alt="" width={56} height={56} className="size-2/3" />
       ) : (
-        <GradientIcon icon={icon} className="size-1/2" />
+        <GradientIcon icon={icon} className="size-2/3" />
       )}
-    </span>
+    </Glass>
   )
 }
 
+/** The timelines' line: 4px, rounded, in the site's light blue. */
+const LINE = "rounded-full bg-blue-primary/25"
+
 export function Timeline() {
   return (
-    <section className={`${CONTAINER} flex flex-col gap-12 sm:gap-16`}>
-      <h2 className={cn(SECTION_TITLE, "max-w-240")}>
-        Da un semplice gruppo a una rete costruita dagli studenti,{" "}
-        <span className="text-blue-secondary">per gli studenti.</span>
-      </h2>
+    <section className={`${CONTAINER} flex flex-col gap-8 md:gap-10`}>
+      <div className="flex flex-col items-center gap-4 text-center">
+        <h2 className={SECTION_TITLE}>Il nostro percorso</h2>
+        <p className={cn(SECTION_LEAD, "max-w-200 text-balance")}>
+          Da un semplice gruppo a una rete costruita dagli studenti, per gli studenti.
+        </p>
+      </div>
 
-      {/* Nodes on a line: vertical below lg, horizontal from lg (Figma) */}
-      <ol className="grid lg:grid-cols-4">
-        {milestones.map((milestone) => (
+      {/* Nodes on a line, as on /chi-siamo: down on phones, across from lg */}
+      <ol className="grid gap-10 lg:grid-cols-4 lg:gap-6">
+        {milestones.map((milestone, index) => (
           <li
             key={milestone.year}
-            className={cn(
-              "relative grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)] gap-x-5 pb-10 last:pb-0 lg:flex lg:flex-col lg:items-center lg:gap-4 lg:px-4 lg:pb-0 lg:text-center",
-              // Connector to the next node
-              "not-last:before:absolute not-last:before:top-16 not-last:before:bottom-2 not-last:before:left-7 not-last:before:w-px not-last:before:bg-blue-primary/30",
-              "lg:not-last:before:top-7 lg:not-last:before:bottom-auto lg:not-last:before:left-[calc(50%+2.25rem)] lg:not-last:before:h-px lg:not-last:before:w-[calc(100%-4.5rem)]"
-            )}
+            className="relative flex items-start gap-4 lg:flex-col lg:items-center lg:text-center"
           >
-            <IconTile icon={milestone.icon} className="row-span-2 size-14" />
-            <Link
-              href={milestone.href}
-              className="typo-headline-small w-fit self-center text-blue-secondary underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-none lg:self-auto"
-            >
-              {milestone.year}
-            </Link>
-            <p className="typo-body-medium col-start-2 mt-1 max-w-80 text-pretty lg:mt-0 lg:max-w-60">
-              {milestone.description}
-            </p>
+            {index < milestones.length - 1 && (
+              <span
+                aria-hidden
+                className={cn(
+                  LINE,
+                  "-bottom-10 absolute top-21 left-10 w-1 lg:top-10 lg:bottom-auto lg:left-[calc(50%+2.625rem)] lg:h-1 lg:w-[calc(100%-3.75rem)]"
+                )}
+              />
+            )}
+            <IconTile icon={milestone.icon} className="size-21" />
+            <div className="flex flex-col gap-2 pt-2 lg:pt-0">
+              <h3 className="typo-title-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+                {milestone.year}
+              </h3>
+              <p className="typo-body-medium max-w-80 text-pretty lg:max-w-60">{milestone.description}</p>
+            </div>
           </li>
         ))}
       </ol>
-
-      <div className="flex flex-col items-center gap-6 text-center">
-        <p className={cn(SECTION_LEAD, "max-w-145 text-balance")}>
-          Dieci anni di crescita, persone e progetti. La nostra storia{" "}
-          <span className="text-blue-secondary">continua, insieme a te.</span>
-        </p>
-        <Button asChild variant="primary" size="lg">
-          <Link href="#capitoli">
-            Leggi la nostra storia completa <FiArrowDown aria-hidden />
-          </Link>
-        </Button>
-      </div>
     </section>
   )
 }
 
-function Arrow({ className }: { className?: string }) {
-  return <FiArrowRight aria-hidden className={cn("size-4 shrink-0 text-blue-primary", className)} />
+/** The card beside each chapter: the same glass as the site's other cards. */
+function VisualCard({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <Glass
+      className={cn(
+        "flex w-full max-w-130 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-8",
+        className
+      )}
+    >
+      {children}
+    </Glass>
+  )
 }
 
-/** A left-to-right sequence of steps, joined by arrows. */
+/** A short line between two steps: the timelines use lines, never arrows. */
+function Joint({ className }: { className?: string }) {
+  return <span aria-hidden className={cn("h-1 w-4 shrink-0 sm:w-6", LINE, className)} />
+}
+
+/** A left-to-right sequence of steps, joined by lines. A step shows an icon or a figure, both on a glass tile. */
 function Steps({ items }: { items: { label: string; icon?: GradientIconType | string; value?: string }[] }) {
   return (
-    <ol className="flex w-full max-w-120 items-start">
+    <ol className="flex w-full items-start">
       {items.map((item, index) => (
         <li key={item.label} className="flex min-w-0 flex-1 items-start">
-          {index > 0 && <Arrow className="mt-5 sm:mt-6" />}
+          {index > 0 && <Joint className="mt-5.5 sm:mt-7" />}
           <div className="flex min-w-0 flex-1 flex-col items-center gap-2 px-1 text-center">
-            {item.icon && <IconTile icon={item.icon} className="size-11 sm:size-14" />}
-            {item.value && <span className="typo-headline-medium text-blue-secondary">{item.value}</span>}
-            {/* The columns are ~70px on phones: long words ("rappresentanti") ran into the next label. max-w-full keeps the
-                label inside its centered column, so the word can hyphenate or break */}
+            {item.icon ? (
+              <IconTile icon={item.icon} className="size-12 sm:size-15" />
+            ) : (
+              <Glass className="typo-title-large sm:typo-headline-small flex h-12 min-w-12 items-center justify-center rounded-rectangles border-white/50 bg-white/60 px-3 py-0 text-blue-secondary sm:h-15 sm:min-w-15">
+                {item.value}
+              </Glass>
+            )}
+            {/* The columns are ~70px on phones: long words ("rappresentanti") could run into the next label.
+                max-w-full keeps the label inside its centered column, so the word can hyphenate or break */}
             <span className="typo-body-small sm:typo-body-medium max-w-full hyphens-auto text-balance break-words">
               {item.label}
             </span>
@@ -103,10 +116,10 @@ function Steps({ items }: { items: { label: string; icon?: GradientIconType | st
   )
 }
 
-/** Two columns read as "before → after". */
+/** Two columns read as "before → after", split by a line. */
 function BeforeAfter({ before, after }: { before: { title: string; items: string[] }; after: typeof before }) {
   return (
-    <div className="grid w-full max-w-120 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-x-4 sm:gap-x-6">
+    <div className="grid w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-x-4 sm:gap-x-6">
       {[before, after].map((column, index) => (
         <div key={column.title} className={cn("flex min-w-0 flex-col gap-2", index === 1 && "col-start-3")}>
           <p className="typo-title-medium text-blue-secondary">{column.title}</p>
@@ -117,7 +130,7 @@ function BeforeAfter({ before, after }: { before: { title: string; items: string
           </ul>
         </div>
       ))}
-      <Arrow className="col-start-2 row-start-1 mt-1" />
+      <span aria-hidden className={cn("col-start-2 row-start-1 h-full w-1", LINE)} />
     </div>
   )
 }
@@ -151,14 +164,15 @@ const chapterVisuals: ReactNode[] = [
   <BeforeAfter
     key="team"
     before={{ title: "I primi dipartimenti", items: ["Eventi", "HR", "IT", "Social", "Gestione"] }}
-    after={{ title: "I team di oggi", items: ["Tech", "Design", "People", "Events", "Communication", "…"] }}
+    // The teams as they are named on /team
+    after={{ title: "I team di oggi", items: ["IT", "Design & Marketing", "HR", "Events & Partnership"] }}
   />,
   <BeforeAfter
     key="associazione"
     before={{ title: "Prima", items: ["Consiglio degli Admin", "Garanti", "Coordinamento"] }}
     after={{ title: "Dal 2022", items: ["Consiglio Direttivo", "Collegio dei Probiviri", "Statuto e regolamenti"] }}
   />,
-  <ul key="albo" className="grid w-full max-w-120 grid-cols-[auto_auto_minmax(0,1fr)] items-center gap-x-3 gap-y-3">
+  <ul key="albo" className="grid w-full grid-cols-[auto_auto_minmax(0,1fr)] items-center gap-x-3 gap-y-3">
     {[
       { title: "APS-ETS", status: "Riconosciuto dallo Stato", done: true },
       { title: "RUNTS", status: "Iscritta come ETS", done: true },
@@ -185,19 +199,26 @@ export function Chapters() {
           <li
             id={`capitolo-${index + 1}`}
             key={chapter.title}
-            // A single vertical rule runs between the numerals and the text, across every chapter (Figma)
-            className="relative grid scroll-mt-36 grid-cols-[3rem_minmax(0,1fr)] gap-x-6 pb-16 before:absolute before:inset-y-0 before:left-[calc(3rem+0.75rem)] before:w-px before:bg-blue-primary/30 last:pb-0 sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:gap-x-10 sm:pb-24 sm:before:left-[calc(3.5rem+1.25rem)] xl:grid-cols-[3.5rem_minmax(0,7fr)_minmax(0,5fr)] xl:gap-x-16 xl:before:left-[calc(3.5rem+2rem)]"
+            className="relative grid scroll-mt-36 grid-cols-[3.5rem_minmax(0,1fr)] gap-x-6 pb-16 last:pb-0 sm:gap-x-10 sm:pb-24 xl:grid-cols-[3.5rem_minmax(0,7fr)_minmax(0,5fr)] xl:gap-x-16"
           >
-            <span aria-hidden className="typo-display-small text-blue-secondary tabular-nums">
+            {/* The line runs down from this chapter's number to the next one's */}
+            {index < chapters.length - 1 && (
+              <span aria-hidden className={cn(LINE, "absolute top-16 bottom-2 left-[calc(1.75rem-2px)] w-1")} />
+            )}
+            {/* The chapter's number in a round glass badge, sitting on the line */}
+            <Glass
+              aria-hidden
+              className="typo-title-large flex size-14 items-center justify-center rounded-full border-white bg-white/70 p-0 text-blue-secondary tabular-nums"
+            >
               {String(index + 1).padStart(2, "0")}
-            </span>
-            <div className="flex min-w-0 flex-col gap-3">
+            </Glass>
+            <div className="flex min-w-0 flex-col gap-3 pt-2.5">
               <h2 className="typo-headline-medium lg:typo-display-small text-balance">{chapter.title}</h2>
               <p className={cn(SECTION_LEAD, "text-blue-secondary")}>{chapter.subtitle}</p>
               <p className={cn(SECTION_LEAD, "mt-2 max-w-170")}>{chapter.description}</p>
             </div>
             <div className="col-start-2 mt-10 flex min-w-0 xl:col-start-3 xl:mt-0 xl:items-center xl:justify-center">
-              {chapterVisuals[index]}
+              <VisualCard>{chapterVisuals[index]}</VisualCard>
             </div>
           </li>
         ))}

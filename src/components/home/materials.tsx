@@ -44,7 +44,7 @@ export function Materials() {
         "grid grid-cols-1 gap-y-6 py-20 sm:gap-y-8 sm:py-24 xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] xl:gap-x-16 xl:gap-y-10 xl:py-32"
       )}
     >
-      <h2 className="typo-display-fluid-extralarge bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-center text-transparent xl:col-start-2 xl:text-start">
+      <h2 className="typo-display-fluid-extralarge text-center text-gradient-grey xl:col-start-2 xl:text-start">
         Materiali
       </h2>
 

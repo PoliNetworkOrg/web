@@ -161,38 +161,38 @@ type FigmaScene = { desktop: FigmaFrame; mobile: FigmaFrame }
  */
 const FIGMA_SCENES: Record<string, FigmaScene> = {
   "/": { desktop: DESKTOP_FRAMES["/"], mobile: MOBILE_FRAMES["/"] },
-  "/projects": { desktop: DESKTOP_FRAMES["/projects"], mobile: MOBILE_FRAMES["/projects"] },
+  "/progetti": { desktop: DESKTOP_FRAMES["/progetti"], mobile: MOBILE_FRAMES["/progetti"] },
   "/chi-siamo": { desktop: DESKTOP_FRAMES["/chi-siamo"], mobile: MOBILE_FRAMES["/chi-siamo"] },
   // drawn on desktop only, after "Su di noi"
   "/storia": { desktop: withFooter(DESKTOP_FRAMES["/storia"], DESKTOP_FOOTER), mobile: MOBILE_FRAMES["/chi-siamo"] },
   "/ringraziamenti": { desktop: DESKTOP_FRAMES["/ringraziamenti"], mobile: MOBILE_FRAMES["/ringraziamenti"] },
-  "/about": { desktop: DESKTOP_FRAMES["/about"], mobile: MOBILE_FRAMES["/about"] },
+  "/struttura": { desktop: DESKTOP_FRAMES["/struttura"], mobile: MOBILE_FRAMES["/struttura"] },
   "/team": { desktop: DESKTOP_FRAMES["/team"], mobile: withFooter(MOBILE_FRAMES["/team"], MOBILE_FOOTER) },
-  "/join": { desktop: DESKTOP_FRAMES["/join"], mobile: MOBILE_FRAMES["/join"] },
+  "/unisciti": { desktop: DESKTOP_FRAMES["/unisciti"], mobile: MOBILE_FRAMES["/unisciti"] },
   "/collabora": { desktop: DESKTOP_FRAMES["/collabora"], mobile: MOBILE_FRAMES["/collabora"] },
-  "/contact": { desktop: DESKTOP_FRAMES["/contact"], mobile: MOBILE_FRAMES["/contact"] },
-  "/groups": { desktop: DESKTOP_FRAMES["/groups"], mobile: MOBILE_FRAMES["/groups"] },
+  "/contatti": { desktop: DESKTOP_FRAMES["/contatti"], mobile: MOBILE_FRAMES["/contatti"] },
+  "/gruppi": { desktop: DESKTOP_FRAMES["/gruppi"], mobile: MOBILE_FRAMES["/gruppi"] },
   "/matricole": { desktop: DESKTOP_FRAMES["/matricole"], mobile: MOBILE_FRAMES["/matricole"] },
   // a full-screen guide, with the background of the guides
-  "/matricole/guida": { desktop: DESKTOP_FRAMES["/guides"], mobile: withoutFooter(MOBILE_FRAMES["/guides"]) },
-  "/associations": { desktop: DESKTOP_FRAMES["/associations"], mobile: MOBILE_FRAMES["/associations"] },
-  "/guides": { desktop: withFooter(DESKTOP_FRAMES["/guides"], DESKTOP_FOOTER), mobile: MOBILE_FRAMES["/guides"] },
-  "/faqs": { desktop: DESKTOP_FRAMES["/faqs"], mobile: MOBILE_FRAMES["/faqs"] },
-  "/documents": {
-    desktop: withFooter(DESKTOP_FRAMES["/documents"], DESKTOP_FOOTER),
-    mobile: MOBILE_FRAMES["/documents"],
+  "/matricole/guida": { desktop: DESKTOP_FRAMES["/guide"], mobile: withoutFooter(MOBILE_FRAMES["/guide"]) },
+  "/associazioni": { desktop: DESKTOP_FRAMES["/associazioni"], mobile: MOBILE_FRAMES["/associazioni"] },
+  "/guide": { desktop: withFooter(DESKTOP_FRAMES["/guide"], DESKTOP_FOOTER), mobile: MOBILE_FRAMES["/guide"] },
+  "/faq": { desktop: DESKTOP_FRAMES["/faq"], mobile: MOBILE_FRAMES["/faq"] },
+  "/documenti": {
+    desktop: withFooter(DESKTOP_FRAMES["/documenti"], DESKTOP_FOOTER),
+    mobile: MOBILE_FRAMES["/documenti"],
   },
   // drawn on desktop only: on phones it keeps the background of the catalog
-  "/documents/view": {
-    desktop: DESKTOP_FRAMES["/documents/view"],
-    mobile: withoutFooter(MOBILE_FRAMES["/documents"]),
+  "/documenti/view": {
+    desktop: DESKTOP_FRAMES["/documenti/view"],
+    mobile: withoutFooter(MOBILE_FRAMES["/documenti"]),
   },
   // the route `useRoutePathname` gives the 404 page
   "/_not-found": { desktop: DESKTOP_FRAMES["not-found"], mobile: MOBILE_FRAMES["not-found"] },
 }
 
 /** Sections whose pages all have the background of their root */
-const FIGMA_SECTIONS = ["/groups", "/guides", "/documents/view"]
+const FIGMA_SECTIONS = ["/gruppi", "/guide", "/documenti/view"]
 
 const round = (n: number) => Number(n.toFixed(5))
 

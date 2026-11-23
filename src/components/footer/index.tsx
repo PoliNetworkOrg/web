@@ -122,7 +122,7 @@ export function Footer() {
             <div className="flex flex-col items-center gap-4 md:items-start">
               <h3 className={HEADING}>Sei interessato?</h3>
               <Button variant="primary" size="lg" className="mt-auto" asChild>
-                <Link href="/join">Unisciti a noi!</Link>
+                <Link href="/unisciti">Unisciti a noi!</Link>
               </Button>
             </div>
             <div className="flex flex-col items-center gap-4 md:items-start">

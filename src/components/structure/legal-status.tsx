@@ -1,9 +1,9 @@
+import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
 import { SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
-import { regulationsHref, statuteHref } from "@/lib/documents"
 import { cn } from "@/lib/utils"
 import { legalFacts } from "./constants"
 
@@ -24,24 +24,14 @@ export function LegalStatus() {
           </div>
         ))}
       </div>
-      <div className="flex flex-col items-center gap-6 text-center lg:col-start-1 lg:row-start-2 lg:items-start lg:self-start lg:text-start">
-        <h3 className="typo-headline-small text-balance bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
-          Consulta Statuto e Regolamenti
-        </h3>
-        <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
-          <Button asChild>
-            <a href={statuteHref} target="_blank" rel="noopener noreferrer">
-              Leggi lo statuto
-              <FiArrowUpRight aria-hidden />
-            </a>
-          </Button>
-          <Button asChild variant="tertiary">
-            <a href={regulationsHref} target="_blank" rel="noopener noreferrer">
-              Leggi i regolamenti
-              <FiArrowUpRight aria-hidden />
-            </a>
-          </Button>
-        </div>
+      {/* Statute, regulations and the rest live on the documents page: one way in */}
+      <div className="flex justify-center lg:col-start-1 lg:row-start-2 lg:justify-start lg:self-start">
+        <Button asChild size="lg">
+          <Link href="/documenti">
+            I nostri documenti
+            <FiArrowUpRight aria-hidden />
+          </Link>
+        </Button>
       </div>
     </Glass>
   )

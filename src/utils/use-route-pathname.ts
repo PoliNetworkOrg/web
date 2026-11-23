@@ -7,7 +7,7 @@ import { useSelectedLayoutSegments } from "next/navigation"
  *
  * Unlike `usePathname`, it comes from the route tree rather than the browser URL, so it is the same on the server and
  * during hydration. That matters for the 404: it is prerendered once for every missing URL, and reading the URL would
- * make, for example, `/groups/x` hydrate without the footer that the HTML has. There it is `/_not-found`,
+ * make, for example, `/gruppi/x` hydrate without the footer that the HTML has. There it is `/_not-found`,
  * which matches no section.
  *
  * Call it only from components rendered by the root layout: the segments are relative to the nearest layout.

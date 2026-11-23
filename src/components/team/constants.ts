@@ -7,7 +7,7 @@ import {
   FiEdit2,
   FiHeadphones,
   FiMonitor,
-  FiSave,
+  FiRepeat,
   FiSettings,
   FiShare2,
   FiSmartphone,
@@ -29,13 +29,12 @@ export const teams: Team[] = [
     id: "it",
     title: "Team IT",
     description:
-      "Il team IT riunisce sviluppatori frontend e backend, designer UI/UX e figure specializzate in DevOps e gestione dei database, che collaborano alla progettazione, allo sviluppo e alla manutenzione di tutti gli strumenti digitali di PoliNetwork.",
+      "Il team IT riunisce sviluppatori frontend e backend e figure specializzate in DevOps e automazione dei processi, che collaborano alla progettazione, allo sviluppo e alla manutenzione di tutti gli strumenti digitali di PoliNetwork.",
     roles: [
       { title: "Frontend Developers", icon: FiMonitor },
       { title: "Backend Developers", icon: FiCpu },
-      { title: "UX/UI Designers", icon: FiEdit2 },
       { title: "DevOps Engineers", icon: FiCloud },
-      { title: "Database Specialists", icon: FiSave },
+      { title: "Process Automation", icon: FiRepeat },
     ],
   },
   {

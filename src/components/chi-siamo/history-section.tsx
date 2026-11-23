@@ -14,7 +14,7 @@ const blocks = [
     title: "Come siamo organizzati",
     description: "Direttivo, team operativi, admin e soci. Guarda come funziona la macchina dall'interno.",
     cta: "La nostra struttura",
-    href: "/about",
+    href: "/struttura",
   },
 ] as const
 

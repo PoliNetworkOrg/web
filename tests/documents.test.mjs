@@ -24,7 +24,7 @@ registerHooks({
 })
 
 const { getDocumentCategories, findDocument } = await import("../src/queries/documents.ts")
-const { GET } = await import("../src/app/documents/file/[slug]/route.ts")
+const { GET } = await import("../src/app/documenti/file/[slug]/route.ts")
 const { getActiveCategory, getCategoryAnchor, getCategoryHeadingId, getPdfPixelRatio } = await import("../src/components/documents/utils.ts")
 const category = (slug = "statuto") => [{
   slug: "associazione", title: "Associazione", description: "Documenti ufficiali",
@@ -37,7 +37,7 @@ function backendReturns(catalog) {
 }
 
 function requestFile(slug, query = "") {
-  return GET(new Request(`https://example.org/documents/file/${slug}${query}`), { params: Promise.resolve({ slug }) })
+  return GET(new Request(`https://example.org/documenti/file/${slug}${query}`), { params: Promise.resolve({ slug }) })
 }
 
 test("publishing the first document preserves other fallback documents without duplicating the uploaded slug", async () => {
@@ -117,7 +117,7 @@ test("a client that disconnects cancels the upstream download", async (t) => {
     return new Response("%PDF")
   })
   const client = new AbortController()
-  await GET(new Request("https://example.org/documents/file/statuto", { signal: client.signal }), {
+  await GET(new Request("https://example.org/documenti/file/statuto", { signal: client.signal }), {
     params: Promise.resolve({ slug: "statuto" }),
   })
   client.abort()

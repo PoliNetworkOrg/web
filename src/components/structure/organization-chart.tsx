@@ -1,5 +1,5 @@
 import type { IconType } from "react-icons"
-import { FiArrowDown, FiArrowLeft, FiUsers } from "react-icons/fi"
+import { FiUsers } from "react-icons/fi"
 import { LuCrown, LuShield, LuShieldCheck, LuUserCog, LuUsersRound } from "react-icons/lu"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
@@ -8,174 +8,133 @@ import { cn } from "@/lib/utils"
 import { teamLeads } from "./constants"
 
 const teamNames = new Intl.ListFormat("it").format(teamLeads.map((lead) => lead.title.replace("Team lead ", "")))
-const CHART_LABEL = `Il Direttivo coordina i Capi admin e il Team Growth. I Capi admin coordinano gli Admin. Il Team Growth coordina i team lead ${teamNames}, con i rispettivi membri.`
+const CHART_LABEL = `Il Direttivo coordina i Capi admin e i Team. I Capi admin coordinano gli Admin. I Team sono guidati dai team lead ${teamNames}, con i rispettivi membri.`
 
 // Nodes are not links, so they have no hover state
-const tileClassName = "rounded-rectangles border-white/50 bg-background-blur text-text-primary"
+const TILE = "rounded-rectangles border-white/50 bg-background-blur text-text-primary"
+/** The chart's lines: 4px and rounded in the site's light blue, like the timelines. No arrows */
+const LINE = "rounded-full bg-blue-primary/25"
 
-/** `fill` stretches the node to its column instead of sizing it by its label. */
-function Node({ icon, label, fill = false }: { icon: IconType; label: string; fill?: boolean }) {
+/**
+ * Every node of the chart: the same size, icon and title whatever its level. Only Membri Team, which gathers the
+ * members of all four teams, is wider.
+ */
+function Node({ icon, label, className }: { icon: IconType; label: string; className?: string }) {
   return (
     <Glass
       className={cn(
-        tileClassName,
-        "flex flex-col items-center gap-2 py-4 lg:gap-3 lg:py-5",
-        fill ? "w-full min-w-0 px-2 lg:px-3" : "min-w-32 px-5 lg:min-w-44 lg:px-6"
+        TILE,
+        "flex h-36 w-full min-w-0 flex-col items-center justify-center gap-3 px-3 py-4 text-center",
+        className
       )}
     >
-      <GradientIcon icon={icon} className="size-8 shrink-0 lg:size-12" />
-      <span className="typo-headline-extrasmall lg:typo-headline-medium text-balance text-center">{label}</span>
+      <GradientIcon icon={icon} className="size-9 shrink-0" />
+      <span className="typo-title-medium text-balance">{label}</span>
     </Glass>
   )
 }
 
-function LeadNode({ icon, label }: { icon: IconType; label: string }) {
-  return (
-    <Glass
-      className={cn(tileClassName, "flex h-full flex-col items-center justify-center gap-2 px-2 py-3 text-center")}
-    >
-      <GradientIcon icon={icon} className="size-6 shrink-0 xl:size-8" />
-      <span className="typo-label-large xl:typo-title-medium text-balance">{label}</span>
-    </Glass>
-  )
+function VLine({ className }: { className?: string }) {
+  return <span aria-hidden className={cn("mx-auto block h-6 w-1", LINE, className)} />
 }
 
-function Arrow({ className }: { className?: string }) {
-  return <FiArrowDown aria-hidden className={cn("size-5 text-text-secondary", className)} />
-}
-
-/** Horizontal rail and arrow above one child of a branch: the rail runs from the first child's center to the last's. */
-function BranchArrow({ position }: { position: "first" | "middle" | "last" | "only" }) {
-  return (
-    <div aria-hidden className="relative flex h-7 justify-center">
-      {position !== "only" && (
-        <span
-          className={cn(
-            "absolute top-0 h-px bg-text-secondary",
-            position === "first" && "right-0 left-1/2",
-            position === "middle" && "inset-x-0",
-            position === "last" && "right-1/2 left-0"
-          )}
-        />
-      )}
-      <Arrow />
-    </div>
-  )
-}
-
-function branchPosition(index: number, count: number) {
-  if (count === 1) return "only"
-  if (index === 0) return "first"
-  return index === count - 1 ? "last" : "middle"
-}
-
-function Stem() {
-  return <span aria-hidden className="mx-auto block h-5 w-px bg-text-secondary" />
-}
-
+/**
+ * From xl, the tree laid out in rem, so the rails meet the centers of the nodes exactly: an 11rem column for the
+ * admins, a 4rem gap, then the four team leads (11rem each, 1.5rem apart) under Team.
+ */
 function DesktopChart() {
   return (
-    <div className="hidden w-full flex-col items-center lg:flex">
-      <Node icon={LuCrown} label="Direttivo" />
-      <Stem />
-      <div className="grid w-full grid-cols-6">
-        {/* Rail from the center of the admin column (1/12) to the center of the Team Growth columns (7/12) */}
-        <div aria-hidden className="relative col-span-6 h-7">
-          <span className="absolute top-0 right-[41.667%] left-[8.333%] h-px bg-text-secondary" />
-          <Arrow className="-translate-x-1/2 absolute top-0 left-[8.333%]" />
-          <Arrow className="-translate-x-1/2 absolute top-0 left-[58.333%]" />
+    <div className="hidden flex-col items-center xl:flex">
+      <div className="w-44">
+        <Node icon={LuCrown} label="Direttivo" />
+      </div>
+      <VLine />
+      {/* Rail from the admins' column center (5.5rem) to Team's (11 + 4 + 24.25 = 39.25rem) */}
+      <div aria-hidden className="relative h-1 w-[63.5rem]">
+        <span className={cn(LINE, "absolute inset-y-0 left-[calc(5.5rem-2px)] w-[calc(33.75rem+4px)]")} />
+      </div>
+      <div className="flex w-[63.5rem] items-start gap-16">
+        <div className="flex w-44 shrink-0 flex-col items-center">
+          <VLine />
+          <Node icon={LuShieldCheck} label="Capi admin" />
+          <VLine />
+          <Node icon={LuShield} label="Admin" />
         </div>
-        <div className="flex min-w-0 flex-col items-center px-2">
-          <Node icon={LuShieldCheck} label="Capi admin" fill />
-          <BranchArrow position="only" />
-          <Node icon={LuShield} label="Admin" fill />
-        </div>
-        <div className="col-span-5 flex min-w-0 flex-col items-center">
-          <Node icon={LuUserCog} label="Team Growth" />
-          <Stem />
-          <ul className="grid w-full grid-cols-4">
-            {teamLeads.map((lead, index) => (
-              <li key={lead.title} className="flex min-w-0 flex-col">
-                <BranchArrow position={branchPosition(index, teamLeads.length)} />
-                <div className="flex flex-1 flex-col px-2">
-                  <LeadNode icon={lead.icon} label={lead.title} />
-                </div>
-                <BranchArrow position="only" />
+        <div className="flex w-[48.5rem] flex-col items-center">
+          <VLine />
+          <div className="w-44">
+            <Node icon={LuUserCog} label="Team" />
+          </div>
+          <VLine />
+          {/* Rail over the four team leads, from the first one's center to the last one's */}
+          <div aria-hidden className="relative h-1 w-full">
+            <span className={cn(LINE, "absolute inset-y-0 right-[calc(5.5rem-2px)] left-[calc(5.5rem-2px)]")} />
+          </div>
+          <ul className="grid w-full grid-cols-4 gap-6">
+            {teamLeads.map((lead) => (
+              <li key={lead.title} className="flex flex-col items-center">
+                <VLine />
+                <Node icon={lead.icon} label={lead.title} />
+                <VLine />
               </li>
             ))}
           </ul>
-          <div className="w-full px-2">
-            <Glass className={cn(tileClassName, "flex items-center justify-center gap-3 px-4 py-3")}>
-              <GradientIcon icon={LuUsersRound} className="size-8 shrink-0" />
-              <span className="typo-headline-small">Membri Team</span>
-            </Glass>
+          <div aria-hidden className="relative h-1 w-full">
+            <span className={cn(LINE, "absolute inset-y-0 right-[calc(5.5rem-2px)] left-[calc(5.5rem-2px)]")} />
           </div>
+          <VLine />
+          <Node icon={LuUsersRound} label="Membri Team" className="h-auto flex-row py-5" />
         </div>
       </div>
     </div>
   )
 }
 
-/** Figma mobile "Sezione organigramma": two columns, team leads hanging off a vertical rail, Membri Team balancing the admin column. */
+/**
+ * Below xl, two columns: the admins on the left, Team on the right with its four leads hanging off a line beside them,
+ * then Membri Team across both columns, reached by a line from the leads.
+ */
 function MobileChart() {
   return (
-    <div className="mx-auto flex w-full max-w-xl flex-col items-center lg:hidden">
-      <Node icon={LuCrown} label="Direttivo" />
-      <Stem />
+    <div className="mx-auto flex w-full max-w-xl flex-col items-center xl:hidden">
+      <div className="w-[calc(50%-0.5rem)]">
+        <Node icon={LuCrown} label="Direttivo" />
+      </div>
+      <VLine />
+      {/* Rail between the two columns' centers */}
+      <div aria-hidden className="relative h-1 w-full">
+        <span className={cn(LINE, "absolute inset-y-0 right-[calc(25%-0.25rem-2px)] left-[calc(25%-0.25rem-2px)]")} />
+      </div>
       <div className="grid w-full grid-cols-2 gap-x-4">
-        <div aria-hidden className="relative col-span-2 h-7">
-          <span className="absolute top-0 right-1/4 left-1/4 h-px bg-text-secondary" />
-          <Arrow className="-translate-x-1/2 absolute top-0 left-1/4" />
-          <Arrow className="-translate-x-1/2 absolute top-0 left-3/4" />
-        </div>
         <div className="flex min-w-0 flex-col items-center">
-          <Node icon={LuShieldCheck} label="Capi admin" fill />
-          <BranchArrow position="only" />
-          <Node icon={LuShield} label="Admin" fill />
-          <div className="relative mt-auto w-full pt-6">
-            <Node icon={LuUsersRound} label="Membri Team" fill />
-            {/* Arrow from the team leads' rail, across the column gap */}
-            <span
-              aria-hidden
-              className="-translate-y-1/2 absolute top-[calc(50%+0.75rem)] left-full flex w-6 items-center sm:w-7"
-            >
-              <FiArrowLeft className="-ml-1 size-4 shrink-0 text-text-secondary" />
-              <span className="h-px flex-1 bg-text-secondary" />
-            </span>
-          </div>
+          <VLine />
+          <Node icon={LuShieldCheck} label="Capi admin" />
+          <VLine />
+          <Node icon={LuShield} label="Admin" />
         </div>
-        <div className="flex min-w-0 flex-col items-center">
-          <Node icon={LuUserCog} label="Team Growth" fill />
-          {/* Down from the node, then left to the rail the team leads hang from */}
-          <div aria-hidden className="relative h-5 w-full">
-            <span className="absolute inset-y-0 left-1/2 w-px bg-text-secondary" />
-            <span className="absolute right-1/2 bottom-0 left-2 h-px bg-text-secondary sm:left-3" />
-          </div>
-          <ul className="ml-2 flex w-[calc(100%-0.5rem)] flex-col gap-2 border-text-secondary border-l py-2 sm:ml-3 sm:w-[calc(100%-0.75rem)]">
+        <div className="relative flex min-w-0 flex-col items-center">
+          <VLine />
+          <Node icon={LuUserCog} label="Team" />
+          <VLine />
+          {/* The leads hang off a line down their left side: across from under Team, then down past the last of
+              them to Membri Team */}
+          <ul className="relative flex w-full flex-col gap-3 pt-4 pl-5">
+            <span aria-hidden className={cn(LINE, "absolute top-0 left-0 h-1 w-[calc(50%+2px)]")} />
+            <span aria-hidden className={cn(LINE, "absolute top-0 bottom-0 left-0 w-1")} />
             {teamLeads.map((lead) => (
-              <li key={lead.title} className="flex items-center">
-                <span aria-hidden className="h-px w-2 shrink-0 bg-text-secondary sm:w-3" />
-                <Glass
-                  className={cn(tileClassName, "flex min-w-0 flex-1 items-center gap-1.5 px-2 py-2.5 sm:gap-2 sm:px-3")}
-                >
-                  <GradientIcon icon={lead.icon} className="size-4 shrink-0 sm:size-5" />
-                  <span className="typo-label-medium sm:typo-label-large min-w-0">{lead.title}</span>
-                </Glass>
+              <li key={lead.title} className="relative min-w-0">
+                <span aria-hidden className={cn(LINE, "-translate-y-1/2 absolute top-1/2 right-full h-1 w-5")} />
+                <Node icon={lead.icon} label={lead.title} />
               </li>
             ))}
           </ul>
         </div>
       </div>
-    </div>
-  )
-}
-
-/** The organisation diagram, shared by /about and /storia. */
-export function OrganizationDiagram({ id, className }: { id?: string; className?: string }) {
-  return (
-    <div id={id} role="img" aria-label={CHART_LABEL} className={cn("w-full", className)}>
-      <DesktopChart />
-      <MobileChart />
+      {/* The leads' line, carried on down to Membri Team: it runs along the right column's left edge */}
+      <div aria-hidden className="w-full pl-[calc(50%+0.5rem)]">
+        <span className={cn(LINE, "block h-6 w-1")} />
+      </div>
+      <Node icon={LuUsersRound} label="Membri Team" className="h-auto flex-row py-5" />
     </div>
   )
 }
@@ -183,23 +142,28 @@ export function OrganizationDiagram({ id, className }: { id?: string; className?
 export function OrganizationChart() {
   return (
     <section aria-label="Organigramma di PoliNetwork" className={cn(CONTAINER, "flex flex-col gap-10")}>
-      <div className="mx-auto flex w-full max-w-280 flex-col gap-10">
-        <OrganizationDiagram />
-        <Glass className={cn(tileClassName, "flex flex-col gap-3 p-6 md:flex-row md:items-start md:gap-6")}>
-          <GradientIcon icon={FiUsers} className="hidden size-12 shrink-0 md:block" />
-          <div className="flex min-w-0 flex-1 flex-col gap-2">
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-              <h3 className="typo-headline-small flex items-center gap-3">
-                <GradientIcon icon={FiUsers} className="size-8 shrink-0 md:hidden" />
-                Soci
-              </h3>
-              <span className="typo-label-medium rounded-buttonsM bg-blue-tertiary-blur px-3 py-1 text-blue-secondary">
-                Ruolo trasversale
-              </span>
-            </div>
+      <div className="mx-auto flex w-full max-w-280 flex-col items-center gap-10">
+        <div role="img" aria-label={CHART_LABEL} className="w-full">
+          <DesktopChart />
+          <MobileChart />
+        </div>
+
+        {/* The members: not a level of the chart but a condition that goes with any role */}
+        <Glass
+          className={cn(
+            TILE,
+            "flex w-full max-w-[63.5rem] flex-col items-center gap-5 p-6 text-center sm:flex-row sm:items-center sm:gap-8 sm:p-8 sm:text-start"
+          )}
+        >
+          <Glass className="flex size-20 shrink-0 items-center justify-center rounded-full border-white bg-white/70 p-0">
+            <GradientIcon icon={FiUsers} className="size-10" />
+          </Glass>
+          <div className="flex min-w-0 flex-col gap-2">
+            <h3 className="typo-headline-small">Soci</h3>
             <p className="typo-body-large text-pretty">
-              Essere socio è una condizione trasversale, compatibile con qualsiasi ruolo all’interno di PoliNetwork.
-              Ogni persona può ricoprire più ruoli contemporaneamente.
+              Essere socio è <span className="text-blue-secondary">compatibile con qualsiasi ruolo</span> all’interno di
+              PoliNetwork, e ogni persona può ricoprire{" "}
+              <span className="text-blue-secondary">più ruoli contemporaneamente</span>.
             </p>
           </div>
         </Glass>
