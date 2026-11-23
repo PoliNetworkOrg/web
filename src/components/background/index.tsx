@@ -41,29 +41,11 @@ export function Background() {
   return <Scene key={key} pathname={key} footer={hasFooter(pathname)} />
 }
 
-/** Consecutive shapes clipped to the same region of the page */
-type Group = { clip?: string; shapes: SceneShape[] }
-
-/** Groups the shapes by the region that clips them, keeping their order within each group */
-function groupByClip(shapes: SceneShape[]): Group[] {
-  const groups = new Map<string | undefined, Group>()
-  for (const shape of shapes) {
-    const group = groups.get(shape.clip) ?? { clip: shape.clip, shapes: [] }
-    group.shapes.push(shape)
-    groups.set(shape.clip, group)
-  }
-  return [...groups.values()]
-}
-
 function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const [segments, setSegments] = useState(INITIAL_SEGMENTS)
   // Pages composed in Figma keep their layout; the others get a generated segment per screen of page
-  const groups = groupByClip(
-    figmaScene(pathname) ?? Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat()
-  )
-  // the order the shapes are rendered in, which `animateScene` relies on
-  const shapes = groups.flatMap((group) => group.shapes)
+  const shapes = figmaScene(pathname) ?? Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat()
   const shapesRef = useRef(shapes)
   const [fadeIn] = useState(() => session.navigated)
 
@@ -114,12 +96,8 @@ function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
         fadeIn && "animate-fade-in [animation-duration:0.6s]"
       )}
     >
-      {groups.map((group) => (
-        <div key={group.clip ?? "none"} className="absolute inset-0" style={{ clipPath: group.clip }}>
-          {group.shapes.map((shape) => (
-            <SceneItem key={shape.id} shape={shape} />
-          ))}
-        </div>
+      {shapes.map((shape) => (
+        <SceneItem key={shape.id} shape={shape} />
       ))}
     </div>
   )
@@ -128,7 +106,6 @@ function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
 function SceneItem({ shape }: { shape: SceneShape }) {
   return (
     <div
-      data-shape
       className={cn(
         "absolute",
         shape.layout === "mobile" && "md:hidden",

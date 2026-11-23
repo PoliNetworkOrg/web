@@ -17,8 +17,6 @@ export type SceneShape = {
   variant: ShapeVariant
   /** The layout box, as CSS lengths relative to the scene (see `.shape-scene` for the custom properties) */
   box: { left: string; top: string; width: string; height: string }
-  /** The region of the page the shape is visible in, a `clip-path`: the footer clips its shapes, and the shapes clipped above it */
-  clip?: string
   /** Shown only on phones (below md) or only from md: pages composed in Figma have a frame for each */
   layout?: "mobile" | "desktop"
   /** The image to draw a blob with, when it isn't the default one (see `blobImage`) */
@@ -144,10 +142,7 @@ function withFooter(frame: FigmaFrame, footer: FigmaFrame): FigmaFrame {
     footer: frame.height,
     shapes: [
       ...frame.shapes,
-      ...footer.shapes.map(([variant, x, y, w, h, rotate, top = 0, bottom = footer.height]) => {
-        const shape: FigmaShape = [variant, x, below(y), w, h, rotate, below(top), below(bottom)]
-        return shape
-      }),
+      ...footer.shapes.map(([variant, x, y, w, h, rotate]): FigmaShape => [variant, x, below(y), w, h, rotate]),
     ],
   }
 }
@@ -214,16 +209,11 @@ function pageY(y: number, { height, footer }: FigmaFrame) {
 /** The shapes of a Figma frame, placed on the page and sized like the frame (as wide as the screen) */
 function frameShapes(frame: FigmaFrame, layout: "desktop" | "mobile", rand: () => number): SceneShape[] {
   const px = (value: number) => `${round(value / frame.width)} * 100cqw`
-  return frame.shapes.map(([variant, x, y, w, h, rotate, clipTop = 0, clipBottom = frame.height], i) => {
+  return frame.shapes.map(([variant, x, y, w, h, rotate], i) => {
     const looper = variant === "looper"
     // the layer blur keeps its 100px of bleed however the blob is resized
     const width = looper ? w : w + 2 * BLOB_BLEED
     const height = looper ? h : h + 2 * BLOB_BLEED
-    // Only the footer's edge is kept: the sections of the page are laid out unlike their Figma frames, so clipping
-    // the blobs to those frames would cut them with hard edges in the middle of the page
-    const footer = `calc(${pageY(frame.footer, frame)})`
-    const top = clipTop > 0 && clipTop >= frame.footer ? footer : "0"
-    const bottom = clipBottom < frame.height && clipBottom <= frame.footer ? `calc(100% - ${footer})` : "0"
 
     return {
       id: `figma-${layout}-${i}`,
@@ -235,7 +225,6 @@ function frameShapes(frame: FigmaFrame, layout: "desktop" | "mobile", rand: () =
         width: `calc(${px(width)})`,
         height: `calc(${px(height)})`,
       },
-      clip: top === "0" && bottom === "0" ? undefined : `inset(${top} 0 ${bottom} 0)`,
       image: looper ? undefined : blobImage(variant, Math.sqrt(w * h)),
       rotate,
       stretch: looper ? round(h / (w * LOOPER_ASPECT)) : undefined,
