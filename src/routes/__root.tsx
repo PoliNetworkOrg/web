@@ -74,13 +74,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body className="overflow-y-scroll">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false} // TODO: enable when dark mode design is ready
-          // storageKey="polinetwork_darkmode_temp" // TODO: enable when dark mode design is ready
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {/* Outside the page wrapper: inside it, Chromium did not blur the content behind the fixed header's glass */}
           <Header />
           <div className="relative isolate flex min-h-screen w-full flex-col items-center justify-start overflow-clip">

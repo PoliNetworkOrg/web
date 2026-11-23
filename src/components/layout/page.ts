@@ -29,4 +29,4 @@ export const SECTION_STACK = `${CONTAINER} flex flex-col gap-10 md:gap-14`
 
 /** Placeholder for a list with nothing to show yet: dashed, so it reads as "empty" rather than as a card. */
 export const EMPTY_STATE =
-  "typo-body-large wrap-anywhere rounded-rectangles border border-slate-300 border-dashed px-6 py-10 text-center text-slate-600"
+  "typo-body-large wrap-anywhere rounded-rectangles border border-grey border-dashed px-6 py-10 text-center text-text-muted"

@@ -42,7 +42,7 @@ export function InfoCard({
     // Glass draws a 1px border inside the Figma box: padding is 1px less than in Figma (25px / 40px)
     <Glass
       className={cn(
-        "rounded-rectangles border-white/50 bg-background-blur p-6 md:p-9.75",
+        "rounded-rectangles border-edge/50 bg-background-blur p-6 md:p-9.75",
         href &&
           "group/card relative overflow-hidden has-[>a:focus-visible]:ring-2 has-[>a:focus-visible]:ring-blue-secondary",
         className
@@ -53,7 +53,7 @@ export function InfoCard({
       {/* Positioned so the text stays above the hover background */}
       <div className="relative flex items-center md:flex-col md:items-start">
         <div className="flex shrink-0 md:h-17.25 md:items-start">
-          <Image src={icon} alt="" className={iconClassName} />
+          <Image src={icon} alt="" className={cn("image-icon", iconClassName)} />
         </div>
         {/* On the narrowest phones an email title may not fit: let it wrap after the "@" */}
         <h3

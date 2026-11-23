@@ -9,7 +9,7 @@ export function CardMultipleIcons({ icons, className }: CardMultipleIconsProps) 
     // A plain light surface, not glass: it sits on the footer's glass panel
     <div
       className={cn(
-        "inline-flex max-w-full items-center overflow-hidden rounded-full border border-white/70 bg-white/40 text-card-foreground",
+        "inline-flex max-w-full items-center overflow-hidden rounded-full border border-edge/70 bg-surface/40 text-card-foreground",
         className
       )}
     >

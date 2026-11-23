@@ -62,7 +62,8 @@ export function Looper({ className, style }: { className?: string; style?: CSSPr
             height: percent(LINE.height / VIEW.height),
             backgroundImage: `url(${line.src})`,
             backgroundSize: "100% 100%",
-            opacity: (i + 1) / PIVOTS.length,
+            // dimmed by the theme, see background.css
+            opacity: `calc(${(i + 1) / PIVOTS.length} * var(--looper-opacity, 1))`,
             transformOrigin: `${percent((x - LINE.x) / LINE.width)} ${percent((y - LINE.y) / LINE.height)}`,
             transform: `rotate(${lineAngle(i, 0)}deg)`,
           }}

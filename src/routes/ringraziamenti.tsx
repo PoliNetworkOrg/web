@@ -27,8 +27,8 @@ export const Route = createFileRoute("/ringraziamenti")({
 
 const sectionTitle = cn(SECTION_TITLE, "text-center sm:text-start")
 const sectionLead = cn(SECTION_LEAD, "text-center max-sm:mx-auto sm:text-start")
-const glassPanel = "rounded-rectangles border-white/50 bg-background-blur p-6 min-[400px]:p-10"
-const accent = "text-blue-secondary dark:text-sky-300"
+const glassPanel = "rounded-rectangles border-edge/50 bg-background-blur p-6 min-[400px]:p-10"
+const accent = "text-blue-secondary"
 
 const photoShapes: PhotoShapesLayout = {
   width: 663,
@@ -63,7 +63,7 @@ function CreditList({ credits, className }: { credits: readonly Credit[]; classN
   return (
     <ul className={cn("grid list-disc gap-x-6 gap-y-4 pl-4", className)}>
       {credits.map(({ id, name, detail }) => (
-        <li key={id} className="min-w-0 pl-0.5 marker:text-blue-secondary dark:marker:text-sky-300">
+        <li key={id} className="min-w-0 pl-0.5 marker:text-blue-secondary">
           <span className="typo-title-medium wrap-break-word block">{name}</span>
           {detail && (
             <span className={cn("typo-label-medium wrap-break-word mt-0.5 block uppercase", accent)}>{detail}</span>

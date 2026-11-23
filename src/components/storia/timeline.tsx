@@ -15,7 +15,7 @@ function IconTile({ icon, className }: { icon: GradientIconType | string; classN
     <Glass
       aria-hidden
       className={cn(
-        "flex shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0",
+        "flex shrink-0 items-center justify-center rounded-rectangles border-edge/50 bg-background-blur p-0",
         className
       )}
     >
@@ -75,7 +75,7 @@ function VisualCard({ children, className }: { children: ReactNode; className?: 
   return (
     <Glass
       className={cn(
-        "flex w-full max-w-130 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-8",
+        "flex w-full max-w-130 items-center justify-center rounded-rectangles border-edge/50 bg-background-blur p-6 sm:p-8",
         className
       )}
     >
@@ -105,7 +105,7 @@ function Steps({ items }: { items: { label: string; icon?: GradientIconType | st
           {item.icon ? (
             <IconTile icon={item.icon} className="size-14 sm:size-15" />
           ) : (
-            <Glass className="typo-title-large sm:typo-headline-small flex size-14 shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-white/60 px-3 py-0 text-blue-secondary sm:h-15 sm:w-auto sm:min-w-15">
+            <Glass className="typo-title-large sm:typo-headline-small flex size-14 shrink-0 items-center justify-center rounded-rectangles border-edge/50 bg-surface/60 px-3 py-0 text-blue-secondary sm:h-15 sm:w-auto sm:min-w-15">
               {item.value}
             </Glass>
           )}
@@ -211,7 +211,7 @@ export function Chapters() {
             {/* The chapter's number in a round glass badge, sitting on the line */}
             <Glass
               aria-hidden
-              className="typo-title-large flex size-14 items-center justify-center rounded-full border-white bg-white/70 p-0 text-blue-secondary tabular-nums"
+              className="typo-title-large flex size-14 items-center justify-center rounded-full border-edge bg-surface/70 p-0 text-blue-secondary tabular-nums"
             >
               {String(index + 1).padStart(2, "0")}
             </Glass>

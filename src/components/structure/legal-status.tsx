@@ -8,7 +8,7 @@ import { legalFacts } from "./constants"
 
 export function LegalStatus() {
   return (
-    <Glass className="grid gap-8 rounded-rectangles border-white/50 p-6 lg:grid-cols-2 lg:gap-16 lg:p-10">
+    <Glass className="grid gap-8 rounded-rectangles border-edge/50 p-6 lg:grid-cols-2 lg:gap-16 lg:p-10">
       {/* The title, a word on what the documents are, then the way to them: the button follows from the text */}
       <div className="flex min-w-0 flex-col items-center gap-6 text-center lg:items-start lg:text-start">
         <h2 className={SECTION_TITLE}>Forma giuridica</h2>

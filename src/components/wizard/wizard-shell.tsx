@@ -37,7 +37,7 @@ export function WizardShell({
           variant="glass"
           icon={FiArrowLeft}
           iconClassName="size-5"
-          className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
+          className="md:rounded-full md:bg-surface/60 md:backdrop-blur-none"
           aria-label="Indietro"
           onClick={() => (backHref ? router.navigate({ href: backHref, replace: true }) : router.history.back())}
         />
@@ -52,7 +52,7 @@ export function WizardShell({
                 // Below 340px "MAGISTRALE" is wider than its column at 12px: 11px without tracking still fits
                 "max-[339px]:typo-label-small max-[339px]:tracking-normal",
                 index === 1 ? "min-w-0 flex-1" : "shrink-0 whitespace-nowrap md:whitespace-normal",
-                index <= activeStep ? "border-blue-primary text-blue-primary" : "border-white/40 text-text-secondary"
+                index <= activeStep ? "border-blue-primary text-blue-primary" : "border-edge/40 text-text-secondary"
               )}
             >
               {label}
@@ -64,7 +64,7 @@ export function WizardShell({
           variant="glass"
           icon={FiX}
           iconClassName="size-5"
-          className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
+          className="md:rounded-full md:bg-surface/60 md:backdrop-blur-none"
           aria-label="Chiudi"
           onClick={() => router.navigate({ href: closeHref })}
         />

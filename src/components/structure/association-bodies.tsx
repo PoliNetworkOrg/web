@@ -20,7 +20,7 @@ export function AssociationBodies() {
       </Accordion>
       <div className="hidden gap-6 md:grid md:grid-cols-2">
         {associationBodies.map((body) => (
-          <Card key={body.id} className="h-auto w-full gap-6 border-white/50 p-6">
+          <Card key={body.id} className="h-auto w-full gap-6 border-edge/50 p-6">
             <CardHeader>
               <CardTitle gradient={false} className="typo-headline-medium text-balance">
                 {body.title}

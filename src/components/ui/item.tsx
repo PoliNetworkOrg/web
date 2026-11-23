@@ -6,7 +6,7 @@ function Item({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <Glass
       data-slot="item"
-      className={cn("rounded-4xl border-white/50 bg-background-blur p-0 text-card-foreground", className)}
+      className={cn("rounded-4xl border-edge/50 bg-background-blur p-0 text-card-foreground", className)}
       {...props}
     />
   )

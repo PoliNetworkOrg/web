@@ -20,7 +20,7 @@ export function useActivationToast() {
             key={announcement}
             aria-live="polite"
             aria-atomic="true"
-            className="typo-body-medium pointer-events-none fixed right-4 bottom-4 z-100 flex max-w-[calc(100vw-2rem)] animate-content-enter items-center gap-3 rounded-2xl border border-white/70 bg-background/95 px-5 py-4 text-text-primary shadow-lg backdrop-blur-md sm:right-6 sm:bottom-6"
+            className="typo-body-medium pointer-events-none fixed right-4 bottom-4 z-100 flex max-w-[calc(100vw-2rem)] animate-content-enter items-center gap-3 rounded-2xl border border-edge/70 bg-background/95 px-5 py-4 text-text-primary shadow-lg backdrop-blur-md sm:right-6 sm:bottom-6"
           >
             <FiInfo aria-hidden className="size-5 shrink-0 text-blue-secondary" />
             In attivazione

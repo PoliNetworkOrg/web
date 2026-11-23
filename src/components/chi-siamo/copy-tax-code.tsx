@@ -30,17 +30,17 @@ export function CopyTaxCode({ value, className }: { value: string; className?: s
         type="button"
         onClick={copy}
         className={cn(
-          "group hover:glass-glow flex w-full flex-col items-start gap-4 rounded-buttonsM border border-white/70 bg-white/60 px-6 py-4 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-secondary sm:flex-row sm:items-center sm:justify-between sm:px-8",
+          "group hover:glass-glow flex w-full flex-col items-start gap-4 rounded-buttonsM border border-edge/70 bg-surface/60 px-6 py-4 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-secondary sm:flex-row sm:items-center sm:justify-between sm:px-8",
           className
         )}
       >
         <span className="flex min-w-0 flex-col gap-0.5">
-          <span className="typo-label-medium text-slate-600">Codice fiscale</span>
+          <span className="typo-label-medium text-text-muted">Codice fiscale</span>
           <span className="typo-headline-small sm:typo-headline-medium select-all text-blue-secondary tabular-nums tracking-wider">
             {value}
           </span>
         </span>
-        <span className="typo-label-large flex shrink-0 items-center gap-1.5 text-slate-600 group-hover:text-text-primary">
+        <span className="typo-label-large flex shrink-0 items-center gap-1.5 text-text-muted group-hover:text-text-primary">
           {copied ? (
             <FiCheck aria-hidden className="size-5 text-blue-secondary" />
           ) : (
@@ -49,7 +49,7 @@ export function CopyTaxCode({ value, className }: { value: string; className?: s
           <span aria-live="polite">{copied ? "Copiato" : "Copia"}</span>
         </span>
       </button>
-      <output className={cn("typo-body-small block text-slate-600", failed && "mt-2")}>
+      <output className={cn("typo-body-small block text-text-muted", failed && "mt-2")}>
         {failed ? "Copia non riuscita. Seleziona il codice fiscale e copialo manualmente." : ""}
       </output>
     </div>

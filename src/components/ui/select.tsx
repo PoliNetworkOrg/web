@@ -39,7 +39,7 @@ function SelectTrigger({
         "press-feedback group inline-flex items-center justify-center gap-1.5 backdrop-blur-md",
         paddingClass,
         "rounded-buttonsM",
-        "hover:glass-glow border border-white/50 bg-background-blur hover:border-white data-[state=open]:bg-white/70",
+        "hover:glass-glow border border-edge/50 bg-background-blur hover:border-edge data-[state=open]:bg-surface/70",
         "outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
         "typo-body-medium text-text-primary",
         "disabled:cursor-not-allowed disabled:opacity-50",
@@ -72,7 +72,7 @@ function SelectContent({
           "animate-popover motion-safe:data-[side=top]:[--enter-offset:4px]",
           "relative z-50 max-h-(--radix-select-content-available-height)",
           "origin-(--radix-select-content-transform-origin) overflow-y-auto overflow-x-hidden",
-          "rounded-rectangles border border-white/40",
+          "rounded-rectangles border border-edge/40",
           "bg-background-blur shadow-lg backdrop-blur-xl",
           "text-text-primary",
           className

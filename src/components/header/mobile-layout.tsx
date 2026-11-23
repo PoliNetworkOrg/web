@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { Link } from "@/components/link"
+import { ThemeButton } from "@/components/theme-button"
 import { cn } from "@/lib/utils"
 import { useRoutePathname } from "@/utils/use-route-pathname"
 import { headerMenuItems, isActiveHref } from "./constants"
@@ -53,6 +54,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
     >
       <div className={cn("flex w-full items-center", logoOnly ? "justify-center" : "justify-between")}>
         <Logo />
+        {!logoOnly && <ThemeButton className="-m-2 ml-auto p-2" />}
         {!logoOnly && (
           <button
             ref={toggleRef}
@@ -61,7 +63,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
               if (!mobileMenuOpen && navRef.current) navRef.current.scrollTop = 0
               setOpenOn(mobileMenuOpen ? null : pathname)
             }}
-            className="press-feedback group -m-2 hover:glass-glow ml-auto grid size-11 place-items-center rounded-full text-text-primary outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary"
+            className="press-feedback group -m-2 hover:glass-glow ml-4 grid size-11 place-items-center rounded-full text-text-primary outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary"
             aria-label={mobileMenuOpen ? "Chiudi il menu" : "Apri il menu"}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"

@@ -9,7 +9,7 @@ export function AccordionItem({ className, children, ...props }: React.Component
     <AccordionPrimitive.Item data-slot="accordion-item" className="overflow-hidden" {...props}>
       <Glass
         className={cn(
-          "group/accordion relative overflow-hidden rounded-3xl border-white/50 bg-background-blur p-0 text-card-foreground",
+          "group/accordion relative overflow-hidden rounded-3xl border-edge/50 bg-background-blur p-0 text-card-foreground",
           className
         )}
       >

@@ -14,8 +14,8 @@ function RoleList({ team }: { team: Team }) {
     <ul aria-label={`Specializzazioni di ${team.title}`} className="grid w-full min-w-0 gap-4 sm:grid-cols-2 sm:gap-6">
       {team.roles.map(({ title, icon }) => (
         <li key={title} className="min-w-0">
-          <Glass className="flex h-full min-w-0 items-center gap-4 rounded-rectangles border-white/50 bg-background-blur px-5 py-5">
-            <span className="flex size-12 shrink-0 items-center justify-center rounded-rectangles bg-white/70">
+          <Glass className="flex h-full min-w-0 items-center gap-4 rounded-rectangles border-edge/50 bg-background-blur px-5 py-5">
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-rectangles bg-surface/70">
               {typeof icon !== "function" ? (
                 <Image src={icon} alt="" width={24} height={24} className="size-6" />
               ) : (

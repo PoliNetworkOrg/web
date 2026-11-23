@@ -15,6 +15,12 @@
   --figma-text-secondary: var(--color-slate-500);
   --figma-text-accent-darkbg: var(--color-slate-100);
   --figma-text-accent-lightbg: var(--color-slate-900);
+  /* not in Figma: small print that must pass AA on glass, where text-secondary (4.3:1) doesn't */
+  --figma-text-muted: var(--color-slate-600);
+  /* not in Figma: the fill of raised surfaces (dialogs, hovered tiles) and the rim of glass panels, used with an opacity */
+  --figma-surface: var(--color-white);
+  --figma-edge: var(--color-white);
+  --figma-logo: #1156ae;
   /* accents */
   --figma-red: var(--color-rose-600);
   --figma-green: var(--color-emerald-400);
@@ -37,23 +43,34 @@
 }
 
 .dark {
-  /* Figma Variables */
+  /*
+    A deep blue night, every color a shade of the logo's blue (#1156ae): a near-black page with the blobs glowing blue
+    through panels that are darker than the page, rimmed by a faint light edge. Accent fills are deep enough to carry
+    light text (button-primary is the logo's blue, lifted for contrast), accent text is a light blue.
+  */
+  color-scheme: dark;
   /* neutrals */
-  --figma-background: oklch(35.13% 0.062 249.28);
-  --figma-background-blur: oklch(39.07% 0.089 240.61 / 40%);
-  --figma-grey: var(--color-slate-400);
-  --figma-text-primary: var(--color-slate-50);
-  --figma-text-secondary: var(--color-slate-400);
-  --figma-text-accent-darkbg: var(--color-slate-100);
-  --figma-text-accent-lightbg: var(--color-slate-900);
+  --figma-background: #040c1b;
+  --figma-background-blur: color-mix(in srgb, #02050d 55%, transparent);
+  --figma-grey: #213147;
+  --figma-text-primary: #eef2f9;
+  --figma-text-secondary: #8896ab;
+  /* text on the accent fills: blue-secondary is light here, button-primary and blue-tertiary are dark */
+  --figma-text-accent-darkbg: #030f23;
+  --figma-text-accent-lightbg: #f3f7fe;
+  --figma-text-muted: #a5b2c5;
+  --figma-surface: #102138;
+  /* white at 20%: `border-edge/50` gives the 10% rim of a dark glass panel */
+  --figma-edge: color-mix(in srgb, #ffffff 20%, transparent);
+  --figma-logo: #6ea6f5;
   /* accents */
-  --figma-red: var(--color-rose-800);
-  --figma-green: var(--color-emerald-600);
-  --figma-blue-primary: var(--color-blue-800);
-  --figma-blue-primary-blur: oklch(42.42% 0.198 265.5 / 40%);
-  --figma-blue-secondary: var(--color-sky-900);
-  --figma-blue-tertiary: var(--color-sky-700);
-  --figma-blue-tertiary-blur: oklch(50.40% 0.128 245.46 / 40%);
+  --figma-red: #ff637e;
+  --figma-green: #00d492;
+  --figma-blue-primary: #266cc9;
+  --figma-blue-primary-blur: color-mix(in srgb, #266cc9 30%, transparent);
+  --figma-blue-secondary: #9fc7fe;
+  --figma-blue-tertiary: #093164;
+  --figma-blue-tertiary-blur: color-mix(in srgb, #093164 40%, transparent);
   /* buttons and radius are the same as in the light theme */
 }
 
@@ -62,9 +79,6 @@
   https://tailwindcss.com/docs/theme#referencing-other-variables
 */
 @theme inline {
-  --color-background: var(--figma-background);
-  --color-text-primary: var(--figma-text-primary);
-
   /* neutrals */
   --color-background: var(--figma-background);
   --color-background-blur: var(--figma-background-blur);
@@ -73,6 +87,10 @@
   --color-text-secondary: var(--figma-text-secondary);
   --color-text-accent-darkbg: var(--figma-text-accent-darkbg);
   --color-text-accent-lightbg: var(--figma-text-accent-lightbg);
+  --color-text-muted: var(--figma-text-muted);
+  --color-surface: var(--figma-surface);
+  --color-edge: var(--figma-edge);
+  --color-logo: var(--figma-logo);
   /* accents */
   --color-red: var(--figma-red);
   --color-green: var(--figma-green);

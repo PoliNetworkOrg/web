@@ -11,12 +11,20 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 const socials: { label: string; href: string; icon: ReactNode }[] = [
-  { label: "Telegram", href: "https://t.me/polinetwork", icon: <Image src={telegram} alt="" className="size-6" /> },
+  {
+    label: "Telegram",
+    href: "https://t.me/polinetwork",
+    icon: <Image src={telegram} alt="" className="size-6 dark:invert" />,
+  },
   { label: "Instagram", href: "https://instagram.com/polinetwork_", icon: <FiInstagram /> },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/polinetwork", icon: <FiLinkedin /> },
   { label: "Facebook", href: "https://www.facebook.com/PolitecnicoDiMilanoNetwork", icon: <FiFacebook /> },
   // The Discord glyph has its own padding: at 28px it matches the others
-  { label: "Discord", href: "https://discord.gg/Fp7ZHcC", icon: <Image src={discord} alt="" className="size-7" /> },
+  {
+    label: "Discord",
+    href: "https://discord.gg/Fp7ZHcC",
+    icon: <Image src={discord} alt="" className="size-7 dark:invert" />,
+  },
   { label: "GitHub", href: "https://github.com/PoliNetworkOrg", icon: <FiGithub /> },
 ]
 
@@ -55,7 +63,7 @@ function FooterLink({ href, children, className }: { href: string; children: Rea
 export function Footer() {
   return (
     <footer className={cn(CONTAINER, "pt-8 pb-6 md:pt-12 md:pb-8")}>
-      <Glass className="rounded-[32px] border-white/60 bg-background-blur px-4 py-8 backdrop-blur-xl sm:rounded-[36px] sm:px-10 sm:py-10 md:rounded-[48px] md:px-14 md:py-12">
+      <Glass className="rounded-[32px] border-edge/60 bg-background-blur px-4 py-8 backdrop-blur-xl sm:rounded-[36px] sm:px-10 sm:py-10 md:rounded-[48px] md:px-14 md:py-12">
         <div className="flex flex-col items-center gap-6">
           <h2 lang="en" className={cn(SECTION_TITLE, "text-center")}>
             Keep in touch!
@@ -90,7 +98,7 @@ export function Footer() {
             <dl className="flex flex-col gap-4">
               {legal.map(({ label, title, href }) => (
                 <div key={title} className="flex flex-col gap-0.5">
-                  <dt className="typo-body-medium text-slate-600">{label}</dt>
+                  <dt className="typo-body-medium text-text-muted">{label}</dt>
                   <dd className="typo-body-large text-text-primary">
                     <FooterLink href={href}>{title}</FooterLink>
                   </dd>
@@ -109,7 +117,7 @@ export function Footer() {
             <dl className="flex flex-col gap-4">
               {emails.map(({ label, email }) => (
                 <div key={email} className="flex flex-col gap-0.5">
-                  <dt className="typo-body-medium text-slate-600">{label}</dt>
+                  <dt className="typo-body-medium text-text-muted">{label}</dt>
                   <dd className="typo-body-large text-text-primary">
                     <a href={`mailto:${email}`} className={LINK}>
                       {email}
@@ -139,7 +147,7 @@ export function Footer() {
           </div>
 
           {/* A lighter tile, not a second glass layer inside the panel; as wide as its content at every size */}
-          <div className="hover:glass-glow relative flex w-fit flex-col items-center gap-1 self-start justify-self-center rounded-rectangles border border-white/70 bg-white/40 px-5 py-4 transition-colors has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:col-span-2 sm:flex-row sm:gap-8 sm:px-8 sm:text-left md:col-span-1 md:col-start-1 md:row-start-2 md:flex-col md:items-start md:gap-1 md:justify-self-start lg:col-span-6 lg:flex-row lg:items-center lg:gap-8">
+          <div className="hover:glass-glow relative flex w-fit flex-col items-center gap-1 self-start justify-self-center rounded-rectangles border border-edge/70 bg-surface/40 px-5 py-4 transition-colors has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:col-span-2 sm:flex-row sm:gap-8 sm:px-8 sm:text-left md:col-span-1 md:col-start-1 md:row-start-2 md:flex-col md:items-start md:gap-1 md:justify-self-start lg:col-span-6 lg:flex-row lg:items-center lg:gap-8">
             <p className="typo-headline-large sm:typo-display-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
               5x1000
             </p>
@@ -150,13 +158,13 @@ export function Footer() {
               >
                 Sostienici!
               </Link>
-              <p className="typo-body-medium whitespace-nowrap text-slate-600 tabular-nums">C.F. 97927490157</p>
+              <p className="typo-body-medium whitespace-nowrap text-text-muted tabular-nums">C.F. 97927490157</p>
             </div>
           </div>
         </div>
 
-        {/* slate-600 rather than text-secondary (slate-500, 4.3:1 on the page background) so the small print passes AA */}
-        <div className="typo-body-small md:typo-body-medium mx-auto mt-10 flex max-w-6xl flex-col items-center gap-1 text-slate-600 sm:flex-row sm:justify-between md:mt-12">
+        {/* text-muted rather than text-secondary (4.3:1 on the page background) so the small print passes AA */}
+        <div className="typo-body-small md:typo-body-medium mx-auto mt-10 flex max-w-6xl flex-col items-center gap-1 text-text-muted sm:flex-row sm:justify-between md:mt-12">
           {/* The server's year and the visitor's can differ for a few hours around New Year: either is fine */}
           <p suppressHydrationWarning>© PoliNetwork APS 2016–{new Date().getFullYear()}</p>
           <p lang="en">All rights reserved</p>

@@ -17,7 +17,7 @@ export function BoardMemberCard({
     <Card
       hoverBackground={false}
       className={cn(
-        "relative aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-white/50 p-0 shadow-sm",
+        "relative aspect-[223.429/263] h-auto w-full max-w-56 rounded-rectangles border-edge/50 p-0 shadow-sm",
         // Linked portraits react like the site's other clickable cards: they lift their photo and shrink when pressed
         member.linkedin &&
           "transition-transform duration-150 ease-out has-[a:active]:scale-[0.98] has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary [&:has(a:hover)_img]:scale-105",
@@ -32,7 +32,7 @@ export function BoardMemberCard({
       />
       <div
         aria-hidden
-        className="absolute inset-0 bg-linear-to-t from-5% from-blue-secondary/70 to-60% to-transparent"
+        className="absolute inset-0 bg-linear-to-t from-5% from-blue-secondary/70 to-60% to-transparent dark:from-blue-tertiary/80"
       />
       <CardContent className="absolute inset-x-4 bottom-5 text-white">
         <h3 className="typo-body-large font-poppins">{member.name}</h3>

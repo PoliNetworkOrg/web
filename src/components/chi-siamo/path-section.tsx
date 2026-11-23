@@ -95,8 +95,8 @@ export function PathSection() {
                   <div className="relative shrink-0">
                     <Glass
                       className={cn(
-                        "flex size-21 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0 transition-[background-color,border-color,scale] duration-500 motion-reduce:transition-none",
-                        reached && "border-white bg-white/70",
+                        "flex size-21 items-center justify-center rounded-rectangles border-edge/50 bg-background-blur p-0 transition-[background-color,border-color,scale] duration-500 motion-reduce:transition-none",
+                        reached && "border-edge bg-surface/70",
                         index === active && "scale-105"
                       )}
                     >
