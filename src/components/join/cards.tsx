@@ -1,5 +1,7 @@
 import { InfoCard, type InfoCardData } from "@/components/collabora/info-card"
+import { PEEK_SLIDE } from "@/components/peek-carousel"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "@/components/ui/carousel"
+import { cn } from "@/lib/utils"
 
 const cardClassName = "h-full md:p-6"
 const titleClassName = "md:typo-title-large md:whitespace-normal text-balance"
@@ -23,7 +25,7 @@ export function JoinCards({ cards, carousel = false }: { cards: InfoCardData[]; 
     >
       <CarouselContent className="mr-6 ml-2 sm:mr-10 sm:ml-6 md:mx-0 md:grid md:grid-cols-2 md:gap-6">
         {cards.map((card) => (
-          <CarouselItem key={card.title} className="basis-[90%] sm:basis-1/2 md:pl-0">
+          <CarouselItem key={card.title} className={cn(PEEK_SLIDE, "md:basis-auto md:pl-0")}>
             <InfoCard card={card} className={cardClassName} titleClassName={titleClassName} />
           </CarouselItem>
         ))}

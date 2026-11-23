@@ -9,7 +9,7 @@ export type ContactCardData = {
 
 export function ContactCard({ title, description, email }: ContactCardData) {
   return (
-    <Card className="h-auto w-full gap-4 p-6">
+    <Card className="h-full w-full gap-4 p-6">
       <CardHeader>
         <CardTitle className="typo-headline-small xl:typo-headline-extrasmall">{title}</CardTitle>
       </CardHeader>

@@ -1,5 +1,6 @@
 import { CardIcon } from "@/components/card-icon"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { PeekCarousel } from "@/components/peek-carousel"
 import { cn } from "@/lib/utils"
 import type { FreshmanContent } from "@/queries/types"
 import { CardGroup } from "../card-group"
@@ -17,26 +18,35 @@ export function MatricoleGuides({ content }: { content: FreshmanContent }) {
       <div className="flex flex-col gap-16 sm:gap-6">
         {/* 5/12 for the large card: at 1:1 the 2×2 grid next to it squeezed its titles onto two lines */}
         <div className="grid w-full gap-6 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          {/* The large card is too tall for phones: there it joins the compact list below */}
+          {/* The first guide joins the carousel below md; desktop shows it as a featured card */}
           {guides.slice(0, 1).map((guide) => (
             <CardIcon
               key={guide.id}
               {...freshmanCardProps(guide)}
               {...FEATURED_CARD}
-              className={cn(FEATURED_CARD.className, "hidden sm:block")}
+              className={cn(FEATURED_CARD.className, "hidden md:block")}
             />
           ))}
-          <div className="grid w-full gap-3 sm:grid-cols-2 sm:gap-6">
-            {guides.map((guide, index) => (
+          <div className="hidden w-full gap-6 md:grid md:grid-cols-2">
+            {guides.slice(1).map((guide) => (
               <CardIcon
                 key={guide.id}
                 {...freshmanCardProps(guide)}
                 align="inline"
-                className={cn("h-full", index === 0 && "sm:hidden")}
+                className="h-full"
                 size="inline-sm"
               />
             ))}
           </div>
+          {/* Phones and small tablets: a carousel instead of stacked cards */}
+          <PeekCarousel
+            items={guides}
+            getKey={(guide) => guide.id}
+            render={(guide) => (
+              <CardIcon {...freshmanCardProps(guide)} align="inline" className="h-full" size="inline-sm" />
+            )}
+            className="md:hidden"
+          />
         </div>
 
         <CardGroup title={hub.title} description={hub.description}>
