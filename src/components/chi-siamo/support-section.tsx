@@ -1,6 +1,7 @@
 import { CopyTaxCode } from "@/components/chi-siamo/copy-tax-code"
 import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { Shape } from "@/components/shapes"
 
 const TAX_CODE = "97927490157"
 
@@ -13,14 +14,14 @@ const steps = [
 export function SupportSection() {
   return (
     // `id`: the footer's 5x1000 card links here
-    <section id="sostienici" className={`${CONTAINER} scroll-mt-40`}>
-      <Glass className="relative grid gap-10 overflow-hidden rounded-rectangles border-white/60 bg-background-blur p-6 sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-14">
-        {/* A soft blue glow behind the figure, so the panel doesn't read as one more flat card */}
-        <div
-          aria-hidden
-          className="-top-32 -right-32 pointer-events-none absolute size-96 rounded-full bg-blue-secondary/15 blur-3xl"
-        />
-
+    <section id="sostienici" className={`${CONTAINER} relative isolate scroll-mt-40`}>
+      {/* Real shapes behind the panel, so its blur has something to frost, like the footer's glass. The painted glow
+          inside it before made it read as a flat card */}
+      <div aria-hidden className="-z-10 pointer-events-none absolute inset-0">
+        <Shape variant="big-teal" className="-top-16 right-[8%] size-110" />
+        <Shape variant="small-blue" className="bottom-0 left-[6%] size-80" />
+      </div>
+      <Glass className="relative grid gap-10 rounded-rectangles border-white/60 bg-background-blur p-6 backdrop-blur-xl sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-14">
         <div className="relative flex min-w-0 flex-col gap-6">
           <h2 className={SECTION_TITLE}>Sostieni PoliNetwork</h2>
           <p className="typo-body-large max-w-140 text-pretty">
@@ -31,11 +32,10 @@ export function SupportSection() {
 
           <ol className="flex flex-col gap-4">
             {steps.map((step, index) => (
-              <li key={step} className="flex items-start gap-4">
-                <span className="typo-label-large flex size-8 shrink-0 items-center justify-center rounded-full bg-linear-to-b from-blue-secondary to-blue-primary text-white tabular-nums">
-                  {index + 1}
-                </span>
-                <p className="typo-body-large text-pretty pt-0.5">{step}</p>
+              // Just the number, in the site's blue, like the other numbered steps: no filled circle
+              <li key={step} className="flex items-baseline gap-4">
+                <span className="typo-title-large w-4 shrink-0 text-blue-secondary tabular-nums">{index + 1}</span>
+                <p className="typo-body-large text-pretty">{step}</p>
               </li>
             ))}
           </ol>

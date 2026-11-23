@@ -1,3 +1,7 @@
+"use client"
+
+import { animate, useInView, useReducedMotion } from "motion/react"
+import { useEffect, useRef, useState } from "react"
 import { FiBook, FiBookOpen, FiHeadphones, FiSend, FiUser, FiUsers } from "react-icons/fi"
 import { GradientIcon } from "@/components/gradient-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
@@ -13,12 +17,52 @@ const stats = [
   { value: "100%", label: "progetti tecnici rilasciati open source", icon: FiBookOpen },
 ] as const
 
+/**
+ * The figure counts up from 0 every time it scrolls into view. The server renders the final value, so it is right
+ * without JavaScript; screen readers always get the final value, not the running count.
+ */
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { amount: 0.6 })
+  const reduceMotion = useReducedMotion()
+  const [, number = "0", suffix = ""] = value.match(/^(\d+)(.*)$/) ?? []
+  const target = Number(number)
+  const [count, setCount] = useState(target)
+
+  useEffect(() => {
+    if (reduceMotion) return
+    if (!inView) {
+      // Ready to count again the next time it comes into view
+      setCount(0)
+      return
+    }
+    const controls = animate(0, target, {
+      duration: 1.6,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (latest) => setCount(Math.round(latest)),
+    })
+    return () => controls.stop()
+  }, [inView, reduceMotion, target])
+
+  return (
+    <span ref={ref}>
+      <span aria-hidden>
+        {count}
+        {suffix}
+      </span>
+      <span className="sr-only">{value}</span>
+    </span>
+  )
+}
+
 function StatCard({ stat }: { stat: (typeof stats)[number] }) {
   return (
     <Card className="h-full w-full flex-row items-center gap-5 p-6">
       <GradientIcon icon={stat.icon} className="size-10 shrink-0" />
       <div className="flex min-w-0 flex-col gap-1">
-        <p className="typo-headline-large text-blue-secondary tabular-nums">{stat.value}</p>
+        <p className="typo-headline-large text-blue-secondary tabular-nums">
+          <CountUp value={stat.value} />
+        </p>
         <p className="typo-body-large text-pretty">{stat.label}</p>
       </div>
     </Card>
@@ -28,32 +72,27 @@ function StatCard({ stat }: { stat: (typeof stats)[number] }) {
 export function NumbersSection() {
   return (
     <section className={`${CONTAINER} flex flex-col gap-10 md:gap-14`}>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col items-center gap-4 text-center">
         <h2 className={SECTION_TITLE}>I numeri</h2>
-        <p className={`${SECTION_LEAD} max-w-160`}>
-          Un network in continua crescita, costruito dagli studenti, per gli studenti.
+        <p className={`${SECTION_LEAD} max-w-180 text-balance`}>
+          Dal <span className="text-blue-secondary">2016</span> un network in continua crescita, costruito dagli
+          studenti, per gli studenti.
         </p>
       </div>
 
-      <div className="flex flex-col gap-8">
-        <ul className="hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-3">
-          {stats.map((stat) => (
-            <li key={stat.label}>
-              <StatCard stat={stat} />
-            </li>
-          ))}
-        </ul>
-        <PeekCarousel
-          items={stats}
-          getKey={(stat) => stat.label}
-          render={(stat) => <StatCard stat={stat} />}
-          className="md:hidden"
-        />
-
-        <p className="typo-body-large lg:text-center">
-          Dal <span className="text-blue-secondary">2016</span> al fianco degli studenti del PoliMi
-        </p>
-      </div>
+      <ul className="hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-3">
+        {stats.map((stat) => (
+          <li key={stat.label}>
+            <StatCard stat={stat} />
+          </li>
+        ))}
+      </ul>
+      <PeekCarousel
+        items={stats}
+        getKey={(stat) => stat.label}
+        render={(stat) => <StatCard stat={stat} />}
+        className="md:hidden"
+      />
     </section>
   )
 }

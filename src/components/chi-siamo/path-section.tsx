@@ -1,3 +1,8 @@
+"use client"
+
+import { LayoutGroup, MotionConfig, motion, useInView, useReducedMotion } from "motion/react"
+import { useEffect, useRef, useState } from "react"
+import { FaPersonWalking } from "react-icons/fa6"
 import { FiBook, FiClipboard, FiFileText, FiGift, FiUser, FiUserCheck } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
@@ -9,47 +14,126 @@ const steps = [
   { title: "Ammissione", description: "Graduatorie, scadenze e tutto ciò che serve per iniziare.", icon: FiClipboard },
   { title: "Primo anno", description: "Orientamento, gruppi, risorse e supporto tra studenti.", icon: FiUser },
   { title: "Esami", description: "Appunti, temi, consigli e strumenti per prepararti meglio.", icon: FiFileText },
-  {
-    title: "Scelta del percorso",
-    description: "Informazioni chiare per decidere il tuo futuro al PoliMi.",
-    icon: FiUserCheck,
-  },
+  { title: "Indirizzo", description: "Informazioni chiare per decidere il tuo futuro al PoliMi.", icon: FiUserCheck },
   { title: "Laurea", description: "Fino al traguardo, insieme.", icon: FiGift },
 ] as const
 
+const LAST = steps.length - 1
+/** How long the walker stays on each step, and on the last one before starting over (ms) */
+const STEP_EVERY = 1200
+const HOLD_AT_END = 3000
+const EASE_OUT = [0.22, 1, 0.36, 1] as const
+
 export function PathSection() {
+  const ref = useRef<HTMLOListElement>(null)
+  const inView = useInView(ref, { amount: 0.4 })
+  const reduceMotion = useReducedMotion()
+  // The step the walker is on (-1: not started) and the lap, which restarts it from the first step without walking back
+  const [active, setActive] = useState(-1)
+  const [lap, setLap] = useState(0)
+
+  useEffect(() => {
+    if (!inView) return
+    // Reduced motion: the path is shown complete, with no walking
+    if (reduceMotion) {
+      setActive(LAST)
+      return
+    }
+    let step = 0
+    let timer: ReturnType<typeof setTimeout>
+    const advance = () => {
+      if (step < LAST) {
+        step++
+      } else {
+        // Back to the start for a new lap
+        step = 0
+        setLap((n) => n + 1)
+      }
+      setActive(step)
+      // The last step holds longer: the walker has reached the finish line
+      timer = setTimeout(advance, step === LAST ? HOLD_AT_END : STEP_EVERY)
+    }
+    setActive(0)
+    timer = setTimeout(advance, STEP_EVERY)
+    return () => clearTimeout(timer)
+  }, [inView, reduceMotion])
+
   return (
     <section className={`${CONTAINER} flex flex-col gap-10 md:gap-14`}>
-      <h2 className={SECTION_TITLE}>Il tuo percorso, sempre al tuo fianco</h2>
+      <div className="flex flex-col items-center gap-4 text-center">
+        <h2 className={SECTION_TITLE}>Il tuo percorso, sempre al tuo fianco</h2>
+        <p className={`${SECTION_LEAD} max-w-215 text-balance`}>
+          Dalla prima simulazione del TOL fino alla laurea, ogni studente ha sempre{" "}
+          <span className="text-blue-secondary">una risposta</span> a portata di mano e{" "}
+          <span className="text-blue-secondary">qualcuno</span> a cui chiederla.
+        </p>
+      </div>
 
-      <ol className="grid gap-10 lg:grid-cols-6 lg:gap-6">
-        {steps.map((step, index) => (
-          <li
-            key={step.title}
-            className={cn(
-              "relative flex items-start gap-4 lg:flex-col lg:items-center lg:text-center",
-              index < steps.length - 1 &&
-                "after:-bottom-10 after:absolute after:top-21 after:left-10.25 after:w-0.5 after:bg-blue-primary/40 after:content-[''] lg:after:top-10.25 lg:after:bottom-auto lg:after:left-[calc(50%+2.625rem)] lg:after:h-0.5 lg:after:w-[calc(100%-3.75rem)]"
-            )}
-          >
-            <Glass className="flex size-21 shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0">
-              <GradientIcon icon={step.icon} className="size-14" />
-            </Glass>
-            <div className="flex flex-col gap-2 pt-2 lg:pt-0">
-              <h3 className="typo-title-large text-balance bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
-                {step.title}
-              </h3>
-              <p className="typo-body-medium">{step.description}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-
-      <p className={`${SECTION_LEAD} max-w-215 lg:mx-auto lg:text-balance lg:text-center`}>
-        Dalla prima simulazione del TOL fino alla laurea, ogni studente ha sempre{" "}
-        <span className="text-blue-secondary">una risposta</span> a portata di mano e{" "}
-        <span className="text-blue-secondary">qualcuno</span> a cui chiederla.
-      </p>
+      <MotionConfig reducedMotion="user">
+        {/* A new lap gets its own layout group: the walker reappears on the first step instead of walking back */}
+        <LayoutGroup id={`path-lap-${lap}`}>
+          <ol ref={ref} className="grid gap-10 lg:grid-cols-6 lg:gap-6">
+            {steps.map((step, index) => {
+              const reached = index <= active
+              return (
+                <li
+                  key={step.title}
+                  className="relative flex items-start gap-4 lg:flex-col lg:items-center lg:text-center"
+                >
+                  {index < LAST && (
+                    // The line to the next step: down on phones, across from lg. It fills as the walker moves on
+                    <span
+                      aria-hidden
+                      className="-bottom-10 absolute top-21 left-10 w-1 overflow-hidden rounded-full bg-blue-primary/25 lg:top-10 lg:bottom-auto lg:left-[calc(50%+2.625rem)] lg:h-1 lg:w-[calc(100%-3.75rem)]"
+                    >
+                      {/* `--fill` grows the bar down on phones and across from lg */}
+                      <motion.span
+                        className="block size-full origin-top scale-x-100 scale-y-(--fill) rounded-full bg-blue-primary lg:origin-left lg:scale-x-(--fill) lg:scale-y-100"
+                        initial={{ "--fill": 0 } as Record<string, number>}
+                        animate={{ "--fill": index < active ? 1 : 0 } as Record<string, number>}
+                        transition={{ duration: index < active ? 0.9 : 0.3, ease: EASE_OUT }}
+                      />
+                    </span>
+                  )}
+                  <div className="relative shrink-0">
+                    <Glass
+                      className={cn(
+                        "flex size-21 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0 transition-[background-color,border-color,scale] duration-500",
+                        reached && "border-white bg-white/70",
+                        index === active && "scale-105"
+                      )}
+                    >
+                      <GradientIcon icon={step.icon} className="size-14" />
+                    </Glass>
+                    {index === active && (
+                      // The student walking the path: it moves from step to step and bobs as it walks
+                      <motion.span
+                        layoutId="walker"
+                        aria-hidden
+                        className="-top-3 -right-3 absolute flex size-9 items-center justify-center rounded-full bg-blue-secondary text-text-accent-darkbg shadow-md"
+                        transition={{ duration: 0.7, ease: EASE_OUT }}
+                      >
+                        <motion.span
+                          animate={{ y: [0, -2, 0] }}
+                          transition={{ duration: 0.45, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                        >
+                          <FaPersonWalking className="size-4.5" />
+                        </motion.span>
+                      </motion.span>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-2 pt-2 lg:pt-0">
+                    <h3 className="typo-title-large text-balance bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+                      {step.title}
+                    </h3>
+                    <p className="typo-body-medium">{step.description}</p>
+                  </div>
+                </li>
+              )
+            })}
+          </ol>
+        </LayoutGroup>
+      </MotionConfig>
     </section>
   )
 }
