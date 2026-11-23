@@ -1,7 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
-import { CONTAINER, INLINE_LINK, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Highlight } from "@/components/collabora/section"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 
 export function GroupsSection() {
@@ -16,10 +17,8 @@ export function GroupsSection() {
 
         <p className={`${SECTION_LEAD} max-w-2xl`}>
           Il modo più rapido per ottenere risposte su esami, burocrazia universitaria o sulla vita al Politecnico è{" "}
-          <Link href="/gruppi" className={INLINE_LINK}>
-            entrare nel gruppo del tuo corso
-          </Link>
-          , su Telegram o su WhatsApp, dove gli admin sono presenti ogni giorno.
+          <Highlight>entrare nel gruppo del tuo corso</Highlight>, su Telegram o su WhatsApp, dove gli admin sono
+          presenti ogni giorno.
         </p>
 
         <Button variant="primary" size="lg" className="mt-2" asChild>

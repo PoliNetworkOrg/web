@@ -32,8 +32,9 @@ const emails = [
 ]
 
 const HEADING = "typo-headline-extrasmall text-text-primary"
+// Links turn blue on hover, never underlined, like the rest of the site
 const LINK =
-  "rounded-sm outline-none decoration-1 decoration-blue-secondary underline-offset-4 transition-colors hover:text-blue-secondary hover:underline focus-visible:underline focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-offset-2"
+  "rounded-sm outline-none transition-colors hover:text-blue-secondary focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-offset-2"
 
 function FooterLink({ href, children, className }: { href: string; children: ReactNode; className?: string }) {
   const external = !href.startsWith("/")

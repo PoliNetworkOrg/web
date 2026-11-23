@@ -1,4 +1,5 @@
-import { INLINE_LINK, SECTION_LEAD, SECTION_STACK, SECTION_TITLE } from "../layout/page"
+import { Highlight } from "../collabora/section"
+import { SECTION_LEAD, SECTION_STACK, SECTION_TITLE } from "../layout/page"
 import { ProjectList, ProjectsEmpty } from "./project-list"
 import type { Project } from "./resources"
 
@@ -15,10 +16,7 @@ export function CommunityNews({ projects }: { projects: Project[] }) {
         projects={projects}
         empty={
           <ProjectsEmpty>
-            Nessuna novità al momento.{" "}
-            <a href="#proponi" className={INLINE_LINK}>
-              Hai un'idea? Proponila
-            </a>
+            Nessuna novità al momento. Hai un’idea? <Highlight>Proponila</Highlight> qui sotto.
           </ProjectsEmpty>
         }
       />
