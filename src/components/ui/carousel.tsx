@@ -69,7 +69,9 @@ function Carousel({
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
   // Autoplay pauses while the pointer or focus is inside, and stops for good once someone drags the carousel
-  const [paused, setPaused] = React.useState(false)
+  const [hovered, setHovered] = React.useState(false)
+  const [focused, setFocused] = React.useState(false)
+  const paused = hovered || focused
   const [stopped, setStopped] = React.useState(false)
 
   const onSelect = React.useCallback((api: CarouselApi) => {
@@ -137,15 +139,26 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api || autoplay === false || paused || stopped) return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    const interval = setInterval(() => {
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    let interval: ReturnType<typeof setInterval> | undefined
+    const advance = () => {
       // Inactive at this breakpoint (a grid instead) or nothing to scroll: stay put
       if (api.scrollSnapList().length <= 1) return
       // At the end, go back to the first card rather than stopping
       if (api.canScrollNext()) api.scrollNext()
       else api.scrollTo(0)
-    }, autoplay)
-    return () => clearInterval(interval)
+    }
+    const update = () => {
+      clearInterval(interval)
+      interval = undefined
+      if (!motion.matches) interval = setInterval(advance, autoplay)
+    }
+    update()
+    motion.addEventListener("change", update)
+    return () => {
+      clearInterval(interval)
+      motion.removeEventListener("change", update)
+    }
   }, [api, autoplay, paused, stopped])
 
   return (
@@ -167,19 +180,19 @@ function Carousel({
       <section
         onKeyDownCapture={handleKeyDown}
         onMouseEnter={(event) => {
-          setPaused(true)
+          setHovered(true)
           onMouseEnter?.(event)
         }}
         onMouseLeave={(event) => {
-          setPaused(false)
+          setHovered(false)
           onMouseLeave?.(event)
         }}
         onFocusCapture={(event) => {
-          setPaused(true)
+          if (!event.currentTarget.contains(event.relatedTarget)) setFocused(true)
           onFocusCapture?.(event)
         }}
         onBlurCapture={(event) => {
-          setPaused(false)
+          if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false)
           onBlurCapture?.(event)
         }}
         className={cn("relative", className)}
