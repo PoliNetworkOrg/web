@@ -27,3 +27,67 @@
 @utility animate-accordion-up {
   animation: accordion-up 0.2s ease-out;
 }
+
+/*
+  Header dropdown. Radix waits for the closing animation of the content to end before unmounting it, so CSS keyframes
+  give the panel an exit too. The content only moves (`transform` composes with its centering, which uses the separate
+  `translate` property); the glass inside fades: opacity on an ancestor would cut the glass off from the page behind,
+  so the blur would only appear once the fade ended.
+*/
+@keyframes menu-in {
+  from {
+    transform: translateY(-8px) scale(0.96);
+  }
+}
+
+@keyframes menu-out {
+  to {
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+
+@keyframes hold {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@utility animate-menu-in {
+  transform-origin: top center;
+  animation: menu-in 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Reduced motion: the glass still fades, the panel doesn't move */
+  @media (prefers-reduced-motion: reduce) {
+    animation-name: none;
+  }
+}
+
+@utility animate-menu-out {
+  transform-origin: top center;
+  animation: menu-out 0.15s ease-in forwards;
+
+  /* Reduced motion: a keyframe that doesn't move, so Radix still waits for the glass to fade out */
+  @media (prefers-reduced-motion: reduce) {
+    animation-name: hold;
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@utility animate-fade-out {
+  animation: fade-out 0.15s ease-in forwards;
+}
