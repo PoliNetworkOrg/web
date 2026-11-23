@@ -1,5 +1,6 @@
 import type { IconType } from "react-icons"
 import { BsBook } from "react-icons/bs"
+import { cn } from "@/lib/utils"
 import { Card, CardAction, CardContent } from "./ui/card"
 
 export function CardPathSelection({
@@ -12,7 +13,9 @@ export function CardPathSelection({
   className?: string
 }) {
   return (
-    <Card className={`h-fit w-136 px-10 py-7.5 ${className || ""}`} hoverBackground>
+    // Always rendered inside a link or button. It brightens on hover like the course rows and the accordions: the
+    // shapes of the large cards' hover filled these short, wide ones awkwardly
+    <Card className={cn("h-fit w-136 px-10 py-7.5 transition-colors duration-200 hover:bg-white/70", className)}>
       <CardContent className="typo-body-large flex flex-row items-center justify-center gap-1.25 whitespace-nowrap font-normal leading-6 tracking-[0.03125rem]">
         <CardAction icon={Icon} iconSize="xs" /> {caption}
       </CardContent>
