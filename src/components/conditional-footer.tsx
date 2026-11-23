@@ -1,19 +1,14 @@
 "use client"
 
 import type { ReactNode } from "react"
-import { matchesAnyRoutePrefix } from "@/utils/route-match"
+import { hasFooter } from "@/utils/footer-routes"
 import { useRoutePathname } from "@/utils/use-route-pathname"
-
-const HIDDEN_EXACT = ["/matricole/guida"]
-const HIDDEN_PREFIXES = ["/groups", "/documents/view"]
 
 /**
  * Hides the footer on full-screen routes. The footer itself is passed as `children` so it stays a server component
  * instead of being bundled under this client boundary.
  */
 export function ConditionalFooter({ children }: { children: ReactNode }) {
-  const pathname = useRoutePathname()
-  const hidden = HIDDEN_EXACT.includes(pathname) || matchesAnyRoutePrefix(pathname, HIDDEN_PREFIXES)
-  if (hidden) return null
+  if (!hasFooter(useRoutePathname())) return null
   return children
 }
