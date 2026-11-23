@@ -18,13 +18,13 @@ export function MatricoleGuides({ content }: { content: FreshmanContent }) {
       <div className="flex flex-col gap-16 sm:gap-6">
         {/* 5/12 for the large card: at 1:1 the 2×2 grid next to it squeezed its titles onto two lines */}
         <div className="grid w-full gap-6 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          {/* Hidden on phones, as in the mobile design */}
+          {/* The first guide joins the carousel below md; desktop shows it as a featured card */}
           {guides.slice(0, 1).map((guide) => (
             <CardIcon
               key={guide.id}
               {...freshmanCardProps(guide)}
               {...FEATURED_CARD}
-              className={cn(FEATURED_CARD.className, "hidden sm:block")}
+              className={cn(FEATURED_CARD.className, "hidden md:block")}
             />
           ))}
           <div className="hidden w-full gap-6 md:grid md:grid-cols-2">
@@ -40,7 +40,7 @@ export function MatricoleGuides({ content }: { content: FreshmanContent }) {
           </div>
           {/* Phones and small tablets: a carousel instead of stacked cards */}
           <PeekCarousel
-            items={guides.slice(1)}
+            items={guides}
             getKey={(guide) => guide.id}
             render={(guide) => (
               <CardIcon {...freshmanCardProps(guide)} align="inline" className="h-full" size="inline-sm" />
@@ -58,13 +58,22 @@ export function MatricoleGuides({ content }: { content: FreshmanContent }) {
         </CardGroup>
 
         <div className="grid w-full gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          {/* Hidden on phones, as in the mobile design */}
+          {/* Large from sm up; on phones the same resource as a compact card */}
           {materials.map((material) => (
             <CardIcon
               key={material.id}
               {...freshmanCardProps(material)}
               {...FEATURED_CARD}
               className={cn(FEATURED_CARD.className, "hidden sm:block")}
+            />
+          ))}
+          {materials.map((material) => (
+            <CardIcon
+              key={`${material.id}-compact`}
+              {...freshmanCardProps(material)}
+              align="inline"
+              size="inline"
+              className="sm:hidden"
             />
           ))}
           <CardGroup title={techTools.title} description={techTools.description} icon={techTools.icon} horizontal>

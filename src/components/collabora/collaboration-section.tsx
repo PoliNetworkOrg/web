@@ -13,7 +13,7 @@ export function CollaborationSection() {
             Collaborare con noi significa <Highlight>accedere a questa community in modo diretto</Highlight>. Non siamo
             un canale pubblicitario e non accettiamo promozioni commerciali generiche: ogni collaborazione viene
             valutata in termini di <Highlight>valore concreto per gli studenti del Politecnico</Highlight>{" "}
-            <Aside>(e nel rispetto dei nostri valori sanciti sul nostro statuto).</Aside>
+            <Aside>(e nel rispetto dei valori sanciti dal nostro statuto).</Aside>
           </p>
           <p className="md:max-w-161">
             Se il progetto ha senso per la nostra community, siamo disponibili a costruirlo insieme!

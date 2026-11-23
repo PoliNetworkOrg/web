@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { FiChevronDown } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import {
@@ -13,11 +12,12 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
+import { useRoutePathname } from "@/utils/use-route-pathname"
 import { headerMenuItems, isActiveHref } from "./constants"
 import { Logo } from "./logo"
 
 export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
-  const pathname = usePathname()
+  const pathname = useRoutePathname()
   const removeDefaultHoverEffectClass = "hover:bg-transparent focus:bg-transparent bg-transparent!"
   const customHoverEffectClass =
     "hover:underline decoration-1 decoration-blue-secondary focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-blue-secondary"
@@ -34,7 +34,7 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
       >
         <NavigationMenuList className={cn("flex w-full", logoOnly ? "justify-center" : "justify-between")}>
           {logoOnly ? (
-            <Logo href="https://polinetwork.org" />
+            <Logo />
           ) : (
             <NavigationMenuLink asChild className={cn("p-0 py-0.75", removeDefaultHoverEffectClass)}>
               <Logo />

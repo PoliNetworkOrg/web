@@ -42,7 +42,7 @@ export function Upload() {
             sviluppare la tua idea e, se rispetta i requisiti, pubblicarla qui.
           </p>
           <p className="typo-body-large">
-            Dopo l'invio riceverai una risposta dai nostri admin con le istruzioni per proseguire.
+            Scrivici via email: riceverai una risposta dai nostri admin con le istruzioni per proseguire.
           </p>
           <p className="typo-body-small text-slate-600">
             I diritti dei progetti rimangono tutti dei rispettivi progettisti, PoliNetwork non si assume responsabilità.

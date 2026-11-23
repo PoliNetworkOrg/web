@@ -9,30 +9,42 @@ type InputProps = React.ComponentProps<"input"> & {
 
 function Input({ icon, className, containerClassName, ...inputProps }: InputProps) {
   return (
-    <Glass
-      className={cn(
-        "inline-flex w-full items-center gap-2.5",
-        "border border-white/50",
-        icon ? "px-6 py-3" : "px-4 py-2",
-        "rounded-buttonsM",
-        "bg-background-blur",
-        containerClassName
-      )}
-    >
-      {icon && <span className="flex h-6 w-6 shrink-0 items-center justify-center text-text-primary"> {icon} </span>}
-
-      <input
-        type={inputProps.type}
-        placeholder={inputProps.placeholder ?? undefined}
-        data-slot="input"
-        {...inputProps}
+    // A label around the whole field: clicks on the icon and the padding focus the input too. `contents` keeps it out
+    // of the layout, so the field sizes against its parent as before
+    <label className="contents">
+      <Glass
         className={cn(
-          "w-full border-none bg-transparent outline-none",
-          "typo-body-medium text-text-primary placeholder:text-text-secondary",
-          className
+          "inline-flex w-full items-center gap-2.5",
+          "border border-white/50",
+          // The input itself carries the vertical padding (py-0 drops Glass's p-4): a 44px+ tap target
+          icon ? "px-6 py-0" : "px-4 py-0",
+          // The input drops its own outline: the field shows the focus instead
+          "focus-within:ring-2 focus-within:ring-blue-secondary",
+          "rounded-buttonsM",
+          "bg-background-blur",
+          containerClassName
         )}
-      />
-    </Glass>
+      >
+        {icon && (
+          <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center text-text-primary">
+            {icon}
+          </span>
+        )}
+
+        <input
+          type={inputProps.type}
+          placeholder={inputProps.placeholder ?? undefined}
+          data-slot="input"
+          {...inputProps}
+          className={cn(
+            "w-full border-none bg-transparent outline-none",
+            icon ? "py-3" : "py-2",
+            "typo-body-medium text-text-primary placeholder:text-text-secondary",
+            className
+          )}
+        />
+      </Glass>
+    </label>
   )
 }
 

@@ -11,8 +11,8 @@ export async function Projects() {
   const live = (await getAllProjects()).filter((project) => project.category !== "deprecated")
   // The first four, in the order set from the admin dashboard
   const featured = live.slice(0, 4)
-  // Without the backend there is nothing to count: the title then stays a plain "Projects"
-  const title = live.length > 1 ? `${live.length} Projects` : live.length === 1 ? "1 Project" : "Projects"
+  // Without the backend there is nothing to count: the title then stays a plain "Progetti"
+  const title = live.length > 1 ? `${live.length} Progetti` : live.length === 1 ? "1 Progetto" : "Progetti"
 
   return (
     <section

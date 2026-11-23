@@ -23,7 +23,7 @@ export default async function ProjectsPage() {
   return (
     <main className={PAGE_MAIN}>
       <section className={`${CONTAINER} ${PAGE_HERO}`}>
-        <Hero title="Projects" description="Esplora e contribuisci ai progetti degli studenti" />
+        <Hero title="Progetti" description="Esplora e contribuisci ai progetti degli studenti" />
       </section>
       <CommunityNews projects={news} />
       <Collection projects={general} searchable={projects} />

@@ -49,7 +49,7 @@ const cards: InfoCardData[] = [
     descriptionClassName: "md:-mr-px",
   },
   {
-    title: "5",
+    title: "4",
     description: (
       <>
         <Highlight>Team Operativi</Highlight> pronti a collaborare

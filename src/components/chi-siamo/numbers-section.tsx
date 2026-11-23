@@ -9,7 +9,7 @@ const stats = [
   { value: "30+", label: "corsi di laurea coperti", icon: FiBook },
   { value: "45k+", label: "studenti raggiunti ogni anno", icon: FiUser },
   { value: "100+", label: "admin volontari su tutte le sedi", icon: FiUsers },
-  { value: "5", label: "team operativi", icon: FiHeadphones },
+  { value: "4", label: "team operativi", icon: FiHeadphones },
   { value: "100%", label: "progetti tecnici rilasciati open source", icon: FiBookOpen },
 ] as const
 

@@ -11,15 +11,14 @@ const contactCards: ContactCardData[] = [
   },
   {
     title: "Consiglio Direttivo",
-    description: "Per richieste formali, segnalazioni di problemi o questioni che non rientrano nelle categorie sopra.",
+    description: "Per richieste formali, segnalazioni di problemi o questioni che non rientrano nelle altre categorie.",
     email: "direttivo@polinetwork.org",
   },
   {
     title: "Candidature",
     description: (
       <>
-        Se vuoi candidarti come admin o come membro di un team, ti consigliamo di passare dal form disponibile nella
-        pagina{" "}
+        Se vuoi candidarti come admin o come membro di un team, segui le indicazioni nella pagina{" "}
         <Link href="/join" className={INLINE_LINK}>
           Unisciti a noi
         </Link>
