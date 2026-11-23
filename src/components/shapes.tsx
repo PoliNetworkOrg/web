@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image, { type StaticImageData } from "next/image"
 import type { CSSProperties } from "react"
 import bigBlue from "@/assets/shapes/big-blue.webp"
 import bigTeal from "@/assets/shapes/big-teal.webp"
@@ -24,6 +24,8 @@ export type BlobVariant = Exclude<ShapeVariant, "looper">
 
 export type ShapeProps = {
   variant: ShapeVariant
+  /** Another rendering of the same shape, e.g. a blurrier one (see `@/components/background/blobs`) */
+  src?: StaticImageData
   className?: string
   style?: CSSProperties
 }
@@ -32,9 +34,9 @@ export type ShapeProps = {
  * Static decorative shape. The page background is animated and generated in
  * `@/components/background`, this is for decorations inside components.
  */
-export const Shape: React.FC<ShapeProps> = ({ variant, className, style }) => (
+export const Shape: React.FC<ShapeProps> = ({ variant, src, className, style }) => (
   <Image
-    src={SOURCES[variant]}
+    src={src ?? SOURCES[variant]}
     // the same few tiny images are reused everywhere: lazy loading them only delays the first paint
     loading="eager"
     unoptimized

@@ -26,9 +26,10 @@ const smoothstep = (x: number) => {
  * offset and a small rotation. Loopers also open their fan while scrolling
  * past them. Only `transform`s are touched, so nothing is repainted.
  *
- * `scene` children must match the order of `getShapes()`, each being
- * `layout box > motion > content`. The first frame is rendered synchronously,
- * so new shapes never show up out of place.
+ * The shapes (`[data-shape]`, in groups that clip them: `scene > group >
+ * layout box > motion > content`) must be in the order of `getShapes()`.
+ * The first frame is rendered synchronously, so new shapes never show up out
+ * of place.
  */
 export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) {
   let scroll = window.scrollY
@@ -48,7 +49,7 @@ export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) 
     const intro = smoothstep((now - introFrom) / INTRO)
     const viewport = window.innerHeight
     const sceneTop = scene.getBoundingClientRect().top + window.scrollY - scroll
-    const boxes = scene.children as HTMLCollectionOf<HTMLElement>
+    const boxes = scene.querySelectorAll<HTMLElement>(":scope > * > [data-shape]")
     // read every position before writing any transform, interleaving them would force a style flush per shape
     const tops = Array.from(boxes, (box) => sceneTop + box.offsetTop)
     const heights = Array.from(boxes, (box) => box.offsetHeight)

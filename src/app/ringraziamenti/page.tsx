@@ -29,7 +29,6 @@ const sectionTitle = cn(SECTION_TITLE, "text-center sm:text-start")
 const sectionLead = cn(SECTION_LEAD, "text-center max-sm:mx-auto sm:text-start")
 const glassPanel = "rounded-rectangles border-white/50 bg-background-blur p-6 min-[400px]:p-10"
 const accent = "text-blue-secondary dark:text-sky-300"
-const introGradient = "text-gradient-grey"
 
 const photoShapes: PhotoShapesLayout = {
   width: 663,
@@ -88,21 +87,21 @@ export default async function AcknowledgementsPage() {
   const projectCredits = acknowledgements.projects
 
   return (
-    <main className={PAGE_MAIN}>
+    <main className={cn(PAGE_MAIN, "md:gap-40 xl:gap-60")}>
       <section className={cn(CONTAINER, PAGE_HERO)}>
-        <Hero title="A chi siamo grati" description={description} />
+        <Hero title="Ringraziamenti" description={description} />
       </section>
 
       <section
         aria-label="Introduzione"
         className={cn(CONTAINER, "grid items-center gap-10 lg:grid-cols-[720fr_663fr] lg:gap-16")}
       >
-        <div className="typo-headline-small lg:typo-headline-medium flex flex-col gap-6 text-pretty text-center lg:text-start">
-          <p className={introGradient}>
+        <div className={cn(SECTION_LEAD, "flex flex-col gap-4 text-center lg:text-start")}>
+          <p>
             Dal 2016 a oggi, sono moltissime le persone che, in diversi modi, hanno fatto crescere PoliNetwork e reso la
             vita universitaria più semplice per gli studenti del PoliMi.
           </p>
-          <p className={introGradient}>
+          <p>
             Qui trovi i loro nomi e ciò che hanno fatto,
             <span className={cn("block", accent)}>
               è il nostro modo <br className="sm:hidden" />

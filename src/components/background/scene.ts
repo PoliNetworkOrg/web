@@ -1,22 +1,32 @@
-import type { BlobVariant } from "@/components/shapes"
+import type { StaticImageData } from "next/image"
+import type { ShapeVariant } from "@/components/shapes"
+import { matchesRoutePrefix } from "@/utils/route-match"
+import { BLOB_BLEED, blobImage } from "./blobs"
+import {
+  DESKTOP_FOOTER,
+  DESKTOP_FRAMES,
+  type FigmaFrame,
+  type FigmaShape,
+  MOBILE_FOOTER,
+  MOBILE_FRAMES,
+} from "./figma-frames"
+import { LOOPER_ASPECT } from "./looper"
 
 export type SceneShape = {
   id: string
-  variant: BlobVariant | "looper"
-  /** Horizontal center, from -1 (left edge) to 1 (right edge) of the page */
-  x: number
-  /** Vertical center, in segments from the top of the page, or with `page` as a fraction of the page height */
-  y: number
-  /** Placed from a Figma frame: `y` is a fraction of the whole page, so each shape stays by its section */
-  page?: boolean
-  /** CSS length of one `size` unit, `var(--bg-unit)` by default */
-  unit?: string
+  variant: ShapeVariant
+  /** The layout box, as CSS lengths relative to the scene (see `.shape-scene` for the custom properties) */
+  box: { left: string; top: string; width: string; height: string }
+  /** The region of the page the shape is visible in, a `clip-path`: the footer clips its shapes, and the shapes clipped above it */
+  clip?: string
   /** Shown only on phones (below md) or only from md: pages composed in Figma have a frame for each */
   layout?: "mobile" | "desktop"
-  /** Width, in `--bg-unit`s (≈px on a 1728px wide screen) */
-  size: number
+  /** The image to draw a blob with, when it isn't the default one (see `blobImage`) */
+  image?: StaticImageData
   /** Static rotation, in degrees */
   rotate: number
+  /** Looper only: vertical stretch of the curve, for instances Figma resized out of their aspect ratio */
+  stretch?: number
   /** Scroll: parallax offset in px (negative is further away, slower than the page) and rotation in degrees */
   depth: number
   spin: number
@@ -53,15 +63,6 @@ function prng(seed: number) {
   }
 }
 
-/**
- * Deterministically generates the shapes of one segment (a screen-ish tall
- * slice) of the page background. Every segment has the same composition as
- * the original Figma backgrounds: a teal star overlapping a couple of blue
- * blobs on one side, crossed by a looper, and a smaller counterweight on the
- * other side. Sides alternate between segments, everything else is jittered
- * from a seed derived from the pathname and the segment index, so each page
- * gets its own (but stable across reloads) variation.
- */
 /** The passive and scroll-driven motion of a shape, jittered from `rand` */
 function motionFor(rand: () => number, variant: SceneShape["variant"], depth: [number, number]) {
   const between = (min: number, max: number) => min + rand() * (max - min)
@@ -83,6 +84,15 @@ function motionFor(rand: () => number, variant: SceneShape["variant"], depth: [n
   }
 }
 
+/**
+ * Deterministically generates the shapes of one segment (a screen-ish tall
+ * slice) of the page background, for pages that weren't drawn in Figma. Every
+ * segment has the same composition as the Figma backgrounds: a teal star
+ * overlapping a couple of blue blobs on one side, crossed by a looper, and a
+ * smaller counterweight on the other side. Sides alternate between segments,
+ * everything else is jittered from a seed derived from the pathname and the
+ * segment index, so each page gets its own (but stable across reloads) variation.
+ */
 export function sceneSegment(pathname: string, index: number): SceneShape[] {
   const seed = hash(pathname)
   const rand = prng(seed ^ Math.imul(index + 1, 0x9e3779b1))
@@ -90,13 +100,18 @@ export function sceneSegment(pathname: string, index: number): SceneShape[] {
   const side = (seed + index) % 2 ? 1 : -1
 
   const shapes: SceneShape[] = []
+  /** `x` from -1 (left edge) to 1 (right edge) of the page, `y` in segments, `size` in `--bg-unit`s */
   const add = (variant: SceneShape["variant"], x: number, y: number, size: number, depth: [number, number]) => {
+    const height = variant === "looper" ? size * LOOPER_ASPECT : size
     shapes.push({
       id: `${index}-${shapes.length}`,
       variant,
-      x,
-      y: index + y,
-      size,
+      box: {
+        left: `calc(${50 + x * 50}% - ${size / 2} * var(--bg-unit))`,
+        top: `calc(${index + y} * var(--bg-segment) - ${height / 2} * var(--bg-unit))`,
+        width: `calc(${size} * var(--bg-unit))`,
+        height: `calc(${height} * var(--bg-unit))`,
+      },
       rotate: between(0, 360),
       ...motionFor(rand, variant, depth),
     })
@@ -120,166 +135,125 @@ export function sceneSegment(pathname: string, index: number): SceneShape[] {
   return shapes
 }
 
-/** A shape as Figma places it: center and width of the layer, in px of its frame */
-type FigmaPlacement = { variant: SceneShape["variant"]; x: number; y: number; w: number }
-
-type FigmaFrame = { width: number; height: number; shapes: FigmaPlacement[] }
-
-/** Layer size of the blurred masters, whose images include 100px of blur bleed per side (see `@/components/shapes`) */
-const MASTER_SIZE: Record<SceneShape["variant"], number | null> = {
-  "big-blue": 1062.24,
-  "big-teal": 974,
-  "small-blue": 354.126,
-  looper: null,
+/** A frame followed by a footer drawn on its own, for the frames Figma draws without one */
+function withFooter(frame: FigmaFrame, footer: FigmaFrame): FigmaFrame {
+  const below = (y: number) => frame.height + y
+  return {
+    ...frame,
+    height: frame.height + footer.height,
+    footer: frame.height,
+    shapes: [
+      ...frame.shapes,
+      ...footer.shapes.map(([variant, x, y, w, h, rotate, top = 0, bottom = footer.height]) => {
+        const shape: FigmaShape = [variant, x, below(y), w, h, rotate, below(top), below(bottom)]
+        return shape
+      }),
+    ],
+  }
 }
-const BLEED = 100
 
-/** The desktop footer's shapes, the same on every Figma page: centers relative to the top of the footer frame */
-const FIGMA_FOOTER: FigmaPlacement[] = [
-  { variant: "small-blue", x: 230, y: 593, w: 354 },
-  { variant: "big-teal", x: 526, y: 966, w: 1444 },
-  { variant: "looper", x: 1548, y: 770, w: 2184 },
-  { variant: "big-blue", x: 1776, y: 811, w: 1432 },
-]
+/** A frame without its footer, for the pages that hide it */
+function withoutFooter(frame: FigmaFrame): FigmaFrame {
+  return { ...frame, height: frame.footer, shapes: frame.shapes.filter(([, , y]) => y < frame.footer) }
+}
 
-const footerAt = (top: number) => FIGMA_FOOTER.map((shape) => ({ ...shape, y: top + shape.y }))
+type FigmaScene = { desktop: FigmaFrame; mobile: FigmaFrame }
 
 /**
  * Pages whose background Figma composes by hand: the shapes sit behind the content (the hero, the cards, the
- * footer), so the glass surfaces always have colour behind them. Desktop frames come from the "💻website-desktop"
- * page (1728px wide), mobile ones from "📱website-mobile" (402px wide).
+ * footer), so the glass surfaces always have colour behind them. Pages without a frame of their own borrow the one of
+ * the page they were drawn after.
  */
-const FIGMA_SCENES: Record<string, { desktop: FigmaFrame; mobile: FigmaFrame }> = {
-  // "homepage" and "Home-Mobile", Materials section included
-  "/": {
-    desktop: {
-      width: 1728,
-      height: 5585,
-      shapes: [
-        // hero: a cluster behind the title and the search bar, crossed by a looper
-        { variant: "big-blue", x: 918, y: 165, w: 1248 },
-        { variant: "looper", x: 882, y: 393, w: 1401 },
-        { variant: "big-teal", x: 900, y: 561, w: 974 },
-        { variant: "small-blue", x: 470, y: 708, w: 437 },
-        // materials: behind the cards, on the left
-        { variant: "small-blue", x: 298, y: 1916, w: 499 },
-        { variant: "looper", x: 393, y: 2161, w: 1610 },
-        { variant: "big-teal", x: 90, y: 2173, w: 974 },
-        // projects: behind the cards, on the right
-        { variant: "small-blue", x: 1443, y: 2923, w: 477 },
-        { variant: "big-teal", x: 1587, y: 3194, w: 662 },
-        ...footerAt(4468),
-      ],
-    },
-    mobile: {
-      width: 402,
-      height: 5450,
-      shapes: [
-        // hero
-        { variant: "small-blue", x: 201, y: 265, w: 354 },
-        { variant: "big-teal", x: 202, y: 399, w: 401 },
-        { variant: "looper", x: 274, y: 472, w: 891 },
-        // materials: behind the cards
-        { variant: "big-teal", x: 88, y: 1118, w: 401 },
-        { variant: "small-blue", x: 38, y: 1161, w: 233 },
-        { variant: "big-teal", x: 314, y: 1680, w: 401 },
-        { variant: "big-teal", x: 88, y: 1998, w: 401 },
-        { variant: "looper", x: 249, y: 2053, w: 1000 },
-        // projects: behind the carousel
-        { variant: "small-blue", x: 330, y: 2375, w: 222 },
-        { variant: "big-teal", x: 292, y: 2388, w: 401 },
-        { variant: "looper", x: 1539, y: 2699, w: 1855 },
-        { variant: "big-teal", x: 203, y: 2961, w: 401 },
-        // footer
-        { variant: "small-blue", x: 330, y: 4316, w: 354 },
-        { variant: "looper", x: 1860, y: 4534, w: 2005 },
-        { variant: "big-teal", x: 74, y: 5118, w: 420 },
-        { variant: "big-teal", x: 212, y: 5500, w: 974 },
-        { variant: "big-blue", x: 202, y: 5769, w: 1062 },
-      ],
-    },
+const FIGMA_SCENES: Record<string, FigmaScene> = {
+  "/": { desktop: DESKTOP_FRAMES["/"], mobile: MOBILE_FRAMES["/"] },
+  "/progetti": { desktop: DESKTOP_FRAMES["/progetti"], mobile: MOBILE_FRAMES["/progetti"] },
+  "/chi-siamo": { desktop: DESKTOP_FRAMES["/chi-siamo"], mobile: MOBILE_FRAMES["/chi-siamo"] },
+  // drawn on desktop only, after "Su di noi"
+  "/storia": { desktop: withFooter(DESKTOP_FRAMES["/storia"], DESKTOP_FOOTER), mobile: MOBILE_FRAMES["/chi-siamo"] },
+  "/ringraziamenti": { desktop: DESKTOP_FRAMES["/ringraziamenti"], mobile: MOBILE_FRAMES["/ringraziamenti"] },
+  "/struttura": { desktop: DESKTOP_FRAMES["/struttura"], mobile: MOBILE_FRAMES["/struttura"] },
+  "/team": { desktop: DESKTOP_FRAMES["/team"], mobile: withFooter(MOBILE_FRAMES["/team"], MOBILE_FOOTER) },
+  "/unisciti": { desktop: DESKTOP_FRAMES["/unisciti"], mobile: MOBILE_FRAMES["/unisciti"] },
+  "/collabora": { desktop: DESKTOP_FRAMES["/collabora"], mobile: MOBILE_FRAMES["/collabora"] },
+  "/contatti": { desktop: DESKTOP_FRAMES["/contatti"], mobile: MOBILE_FRAMES["/contatti"] },
+  "/gruppi": { desktop: DESKTOP_FRAMES["/gruppi"], mobile: MOBILE_FRAMES["/gruppi"] },
+  "/matricole": { desktop: DESKTOP_FRAMES["/matricole"], mobile: MOBILE_FRAMES["/matricole"] },
+  // a full-screen guide, with the background of the guides
+  "/matricole/guida": { desktop: DESKTOP_FRAMES["/guide"], mobile: withoutFooter(MOBILE_FRAMES["/guide"]) },
+  "/associazioni": { desktop: DESKTOP_FRAMES["/associazioni"], mobile: MOBILE_FRAMES["/associazioni"] },
+  "/guide": { desktop: withFooter(DESKTOP_FRAMES["/guide"], DESKTOP_FOOTER), mobile: MOBILE_FRAMES["/guide"] },
+  "/faq": { desktop: DESKTOP_FRAMES["/faq"], mobile: MOBILE_FRAMES["/faq"] },
+  "/documenti": {
+    desktop: withFooter(DESKTOP_FRAMES["/documenti"], DESKTOP_FOOTER),
+    mobile: MOBILE_FRAMES["/documenti"],
   },
-  // "progetti" and "Progetti-Mobile"
-  "/progetti": {
-    desktop: {
-      width: 1728,
-      height: 5587,
-      shapes: [
-        // hero and the community news
-        { variant: "small-blue", x: 57, y: 179, w: 460 },
-        { variant: "big-teal", x: 37, y: 487, w: 974 },
-        { variant: "big-teal", x: 1691, y: 487, w: 974 },
-        { variant: "looper", x: 395, y: 867, w: 1918 },
-        // the collection
-        { variant: "big-teal", x: 864, y: 1643, w: 974 },
-        { variant: "big-blue", x: 859, y: 1920, w: 578 },
-        { variant: "looper", x: 864, y: 1986, w: 1918 },
-        // the proposal section
-        { variant: "big-blue", x: 1044, y: 2562, w: 460 },
-        { variant: "big-teal", x: 550, y: 2792, w: 974 },
-        { variant: "looper", x: 533, y: 2955, w: 1610 },
-        // deprecated projects
-        { variant: "big-teal", x: 1428, y: 3788, w: 974 },
-        { variant: "big-blue", x: 1401, y: 4451, w: 771 },
-        ...footerAt(4470),
-      ],
-    },
-    mobile: {
-      width: 402,
-      height: 5231,
-      shapes: [
-        // hero and the community news
-        { variant: "big-teal", x: 358, y: 250, w: 401 },
-        { variant: "small-blue", x: 37, y: 402, w: 285 },
-        { variant: "looper", x: 862, y: 990, w: 1242 },
-        { variant: "big-teal", x: 202, y: 1037, w: 401 },
-        { variant: "small-blue", x: 208, y: 1132, w: 233 },
-        // the collection
-        { variant: "small-blue", x: 304, y: 1594, w: 233 },
-        { variant: "looper", x: 1084, y: 1654, w: 1168 },
-        { variant: "big-teal", x: 85, y: 1755, w: 401 },
-        // the proposal section and deprecated projects
-        { variant: "big-teal", x: 350, y: 2793, w: 401 },
-        { variant: "big-teal", x: 64, y: 3274, w: 401 },
-        { variant: "small-blue", x: 251, y: 3279, w: 233 },
-        // footer
-        { variant: "small-blue", x: 329, y: 4103, w: 354 },
-        { variant: "looper", x: 1859, y: 4321, w: 2005 },
-        { variant: "looper", x: 726, y: 4367, w: 1427 },
-        { variant: "big-teal", x: 73, y: 4905, w: 420 },
-        { variant: "big-teal", x: 211, y: 5287, w: 974 },
-        { variant: "big-blue", x: 201, y: 5556, w: 1062 },
-      ],
-    },
+  // drawn on desktop only: on phones it keeps the background of the catalog
+  "/documenti/view": {
+    desktop: DESKTOP_FRAMES["/documenti/view"],
+    mobile: withoutFooter(MOBILE_FRAMES["/documenti"]),
   },
+  // the route `useRoutePathname` gives the 404 page
+  "/_not-found": { desktop: DESKTOP_FRAMES["not-found"], mobile: MOBILE_FRAMES["not-found"] },
+}
+
+/** Sections whose pages all have the background of their root */
+const FIGMA_SECTIONS = ["/gruppi", "/guide", "/documenti/view"]
+
+const round = (n: number) => Number(n.toFixed(5))
+
+/**
+ * Where a y of the frame is on the page. The frame is split like the page: shapes above Figma's footer are spread
+ * over the content (a fraction of it, so each stays by its section even if the real one is taller or shorter than
+ * in Figma), the others over the footer. `--bg-footer` is the height of the footer, measured by the scene.
+ */
+function pageY(y: number, { height, footer }: FigmaFrame) {
+  if (y <= footer || footer >= height) return `(100% - var(--bg-footer)) * ${round(y / footer)}`
+  return `100% - var(--bg-footer) * ${round(1 - (y - footer) / (height - footer))}`
+}
+
+/** The shapes of a Figma frame, placed on the page and sized like the frame (as wide as the screen) */
+function frameShapes(frame: FigmaFrame, layout: "desktop" | "mobile", rand: () => number): SceneShape[] {
+  const px = (value: number) => `${round(value / frame.width)} * 100cqw`
+  return frame.shapes.map(([variant, x, y, w, h, rotate, clipTop = 0, clipBottom = frame.height], i) => {
+    const looper = variant === "looper"
+    // the layer blur keeps its 100px of bleed however the blob is resized
+    const width = looper ? w : w + 2 * BLOB_BLEED
+    const height = looper ? h : h + 2 * BLOB_BLEED
+    // Only the footer's edge is kept: the sections of the page are laid out unlike their Figma frames, so clipping
+    // the blobs to those frames would cut them with hard edges in the middle of the page
+    const footer = `calc(${pageY(frame.footer, frame)})`
+    const top = clipTop > 0 && clipTop >= frame.footer ? footer : "0"
+    const bottom = clipBottom < frame.height && clipBottom <= frame.footer ? `calc(100% - ${footer})` : "0"
+
+    return {
+      id: `figma-${layout}-${i}`,
+      variant,
+      layout,
+      box: {
+        left: `calc(${px(x - width / 2)})`,
+        top: `calc(${pageY(y, frame)} - ${px(height / 2)})`,
+        width: `calc(${px(width)})`,
+        height: `calc(${px(height)})`,
+      },
+      clip: top === "0" && bottom === "0" ? undefined : `inset(${top} 0 ${bottom} 0)`,
+      image: looper ? undefined : blobImage(variant, Math.sqrt(w * h)),
+      rotate,
+      stretch: looper ? round(h / (w * LOOPER_ASPECT)) : undefined,
+      // a gentler parallax than the generated scenes, so each shape stays behind its section
+      ...motionFor(rand, variant, [-40, 40]),
+    }
+  })
 }
 
 /** The hand-composed scene of a page drawn in Figma, or `null` when its background is generated by segments */
-export function figmaScene(pathname: string): SceneShape[] | null {
-  const scene = FIGMA_SCENES[pathname]
+export function figmaScene(route: string): SceneShape[] | null {
+  // the 404's segments make it `//_not-found`
+  const pathname = route.replace(/\/{2,}/g, "/")
+  const key = FIGMA_SCENES[pathname]
+    ? pathname
+    : FIGMA_SECTIONS.find((section) => matchesRoutePrefix(pathname, section))
+  const scene = key && FIGMA_SCENES[key]
   if (!scene) return null
-  const rand = prng(hash(pathname))
-
-  return (["desktop", "mobile"] as const).flatMap((layout) => {
-    const frame = scene[layout]
-    return frame.shapes.map((shape, i) => {
-      const master = MASTER_SIZE[shape.variant]
-      return {
-        id: `figma-${layout}-${i}`,
-        variant: shape.variant,
-        x: (shape.x / frame.width) * 2 - 1,
-        y: shape.y / frame.height,
-        page: true,
-        layout,
-        // Figma's frame is as wide as the screen: one Figma px is 1/width of the viewport
-        unit: `${100 / frame.width}vw`,
-        // the layout box includes the image's blur bleed, scaled like the shape
-        size: master ? shape.w * (1 + (2 * BLEED) / master) : shape.w,
-        // drawn upright, as in Figma
-        rotate: 0,
-        // a gentler parallax than the generated scenes, so each shape stays behind its section
-        ...motionFor(rand, shape.variant, [-40, 40]),
-      }
-    })
-  })
+  const rand = prng(hash(key))
+  return [...frameShapes(scene.desktop, "desktop", rand), ...frameShapes(scene.mobile, "mobile", rand)]
 }
