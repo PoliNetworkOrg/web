@@ -1,6 +1,6 @@
 /**
  * Matches `pathname` against `prefix` at a path-segment boundary — `"/gruppi"` matches `"/gruppi"` and
- * `"/gruppi/x"`, but not `"/groupsettings"`.
+ * `"/gruppi/x"`, but not `"/gruppisettings"`.
  */
 export function matchesRoutePrefix(pathname: string, prefix: string): boolean {
   return pathname === prefix || pathname.startsWith(`${prefix}/`)

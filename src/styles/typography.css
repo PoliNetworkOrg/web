@@ -118,3 +118,13 @@
   background-clip: text;
   color: transparent;
 }
+
+/* The same per-line gradient in blue, for closing statements (`ClosingCta`) */
+@utility text-gradient-blue {
+  background-image: linear-gradient(to bottom, var(--color-blue-secondary), var(--color-blue-primary));
+  background-size: 100% 1lh;
+  background-repeat: repeat-y;
+  background-origin: content-box;
+  background-clip: text;
+  color: transparent;
+}

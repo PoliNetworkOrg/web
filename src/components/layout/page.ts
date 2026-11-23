@@ -1,8 +1,11 @@
 /** Content column of the redesigned pages: Figma's ~1272px column with the homepage's 24/40/64px gutters. */
 export const CONTAINER = "mx-auto w-full max-w-350 px-6 sm:px-10 lg:px-16"
 
-/** Section title in the grey gradient. Closing statements (`ClosingCta`) switch it to blue. */
-export const SECTION_TITLE = "typo-headline-medium sm:typo-display-medium text-balance text-gradient-grey"
+/** Size and wrapping of a section title, without its colour */
+export const SECTION_TITLE_TYPE = "typo-headline-medium sm:typo-display-medium text-balance"
+
+/** Section title in the grey gradient. Closing statements (`ClosingCta`) use the blue one. */
+export const SECTION_TITLE = `${SECTION_TITLE_TYPE} text-gradient-grey`
 
 export const SECTION_LEAD = "typo-body-large sm:typo-headline-extrasmall text-pretty"
 
