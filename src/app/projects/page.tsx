@@ -1,4 +1,4 @@
-import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
+import { CONTAINER, PAGE_MAIN } from "@/components/layout/page"
 import { Collection } from "@/components/projects/collection"
 import { CommunityNews } from "@/components/projects/community-news"
 import { Deprecated } from "@/components/projects/deprecated"
@@ -22,7 +22,8 @@ export default async function ProjectsPage() {
 
   return (
     <main className={PAGE_MAIN}>
-      <section className={`${CONTAINER} ${PAGE_HERO}`}>
+      {/* 3/4 of PAGE_HERO's air: above, between the fixed header and the title; below, padding plus PAGE_MAIN's gap */}
+      <section className={`${CONTAINER} pt-44 pb-0 md:pt-45.5 md:pb-1 lg:pt-47 xl:pb-7`}>
         <Hero title="Progetti" description="Esplora e contribuisci ai progetti degli studenti" />
       </section>
       <CommunityNews projects={news} />
