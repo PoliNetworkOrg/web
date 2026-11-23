@@ -22,6 +22,12 @@ const sceneKey = (pathname: string) =>
   SHARED_SCENES.find((root) => pathname === root || pathname.startsWith(`${root}/`)) ?? pathname
 
 /**
+ * False until the first scene has mounted: the first page's background is shown as the server rendered it, the scene
+ * of every page reached by navigating afterwards fades in instead of popping in place of the previous one.
+ */
+const session: { navigated: boolean } = { navigated: false }
+
+/**
  * Animated decorative background shared by every page. It covers the whole
  * page (footer included). Pages drawn in Figma get their shapes from
  * `figmaScene`; the others are split into `--bg-segment` tall segments, each
@@ -59,6 +65,11 @@ function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
   // the order the shapes are rendered in, which `animateScene` relies on
   const shapes = groups.flatMap((group) => group.shapes)
   const shapesRef = useRef(shapes)
+  const [fadeIn] = useState(() => session.navigated)
+
+  useEffect(() => {
+    session.navigated = true
+  }, [])
 
   useEffect(() => {
     shapesRef.current = shapes
@@ -98,7 +109,10 @@ function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
       aria-hidden
       data-scene={pathname}
       data-footer={footer ? undefined : "none"}
-      className="shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip"
+      className={cn(
+        "shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip",
+        fadeIn && "animate-fade-in [animation-duration:0.6s]"
+      )}
     >
       {groups.map((group) => (
         <div key={group.clip ?? "none"} className="absolute inset-0" style={{ clipPath: group.clip }}>

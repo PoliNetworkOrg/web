@@ -22,11 +22,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Hover mixes the fill toward blue-secondary: a visible step darker that stays in the palette (/90 barely showed)
+        // Hover turns the button into the site's dark blue with light text: a clear change, not a muddy shade of the fill
         primary:
-          "bg-button-primary hover:bg-[color-mix(in_oklab,var(--color-button-primary),var(--color-blue-secondary)_30%)] text-text-accent-lightbg typo-label-large rounded-buttonsM",
+          "bg-button-primary hover:bg-blue-secondary hover:text-text-accent-darkbg text-text-accent-lightbg typo-label-large rounded-buttonsM",
         tertiary:
-          "bg-button-tertiary hover:bg-[color-mix(in_oklab,var(--color-button-tertiary),var(--color-blue-secondary)_25%)] text-text-accent-lightbg typo-label-large rounded-buttonsM",
+          "bg-button-tertiary hover:bg-button-primary text-text-accent-lightbg typo-label-large rounded-buttonsM",
         tertiaryBlur:
           "bg-blue-tertiary-blur hover:bg-blue-tertiary text-text-accent-lightbg typo-headline-small rounded-buttonsM",
         glass: "bg-background-blur backdrop-blur-md rounded-buttonsL",

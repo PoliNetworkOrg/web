@@ -1,17 +1,18 @@
 import Image from "next/image"
 import networkLogo from "@/assets/images/join/network-logo.png"
 import { Highlight } from "@/components/collabora/section"
-import { CONTAINER, INLINE_LINK, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Glass } from "@/components/glass"
+import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
 
 export function Introduction() {
   return (
     <section
-      className={cn(CONTAINER, "grid items-center gap-x-16 gap-y-10 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]")}
+      className={cn(CONTAINER, "grid items-center gap-x-20 gap-y-12.5 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]")}
     >
-      <div className="flex min-w-0 flex-col gap-6">
+      <div className="flex min-w-0 flex-col gap-7.5">
         <h2 className={SECTION_TITLE}>Cosa significa far parte di PoliNetwork</h2>
-        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-5")}>
+        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-6.25")}>
           <p>
             PoliNetwork è gestita interamente da <Highlight>studenti del Politecnico di Milano</Highlight>.
           </p>
@@ -28,23 +29,15 @@ export function Introduction() {
             </Highlight>
           </p>
           <p>
-            Ci sono tre modi per fare parte di PoliNetwork:{" "}
-            <a href="#admin" className={INLINE_LINK}>
-              diventare admin
-            </a>
-            ,{" "}
-            <a href="#team" className={INLINE_LINK}>
-              entrare in uno dei team operativi
-            </a>{" "}
-            o{" "}
-            <a href="#socio" className={INLINE_LINK}>
-              diventare socio
-            </a>
-            .
+            Ci sono tre modi per fare parte di PoliNetwork: <Highlight>diventare admin</Highlight>,{" "}
+            <Highlight>entrare in uno dei team operativi</Highlight> o <Highlight>diventare socio</Highlight>.
           </p>
         </div>
       </div>
-      <Image src={networkLogo} alt="" sizes="224px" className="hidden h-auto w-56 justify-self-center xl:block" />
+      {/* A round glass bubble around the logo, so it doesn't float on its own */}
+      <Glass className="hidden size-72 items-center justify-center justify-self-center rounded-full border-white/50 bg-background-blur p-0 xl:flex">
+        <Image src={networkLogo} alt="" sizes="224px" className="h-auto w-56" />
+      </Glass>
     </section>
   )
 }

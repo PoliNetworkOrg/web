@@ -9,10 +9,10 @@ import { teamCards } from "./constants"
 
 export function TeamsSection() {
   return (
-    <section id="team" className={cn(CONTAINER, "grid scroll-mt-36 items-start gap-10 xl:grid-cols-2 xl:gap-16")}>
-      <div className="flex min-w-0 flex-col items-start gap-6">
+    <section id="team" className={cn(CONTAINER, "grid scroll-mt-36 items-start gap-12.5 xl:grid-cols-2 xl:gap-20")}>
+      <div className="flex min-w-0 flex-col items-start gap-7.5">
         <h2 className={SECTION_TITLE}>Entra in un Team</h2>
-        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-5")}>
+        <div className={cn(SECTION_LEAD, "flex max-w-200 flex-col gap-6.25")}>
           <p>
             Entrare in un team significa avere un <Highlight>ruolo operativo con deliverable reali</Highlight>, non
             essere osservatori di un progetto altrui.
