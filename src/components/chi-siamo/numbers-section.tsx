@@ -32,8 +32,11 @@ function CountUp({ value }: { value: string }) {
   useEffect(() => {
     if (reduceMotion) return
     if (!inView) {
-      // Ready to count again the next time it comes into view
-      setCount(0)
+      // Ready to count again the next time it comes into view. `inView` also starts false right after hydration:
+      // a figure already on screen keeps the final value until the observer reports it, instead of flashing to 0
+      const rect = ref.current?.getBoundingClientRect()
+      const onScreen = rect && rect.bottom > 0 && rect.top < window.innerHeight
+      if (!onScreen) setCount(0)
       return
     }
     const controls = animate(0, target, {

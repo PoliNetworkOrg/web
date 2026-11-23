@@ -10,7 +10,7 @@ import { PAGE_MAIN } from "@/components/layout/page"
 
 export const metadata: Metadata = {
   title: "Su di noi",
-  description: "Rendiamo le informazioni sul PoliMi più accessibili, comprensibili e facili da trovare.",
+  description: "Rendiamo le informazioni sul PoliMi più semplici.",
 }
 
 export default function ChiSiamoPage() {

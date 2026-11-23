@@ -46,9 +46,10 @@ export function ProblemSection() {
     if (!inView || reduceMotion) return
     let tick = 0
     const id = setInterval(() => {
+      // Worked out outside the updater, which StrictMode runs twice in development
+      const slot = tick % SLOTS.length
+      tick++
       setShown((current) => {
-        const slot = tick % SLOTS.length
-        tick++
         // The next question that isn't on screen yet, after the last one shown
         let next = (Math.max(...current) + 1) % questions.length
         while (current.includes(next)) next = (next + 1) % questions.length
