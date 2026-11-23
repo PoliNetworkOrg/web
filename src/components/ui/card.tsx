@@ -18,6 +18,9 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
+        // Clickable cards shrink a little while pressed, like buttons (less: a card is a larger surface)
+        hoverBackground &&
+          "transition-transform duration-150 ease-out has-[>a:active]:scale-[0.98] has-[>button:active]:scale-[0.98]",
         "group/card relative flex h-66 w-78 flex-col gap-4 overflow-hidden rounded-rectangles border-white/50 bg-background-blur text-card-foreground text-sm ring-foreground/10 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
         className
       )}

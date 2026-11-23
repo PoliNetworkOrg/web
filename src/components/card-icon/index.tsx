@@ -32,7 +32,8 @@ export function CardIcon(props: CardIconProps) {
     <Glass
       className={cn(
         "w-full overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground",
-        (href || onClick) && "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-blue-secondary",
+        (href || onClick) &&
+          "transition-transform duration-150 ease-out has-[>a:active]:scale-[0.98] has-[>button:active]:scale-[0.98] has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-blue-secondary",
         className
       )}
     >
