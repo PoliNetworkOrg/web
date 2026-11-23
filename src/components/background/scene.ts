@@ -17,7 +17,7 @@ export type SceneShape = {
   variant: ShapeVariant
   /** The layout box, as CSS lengths relative to the scene (see `.shape-scene` for the custom properties) */
   box: { left: string; top: string; width: string; height: string }
-  /** The region of the page the shape is visible in, a `clip-path`: Figma frames clip the shapes they hold */
+  /** The region of the page the shape is visible in, a `clip-path`: the footer clips its shapes, and the shapes clipped above it */
   clip?: string
   /** Shown only on phones (below md) or only from md: pages composed in Figma have a frame for each */
   layout?: "mobile" | "desktop"
@@ -219,8 +219,11 @@ function frameShapes(frame: FigmaFrame, layout: "desktop" | "mobile", rand: () =
     // the layer blur keeps its 100px of bleed however the blob is resized
     const width = looper ? w : w + 2 * BLOB_BLEED
     const height = looper ? h : h + 2 * BLOB_BLEED
-    const top = clipTop > 0 ? `calc(${pageY(clipTop, frame)})` : "0"
-    const bottom = clipBottom < frame.height ? `calc(100% - (${pageY(clipBottom, frame)}))` : "0"
+    // Only the footer's edge is kept: the sections of the page are laid out unlike their Figma frames, so clipping
+    // the blobs to those frames would cut them with hard edges in the middle of the page
+    const footer = `calc(${pageY(frame.footer, frame)})`
+    const top = clipTop > 0 && clipTop >= frame.footer ? footer : "0"
+    const bottom = clipBottom < frame.height && clipBottom <= frame.footer ? `calc(100% - ${footer})` : "0"
 
     return {
       id: `figma-${layout}-${i}`,
