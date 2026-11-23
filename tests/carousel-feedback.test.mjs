@@ -11,7 +11,7 @@ await loadBindings()
 // Run the real component handlers/effects with deterministic hooks and browser APIs.
 async function mount(file, name, props = {}) {
   const slots = [], effects = [], timers = new Map(), listeners = new Set(), events = new Map()
-  let cursor = 0, dirty = false, tree, timerId = 0, advances = 0, rejectClipboard = false
+  let cursor = 0, dirty = false, tree, timerId = 0, advances = 0, rejectClipboard = false, progress = 0
   const same = (a, b) => a && a.length === b.length && a.every((value, i) => Object.is(value, b[i]))
   const react = {
     createElement: (type, props, ...children) => ({ type, props: { ...props, children } }),
@@ -23,6 +23,11 @@ async function mount(file, name, props = {}) {
         const next = typeof value === "function" ? value(slots[id].value) : value
         if (!Object.is(next, slots[id].value)) { slots[id].value = next; dirty = true }
       }]
+    },
+    useRef(initial) {
+      const id = cursor++
+      slots[id] ??= { current: initial }
+      return slots[id]
     },
     useCallback(fn, deps) {
       const id = cursor++
@@ -42,10 +47,12 @@ async function mount(file, name, props = {}) {
     removeEventListener: (_event, fn) => listeners.delete(fn),
   }
   const api = { canScrollPrev: () => false, canScrollNext: () => true,
-    selectedScrollSnap: () => 0, scrollSnapList: () => [0, 1],
+    selectedScrollSnap: () => 0, scrollSnapList: () => [0, 1], scrollProgress: () => progress,
     scrollNext: () => advances++, scrollPrev() {}, scrollTo: () => advances++,
-    on(event, fn) { events.set(event, fn) }, off(event) { events.delete(event) },
+    on(event, fn) { if (!events.has(event)) events.set(event, new Set()); events.get(event).add(fn) },
+    off(event, fn) { events.get(event)?.delete(fn) },
   }
+  const emit = (event) => { for (const fn of [...(events.get(event) ?? [])]) fn() }
   const { code } = await transform(readFileSync(new URL(file, import.meta.url), "utf8"), {
     filename: file, jsc: { parser: { syntax: "typescript", tsx: true },
       transform: { react: { runtime: "classic" } }, target: "es2022" }, module: { type: "commonjs" },
@@ -93,8 +100,13 @@ async function mount(file, name, props = {}) {
     event(handler, event = {}) { find(tree, "section").props[handler](event); render() },
     tick() { for (const fn of [...timers.values()]) fn(); render(); return advances },
     motion(matches) { media.matches = matches; for (const fn of listeners) fn(media); render() },
-    drag() { events.get("pointerDown")(); events.get("scroll")(); events.get("pointerUp")(); render() },
-    tap() { events.get("pointerDown")(); events.get("pointerUp")(); render() },
+    // Embla emits `scroll` on every animation frame, whether or not the slides moved
+    drag() { emit("pointerDown"); progress += 0.1; emit("scroll"); emit("pointerUp"); render() },
+    tap() { emit("pointerDown"); emit("scroll"); emit("pointerUp"); render() },
+    // Released before the first frame: Embla picks the next slide in `pointerUp`, emitting `select` first
+    shortDrag() { emit("pointerDown"); emit("select"); emit("pointerUp"); render() },
+    press() { emit("pointerDown"); render() },
+    release() { emit("pointerUp"); render() },
     toggleAutoplay() { tree.props.value.toggleAutoplay(); render() },
     navigateNext() { tree.props.value.scrollNext(); render() },
     async copy(reject) { rejectClipboard = reject; await find(tree, "button").props.onClick(); render() },
@@ -194,5 +206,21 @@ test("Pause persists after focus leaves, allows navigation, and Play resumes fro
   view.event("onFocusCapture", focusEvent(true, true))
   view.toggleAutoplay()
   assert.equal(view.tick(), 2)
+  view.unmount()
+})
+
+test("a short drag released before its first frame still stops autoplay", async () => {
+  const view = await carousel()
+  view.shortDrag()
+  assert.equal(view.tick(), 0)
+  view.unmount()
+})
+
+test("autoplay waits while a finger rests on the slides, then carries on", async () => {
+  const view = await carousel()
+  view.press()
+  assert.equal(view.tick(), 0)
+  view.release()
+  assert.equal(view.tick(), 1)
   view.unmount()
 })

@@ -139,27 +139,36 @@ function Carousel({
     }
   }, [api, onSelect])
 
+  // The press in progress and where the slides were when it began. Embla reports `pointerDown` for every touch, page
+  // scrolls and taps included, so only a press that moves the slides counts as a drag
+  const press = React.useRef<{ start: number } | null>(null)
+
   React.useEffect(() => {
     if (!api) return
-    // Embla reports `pointerDown` for every touch, page scrolls and taps included: only a press that moves the slides
-    // counts as a drag
-    const pointer = { pressed: false }
-    const press = () => {
-      pointer.pressed = true
+    const down = () => {
+      press.current = { start: api.scrollProgress() }
     }
-    const release = () => {
-      pointer.pressed = false
+    const up = () => {
+      press.current = null
     }
-    const drag = () => {
-      if (pointer.pressed) setStopped(true)
+    // Embla freezes the slides on `pointerDown`, so while pressed they only move because of the drag
+    const scroll = () => {
+      if (press.current && api.scrollProgress() !== press.current.start) setStopped(true)
     }
-    api.on("pointerDown", press)
-    api.on("pointerUp", release)
-    api.on("scroll", drag)
+    // A short drag can end before its first frame: Embla then picks the next slide on release, emitting `select`
+    // before `pointerUp`
+    const select = () => {
+      if (press.current) setStopped(true)
+    }
+    api.on("pointerDown", down)
+    api.on("pointerUp", up)
+    api.on("scroll", scroll)
+    api.on("select", select)
     return () => {
-      api.off("pointerDown", press)
-      api.off("pointerUp", release)
-      api.off("scroll", drag)
+      api.off("pointerDown", down)
+      api.off("pointerUp", up)
+      api.off("scroll", scroll)
+      api.off("select", select)
     }
   }, [api])
 
@@ -176,6 +185,8 @@ function Carousel({
     const interval = setInterval(() => {
       // Inactive at this breakpoint (a grid instead) or nothing to scroll: stay put
       if (api.scrollSnapList().length <= 1) return
+      // Never move the slides under a finger, or the press would read as a drag
+      if (press.current) return
       // At the end, go back to the first card rather than stopping
       if (api.canScrollNext()) api.scrollNext()
       else api.scrollTo(0)
