@@ -22,9 +22,9 @@ export function HistorySection() {
   return (
     <section className={`${CONTAINER} grid gap-16 md:grid-cols-2 md:gap-10 lg:gap-16`}>
       {blocks.map((block) => (
-        <div key={block.title} className="flex flex-col items-start gap-5">
+        <div key={block.title} className="flex flex-col items-center gap-5 text-center">
           <h2 className={SECTION_TITLE}>{block.title}</h2>
-          <p className="typo-body-large max-w-120 text-pretty">{block.description}</p>
+          <p className="typo-body-large max-w-120 text-balance">{block.description}</p>
           <Button variant="primary" size="lg" className="mt-auto w-fit" asChild>
             <Link href={block.href}>
               {block.cta}

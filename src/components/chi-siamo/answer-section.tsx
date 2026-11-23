@@ -28,9 +28,9 @@ const CARD_CLASS = "h-full p-0 [&_h3]:text-balance [&_p]:max-w-none"
 export function AnswerSection() {
   return (
     <section className={`${CONTAINER} flex flex-col gap-10 md:gap-14`}>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col items-center gap-4 text-center">
         <h2 className={SECTION_TITLE}>La nostra risposta</h2>
-        <p className={`${SECTION_LEAD} max-w-200`}>
+        <p className={`${SECTION_LEAD} max-w-200 text-balance`}>
           Costruiamo e manteniamo la rete di comunicazione studentesca del Politecnico di Milano.
         </p>
       </div>
