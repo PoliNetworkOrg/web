@@ -8,7 +8,7 @@ export function missingLinkTargetFromPath(pathname: string): MissingLinkTarget |
   }
 
   const [, groups, category, schoolSlug, levelSlug, course] = pathname.split("/")
-  if (groups !== "groups" || category !== "didattica" || !schoolSlug) return undefined
+  if (groups !== "gruppi" || category !== "didattica" || !schoolSlug) return undefined
 
   const school = getSchool(schoolSlug)
   if (!school) return undefined

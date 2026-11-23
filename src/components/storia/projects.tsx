@@ -55,10 +55,14 @@ function FeaturedCard({ item }: { item: Featured }) {
 }
 
 export async function HistoryProjects() {
-  const projects = await getAllProjects()
+  // Deprecated projects are left out, like on the home page; a project matched once isn't shown twice
+  const projects = (await getAllProjects()).filter((project) => project.category !== "deprecated")
+  const used = new Set<Project["id"]>()
   const featured: Featured[] = FEATURED.map(({ match, title, description }) => {
-    const project = projects.find((candidate) => match.test(candidate.title))
-    return project ? { project } : { title, description }
+    const project = projects.find((candidate) => !used.has(candidate.id) && match.test(candidate.title))
+    if (!project) return { title, description }
+    used.add(project.id)
+    return { project }
   })
   const key = (item: Featured) => ("project" in item ? String(item.project.id) : item.title)
 

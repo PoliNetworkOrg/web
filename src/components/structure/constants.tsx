@@ -44,9 +44,10 @@ export const associationBodies = [
     title: "I team",
     description: (
       <>
-        Sono <Blue>il cuore operativo</Blue> di PoliNetwork: IT, Design & Marketing, HR ed Events & Partnership. Ogni
-        team ha un proprio ambito e un <Blue>team lead</Blue> che lo coordina e si confronta con il Consiglio Direttivo
-        sulle priorità comuni, il recruiting e le decisioni che coinvolgono più team.
+        Sono <Blue>i quattro team operativi</Blue> di PoliNetwork: IT (sito, strumenti per gli studenti e progetti open
+        source), HR (reclutamento e gestione delle persone), Design & Marketing (social, grafica e branding) ed Events &
+        Partnership (eventi e partnership esterne). Entrare in un team significa{" "}
+        <Blue>contribuire alla crescita dell’associazione</Blue> e acquisire competenze concrete.
       </>
     ),
   },

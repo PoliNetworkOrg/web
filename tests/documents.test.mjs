@@ -37,7 +37,7 @@ function backendReturns(catalog) {
 }
 
 function requestFile(slug, query = "") {
-  return GET(new Request(`https://example.org/documents/file/${slug}${query}`), { params: Promise.resolve({ slug }) })
+  return GET(new Request(`https://example.org/documenti/file/${slug}${query}`), { params: Promise.resolve({ slug }) })
 }
 
 test("publishing the first document preserves other fallback documents without duplicating the uploaded slug", async () => {
@@ -117,7 +117,7 @@ test("a client that disconnects cancels the upstream download", async (t) => {
     return new Response("%PDF")
   })
   const client = new AbortController()
-  await GET(new Request("https://example.org/documents/file/statuto", { signal: client.signal }), {
+  await GET(new Request("https://example.org/documenti/file/statuto", { signal: client.signal }), {
     params: Promise.resolve({ slug: "statuto" }),
   })
   client.abort()
