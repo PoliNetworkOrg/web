@@ -121,7 +121,6 @@ export default function AcknowledgementsPage() {
         <Hero
           title="A chi siamo grati"
           description={description}
-          gradientDescription
           className={cn(
             "max-sm:[&>h1>span]:box-decoration-slice max-sm:[&>h1]:text-wrap",
             "max-[360px]:[&>h1]:typo-display-fluid-extralarge max-[360px]:[&>h1>span]:typo-display-fluid-extralarge",
