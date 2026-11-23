@@ -28,6 +28,7 @@ export const headerMenuItems: HeaderMenuItem[] = [
     menu: [
       { title: "Su di noi", href: "/chi-siamo", icon: FiChevronRight },
       { title: "La nostra storia", href: "/storia", icon: FiChevronRight },
+      { title: "Ringraziamenti", href: "/ringraziamenti", icon: FiChevronRight },
     ],
   },
   {

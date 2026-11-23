@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { FiBook } from "react-icons/fi"
 import { CardPathSelection } from "@/components/card-path-selection"
 import { getLevelsForSchool, getSchool } from "@/components/wizard/constants"
 import { WizardShell } from "@/components/wizard/wizard-shell"
@@ -38,11 +37,12 @@ export function LevelStep({
               key={level.slug}
               href={stepHref({ school: schoolSlug, level: level.slug })}
               className={cn(
-                "block rounded-rectangles outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
+                // Pressed, the card shrinks a little like the site's other clickable cards
+                "block rounded-rectangles outline-none transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-blue-secondary active:scale-[0.98]",
                 isLastOdd && "md:col-span-2"
               )}
             >
-              <CardPathSelection caption={level.name} className="w-full" icon={FiBook} />
+              <CardPathSelection caption={level.name} className="w-full" icon={level.icon} />
             </Link>
           )
         })}
