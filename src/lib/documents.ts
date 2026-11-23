@@ -1,4 +1,4 @@
-/** The association's public documents, linked from /struttura, /unisciti and the footer. */
+/** The association's public documents, linked from /unisciti and the documents catalog. */
 export const statuteHref = "https://github.com/PoliNetworkOrg/Statuto/blob/main/full.pdf"
 /** The Raccolta dei Regolamenti Interni (RRI), where polinet.cc/rri redirects. */
 export const regulationsHref = "https://polinetwork.org/files/RaccoltaRegolamentiInterni.pdf"

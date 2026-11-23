@@ -45,7 +45,7 @@ export function BoardMemberCard({
           rel="noopener noreferrer"
           className="absolute inset-0 z-10 outline-none"
         >
-          <span className="sr-only">{member.name} su LinkedIn</span>
+          <span className="sr-only">{member.name} su LinkedIn (si apre in una nuova scheda)</span>
         </a>
       )}
     </Card>
