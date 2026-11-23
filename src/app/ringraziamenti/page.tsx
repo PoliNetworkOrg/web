@@ -7,7 +7,7 @@ import { GoLaw } from "react-icons/go"
 import { LuMegaphone } from "react-icons/lu"
 import groupPhoto from "@/assets/images/ringraziamenti.webp"
 import { Glass } from "@/components/glass"
-import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN, SECTION_LEAD, SECTION_STACK, SECTION_TITLE } from "@/components/layout/page"
 import { PhotoShapes, type PhotoShapesLayout } from "@/components/shapes"
 import { Hero } from "@/components/ui/hero"
 import { cn } from "@/lib/utils"
@@ -25,9 +25,8 @@ export const metadata: Metadata = {
 // The credits are edited from the admin dashboard (Web › Riconoscimenti), so each request reads the latest ones.
 export const dynamic = "force-dynamic"
 
-const content = CONTAINER
-const sectionTitle = cn(SECTION_TITLE, "max-sm:typo-headline-medium text-center sm:text-start")
-const sectionCopy = "typo-body-large text-pretty lg:typo-headline-small"
+const sectionTitle = cn(SECTION_TITLE, "text-center sm:text-start")
+const sectionLead = cn(SECTION_LEAD, "text-center max-sm:mx-auto sm:text-start")
 const glassPanel = "rounded-rectangles border-white/50 bg-background-blur p-6 min-[400px]:p-10"
 const accent = "text-blue-secondary dark:text-sky-300"
 const introGradient = "bg-linear-to-b from-text-primary to-text-secondary bg-clip-text text-transparent"
@@ -67,32 +66,14 @@ function inColumns<T>(groups: T[]) {
   return [groups.slice(0, half), groups.slice(half)].filter((column) => column.length > 0)
 }
 
-function CreditList({
-  credits,
-  className,
-  compact = false,
-}: {
-  credits: readonly Credit[]
-  className: string
-  compact?: boolean
-}) {
+function CreditList({ credits, className }: { credits: readonly Credit[]; className: string }) {
   return (
-    <ul className={cn("grid list-disc gap-x-6 gap-y-3 pl-4", className)}>
+    <ul className={cn("grid list-disc gap-x-6 gap-y-4 pl-4", className)}>
       {credits.map(({ id, name, detail }) => (
         <li key={id} className="min-w-0 pl-0.5 marker:text-blue-secondary dark:marker:text-sky-300">
-          <span className={cn("typo-title-large wrap-break-word block", compact && "max-lg:typo-label-extralarge")}>
-            {name}
-          </span>
+          <span className="typo-title-medium wrap-break-word block">{name}</span>
           {detail && (
-            <span
-              className={cn(
-                "typo-label-large wrap-break-word mt-0.5 block uppercase",
-                compact && "max-lg:typo-label-medium",
-                accent
-              )}
-            >
-              {detail}
-            </span>
+            <span className={cn("typo-label-medium wrap-break-word mt-0.5 block uppercase", accent)}>{detail}</span>
           )}
         </li>
       ))}
@@ -107,25 +88,16 @@ export default async function AcknowledgementsPage() {
   const projectCredits = acknowledgements.projects
 
   return (
-    <main className="flex w-full flex-col 3xl:gap-75 gap-32 pb-24 md:gap-40 md:pb-32 xl:gap-60 xl:pb-37.5">
-      <div className={cn(content, "pt-61.5 3xl:pb-8 pb-20 sm:pt-52 sm:pb-12 md:pt-57.5")}>
-        <Hero
-          title="A chi siamo grati"
-          description={description}
-          className={cn(
-            "max-sm:[&>h1>span]:box-decoration-slice max-sm:[&>h1]:text-wrap",
-            "max-[360px]:[&>h1]:typo-display-fluid-extralarge max-[360px]:[&>h1>span]:typo-display-fluid-extralarge",
-            "sm:max-xl:[&>h1]:typo-display-fluid-extralarge sm:max-xl:[&>h1>span]:typo-display-fluid-extralarge"
-          )}
-          descriptionClassName="sm:bg-none sm:text-text-primary dark:text-text-primary"
-        />
-      </div>
+    <main className={PAGE_MAIN}>
+      <section className={cn(CONTAINER, PAGE_HERO)}>
+        <Hero title="A chi siamo grati" description={description} />
+      </section>
 
       <section
         aria-label="Introduzione"
-        className={cn(content, "grid items-center gap-6 lg:grid-cols-[720fr_663fr] lg:gap-14")}
+        className={cn(CONTAINER, "grid items-center gap-10 lg:grid-cols-[720fr_663fr] lg:gap-16")}
       >
-        <div className="typo-headline-small lg:typo-display-small flex flex-col gap-6 text-center lg:gap-8 lg:text-start">
+        <div className="typo-headline-small lg:typo-headline-medium flex flex-col gap-6 text-pretty text-center lg:text-start">
           <p className={introGradient}>
             Dal 2016 a oggi, sono moltissime le persone che, in diversi modi, hanno fatto crescere PoliNetwork e reso la
             vita universitaria più semplice per gli studenti del PoliMi.
@@ -151,33 +123,28 @@ export default async function AcknowledgementsPage() {
       </section>
 
       {websiteGroups.length > 0 && (
-        <section aria-labelledby="nuovo-sito" className={cn(content, "flex flex-col gap-6 max-sm:mt-28 lg:gap-12")}>
+        <section aria-labelledby="nuovo-sito" className={SECTION_STACK}>
           <div className="flex flex-col gap-6">
             <h2 id="nuovo-sito" className={sectionTitle}>
               Realizzazione del nuovo sito web
             </h2>
-            <p className={cn(sectionCopy, "max-w-220")}>
+            <p className={cn(sectionLead, "max-w-200")}>
               Pubblicato a dicembre 2026, è frutto del lavoro di designer e sviluppatori che hanno reso le informazioni
               su PoliNetwork più accessibili
             </p>
           </div>
-          <Glass className={cn(glassPanel, "grid gap-9 3xl:gap-x-24 md:grid-cols-2 md:gap-x-12")}>
+          <Glass className={cn(glassPanel, "grid gap-8 md:grid-cols-2 md:gap-x-12")}>
             {inColumns(websiteGroups).map((column) => (
-              <div key={column[0]?.id} className="flex min-w-0 flex-col gap-9">
+              <div key={column[0]?.id} className="flex min-w-0 flex-col gap-8">
                 {column.map(({ id, title, icon, entries }) => {
                   const Icon = groupIcons[icon] ?? FiSmile
                   return (
-                    <div key={id} className="flex flex-col gap-6">
-                      <h3
-                        className={cn(
-                          "typo-headline-extrasmall lg:typo-headline-small flex items-center gap-2.5 uppercase",
-                          accent
-                        )}
-                      >
-                        <Icon className="size-5 shrink-0 lg:size-6" aria-hidden />
+                    <div key={id} className="flex flex-col gap-4">
+                      <h3 className={cn("typo-title-large flex items-center gap-2.5 uppercase", accent)}>
+                        <Icon className="size-5 shrink-0" aria-hidden />
                         {title}
                       </h3>
-                      <CreditList credits={entries} className="lg:grid-cols-2 xl:grid-cols-3" compact />
+                      <CreditList credits={entries} className="grid-cols-2 xl:grid-cols-3" />
                     </div>
                   )
                 })}
@@ -188,40 +155,37 @@ export default async function AcknowledgementsPage() {
       )}
 
       {projectCredits.length > 0 && (
-        <section aria-labelledby="progetti" className={cn(content, "flex flex-col gap-6 max-sm:mt-28 lg:gap-12")}>
+        <section aria-labelledby="progetti" className={SECTION_STACK}>
           <div className="flex flex-col gap-6">
             <h2 id="progetti" className={sectionTitle}>
               I progetti di PoliNetwork
             </h2>
-            <p className={cn(sectionCopy, "max-w-255")}>
+            <p className={cn(sectionLead, "max-w-200")}>
               Siamo grati ai molti studenti che negli anni hanno dedicato il loro tempo libero alla realizzazione di
               strumenti open source utili a tutta la comunità
             </p>
           </div>
           <Glass className={glassPanel}>
-            <CreditList
-              credits={projectCredits}
-              className="sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-            />
+            <CreditList credits={projectCredits} className="grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" />
           </Glass>
         </section>
       )}
 
       <section
         aria-labelledby="consulenza"
-        className={cn(content, "grid items-center 3xl:gap-36 gap-6 lg:grid-cols-[46%_1fr] lg:gap-16")}
+        className={cn(CONTAINER, "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16")}
       >
         <div className="flex flex-col gap-6">
           <h2 id="consulenza" className={sectionTitle}>
             Consulenza aziendale
           </h2>
-          <p className={sectionCopy}>
+          <p className={cn(sectionLead, "max-w-150")}>
             Abbiamo il supporto di professionisti che ci offrono consulenza fiscale, contabile, societaria e del lavoro
           </p>
         </div>
         <Glass className={cn(glassPanel, "mx-auto w-fit lg:mx-0 lg:justify-self-end")}>
-          <p className={cn("typo-title-large lg:typo-headline-medium flex items-center gap-5", accent)}>
-            <GoLaw className="size-8 shrink-0 lg:size-11" aria-hidden />
+          <p className={cn("typo-title-large flex items-center gap-4", accent)}>
+            <GoLaw className="size-8 shrink-0" aria-hidden />
             Studio Cappa-Pometto
           </p>
         </Glass>
