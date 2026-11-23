@@ -67,9 +67,10 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                       />
                     </NavigationMenuTrigger>
 
-                    <NavigationMenuContent className="-translate-x-1/2 left-1/2 mt-8.5! border-none bg-transparent p-0 shadow-none! data-[state=closed]:bg-transparent data-[state=open]:bg-transparent">
+                    <NavigationMenuContent className="-translate-x-1/2 overflow-visible! group/menu left-1/2 mt-8.5! rounded-none! border-none bg-transparent p-0 shadow-none! data-[state=closed]:animate-menu-out! data-[state=open]:animate-menu-in! data-[state=closed]:bg-transparent data-[state=open]:bg-transparent">
                       {/* Stronger blur than the header pill: the panel opens over the page titles */}
-                      <Glass className="w-fit text-nowrap p-3 backdrop-blur-xl">
+                      {/* Same rounding as the site's other glass panels (tabs, accordions), not Glass's default */}
+                      <Glass className="w-fit text-nowrap rounded-3xl border-white/50 p-3 backdrop-blur-xl group-data-[state=closed]/menu:animate-fade-out group-data-[state=open]/menu:animate-fade-in">
                         <ul className="flex flex-col gap-1">
                           {item.menu.map((subItem) => {
                             const Icon = subItem.icon

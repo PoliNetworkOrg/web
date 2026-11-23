@@ -22,12 +22,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        // Hover mixes the fill toward blue-secondary: a visible step darker that stays in the palette (/90 barely showed)
         primary:
-          "bg-button-primary hover:bg-button-primary/90 text-text-accent-lightbg typo-label-large rounded-buttonsM",
+          "bg-button-primary hover:bg-[color-mix(in_oklab,var(--color-button-primary),var(--color-blue-secondary)_30%)] text-text-accent-lightbg typo-label-large rounded-buttonsM",
         tertiary:
-          "bg-button-tertiary hover:bg-button-tertiary/90 text-text-accent-lightbg typo-label-large rounded-buttonsM",
+          "bg-button-tertiary hover:bg-[color-mix(in_oklab,var(--color-button-tertiary),var(--color-blue-secondary)_25%)] text-text-accent-lightbg typo-label-large rounded-buttonsM",
         tertiaryBlur:
-          "bg-blue-tertiary-blur hover:bg-blue-tertiary-blur/90 text-text-accent-lightbg typo-headline-small rounded-buttonsM",
+          "bg-blue-tertiary-blur hover:bg-blue-tertiary text-text-accent-lightbg typo-headline-small rounded-buttonsM",
         glass: "bg-background-blur backdrop-blur-md rounded-buttonsL",
         outline:
           "border bg-white shadow-xs hover:bg-slate-100 hover:text-slate-900 dark:bg-slate-200/30 dark:border-slate-200 dark:hover:bg-slate-200/50 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:dark:bg-slate-800/30 dark:dark:border-slate-800 dark:dark:hover:bg-slate-800/50",
