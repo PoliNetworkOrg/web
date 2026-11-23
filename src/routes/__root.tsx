@@ -7,6 +7,7 @@ import redHatText from "@/assets/fonts/red-hat-text-latin.woff2?url"
 import { Background } from "@/components/background"
 import { ConditionalFooter } from "@/components/conditional-footer"
 import { Footer } from "@/components/footer"
+import { GlassRoot } from "@/components/glass"
 import { Header } from "@/components/header/header"
 import { NotFound } from "@/components/not-found"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -81,15 +82,17 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
           // storageKey="polinetwork_darkmode_temp" // TODO: enable when dark mode design is ready
           disableTransitionOnChange
         >
-          {/* Outside the page wrapper: inside it, Chromium did not blur the content behind the fixed header's glass */}
-          <Header />
-          <div className="relative isolate flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
-            <Background />
-            <PageTransition>{children}</PageTransition>
-            <ConditionalFooter>
-              <Footer />
-            </ConditionalFooter>
-          </div>
+          <GlassRoot>
+            {/* Outside the page wrapper: inside it, Chromium did not blur the content behind the fixed header's glass */}
+            <Header />
+            <div className="relative isolate flex min-h-screen w-full flex-col items-center justify-start overflow-clip">
+              <Background />
+              <PageTransition>{children}</PageTransition>
+              <ConditionalFooter>
+                <Footer />
+              </ConditionalFooter>
+            </div>
+          </GlassRoot>
         </ThemeProvider>
         <Scripts />
       </body>

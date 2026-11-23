@@ -150,7 +150,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   }
 
   return (
-    <Glass className="flex h-[calc(100svh-136px)] min-h-120 flex-col gap-5 overflow-hidden rounded-rectangles border-white/50 bg-background-blur px-2 py-4 sm:h-[calc(100svh-200px)] sm:gap-6 sm:p-6 lg:p-8 lg:pb-0">
+    <Glass className="flex h-[calc(100svh-136px)] min-h-120 flex-col gap-5 overflow-hidden rounded-rectangles px-2 py-4 sm:h-[calc(100svh-200px)] sm:gap-6 sm:p-6 lg:p-8 lg:pb-0">
       <div className="grid grid-cols-[44px_minmax(0,1fr)_44px] items-center gap-x-2 gap-y-5 sm:flex sm:flex-wrap sm:justify-between sm:gap-3 lg:gap-4">
         <div className="order-1 col-span-2 flex min-w-0 flex-1 items-center gap-2 sm:order-none lg:gap-4">
           <Button asChild variant="glass" size="icon-lg" className={controlClass}>

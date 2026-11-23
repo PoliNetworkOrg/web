@@ -5,9 +5,7 @@ import type { CardGroupProps } from "./types"
 
 export function CardGroup({ icon, title, description, children, horizontal = false, className }: CardGroupProps) {
   return (
-    <Glass
-      className={cn("w-full rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-10 lg:p-12", className)}
-    >
+    <Glass className={cn("w-full rounded-rectangles p-6 sm:p-10 lg:p-12", className)}>
       {horizontal ? (
         <div className="flex flex-col gap-8 sm:gap-12 lg:flex-row lg:items-center">
           <CardGroupHeader icon={icon} title={title} description={description} horizontal />

@@ -36,7 +36,9 @@ function DialogOverlay({ className, ...props }: React.ComponentProps<typeof Dial
 function DialogContent({ className, children, ...props }: React.ComponentProps<typeof DialogPrimitive.Content>) {
   return (
     <DialogPortal>
-      <div className="fixed inset-0 z-50 overflow-hidden">
+      {/* Glass in a dialog is the CSS one: the 3D glass bends the picture of the page, taken before the dialog opened,
+          so it would show the page through the dialog */}
+      <div data-glass-off="" className="fixed inset-0 z-50 overflow-hidden">
         <DialogOverlay />
         <DialogPrimitive.Content
           data-slot="dialog-content"

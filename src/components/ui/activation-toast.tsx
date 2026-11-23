@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { FiInfo } from "react-icons/fi"
+import { FloatingGlass, GLASS_LAYER } from "@/components/glass"
 
 /** One short notice at a time; another click restarts its three-second timeout. */
 export function useActivationToast() {
@@ -16,15 +17,20 @@ export function useActivationToast() {
     showActivationToast: () => setAnnouncement((current) => current + 1),
     activationToast: announcement
       ? createPortal(
-          <output
+          <FloatingGlass
             key={announcement}
-            aria-live="polite"
-            aria-atomic="true"
-            className="typo-body-medium pointer-events-none fixed right-4 bottom-4 z-100 flex max-w-[calc(100vw-2rem)] animate-content-enter items-center gap-3 rounded-2xl border border-white/70 bg-background/95 px-5 py-4 text-text-primary shadow-lg backdrop-blur-md sm:right-6 sm:bottom-6"
+            layer={GLASS_LAYER.chrome}
+            className="pointer-events-none fixed right-4 bottom-4 z-100 max-w-[calc(100vw-2rem)] animate-content-enter rounded-2xl sm:right-6 sm:bottom-6"
           >
-            <FiInfo aria-hidden className="size-5 shrink-0 text-blue-secondary" />
-            In attivazione
-          </output>,
+            <output
+              aria-live="polite"
+              aria-atomic="true"
+              className="typo-body-medium flex items-center gap-3 px-5 py-4 text-text-primary"
+            >
+              <FiInfo aria-hidden className="size-5 shrink-0 text-blue-secondary" />
+              In attivazione
+            </output>
+          </FloatingGlass>,
           document.body
         )
       : null,
