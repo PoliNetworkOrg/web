@@ -33,7 +33,8 @@ export function ProblemReportForm() {
 
   return (
     <Glass className="mx-auto w-full max-w-2xl rounded-rectangles p-6 sm:p-10">
-      {/* Uncontrolled fields: after a submission without JavaScript the server renders them from state.values. */}
+      {/* Uncontrolled fields: after a submission without JavaScript the server renders them from state.values. They are
+          read-only while sending, because a failed action resets them to the values it received. */}
       <form action={action} className="flex flex-col gap-6" aria-label="Segnalazione di un problema">
         <div className="flex flex-col gap-2">
           <label htmlFor="report-email" className="typo-title-medium">
@@ -43,6 +44,7 @@ export function ProblemReportForm() {
             id="report-email"
             name="email"
             defaultValue={state.values?.email}
+            readOnly={pending}
             type="email"
             required
             maxLength={254}
@@ -67,6 +69,7 @@ export function ProblemReportForm() {
             id="report-subject"
             name="subject"
             defaultValue={state.values?.subject}
+            readOnly={pending}
             required
             minLength={5}
             maxLength={120}
@@ -87,6 +90,7 @@ export function ProblemReportForm() {
             id="report-description"
             name="description"
             defaultValue={state.values?.description}
+            readOnly={pending}
             required
             minLength={20}
             maxLength={5000}
