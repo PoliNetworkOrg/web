@@ -1,5 +1,6 @@
 import { env } from "@/env.server"
 import { parseExtraLinks } from "@/lib/association-links"
+import { parseRegistryFields } from "@/lib/association-registry"
 import { trpc } from "@/lib/backend.server"
 
 export async function getAllAssociations() {
@@ -9,6 +10,8 @@ export async function getAllAssociations() {
     return associations.map((association) => ({
       ...association,
       extraLinks: parseExtraLinks((association as { extraLinks?: unknown }).extraLinks),
+      // Programmes, campuses and public contacts are absent from older backends and from the published SDK's types.
+      ...parseRegistryFields(association as Record<string, unknown>),
     }))
   } catch (error) {
     console.error("Failed to fetch associations", error)

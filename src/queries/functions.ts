@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start"
 import { z } from "zod"
 import type { Project } from "@/components/projects/resources"
+import { filterOptions, matchesFilters } from "@/lib/association-registry"
 import type { GroupLinkReportInput } from "@/queries/types"
 import {
   courseCohortFromLabels,
@@ -55,11 +56,28 @@ export const fetchProject = createServerFn()
   .handler(({ data }) => getProject(data.id))
 
 export const fetchFaqs = createServerFn().handler(() => getAllFaqs())
-/** The associations, and the address of the portal where their representatives manage them */
-export const fetchAssociationsPage = createServerFn().handler(async () => ({
-  associations: await getAllAssociations(),
-  portalUrl: associationPortalUrl(),
-}))
+/**
+ * The associations that match the page's filters, the filters' options, and the address of the portal where their
+ * representatives manage them. `total` counts every association, so the page tells "none published" from "none
+ * matching the filters".
+ */
+export const fetchAssociationsPage = createServerFn()
+  .validator(z.object({ programme: z.string().optional(), campus: z.string().optional() }))
+  .handler(async ({ data }) => {
+    const associations = await getAllAssociations()
+    const options = filterOptions(associations)
+    // A filter whose option no longer exists (an old link) is ignored rather than emptying the list.
+    const filters = {
+      programme: options.programmes.some((o) => o.value === data.programme) ? data.programme : undefined,
+      campus: options.campuses.some((o) => o.value === data.campus) ? data.campus : undefined,
+    }
+    return {
+      total: associations.length,
+      shown: associations.filter((association) => matchesFilters(association, filters)),
+      options,
+      portalUrl: associationPortalUrl(),
+    }
+  })
 export const fetchAcknowledgements = createServerFn().handler(() => getAcknowledgements())
 export const fetchFreshmanContent = createServerFn().handler(() => getFreshmanContent())
 export const fetchDocumentCatalog = createServerFn().handler(() => getDocumentCatalog())

@@ -5,9 +5,10 @@ import AccordionList from "@/components/accordion-list"
 import { Image } from "@/components/image"
 import { EMPTY_STATE } from "@/components/layout/page"
 import { isHttpUrl, platformName, withVisibleLabels } from "@/lib/association-links"
+import { CONTACT_FUNCTION_LABELS } from "@/lib/association-registry"
 import type { fetchAssociationsPage } from "@/queries/functions"
 
-type Association = Awaited<ReturnType<typeof fetchAssociationsPage>>["associations"][number]
+type Association = Awaited<ReturnType<typeof fetchAssociationsPage>>["shown"][number]
 type AssociationLinks = Association["links"]
 
 const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: IconType; mailto?: boolean }[] = [
@@ -88,6 +89,49 @@ function AssociationLinksList({ links }: { links: AssociationLink[] }) {
   )
 }
 
+function AssociationDetails({ association }: { association: Association }) {
+  const tags = [
+    ...(association.crossProgramme ? ["Tutti i corsi"] : (association.programmes ?? []).map((p) => p.nameIt)),
+    ...(association.campuses ?? []).map((c) => c.nameIt),
+  ]
+  const contacts = association.contacts ?? []
+  if (tags.length === 0 && contacts.length === 0) return null
+  return (
+    <div className="flex max-w-3xl flex-col gap-6 pt-6">
+      {tags.length > 0 && (
+        <ul aria-label="Corsi e sedi" className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <li key={tag} className="rounded-full bg-white/60 px-3 py-1 text-sm">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
+      {contacts.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <span className="typo-title-small text-text-primary">Contatti</span>
+          <ul className="flex flex-col gap-1">
+            {contacts.map((contact) => (
+              <li key={`${contact.label}-${contact.email}`}>
+                <span>{contact.label || CONTACT_FUNCTION_LABELS[contact.function]}: </span>
+                <a className="underline underline-offset-4" href={`mailto:${contact.email}`}>
+                  {contact.email}
+                </a>
+                {(contact.name || contact.phone) && (
+                  <span className="text-text-secondary">
+                    {" "}
+                    · {[contact.name, contact.phone].filter(Boolean).join(" · ")}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function AssociationsList({ associations }: { associations: Association[] }) {
   if (associations.length === 0) {
     // The query returns an empty list on backend errors too, so the message covers both cases
@@ -126,6 +170,8 @@ export function AssociationsList({ associations }: { associations: Association[]
       content: (
         <>
           {association.descriptionIt && <p>{association.descriptionIt}</p>}
+          {/* Programmes, campuses and public contacts, under the description */}
+          <AssociationDetails association={association} />
           {links.length > 0 && <AssociationLinksList links={links} />}
         </>
       ),
