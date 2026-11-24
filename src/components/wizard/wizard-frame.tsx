@@ -1,6 +1,4 @@
-"use client"
-
-import { useSelectedLayoutSegments } from "next/navigation"
+import { useParams } from "@tanstack/react-router"
 import { type ReactNode, useLayoutEffect, useRef, useState } from "react"
 import { Glass } from "@/components/glass"
 import { PAGE_HERO_TOP } from "@/components/layout/page"
@@ -8,10 +6,11 @@ import { PAGE_HERO_TOP } from "@/components/layout/page"
 /**
  * The wizard's card, rendered by the layout of the flow (school → level → course) so it stays mounted while the user
  * moves between steps: it doesn't flash with the page, and when a step is taller or shorter it grows or shrinks
- * smoothly instead of jumping. Pages `depth` or more segments below the layout are left out of the card.
+ * smoothly instead of jumping. Pages `depth` or more steps into the flow are left out of the card.
  */
 export function WizardFrame({ depth, children }: { depth: number; children: ReactNode }) {
-  const framed = useSelectedLayoutSegments().length < depth
+  // Each step adds a parameter to the route: the school, then the level, then the course
+  const framed = useParams({ strict: false, select: (params) => Object.keys(params).length }) < depth
   const contentRef = useRef<HTMLDivElement>(null)
   // Unset until measured: the server and the first paint use the content's natural height
   const [height, setHeight] = useState<number>()

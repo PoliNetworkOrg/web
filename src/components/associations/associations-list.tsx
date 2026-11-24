@@ -1,8 +1,8 @@
-import Image from "next/image"
 import type { IconType } from "react-icons"
 import { FaTiktok, FaXTwitter } from "react-icons/fa6"
 import { FiFacebook, FiGlobe, FiInstagram, FiLinkedin, FiMail, FiMusic, FiSend, FiYoutube } from "react-icons/fi"
 import AccordionList from "@/components/accordion-list"
+import { Image } from "@/components/image"
 import { EMPTY_STATE } from "@/components/layout/page"
 import type { ApiOutput } from "@/types"
 

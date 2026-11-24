@@ -1,9 +1,7 @@
-"use client"
-
-import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
+import { Link } from "@/components/link"
 import { cn } from "@/lib/utils"
 import { useRoutePathname } from "@/utils/use-route-pathname"
 import { headerMenuItems, isActiveHref } from "./constants"

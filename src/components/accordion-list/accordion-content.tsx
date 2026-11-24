@@ -1,5 +1,3 @@
-"use client"
-
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import { motion, useReducedMotion } from "motion/react"
 import type * as React from "react"

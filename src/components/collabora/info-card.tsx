@@ -1,8 +1,8 @@
-import Image, { type StaticImageData } from "next/image"
-import Link from "next/link"
 import type { ReactNode } from "react"
 import { CardHoverBackground } from "@/components/card-icon/hover-background"
 import { Glass } from "@/components/glass"
+import { Image, type StaticImage } from "@/components/image"
+import { Link } from "@/components/link"
 import { cn } from "@/lib/utils"
 
 export type InfoCardData = {
@@ -11,7 +11,7 @@ export type InfoCardData = {
   /** Mobile copy, when the 402px Figma frame uses a shorter text than the desktop one. Figma lets it run 8px into
    * the card padding. */
   mobileDescription?: ReactNode
-  icon: StaticImageData
+  icon: StaticImage
   /** Icon size, offset and mobile gap to the title per breakpoint, as drawn in Figma. */
   iconClassName: string
   /** Desktop description width: Figma wraps these copies at fixed widths (+1px, as Figma rounds text widths down). */

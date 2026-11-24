@@ -1,5 +1,3 @@
-"use client"
-
 import { MotionConfig, motion, useInView, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 import { FiBook, FiClipboard, FiFileText, FiGift, FiUser, FiUserCheck } from "react-icons/fi"

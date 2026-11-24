@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@tanstack/react-router"
 import type { ElementType } from "react"
 import { Glass } from "@/components/glass"
 import { buttonVariants } from "@/components/ui/button"
@@ -24,7 +24,7 @@ export function CardIcon(props: CardIconProps) {
   } = props
   const description = "description" in props ? props.description : undefined
   const cta = "cta" in props ? props.cta : undefined
-  // Internal links go through Next's router: a plain <a> reloaded the page, redrawing the background and the header
+  // Internal links go through the router: a plain <a> reloaded the page, redrawing the background and the header
   const Root: ElementType = href ? (href.startsWith("/") ? Link : "a") : onClick ? "button" : "div"
   const isDescriptionCard = Boolean(description)
   const isInlineAligned = align === "inline"

@@ -1,5 +1,3 @@
-"use client"
-
 import type { IconType } from "react-icons"
 import { FiBookOpen, FiDollarSign, FiEdit, FiFileText, FiHelpCircle, FiSend } from "react-icons/fi"
 import AccordionList from "@/components/accordion-list"

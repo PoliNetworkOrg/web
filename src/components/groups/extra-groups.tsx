@@ -1,16 +1,10 @@
 import { CardCourseGroup } from "@/components/card-course-group"
 import { FLOW_MAIN, FlowHeader } from "@/components/layout/flow-header"
 import { EMPTY_STATE } from "@/components/layout/page"
-import { getVisibleGroups } from "@/queries/groups"
-import { EXTRA_LABEL, matchesLabelBranch } from "@/utils/labels"
-import { mergeGroupsByTitle } from "@/utils/merge-groups"
+import type { MergedGroup } from "@/utils/merge-groups"
 
-export async function ExtraGroups() {
-  const groups = await getVisibleGroups()
-  const extraGroups = mergeGroupsByTitle(groups.filter((g) => matchesLabelBranch(g.labels, EXTRA_LABEL))).sort((a, b) =>
-    a.title.localeCompare(b.title)
-  )
-
+/** `groups`: the extra groups, already merged by title and sorted (see `fetchExtraGroups`) */
+export function ExtraGroups({ groups: extraGroups }: { groups: MergedGroup[] }) {
   return (
     <main className={FLOW_MAIN}>
       <FlowHeader title="Gruppi Extra" backHref="/gruppi" />

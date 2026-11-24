@@ -1,9 +1,7 @@
-"use client"
-
 import { MotionConfig, motion } from "motion/react"
-import Image from "next/image"
-import telegram from "@/assets/icons/telegram-gradient.svg"
+import telegram from "@/assets/icons/telegram-gradient.svg?img"
 import { Glass } from "@/components/glass"
+import { Image } from "@/components/image"
 import { cn } from "@/lib/utils"
 
 /** The question PoliNetwork started from, told as a chat: an illustration, not a real conversation */

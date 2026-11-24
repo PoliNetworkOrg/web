@@ -1,5 +1,5 @@
-import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import { Link } from "@/components/link"
 import { Button } from "@/components/ui/button"
 
 export function AboutUs() {

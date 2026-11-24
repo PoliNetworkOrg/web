@@ -1,9 +1,9 @@
-import Image, { type StaticImageData } from "next/image"
 import type { CSSProperties } from "react"
-import bigBlue from "@/assets/shapes/big-blue.webp"
-import bigTeal from "@/assets/shapes/big-teal.webp"
-import looper from "@/assets/shapes/looper.svg"
-import smallBlue from "@/assets/shapes/small-blue.webp"
+import bigBlue from "@/assets/shapes/big-blue.webp?img"
+import bigTeal from "@/assets/shapes/big-teal.webp?img"
+import looper from "@/assets/shapes/looper.svg?img"
+import smallBlue from "@/assets/shapes/small-blue.webp?img"
+import { Image, type StaticImage } from "@/components/image"
 import { cn } from "@/lib/utils"
 
 /**
@@ -25,7 +25,7 @@ export type BlobVariant = Exclude<ShapeVariant, "looper">
 export type ShapeProps = {
   variant: ShapeVariant
   /** Another rendering of the same shape, e.g. a blurrier one (see `@/components/background/blobs`) */
-  src?: StaticImageData
+  src?: StaticImage
   className?: string
   style?: CSSProperties
 }

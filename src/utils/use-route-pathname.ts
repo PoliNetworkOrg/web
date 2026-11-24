@@ -1,18 +1,24 @@
-"use client"
+import { isNotFound, useRouterState } from "@tanstack/react-router"
 
-import { useSelectedLayoutSegments } from "next/navigation"
+/** The path given to a URL that matches no page: it matches no section either */
+const NOT_FOUND = "/_not-found"
 
 /**
- * The path of the route being rendered, for UI in the root layout that changes by section.
+ * The path of the page being shown, for UI in the root layout that changes by section.
  *
- * Unlike `usePathname`, it comes from the route tree rather than the browser URL, so it is the same on the server and
- * during hydration. That matters for the 404: it is prerendered once for every missing URL, and reading the URL would
- * make, for example, `/gruppi/x` hydrate without the footer that the HTML has. There it is `/_not-found`,
- * which matches no section.
- *
- * Call it only from components rendered by the root layout: the segments are relative to the nearest layout.
+ * It comes from the matched routes, not from the address bar: while the next page loads the URL has already changed,
+ * and the header, footer and background must keep describing the page still on screen. A URL that matches no page
+ * gives `/_not-found`; a page that exists but found its content missing (an unknown course, a deleted project) keeps
+ * its own path.
  */
 export function useRoutePathname(): string {
-  const segments = useSelectedLayoutSegments()
-  return `/${segments.join("/")}`
+  return useRouterState({
+    select: (state) => {
+      // A loader that found its content missing leaves only the root, holding what was thrown
+      if (state.matches.some((match) => isNotFound(match.error))) return state.location.pathname
+      const leaf = state.matches.at(-1)
+      if (!leaf || state.matches.some((match) => match._notFound)) return NOT_FOUND
+      return leaf.pathname.length > 1 ? leaf.pathname.replace(/\/$/, "") : leaf.pathname
+    },
+  })
 }

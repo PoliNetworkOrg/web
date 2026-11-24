@@ -1,5 +1,3 @@
-"use client"
-
 import { useRoutePathname } from "@/utils/use-route-pathname"
 import { DesktopLayout } from "./desktop-layout"
 import { MobileLayout } from "./mobile-layout"

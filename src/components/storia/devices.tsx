@@ -1,6 +1,6 @@
-import Image from "next/image"
-import siteDesktop from "@/assets/images/storia/site-desktop.webp"
-import siteMobile from "@/assets/images/storia/site-mobile.webp"
+import siteDesktop from "@/assets/images/storia/site-desktop.webp?img"
+import siteMobile from "@/assets/images/storia/site-mobile.webp?img"
+import { Image } from "@/components/image"
 import { cn } from "@/lib/utils"
 
 /** The pieces of a Devices.css device around its screen (see `styles/devices.css`) */

@@ -1,8 +1,6 @@
-"use client"
-
 import { useEffect, useRef, useState } from "react"
 import { getLevel, getSchool } from "@/components/wizard/constants"
-import { getCoursesForLevel } from "@/queries/groups"
+import { fetchCourseSlugs } from "@/queries/functions"
 import type { MissingGroupLinkReportInput } from "@/queries/types"
 import { courseLabel, humanizeSlug, levelLabel, schoolLabel } from "@/utils/labels"
 import { CategoryStep } from "./category-step"
@@ -41,7 +39,7 @@ export function ReportMissingLinkFlow({
 
     const request = ++courseRequest.current
     setCourses(null)
-    void getCoursesForLevel(selection.school, selection.level)
+    void fetchCourseSlugs({ data: { school: selection.school, level: selection.level } })
       .then((result) => {
         if (request === courseRequest.current) setCourses(result)
       })

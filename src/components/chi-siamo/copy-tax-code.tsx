@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useState } from "react"
 import { FiCheck, FiCopy } from "react-icons/fi"
 import { cn } from "@/lib/utils"

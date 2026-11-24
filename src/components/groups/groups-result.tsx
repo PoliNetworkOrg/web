@@ -1,22 +1,10 @@
-import { notFound } from "next/navigation"
+import { notFound } from "@tanstack/react-router"
 import { CardCourseGroup } from "@/components/card-course-group"
 import { EMPTY_STATE } from "@/components/layout/page"
 import { getLevel, getSchool } from "@/components/wizard/constants"
 import { WizardShell } from "@/components/wizard/wizard-shell"
-import { getVisibleGroups } from "@/queries/groups"
-import type { VisibleGroup } from "@/queries/types"
-import {
-  cohortLabelText,
-  courseCohortFromLabels,
-  courseFacetsForLevel,
-  courseLabel,
-  humanizeSlug,
-  levelLabel,
-  matchesLabelBranch,
-  SITE_LABEL,
-  schoolLabel,
-} from "@/utils/labels"
-import { type MergedGroup, mergeGroupsByTitle } from "@/utils/merge-groups"
+import { cohortLabelText, humanizeSlug } from "@/utils/labels"
+import type { MergedGroup } from "@/utils/merge-groups"
 import { createStepHref } from "@/utils/step-href"
 
 const stepHref = createStepHref("/gruppi/didattica")
@@ -35,8 +23,7 @@ function GroupCard({ group, secondary }: { group: MergedGroup; secondary?: boole
   )
 }
 
-function GroupSection({ title, groups }: { title: string; groups: VisibleGroup[] }) {
-  const merged = mergeGroupsByTitle(groups)
+function GroupSection({ title, groups: merged }: { title: string; groups: MergedGroup[] }) {
   if (merged.length === 0) return null
 
   return (
@@ -56,56 +43,32 @@ function GroupSection({ title, groups }: { title: string; groups: VisibleGroup[]
   )
 }
 
-export async function GroupsResult({
+/** The groups of a course as `fetchCourseGroups` returns them: already filtered, merged by title and in order */
+type CourseGroups = {
+  /** The site, school, level and course groups */
+  general: { group: MergedGroup; secondary: boolean }[]
+  /** The groups of each cohort ("26-27"), by cohort */
+  cohorts: { cohort: string; groups: MergedGroup[] }[]
+  hasAnyGroup: boolean
+}
+
+export function GroupsResult({
   school: schoolSlug,
   level,
   course,
+  groups: { general: generalGroups, cohorts, hasAnyGroup },
 }: {
   school: string
   level: string
   course: string
+  groups: CourseGroups
 }) {
   const school = getSchool(schoolSlug)
   const currentLevel = getLevel(schoolSlug, level)
-  if (!school || !currentLevel) notFound()
-
-  const groups = await getVisibleGroups()
-  if (!courseFacetsForLevel(groups, schoolSlug, level).has(course)) notFound()
+  // The route's loader has already answered 404 for an unknown school, level or course
+  if (!school || !currentLevel) throw notFound()
 
   const courseName = humanizeSlug(course)
-
-  const siteGroups = groups.filter((g) => g.labels.includes(SITE_LABEL))
-  const schoolGroups = groups.filter((g) => g.labels.includes(schoolLabel(schoolSlug)))
-  const levelGroups = groups.filter((g) => g.labels.includes(levelLabel(schoolSlug, level)))
-  const mergedSiteGroups = mergeGroupsByTitle(siteGroups)
-  const mergedSchoolGroups = mergeGroupsByTitle(schoolGroups)
-  const mergedLevelGroups = mergeGroupsByTitle(levelGroups)
-
-  const coursePath = courseLabel(schoolSlug, level, course)
-  const courseGroups = groups.filter((g) => matchesLabelBranch(g.labels, coursePath))
-  const generalCourseGroups = courseGroups.filter((g) => courseCohortFromLabels(g.labels, coursePath) === null)
-  const mergedGeneralCourseGroups = mergeGroupsByTitle(generalCourseGroups)
-
-  const groupsByCohort = new Map<string, VisibleGroup[]>()
-  for (const g of courseGroups) {
-    const cohort = courseCohortFromLabels(g.labels, coursePath)
-    if (cohort === null) continue
-    groupsByCohort.set(cohort, [...(groupsByCohort.get(cohort) ?? []), g])
-  }
-  const cohorts = [...groupsByCohort.keys()].sort()
-
-  const hasAnyGroup =
-    mergedSiteGroups.length > 0 ||
-    mergedSchoolGroups.length > 0 ||
-    mergedLevelGroups.length > 0 ||
-    courseGroups.length > 0
-
-  const generalGroups = [
-    ...mergedSiteGroups.map((group) => ({ group, secondary: false })),
-    ...mergedSchoolGroups.map((group) => ({ group, secondary: false })),
-    ...mergedLevelGroups.map((group) => ({ group, secondary: true })),
-    ...mergedGeneralCourseGroups.map((group) => ({ group, secondary: true })),
-  ]
 
   // The last step of the wizard: shown in its card, with every step done
   return (
@@ -130,12 +93,8 @@ export async function GroupsResult({
           </section>
         )}
 
-        {cohorts.map((cohort) => (
-          <GroupSection
-            key={cohort}
-            title={`Gruppi ${cohortLabelText(cohort)}`}
-            groups={groupsByCohort.get(cohort) ?? []}
-          />
+        {cohorts.map(({ cohort, groups }) => (
+          <GroupSection key={cohort} title={`Gruppi ${cohortLabelText(cohort)}`} groups={groups} />
         ))}
 
         {!hasAnyGroup && <p className={EMPTY_STATE}>Nessun gruppo disponibile al momento per questo corso.</p>}

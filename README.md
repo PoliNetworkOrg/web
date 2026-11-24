@@ -1,17 +1,34 @@
 # Web
 
-This wants to be a rewrite in NextJS (stack below) of all the websites that PoliNetwork currently has.
-First, it will be a rewrite of our homepage.
+PoliNetwork's public website, [polinetwork.org](https://polinetwork.org).
 
 ## Stack info
 
-- [Next.js](https://nextjs.org)
-- [Tailwind CSS](https://tailwindcss.com) (eventually with shadcn)
+- [TanStack Start](https://tanstack.com/start) (React, server-rendered) on [Vite+](https://viteplus.dev), served by Nitro
+- [Tailwind CSS](https://tailwindcss.com) with shadcn components
 - TRPC to connect to backend
+
+## Development
+
+```sh
+pnpm install
+cp .env.example .env   # then fill in the IdP variables
+pnpm dev               # http://localhost:3002
+```
+
+`pnpm build` writes the production server to `.output`; `pnpm start` runs it. `pnpm check`, `pnpm typecheck` and
+`pnpm test` are what CI runs.
+
+## Images
+
+Photos and logos in `src/assets` are imported with `?img` and rendered with `Image` (`src/components/image.tsx`). The
+site serves resized WebP copies that sit next to each file (`photo.640w.webp`…), not the file itself. They are written
+by `pnpm images` and committed: list a new image in `scripts/optimize-images.mjs`, run the script, commit the copies.
+Images uploaded from the admin dashboard (project and association logos) are shown as uploaded.
 
 ## Backend authentication
 
-Backend calls are server-only (`src/lib/backend.ts`) and carry a service token for the `website` client (scope
+Backend calls are server-only (`src/lib/backend.server.ts`) and carry a service token for the `website` client (scope
 `backend:public:read`): the backend refuses calls without one. These variables are required (see `.env.example`):
 
 - `IDP_PUBLIC_URL`, and optionally `IDP_INTERNAL_URL` for in-cluster token requests

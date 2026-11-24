@@ -1,7 +1,7 @@
-import Image from "next/image"
 import { FiUsers } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
+import { Image } from "@/components/image"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { teamLeads } from "@/lib/people"
@@ -16,7 +16,7 @@ function RoleList({ team }: { team: Team }) {
         <li key={title} className="min-w-0">
           <Glass className="flex h-full min-w-0 items-center gap-4 rounded-rectangles border-white/50 bg-background-blur px-5 py-5">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-rectangles bg-white/70">
-              {typeof icon === "string" ? (
+              {typeof icon !== "function" ? (
                 <Image src={icon} alt="" width={24} height={24} className="size-6" />
               ) : (
                 <GradientIcon icon={icon} className="size-6" />

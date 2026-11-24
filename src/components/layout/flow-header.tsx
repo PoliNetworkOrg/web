@@ -1,6 +1,6 @@
-import Link from "next/link"
 import { FiArrowLeft, FiX } from "react-icons/fi"
 import { CONTAINER, PAGE_HERO_TOP } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { cn } from "@/lib/utils"
 
 /** The narrower column of the pages a wizard leads to (group results, guides), with the site's gutters. */

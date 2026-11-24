@@ -1,4 +1,4 @@
-import associationsImage from "@/assets/images/collabora_associations.jpg"
+import associationsImage from "@/assets/images/collabora_associations.jpg?img"
 import { PhotoShapes } from "@/components/shapes"
 import { PhotoSection } from "./photo-section"
 import { Highlight } from "./section"

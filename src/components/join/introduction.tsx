@@ -1,7 +1,7 @@
-import Image from "next/image"
-import networkLogo from "@/assets/images/join/network-logo.png"
+import networkLogo from "@/assets/images/join/network-logo.png?img"
 import { Highlight } from "@/components/collabora/section"
 import { Glass } from "@/components/glass"
+import { Image } from "@/components/image"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
 

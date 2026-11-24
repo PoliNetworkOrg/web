@@ -1,6 +1,6 @@
-import Link from "next/link"
 import AccordionList from "@/components/accordion-list"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { CourseAdmins } from "@/components/people/course-admins"
 import { Roster } from "@/components/people/roster"
 import { TermList } from "@/components/people/term-list"

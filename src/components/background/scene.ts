@@ -1,4 +1,4 @@
-import type { StaticImageData } from "next/image"
+import type { StaticImage } from "@/components/image"
 import type { ShapeVariant } from "@/components/shapes"
 import { matchesRoutePrefix } from "@/utils/route-match"
 import { BLOB_BLEED, blobImage } from "./blobs"
@@ -20,7 +20,7 @@ export type SceneShape = {
   /** Shown only on phones (below md) or only from md: pages composed in Figma have a frame for each */
   layout?: "mobile" | "desktop"
   /** The image to draw a blob with, when it isn't the default one (see `blobImage`) */
-  image?: StaticImageData
+  image?: StaticImage
   /** Static rotation, in degrees */
   rotate: number
   /** Looper only: vertical stretch of the curve, for instances Figma resized out of their aspect ratio */

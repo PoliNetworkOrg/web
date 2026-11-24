@@ -1,10 +1,10 @@
-import Image from "next/image"
-import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
-import associationsImage from "@/assets/images/collabora_associations.jpg"
-import companyImage from "@/assets/images/collabora_company.jpg"
+import associationsImage from "@/assets/images/collabora_associations.jpg?img"
+import companyImage from "@/assets/images/collabora_company.jpg?img"
 import { Glass } from "@/components/glass"
+import { Image } from "@/components/image"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { Button } from "@/components/ui/button"
 
 /** The two kinds of partners the text names, with the photos of their sections on /collabora */

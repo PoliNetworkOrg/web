@@ -1,5 +1,3 @@
-"use client"
-
 import { type ReactNode, useId, useState } from "react"
 import { FiArrowDown, FiArrowUp } from "react-icons/fi"
 import { EMPTY_STATE } from "@/components/layout/page"

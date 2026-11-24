@@ -1,12 +1,12 @@
-import Image, { type StaticImageData } from "next/image"
 import type { ReactNode } from "react"
+import { Image, type StaticImage } from "@/components/image"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
 
 type PhotoSectionProps = {
   title: ReactNode
   children: ReactNode
-  image: StaticImageData
+  image: StaticImage
   /** Figma crop of the photo inside its frame (mobile and desktop), as absolute size/offset classes. */
   imageClassName: string
   /** Frame aspect ratio (mobile and desktop) of the photo. */

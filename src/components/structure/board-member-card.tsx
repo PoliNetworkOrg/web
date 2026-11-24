@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { Image } from "@/components/image"
 import type { BoardMember } from "@/components/storia/constants"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"

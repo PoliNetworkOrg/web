@@ -1,8 +1,6 @@
-"use client"
-
-import Link from "next/link"
 import { FiChevronDown } from "react-icons/fi"
 import { Glass } from "@/components/glass"
+import { Link } from "@/components/link"
 import {
   NavigationMenu,
   NavigationMenuContent,

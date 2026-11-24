@@ -1,6 +1,6 @@
-import type { StaticImageData } from "next/image"
-import Image from "next/image"
 import type { CSSProperties, MouseEventHandler, ReactNode } from "react"
+import type { StaticImage } from "@/components/image"
+import { Image } from "@/components/image"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -25,7 +25,7 @@ interface TextImageLayoutClassNames {
 interface TextImageLayoutProps {
   title: string
   description: ReactNode
-  imageSrc: StaticImageData
+  imageSrc: StaticImage
   imageW: number
   imageH: number
   horizontalOrientation?: "lr" | "rl"

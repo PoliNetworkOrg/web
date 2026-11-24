@@ -5,6 +5,10 @@ import test from "node:test"
 
 registerHooks({
   resolve(specifier, context, nextResolve) {
+    // Images are imported through the build (`?img`): here any image will do
+    if (specifier.endsWith("?img")) {
+      return { url: "data:text/javascript,export default { src: '', width: 1, height: 1 }", shortCircuit: true }
+    }
     if (specifier.startsWith("@/")) {
       return { url: new URL(`../src/${specifier.slice(2)}.ts`, import.meta.url).href, shortCircuit: true }
     }

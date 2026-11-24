@@ -1,5 +1,3 @@
-"use client"
-
 import { AnimatePresence, MotionConfig, motion, useInView, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 import {

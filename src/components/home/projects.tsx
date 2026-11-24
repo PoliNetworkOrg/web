@@ -1,17 +1,14 @@
-import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { CONTAINER } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { PeekCarousel } from "@/components/peek-carousel"
 import { ProjectCard } from "@/components/projects/project-card"
+import type { Project } from "@/components/projects/resources"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { getAllProjects } from "@/queries/projects"
 
-export async function Projects() {
-  const live = (await getAllProjects()).filter((project) => project.category !== "deprecated")
-  // The first four, in the order set from the admin dashboard
-  const featured = live.slice(0, 4)
-
+/** `featured`: the first four live projects, in the order set from the admin dashboard (see `fetchFeaturedProjects`) */
+export function Projects({ featured }: { featured: Project[] }) {
   return (
     <section
       className={cn(
