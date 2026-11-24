@@ -1,5 +1,6 @@
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import type * as React from "react"
+import { AccordionHoverBackground } from "@/components/accordion-list/hover-background"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
 import { AccordionBackground } from "./accordion-background"
@@ -14,6 +15,7 @@ export function AccordionItem({ className, children, ...props }: React.Component
         )}
       >
         <AccordionBackground />
+        <AccordionHoverBackground />
         <div className="relative z-10">{children}</div>
       </Glass>
     </AccordionPrimitive.Item>

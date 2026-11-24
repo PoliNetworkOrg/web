@@ -59,7 +59,7 @@ export const teams: Team[] = [
       { title: "Recruiting & Onboarding", icon: FiUsers },
       { title: "Organizzazione & Processi", icon: FiEdit },
       { title: "Community & Engagement", icon: FiAward },
-      { title: "Eventi e team building", icon: FiCalendar },
+      { title: "Eventi di Team Building", icon: FiCalendar },
     ],
   },
   {

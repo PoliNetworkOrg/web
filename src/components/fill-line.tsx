@@ -1,5 +1,5 @@
-import { motion, useAnimationFrame, useInView, useReducedMotion, useScroll } from "motion/react"
-import { useRef } from "react"
+import { animate, motion, useAnimationFrame, useInView, useReducedMotion, useScroll } from "motion/react"
+import { useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
 import { fillOnceAt } from "@/utils/fill-loop"
 
@@ -78,6 +78,51 @@ export function ScrollFillLine({ className }: { className?: string }) {
       <motion.span
         className="block size-full origin-top rounded-full bg-blue-primary"
         style={{ scaleY: reduceMotion ? 1 : scrollYProgress }}
+      />
+    </span>
+  )
+}
+
+/** When the last line of each list will be full: the next one waits for it, so the lines fill one after the other */
+const queues = new WeakMap<Element, Promise<void>>()
+
+/**
+ * Reading progress that plays by itself: a segment fills once it is past 70% of the screen, like `ScrollFillLine`,
+ * but on its own clock instead of following the scroll, and it stays full when the reader goes back up. Segments of
+ * the same list that reach that point together fill one after the other. In a closed accordion the segment is clipped,
+ * so it fills when the accordion is opened and the segment is on screen. With reduced motion the line is full.
+ */
+export function RevealFillLine({ className }: { className?: string }) {
+  const track = useRef<HTMLSpanElement>(null)
+  const fill = useRef<HTMLSpanElement>(null)
+  const reduceMotion = useReducedMotion()
+  // Half the segment visible above the 70% line: a segment clipped by a closed accordion is never half visible
+  const reached = useInView(track, { once: true, amount: 0.5, margin: "0px 0px -30% 0px" })
+
+  useEffect(() => {
+    const el = fill.current
+    if (!reached || reduceMotion || !el) return
+    const list = track.current?.closest("ol") ?? el
+    const run: { cancelled: boolean; stop?: () => void } = { cancelled: false }
+    const done = (queues.get(list) ?? Promise.resolve()).then(() => {
+      if (run.cancelled) return
+      const controls = animate(el, { scaleY: [0, 1] }, { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] })
+      run.stop = () => controls.stop()
+      return controls.finished.then(() => undefined)
+    })
+    queues.set(list, done)
+    return () => {
+      run.cancelled = true
+      run.stop?.()
+    }
+  }, [reached, reduceMotion])
+
+  return (
+    <span ref={track} aria-hidden className={cn("overflow-hidden rounded-full bg-blue-primary/25", className)}>
+      <span
+        ref={fill}
+        className="block size-full origin-top rounded-full bg-blue-primary"
+        style={{ transform: reduceMotion ? "none" : "scaleY(0)" }}
       />
     </span>
   )
