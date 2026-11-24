@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { DocumentCategoryCard } from "@/components/documents/document-category-card"
 import { DocumentCategoryNav } from "@/components/documents/document-category-nav"
-import { CONTAINER, PAGE_HERO_TOP } from "@/components/layout/page"
+import { CONTAINER, EMPTY_STATE, PAGE_HERO_TOP } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
-import { getDocumentCategories } from "@/queries/documents"
+import { getDocumentCatalog } from "@/queries/documents"
 
 export const metadata: Metadata = {
   title: "Documenti",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic"
 
 export default async function DocumentsPage() {
-  const categories = await getDocumentCategories()
+  const { categories, backendUnavailable } = await getDocumentCatalog()
 
   return (
     // One block from the hero to the list: Figma leaves 156px under the description (136px on phones), less than the
@@ -25,10 +25,21 @@ export default async function DocumentsPage() {
       </section>
 
       <div className={`${CONTAINER} flex min-w-0 flex-col gap-6`}>
-        <DocumentCategoryNav categories={categories.map(({ id, title }) => ({ id, title }))} />
-        {categories.map((category) => (
-          <DocumentCategoryCard key={category.id} category={category} />
-        ))}
+        {categories.length > 0 ? (
+          <>
+            <DocumentCategoryNav categories={categories.map(({ id, title }) => ({ id, title }))} />
+            {categories.map((category) => (
+              <DocumentCategoryCard key={category.id} category={category} />
+            ))}
+          </>
+        ) : (
+          // Only what admin published is listed: say why the list is empty instead of showing stand-ins
+          <p className={EMPTY_STATE}>
+            {backendUnavailable
+              ? "I documenti non sono disponibili al momento. Riprova più tardi."
+              : "Non ci sono ancora documenti pubblicati."}
+          </p>
+        )}
       </div>
     </main>
   )

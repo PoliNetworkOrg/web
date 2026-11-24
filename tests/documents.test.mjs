@@ -23,7 +23,7 @@ registerHooks({
   },
 })
 
-const { getDocumentCategories, findDocument } = await import("../src/queries/documents.ts")
+const { getDocumentCatalog, findDocument } = await import("../src/queries/documents.ts")
 const { GET } = await import("../src/app/documenti/file/[slug]/route.ts")
 const { getActiveCategory, getCategoryAnchor, getCategoryHeadingId, getPdfPixelRatio } = await import("../src/components/documents/utils.ts")
 const category = (slug = "statuto") => [{
@@ -40,22 +40,26 @@ function requestFile(slug, query = "") {
   return GET(new Request(`https://example.org/documenti/file/${slug}${query}`), { params: Promise.resolve({ slug }) })
 }
 
-test("publishing the first document preserves other fallback documents without duplicating the uploaded slug", async () => {
+test("only the documents published from admin are listed", async () => {
   backendReturns(category())
-  const documents = (await getDocumentCategories()).flatMap((item) => item.documents)
-  assert.equal(documents.length, 6)
-  assert.equal(documents.filter((item) => item.slug === "statuto").length, 1)
-  assert.equal(documents.find((item) => item.slug === "statuto").title, "Statuto caricato")
-  assert.ok(documents.find((item) => item.slug === "privacy-soci"))
+  const { categories, backendUnavailable } = await getDocumentCatalog()
+  const documents = categories.flatMap((item) => item.documents)
+  assert.equal(backendUnavailable, false)
+  assert.deepEqual(documents.map((item) => item.title), ["Statuto caricato"])
 })
 
-test("backend outage differs from a missing document while official fallback PDFs remain available", async (t) => {
-  t.mock.method(console, "error", () => {})
+test("with nothing published the catalog is empty, not filled with stand-ins", async () => {
   backendReturns([])
+  assert.deepEqual(await getDocumentCatalog(), { categories: [], backendUnavailable: false })
   assert.equal((await requestFile("unknown")).status, 404)
+})
+
+test("a backend outage lists nothing and tells a missing document apart from an unreachable one", async (t) => {
+  t.mock.method(console, "error", () => {})
   globalThis.documentCatalogQuery = async () => { throw new Error("offline") }
-  assert.equal((await findDocument("statuto")).document.slug, "statuto")
-  const response = await requestFile("uploaded-only")
+  assert.deepEqual(await getDocumentCatalog(), { categories: [], backendUnavailable: true })
+  assert.deepEqual(await findDocument("statuto"), { document: undefined, backendUnavailable: true })
+  const response = await requestFile("statuto")
   assert.equal(response.status, 503)
   assert.equal(response.headers.get("retry-after"), "60")
   assert.equal(response.headers.get("cache-control"), "no-store")
@@ -122,12 +126,6 @@ test("a client that disconnects cancels the upstream download", async (t) => {
   })
   client.abort()
   assert.equal(signal.aborted, true)
-})
-
-test("a fallback category is merged into the admin category with the same title", async () => {
-  globalThis.documentCatalogQuery = async () => [{ ...category()[0], slug: "chi-siamo" }]
-  const categories = await getDocumentCategories()
-  assert.deepEqual(categories.map((item) => item.id), ["chi-siamo", "privacy"])
 })
 
 test("a category slug cannot collide with another category's heading", () => {
