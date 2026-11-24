@@ -11,6 +11,7 @@ import {
   FiMaximize,
   FiSearch,
   FiSidebar,
+  FiSliders,
   FiZoomIn,
   FiZoomOut,
 } from "react-icons/fi"
@@ -41,6 +42,8 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   const [failed, setFailed] = useState(false)
   const [pageError, setPageError] = useState(false)
   const [sidebar, setSidebar] = useState(false)
+  const [fitOpen, setFitOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [searched, setSearched] = useState("")
   const [matches, setMatches] = useState<number[]>([])
@@ -137,9 +140,9 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   }
 
   return (
-    <Glass className="flex h-[calc(100svh-136px)] min-h-120 flex-col gap-4 overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-2 sm:h-[calc(100svh-200px)] sm:gap-6 sm:p-6 lg:p-8 lg:pb-0">
-      <div className="flex flex-wrap items-center justify-between gap-3 lg:gap-4">
-        <div className="flex min-w-0 flex-1 items-center gap-2 lg:gap-4">
+    <Glass className="flex h-[calc(100svh-136px)] min-h-120 flex-col gap-5 overflow-hidden rounded-rectangles border-white/50 bg-background-blur px-2 py-4 sm:h-[calc(100svh-200px)] sm:gap-6 sm:p-6 lg:p-8 lg:pb-0">
+      <div className="grid grid-cols-[44px_minmax(0,1fr)_44px] items-center gap-x-2 gap-y-5 sm:flex sm:flex-wrap sm:justify-between sm:gap-3 lg:gap-4">
+        <div className="order-1 col-span-2 flex min-w-0 flex-1 items-center gap-2 sm:order-none lg:gap-4">
           <Button asChild variant="glass" size="icon-lg" className={controlClass}>
             <Link href="/documenti" aria-label="Torna ai documenti">
               <FiArrowLeft aria-hidden="true" className="size-6" />
@@ -153,18 +156,21 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             <span className="truncate">{document.title}</span>
           </h1>
         </div>
-        <Button
-          variant="glass"
-          size="icon-lg"
-          className="size-11 lg:hidden"
-          aria-label="Miniature delle pagine"
-          aria-expanded={sidebar}
-          aria-controls="pdf-pages"
-          onClick={() => setSidebar(!sidebar)}
-        >
-          <FiSidebar aria-hidden="true" className="size-5" />
-        </Button>
-        <div className="flex items-center gap-2 lg:gap-4">
+        <div className="order-3 col-span-3 flex w-full items-center justify-between gap-1 sm:order-none sm:w-auto sm:justify-start sm:gap-2 lg:gap-4">
+          <Button
+            variant="glass"
+            size="icon-lg"
+            className="size-11 sm:hidden"
+            aria-label="Adattamento della pagina"
+            aria-expanded={fitOpen}
+            aria-controls="pdf-fit-options"
+            onClick={() => {
+              setFitOpen(!fitOpen)
+              setSearchOpen(false)
+            }}
+          >
+            <FiSliders aria-hidden="true" className="size-5" />
+          </Button>
           <fieldset
             aria-label="Adattamento della pagina"
             disabled={!ready}
@@ -252,20 +258,74 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
               <FiZoomOut aria-hidden="true" className="size-6" />
             </Button>
           </fieldset>
+          <Button
+            variant="glass"
+            size="icon-lg"
+            className="size-11 lg:hidden"
+            aria-label="Miniature delle pagine"
+            aria-expanded={sidebar}
+            aria-controls="pdf-pages"
+            onClick={() => setSidebar(!sidebar)}
+          >
+            <FiSidebar aria-hidden="true" className="size-5" />
+          </Button>
+          <Button
+            variant="glass"
+            size="icon-lg"
+            className="size-11 sm:hidden"
+            aria-label="Cerca nel documento"
+            aria-expanded={searchOpen}
+            aria-controls="pdf-search-form"
+            onClick={() => {
+              setSearchOpen(!searchOpen)
+              setFitOpen(false)
+              if (searchOpen) {
+                searchRun.current += 1
+                setQuery("")
+                setSearched("")
+                setMatches([])
+                setSearching(false)
+              }
+            }}
+          >
+            <FiSearch aria-hidden="true" className="size-5" />
+          </Button>
         </div>
-        <select
-          aria-label="Adattamento della pagina"
-          value={fit}
-          disabled={!ready}
-          onChange={(event) => changeFit(event.target.value as Fit)}
-          className="h-11 min-w-0 rounded-buttonsL bg-background-blur px-3 text-base focus-visible:outline-2 sm:hidden"
-        >
-          <option value="actual">Dimensione reale</option>
-          <option value="width">Adatta alla larghezza</option>
-          <option value="height">Adatta alla pagina</option>
-        </select>
+        {fitOpen && (
+          <fieldset
+            id="pdf-fit-options"
+            aria-label="Adattamento della pagina"
+            disabled={!ready}
+            className="order-4 col-span-3 grid grid-cols-3 gap-1 rounded-rectangles bg-background-blur p-1 sm:hidden"
+          >
+            {(
+              [
+                { value: "actual", label: "Reale" },
+                { value: "width", label: "Larghezza" },
+                { value: "height", label: "Pagina intera" },
+              ] as const
+            ).map(({ value, label }) => (
+              <Button
+                key={value}
+                variant="glass"
+                className="h-11 px-2 aria-pressed:bg-blue-tertiary"
+                aria-pressed={fit === value}
+                onClick={() => {
+                  changeFit(value)
+                  setFitOpen(false)
+                }}
+              >
+                {label}
+              </Button>
+            ))}
+          </fieldset>
+        )}
         <form
-          className="relative flex min-w-40 flex-1 items-center gap-1 rounded-buttonsL bg-background-blur lg:max-w-64"
+          id="pdf-search-form"
+          className={cn(
+            "relative order-5 col-span-3 min-w-0 flex-1 items-center gap-1 rounded-buttonsL bg-background-blur sm:order-none sm:flex sm:min-w-40 lg:max-w-64",
+            searchOpen ? "flex" : "hidden"
+          )}
           onSubmit={(event) => {
             event.preventDefault()
             void search()
@@ -291,7 +351,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             className="h-11 w-full min-w-0 rounded-buttonsL bg-transparent pr-3 pl-12 text-base outline-offset-2 focus-visible:outline-2 lg:h-14"
           />
         </form>
-        <Button asChild variant="glass" size="icon-lg" className={controlClass}>
+        <Button asChild variant="glass" size="icon-lg" className={cn(controlClass, "order-2 sm:order-none")}>
           <a href={fileHref} download={getDocumentFileName(document)} aria-label={`Scarica ${document.title}`}>
             <FiDownload aria-hidden="true" className="size-6" />
           </a>

@@ -44,7 +44,7 @@ export async function Projects() {
       {featured.length > 0 && (
         // A small heading over the cards: these four are the community's favourites, not the whole collection
         <div className="mx-auto flex w-full min-w-0 max-w-4xl flex-col gap-4 pt-8 xl:max-w-none xl:pt-0">
-          <h3 className="typo-title-large text-center text-blue-secondary xl:text-start">I più amati</h3>
+          <h3 className="typo-title-large text-center text-blue-secondary sm:text-start">I più amati</h3>
           <ul className="hidden w-full auto-rows-fr gap-6 md:grid md:grid-cols-2">
             {featured.map((project) => (
               <li key={project.id} className="min-w-0">
