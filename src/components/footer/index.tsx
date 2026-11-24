@@ -20,9 +20,10 @@ const socials: { label: string; href: string; icon: ReactNode }[] = [
   { label: "GitHub", href: "https://github.com/PoliNetworkOrg", icon: <FiGithub /> },
 ]
 
-// Site pages, not PDFs: they open in the same tab
+// The privacy policy is published on its own page (polinetwork.github.io/privacy), outside this site: it opens in a new
+// tab. The terms are a page of this site
 const legal = [
-  { label: "Come trattiamo i tuoi dati", title: "Privacy & Cookie Policy", href: "/privacy-policy" },
+  { label: "Come trattiamo i tuoi dati", title: "Privacy & Cookie Policy", href: "https://polinetwork.org/privacy/" },
   { label: "Le regole per usare il sito", title: "Termini e condizioni", href: "/termini-e-condizioni" },
 ]
 
