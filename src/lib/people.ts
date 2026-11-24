@@ -209,12 +209,19 @@ export const areas: Area[] = [
         ],
       },
       {
+        academicYear: "2025/26",
+        people: [
+          { name: "Lorenzo Corallo", role: "Team lead" },
+          { name: "Tommaso Morganti", role: "Team lead" },
+        ],
+      },
+      {
         // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
         academicYear: "2026/27",
         current: true,
         people: [
           { name: "Lorenzo Corallo", role: "Team lead" },
-          { name: "Tommaso Morganti", role: "Team lead" },
+          { name: "Bianca Roberta Ianosel", role: "Team lead" },
         ],
       },
     ],
@@ -232,6 +239,10 @@ export const areas: Area[] = [
           { name: "Giulia Messina", role: HEAD },
           { name: "Giorgia Nanni", role: "Vice" },
         ],
+      },
+      {
+        academicYear: "2025/26",
+        people: [{ name: "Raffaele Tiziano Andolina", role: "Team lead" }],
       },
       {
         // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
@@ -255,10 +266,14 @@ export const areas: Area[] = [
         ],
       },
       {
+        academicYear: "2025/26",
+        people: [{ name: "Matteo Zenti", role: "Team lead" }],
+      },
+      {
         // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
         academicYear: "2026/27",
         current: true,
-        people: [{ name: "Matteo Zenti", role: "Team lead" }],
+        people: [{ name: "Secret", role: "Team lead" }],
       },
     ],
   },
@@ -288,13 +303,17 @@ export const areas: Area[] = [
         ],
       },
       {
-        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
-        academicYear: "2026/27",
-        current: true,
+        academicYear: "2025/26",
         people: [
           { name: "Gabriele Viganò", role: "Team lead" },
           { name: "Lucia Capuano", role: "Team lead" },
         ],
+      },
+      {
+        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
+        academicYear: "2026/27",
+        current: true,
+        people: [{ name: "Gabriele Viganò", role: "Team lead" }],
       },
     ],
   },
