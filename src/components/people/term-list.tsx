@@ -43,8 +43,8 @@ export function TermList({ terms, className }: { terms: Term[]; className?: stri
                 {[term.title, period].filter(Boolean).join(" · ")}
               </p>
               <ul className="flex flex-wrap gap-x-8 gap-y-2">
-                {term.people.map((person) => (
-                  <li key={`${person.name}:${person.role ?? ""}`} className="flex min-w-0 flex-col">
+                {term.people.map((person, personIndex) => (
+                  <li key={`${personIndex}:${person.name}`} className="flex min-w-0 flex-col">
                     <span className="typo-title-medium text-text-primary">{person.name}</span>
                     {person.role && <span className="typo-body-medium text-text-secondary">{person.role}</span>}
                   </li>
