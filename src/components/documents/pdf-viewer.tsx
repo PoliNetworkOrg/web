@@ -247,7 +247,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             </Button>
             <Button
               variant="glass"
-              className="h-11 bg-transparent px-1 tabular-nums lg:h-14"
+              className="size-11 rounded-full bg-transparent p-0 tabular-nums lg:size-14"
               aria-label="Ripristina lo zoom"
               onClick={() => {
                 setZoom(1)
@@ -302,7 +302,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             id="pdf-fit-options"
             aria-label="Adattamento della pagina"
             disabled={!ready}
-            className="order-4 col-span-3 grid grid-cols-3 gap-1 rounded-rectangles bg-background-blur p-1 sm:hidden"
+            className="order-4 col-span-3 grid grid-cols-3 gap-1 rounded-full bg-background-blur p-1 sm:hidden"
           >
             {(
               [

@@ -10,6 +10,7 @@ export function AccordionItem({ className, children, ...props }: React.Component
       <Glass
         className={cn(
           "group/accordion relative overflow-hidden rounded-3xl border-white/50 bg-background-blur p-0 text-card-foreground",
+          "has-[[data-slot=accordion-trigger]:focus-visible]:ring-2 has-[[data-slot=accordion-trigger]:focus-visible]:ring-blue-secondary has-[[data-slot=accordion-trigger]:focus-visible]:ring-inset",
           className
         )}
       >
