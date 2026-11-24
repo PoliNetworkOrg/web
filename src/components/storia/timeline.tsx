@@ -28,11 +28,7 @@ function IconTile({ icon, className }: { icon: GradientIconType | string; classN
   )
 }
 
-/**
- * The timelines' lines are 4px `FillLine`s, light blue until they fill with blue. The lines of one timeline start
- * this many seconds apart, so it fills from its start to its end.
- */
-const LINE_STAGGER = 0.5
+/** The timelines' lines are 4px `FillLine`s, light blue until they fill with blue from start to end. */
 
 export function Timeline() {
   return (
@@ -55,7 +51,8 @@ export function Timeline() {
               // Fills toward the next milestone, one line after the other across the row
               <FillLine
                 direction="down-then-across"
-                delay={index * LINE_STAGGER}
+                step={index}
+                steps={milestones.length - 1}
                 className="-bottom-10 absolute top-21 left-10 w-1 lg:top-10 lg:bottom-auto lg:left-[calc(50%+2.625rem)] lg:h-1 lg:w-[calc(100%-3.75rem)]"
               />
             )}
@@ -100,7 +97,8 @@ function Steps({ items }: { items: { label: string; icon?: GradientIconType | st
             // tiles' middle on phones, across their middle from sm
             <FillLine
               direction="down-then-across-sm"
-              delay={(index - 1) * LINE_STAGGER}
+              step={index - 1}
+              steps={items.length - 1}
               className="absolute bottom-[calc(100%+0.25rem)] left-[calc(1.75rem-2px)] h-4 w-1 sm:top-7 sm:right-[calc(50%+2.5rem)] sm:bottom-auto sm:left-[calc(-50%+2.5rem)] sm:h-1 sm:w-auto"
             />
           )}

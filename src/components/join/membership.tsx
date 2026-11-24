@@ -36,6 +36,8 @@ export function MembershipSection() {
                 // Fills down toward the next step as it comes into view
                 <FillLine
                   direction="down"
+                  step={index}
+                  steps={membershipSteps.length - 1}
                   className="my-2 min-h-6 w-1 flex-1"
                   fillClassName="bg-linear-to-b from-blue-secondary to-blue-primary"
                 />

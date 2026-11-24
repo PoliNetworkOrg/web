@@ -46,7 +46,8 @@ export function AdminSection() {
                 // The line to the next card from lg, filling with blue one after the other
                 <FillLine
                   direction="across"
-                  delay={index * 0.5}
+                  step={index}
+                  steps={adminSteps.length - 1}
                   className="-translate-y-1/2 absolute top-1/2 left-full hidden h-1 w-15 lg:block"
                   fillClassName="bg-linear-to-r from-blue-secondary to-blue-primary"
                 />

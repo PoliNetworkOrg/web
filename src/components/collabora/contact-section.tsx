@@ -65,7 +65,8 @@ export function ContactSection() {
             {index < connectorClassNames.length && (
               <FillLine
                 direction="down-then-across"
-                delay={index * 0.5}
+                step={index}
+                steps={connectorClassNames.length}
                 className="h-10 w-1 shrink-0 md:max-lg:ml-51.5 lg:h-1 lg:w-10 lg:self-center"
                 fillClassName={cn("bg-linear-to-b lg:bg-linear-to-r", connectorClassNames[index])}
               />

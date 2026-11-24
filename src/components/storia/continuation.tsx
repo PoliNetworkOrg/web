@@ -32,7 +32,12 @@ export function Continuation() {
           {years.map((year, index) => (
             <li key={year} className={cn("flex items-center", index > 0 && "flex-1")}>
               {index > 0 && (
-                <FillLine direction="across" delay={(index - 1) * 0.5} className="mx-2 h-1 flex-1 sm:mx-3" />
+                <FillLine
+                  direction="across"
+                  step={index - 1}
+                  steps={years.length - 1}
+                  className="mx-2 h-1 flex-1 sm:mx-3"
+                />
               )}
               <Glass className="typo-title-medium sm:typo-title-large flex h-14 min-w-16 items-center justify-center rounded-rectangles border-white bg-white/70 px-3 py-0 text-blue-secondary sm:h-18 sm:min-w-20">
                 {year}
