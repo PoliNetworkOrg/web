@@ -136,6 +136,4 @@ export const boardMembers: BoardMember[] = [
   },
 ]
 
-// Numbered in order, with no dates. The portraits above are the board in office, Direttivo 3
-export const boardTerms = ["Direttivo 1", "Direttivo 2", "Direttivo 3", "Direttivo 4"] as const
-export const CURRENT_BOARD: (typeof boardTerms)[number] = "Direttivo 3"
+// The portraits above are the board in office; its term and the past boards are in lib/people

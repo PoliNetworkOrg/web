@@ -1,21 +1,28 @@
 "use client"
 
+import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { Roster } from "@/components/people/roster"
 import { BoardMemberCard } from "@/components/structure/board-member-card"
 import TabsNavigation from "@/components/tabs"
 import { Tabs } from "@/components/tabs/tabs"
 import { TabsContent } from "@/components/tabs/tabs-content"
-import { boardMembers, boardTerms, CURRENT_BOARD } from "./constants"
+import { currentBoard, formatPeriod, pastBoards } from "@/lib/people"
+import { boardMembers } from "./constants"
+
+/** The boards in order, the one in office last: its tab opens first */
+const boards = [...pastBoards, currentBoard]
+const CURRENT = currentBoard.title ?? ""
 
 export function Boards() {
   return (
     <section id="direttivi" className={`${CONTAINER} flex scroll-mt-36 flex-col gap-8 md:gap-10`}>
       <h2 className={SECTION_TITLE}>Ogni mandato, un nuovo capitolo</h2>
-      <Tabs defaultValue={CURRENT_BOARD} className="gap-12">
-        <TabsNavigation items={boardTerms.map((term) => ({ value: term, label: term }))} />
-        {boardTerms.map((term) => (
-          <TabsContent key={term} value={term}>
-            {term === CURRENT_BOARD ? (
+      <Tabs defaultValue={CURRENT} className="gap-12">
+        <TabsNavigation items={boards.map((board) => ({ value: board.title ?? "", label: board.title ?? "" }))} />
+        {boards.map((board) => (
+          <TabsContent key={board.title} value={board.title ?? ""}>
+            {board.current ? (
               <div className="grid items-start gap-10 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
                 <div className="flex w-full flex-wrap justify-center gap-6">
                   {boardMembers.map((member) => (
@@ -30,6 +37,9 @@ export function Boards() {
                 {/* How the board is chosen sits in the text beside the portraits, not as a caption under them */}
                 <div className="order-first flex flex-col gap-4 xl:order-last xl:pt-2">
                   <h3 className="typo-display-small text-balance">Il Direttivo</h3>
+                  <p className="typo-title-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+                    {formatPeriod(board)}
+                  </p>
                   <p className="typo-body-large text-pretty">
                     Si concentra sul rafforzamento della struttura, sull’evoluzione dei servizi e sullo sviluppo di
                     nuovi progetti per la community.
@@ -41,12 +51,13 @@ export function Boards() {
                 </div>
               </div>
             ) : (
-              <div className="flex min-h-70 flex-col items-center justify-center gap-4 text-center">
-                <h3 className="typo-headline-medium">{term}</h3>
-                <p className="typo-body-large text-text-secondary">
-                  La composizione di questo mandato non è ancora disponibile.
-                </p>
-              </div>
+              <Glass className="flex flex-col gap-6 rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-8">
+                <div className="flex flex-col gap-2">
+                  <h3 className="typo-headline-small">{board.title}</h3>
+                  <p className="typo-body-large text-text-secondary">{formatPeriod(board)}</p>
+                </div>
+                <Roster people={board.people} />
+              </Glass>
             )}
           </TabsContent>
         ))}

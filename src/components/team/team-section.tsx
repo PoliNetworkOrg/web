@@ -4,6 +4,7 @@ import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
+import { teamLeads } from "@/lib/people"
 import { cn } from "@/lib/utils"
 import { applicationHref, type Team } from "./constants"
 
@@ -23,6 +24,22 @@ function RoleList({ team }: { team: Team }) {
             </span>
             <span className="typo-title-large min-w-0 text-balance text-text-primary">{title}</span>
           </Glass>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/** Who leads the team today, from the register in lib/people */
+function Leads({ team }: { team: Team }) {
+  const leads = teamLeads(team.id)
+  if (leads.length === 0) return null
+  return (
+    <ul aria-label={`Chi guida ${team.title}`} className="flex flex-wrap gap-x-8 gap-y-3">
+      {leads.map((lead) => (
+        <li key={`${lead.name}:${lead.role ?? ""}`} className="flex flex-col">
+          <span className="typo-title-medium text-text-primary">{lead.name}</span>
+          {lead.role && <span className="typo-body-medium text-text-secondary">{lead.role}</span>}
         </li>
       ))}
     </ul>
@@ -61,6 +78,7 @@ export function TeamSection({ team, reverse = false }: { team: Team; reverse?: b
       <div className={cn("flex min-w-0 flex-col gap-6", reverse && "xl:order-last")}>
         {title}
         {description}
+        <Leads team={team} />
         <div className="pt-2">
           <JoinButton team={team} />
         </div>
