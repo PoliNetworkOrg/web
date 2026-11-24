@@ -14,10 +14,6 @@ export function HistoricalPeople() {
           Fondatori, garanti, probiviri, delegati e responsabili di dipartimento hanno accompagnato PoliNetwork nelle
           sue trasformazioni. Qui conserviamo i loro incarichi come riportati nel sito precedente.
         </p>
-        <p className="typo-body-large text-text-secondary">
-          Questo è un archivio storico. Le nomine senza una data di fine non indicano necessariamente un incarico ancora
-          in corso.
-        </p>
       </div>
       <AccordionList
         contentClassName="max-w-none"
