@@ -6,7 +6,7 @@ import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
 import { useRoutePathname } from "@/utils/use-route-pathname"
-import { headerMenuItems, isActiveHref } from "./constants"
+import { ACTIVE_FILL_CLASS, headerMenuItems, isActiveHref } from "./constants"
 import { Logo } from "./logo"
 
 export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
@@ -88,7 +88,8 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
             ref={navRef}
             id="mobile-menu"
             aria-label="Menu principale"
-            className="max-h-[calc(100dvh-var(--nav-top)*2-5rem)] min-h-0 overflow-y-auto overscroll-contain"
+            // -mx-3 px-3: room for the rows' highlight, which the scroll container would otherwise clip
+            className="-mx-3 max-h-[calc(100dvh-var(--nav-top)*2-5rem)] min-h-0 overflow-y-auto overscroll-contain px-3"
           >
             {headerMenuItems.map((item) => (
               <div key={item.title} className="mt-5">
@@ -104,12 +105,12 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                             href={subItem.href}
                             aria-current={active ? "page" : undefined}
                             className={cn(
-                              "typo-body-large -mx-3 flex min-h-10 items-center justify-between gap-2 rounded-xl px-3 text-text-primary outline-none transition-colors duration-200 ease-(--ease-ui-out) hover:bg-white/60 focus-visible:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
-                              active && "bg-blue-tertiary/35 text-blue-secondary hover:bg-blue-tertiary/50"
+                              "typo-body-large -mx-3 focus-visible:-outline-offset-2 flex min-h-10 items-center justify-between gap-2 rounded-xl px-3 text-text-primary outline-none transition-[background-color,box-shadow] duration-200 ease-(--ease-ui-out) focus-visible:outline-2 focus-visible:outline-sky-600",
+                              active ? cn(ACTIVE_FILL_CLASS, "text-white") : "hover:bg-sky-500/12 active:bg-sky-500/12"
                             )}
                           >
                             {subItem.title}
-                            <Icon size={18} className={active ? "text-current" : "text-text-secondary"} aria-hidden />
+                            <Icon size={18} className={active ? "text-white" : "text-text-secondary"} aria-hidden />
                           </Link>
                         </li>
                       )
