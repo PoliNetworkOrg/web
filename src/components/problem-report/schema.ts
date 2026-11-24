@@ -14,8 +14,11 @@ export const problemReportSchema = z.object({
     .min(20, "Descrivi il problema con almeno 20 caratteri.")
     .max(5000, "Usa al massimo 5000 caratteri."),
 })
+export type ReportValues = Record<"email" | "subject" | "description", string>
 export type ReportState = {
   status: "idle" | "error" | "success"
   message?: string
-  errors?: Partial<Record<"email" | "subject" | "description", string[]>>
+  errors?: Partial<Record<keyof ReportValues, string[]>>
+  /** What the person submitted, sent back on errors so the fields survive a submission without JavaScript. */
+  values?: ReportValues
 }

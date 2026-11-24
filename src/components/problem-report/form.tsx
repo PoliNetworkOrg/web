@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useActionState, useState } from "react"
+import { useActionState } from "react"
 import { FiCheck, FiSend } from "react-icons/fi"
 import { submitProblemReport } from "@/app/segnala-problema/actions"
 import { Glass } from "@/components/glass"
@@ -13,7 +13,6 @@ const initialState: ReportState = { status: "idle" }
 
 export function ProblemReportForm() {
   const [state, action, pending] = useActionState(submitProblemReport, initialState)
-  const [values, setValues] = useState({ email: "", subject: "", description: "" })
   if (state.status === "success")
     return (
       <Glass
@@ -34,6 +33,7 @@ export function ProblemReportForm() {
 
   return (
     <Glass className="mx-auto w-full max-w-2xl rounded-rectangles p-6 sm:p-10">
+      {/* Uncontrolled fields: after a submission without JavaScript the server renders them from state.values. */}
       <form action={action} className="flex flex-col gap-6" aria-label="Segnalazione di un problema">
         <div className="flex flex-col gap-2">
           <label htmlFor="report-email" className="typo-title-medium">
@@ -42,8 +42,7 @@ export function ProblemReportForm() {
           <Input
             id="report-email"
             name="email"
-            value={values.email}
-            onChange={(event) => setValues((previous) => ({ ...previous, email: event.target.value }))}
+            defaultValue={state.values?.email}
             type="email"
             required
             maxLength={254}
@@ -67,8 +66,7 @@ export function ProblemReportForm() {
           <Input
             id="report-subject"
             name="subject"
-            value={values.subject}
-            onChange={(event) => setValues((previous) => ({ ...previous, subject: event.target.value }))}
+            defaultValue={state.values?.subject}
             required
             minLength={5}
             maxLength={120}
@@ -88,8 +86,7 @@ export function ProblemReportForm() {
           <textarea
             id="report-description"
             name="description"
-            value={values.description}
-            onChange={(event) => setValues((previous) => ({ ...previous, description: event.target.value }))}
+            defaultValue={state.values?.description}
             required
             minLength={20}
             maxLength={5000}
