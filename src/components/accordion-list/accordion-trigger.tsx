@@ -1,7 +1,6 @@
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import type * as React from "react"
 import { FiChevronRight } from "react-icons/fi"
-import { CardHoverBackground } from "@/components/card-icon/hover-background"
 import { cn } from "@/lib/utils"
 
 export function AccordionTrigger({
@@ -10,8 +9,7 @@ export function AccordionTrigger({
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
   return (
-    <AccordionPrimitive.Header className="group/accordion-header relative flex overflow-hidden rounded-3xl">
-      <CardHoverBackground className="group-hover/accordion-header:opacity-100" />
+    <AccordionPrimitive.Header className="relative z-10 flex">
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
