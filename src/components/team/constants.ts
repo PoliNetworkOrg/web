@@ -1,7 +1,7 @@
 import {
   FiAward,
+  FiCalendar,
   FiCloud,
-  FiCornerRightUp,
   FiCpu,
   FiEdit,
   FiEdit2,
@@ -11,6 +11,7 @@ import {
   FiSettings,
   FiShare2,
   FiSmartphone,
+  FiTrendingUp,
   FiUsers,
 } from "react-icons/fi"
 import communication from "@/assets/icons/team/communication.svg"
@@ -46,7 +47,7 @@ export const teams: Team[] = [
       { title: "Brand & Graphic Design", icon: FiEdit2 },
       { title: "Social & Content", icon: FiSmartphone },
       { title: "Copywriting & Communication", icon: communication.src },
-      { title: "Collaborazione", icon: FiShare2 },
+      { title: "Marketing", icon: FiTrendingUp },
     ],
   },
   {
@@ -58,7 +59,7 @@ export const teams: Team[] = [
       { title: "Recruiting & Onboarding", icon: FiUsers },
       { title: "Organizzazione & Processi", icon: FiEdit },
       { title: "Community & Engagement", icon: FiAward },
-      { title: "Crescita del team", icon: FiCornerRightUp },
+      { title: "Eventi e team building", icon: FiCalendar },
     ],
   },
   {
@@ -70,6 +71,7 @@ export const teams: Team[] = [
       { title: "Eventi", icon: FiHeadphones },
       { title: "Partnership", icon: FiUsers },
       { title: "Project Management", icon: FiSettings },
+      { title: "Networking", icon: FiShare2 },
     ],
   },
 ]
