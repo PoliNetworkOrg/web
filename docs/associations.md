@@ -17,3 +17,7 @@ The public page links representatives to `/dashboard/associations` on `ADMIN_URL
 Reviewed external logo URLs are loaded by the browser as they are: the site has no server-side image optimizer, so it never fetches arbitrary remote images. Bundled static images keep their pre-resized copies.
 
 This PR can deploy before the coordinated backend/admin release. Run `pnpm check`, `pnpm build`, `pnpm typecheck` and `pnpm test`. The backend tests cover publication gating, preservation of existing associations and numeric IDs. In staging, confirm existing associations, repeated platform links and labels, and logo display after content approval.
+
+## Release (portal extras)
+
+This branch can deploy before or after the backend: with the current backend the page shows no filters and no events section; with the new one (migrations 0041–0045) it shows programme and campus filters, public contacts and upcoming events. Run `pnpm check`, `pnpm typecheck`, `pnpm build` and `pnpm test`. Once the backend SDK is republished with `getUpcomingEvents`, the untyped call in `src/queries/associations.server.ts` can use the typed client.
