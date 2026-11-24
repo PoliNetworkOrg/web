@@ -42,25 +42,27 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
 
   return (
     <Glass className="flex h-[calc(100svh-136px)] min-h-120 flex-col gap-4 rounded-rectangles border-white/50 bg-background-blur p-2 sm:h-[calc(100svh-200px)] sm:p-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex min-w-0 flex-1 basis-full items-center gap-3 sm:basis-auto">
-          <Button asChild variant="glass" size="icon-lg" className="size-11">
+      {/* One row on phones too: back, title (cut short when long) and smaller controls, which would otherwise wrap
+          under the title and take a row of the screen. The zoom percentage shows from sm */}
+      <div className="flex items-center justify-between gap-2 sm:flex-wrap sm:gap-3">
+        <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+          <Button asChild variant="glass" size="icon-lg" className="size-9 shrink-0 sm:size-11">
             <Link href="/documenti" aria-label="Torna ai documenti">
               <FiArrowLeft aria-hidden="true" className="size-5" />
             </Link>
           </Button>
-          <h1 title={document.title} className="typo-body-large line-clamp-2 min-w-0 break-words sm:line-clamp-none">
+          <h1 title={document.title} className="typo-body-large min-w-0 truncate sm:whitespace-normal sm:break-words">
             {document.title}
           </h1>
         </div>
         <fieldset
           aria-label="Controlli del documento"
-          className="ml-auto flex items-center gap-1 rounded-buttonsL bg-background-blur p-1"
+          className="ml-auto flex shrink-0 items-center gap-0.5 rounded-buttonsL bg-background-blur p-0.5 sm:gap-1 sm:p-1"
         >
           <Button
             variant="glass"
             size="icon-lg"
-            className="size-11 aria-disabled:opacity-50"
+            className="size-9 aria-disabled:opacity-50 sm:size-11"
             aria-label="Riduci zoom"
             disabled={!pageCount || failed}
             aria-disabled={zoom <= 0.5}
@@ -74,7 +76,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           </Button>
           <Button
             variant="glass"
-            className="h-11 min-w-16"
+            className="h-11 min-w-16 max-sm:hidden"
             aria-label={`Zoom ${Math.round(zoom * 100)}%, ripristina al 100%`}
             disabled={!pageCount || failed}
             onClick={() => {
@@ -87,7 +89,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           <Button
             variant="glass"
             size="icon-lg"
-            className="size-11 aria-disabled:opacity-50"
+            className="size-9 aria-disabled:opacity-50 sm:size-11"
             aria-label="Aumenta zoom"
             disabled={!pageCount || failed}
             aria-disabled={zoom >= 3}
@@ -99,7 +101,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           >
             <FiZoomIn aria-hidden="true" className="size-5" />
           </Button>
-          <Button asChild variant="glass" size="icon-lg" className="size-11">
+          <Button asChild variant="glass" size="icon-lg" className="size-9 sm:size-11">
             <a href={fileHref} download={getDocumentFileName(document)} aria-label={`Scarica ${document.title}`}>
               <FiDownload aria-hidden="true" className="size-5" />
             </a>
