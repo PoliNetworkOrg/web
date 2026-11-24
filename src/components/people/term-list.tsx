@@ -1,8 +1,6 @@
+import { FillLine } from "@/components/fill-line"
 import { formatPeriod, type Term } from "@/lib/people"
 import { cn } from "@/lib/utils"
-
-/** The site's timeline line: 4px, light blue (see FillLine) */
-const LINE = "rounded-full bg-blue-primary/25"
 
 /**
  * Terms in chronological order on a vertical line, like the timelines on /storia: one node per term with its years
@@ -20,8 +18,14 @@ export function TermList({ terms, className }: { terms: Term[]; className?: stri
             className="relative grid grid-cols-[1rem_minmax(0,1fr)] gap-x-4"
           >
             {index < terms.length - 1 && (
-              // Down to the next node, through the gap between the rows
-              <span aria-hidden className={cn(LINE, "-bottom-6 absolute top-5 left-1.5 w-1")} />
+              // Down to the next node, through the gap between the rows; the lines fill one after the other, as in the
+              // site's other timelines
+              <FillLine
+                direction="down"
+                step={index}
+                steps={terms.length - 1}
+                className="-bottom-6 absolute top-5 left-1.5 w-1"
+              />
             )}
             <span
               aria-hidden
