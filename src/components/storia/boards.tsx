@@ -2,7 +2,6 @@
 
 import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
-import { InOfficeBadge } from "@/components/people/in-office-badge"
 import { Roster } from "@/components/people/roster"
 import { BoardMemberCard } from "@/components/structure/board-member-card"
 import TabsNavigation from "@/components/tabs"
@@ -38,8 +37,8 @@ export function Boards() {
                 {/* How the board is chosen sits in the text beside the portraits, not as a caption under them */}
                 <div className="order-first flex flex-col gap-4 xl:order-last xl:pt-2">
                   <h3 className="typo-display-small text-balance">Il Direttivo</h3>
-                  <p className="typo-body-large flex flex-wrap items-center gap-x-3 gap-y-1 text-text-secondary">
-                    {formatPeriod(board)} <InOfficeBadge />
+                  <p className="typo-title-large bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
+                    {formatPeriod(board)}
                   </p>
                   <p className="typo-body-large text-pretty">
                     Si concentra sul rafforzamento della struttura, sull’evoluzione dei servizi e sullo sviluppo di

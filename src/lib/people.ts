@@ -41,8 +41,8 @@ export type Area = {
 const year = (month: Month) => month.slice(0, 4)
 
 /**
- * Only years, the same way everywhere: "2016 – 2018", "2023", "2024 – oggi". An academic year "2025/26" reads
- * "2025 – 2026". Months stay in the data but are not shown.
+ * Only years, the same way everywhere: "2016 – 2018", "2023", and "2024 – oggi" for the term in office. An academic
+ * year "2025/26" reads "2025 – 2026". Months stay in the data but are not shown.
  */
 export function formatPeriod({
   from,
@@ -50,13 +50,12 @@ export function formatPeriod({
   academicYear,
   current,
 }: Pick<Term, "from" | "to" | "academicYear" | "current">) {
-  if (academicYear) {
-    const [start = "", end = ""] = academicYear.split("/")
-    return `${start} – ${start.slice(0, 2)}${end}`
-  }
+  const start = academicYear?.slice(0, 4) ?? (from && year(from))
+  if (current) return start ? `${start} – oggi` : "Oggi"
+  if (academicYear) return `${start} – ${Number(start) + 1}`
   if (!from) return ""
-  if (!to) return current ? `${year(from)} – oggi` : year(from)
-  return year(from) === year(to) ? year(from) : `${year(from)} – ${year(to)}`
+  if (!to || year(from) === year(to)) return year(from)
+  return `${year(from)} – ${year(to)}`
 }
 
 export function currentTerm(terms: Term[]) {
@@ -143,7 +142,7 @@ export const arbiters: Term[] = [
   },
   {
     // Il sito precedente non riporta la data di inizio
-    title: "Collegio in carica",
+    title: "Terzo Collegio",
     current: true,
     people: [
       { name: "Giacomo Marra", role: "Presidente" },

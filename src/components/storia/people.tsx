@@ -2,7 +2,6 @@ import Link from "next/link"
 import AccordionList from "@/components/accordion-list"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { CourseAdmins } from "@/components/people/course-admins"
-import { InOfficeBadge } from "@/components/people/in-office-badge"
 import { Roster } from "@/components/people/roster"
 import { TermList } from "@/components/people/term-list"
 import { type Area, arbiters, areas, courseAdmins, formatPeriod, founders, guarantors } from "@/lib/people"
@@ -52,9 +51,6 @@ export function HistoricalPeople() {
         <p className={SECTION_LEAD}>
           Tutte le persone che hanno avuto un incarico in PoliNetwork, dal 2016 a oggi. Ogni elenco segue l’ordine dei
           mandati: chi è in carica oggi è sempre l’ultimo.
-        </p>
-        <p className="typo-body-large flex flex-wrap items-center gap-x-2 gap-y-1 text-text-secondary">
-          <InOfficeBadge /> segna i mandati in corso.
         </p>
       </div>
       <AccordionList
