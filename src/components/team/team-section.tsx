@@ -36,8 +36,8 @@ function Leads({ team }: { team: Team }) {
   if (leads.length === 0) return null
   return (
     <ul aria-label={`Chi guida ${team.title}`} className="flex flex-wrap gap-x-8 gap-y-3">
-      {leads.map((lead) => (
-        <li key={`${lead.name}:${lead.role ?? ""}`} className="flex flex-col">
+      {leads.map((lead, index) => (
+        <li key={`${index}:${lead.name}`} className="flex flex-col">
           <span className="typo-title-medium text-text-primary">{lead.name}</span>
           {lead.role && <span className="typo-body-medium text-text-secondary">{lead.role}</span>}
         </li>

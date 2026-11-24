@@ -172,7 +172,7 @@ export const areas: Area[] = [
       { from: "2020-09", to: "2020-09", people: [{ name: "Federico Armellini", role: DELEGATE }] },
       { from: "2020-09", to: "2021-10", people: [{ name: "Elia Maggioni", role: DELEGATE }] },
       { from: "2021-10", to: "2022-10", people: [{ name: "Elia Maggioni", role: DELEGATE }] },
-      { from: "2023-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: DELEGATE }] },
+      { from: "2023-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: HEAD }] },
       {
         from: "2024-12",
         // Fino ai team lead del 2025/26: il mese esatto non è noto
@@ -193,8 +193,8 @@ export const areas: Area[] = [
         academicYear: "2026/27",
         current: true,
         people: [
-          { name: "Lorenzo Corallo", role: "Team lead" },
-          { name: "Bianca Roberta Ianosel", role: "Team lead" },
+          { name: "Segreto", role: "Team lead" },
+          { name: "Segreto", role: "Team lead" },
         ],
       },
     ],
@@ -214,8 +214,8 @@ export const areas: Area[] = [
         ],
       },
       { from: "2021-06", to: "2022-06", people: [{ name: "Diego Aldarese", role: DELEGATE }] },
-      { from: "2022-09", to: "2023-04", people: [{ name: "Diego Aldarese", role: DELEGATE }] },
-      { from: "2023-04", to: "2024-12", people: [{ name: "Diego Aldarese", role: DELEGATE }] },
+      { from: "2022-09", to: "2023-04", people: [{ name: "Diego Aldarese", role: HEAD }] },
+      { from: "2023-04", to: "2024-12", people: [{ name: "Diego Aldarese", role: HEAD }] },
       {
         from: "2024-12",
         // Fino ai team lead del 2025/26: il mese esatto non è noto
@@ -236,7 +236,7 @@ export const areas: Area[] = [
       {
         academicYear: "2026/27",
         current: true,
-        people: [{ name: "Gabriele Viganò", role: "Team lead" }],
+        people: [{ name: "Segreto", role: "Team lead" }],
       },
     ],
   },
@@ -245,8 +245,8 @@ export const areas: Area[] = [
     teamId: "design-marketing",
     formerNames: ["Gestione social", "Social media management e marketing"],
     terms: [
-      { from: "2022-09", to: "2023-04", people: [{ name: "Giulia La Ferla", role: DELEGATE }] },
-      { from: "2023-04", to: "2024-12", people: [{ name: "Giorgia Nanni", role: DELEGATE }] },
+      { from: "2022-09", to: "2023-04", people: [{ name: "Giulia La Ferla", role: HEAD }] },
+      { from: "2023-04", to: "2024-12", people: [{ name: "Giorgia Nanni", role: HEAD }] },
       {
         from: "2024-12",
         // Fino ai team lead del 2025/26: il mese esatto non è noto
@@ -263,7 +263,7 @@ export const areas: Area[] = [
       {
         academicYear: "2026/27",
         current: true,
-        people: [{ name: "Raffaele Tiziano Andolina", role: "Team lead" }],
+        people: [{ name: "Segreto", role: "Team lead" }],
       },
     ],
   },
@@ -272,7 +272,7 @@ export const areas: Area[] = [
     teamId: "hr",
     formerNames: ["Gestione interna"],
     terms: [
-      { from: "2023-04", to: "2024-12", people: [{ name: "Alice Carosi", role: DELEGATE }] },
+      { from: "2023-04", to: "2024-12", people: [{ name: "Alice Carosi", role: HEAD }] },
       {
         from: "2024-12",
         // Fino ai team lead del 2025/26: il mese esatto non è noto
@@ -289,7 +289,7 @@ export const areas: Area[] = [
       {
         academicYear: "2026/27",
         current: true,
-        people: [{ name: "Secret", role: "Team lead" }],
+        people: [{ name: "Segreto", role: "Team lead" }],
       },
     ],
   },
@@ -300,7 +300,7 @@ export const areas: Area[] = [
       { from: "2018-01", to: "2019-10", people: [{ name: "Tecla Trifilò", role: DELEGATE }] },
       { from: "2019-10", to: "2021-04", people: [{ name: "Peru Larrabeiti", role: DELEGATE }] },
       { from: "2021-06", to: "2022-06", people: [{ name: "Raif Muhammad", role: DELEGATE }] },
-      { from: "2022-09", to: "2023-04", people: [{ name: "Raif Muhammad", role: DELEGATE }] },
+      { from: "2022-09", to: "2023-04", people: [{ name: "Raif Muhammad", role: HEAD }] },
     ],
   },
   {
@@ -308,8 +308,8 @@ export const areas: Area[] = [
     name: "Relazioni istituzionali",
     note: "Dipartimento fino al passaggio ai quattro team",
     terms: [
-      { from: "2023-04", to: "2024-04", people: [{ name: "Elia Maggioni", role: DELEGATE }] },
-      { from: "2024-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: DELEGATE }] },
+      { from: "2023-04", to: "2024-04", people: [{ name: "Elia Maggioni", role: HEAD }] },
+      { from: "2024-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: HEAD }] },
       {
         from: "2024-12",
         // Fino ai team lead del 2025/26: il mese esatto non è noto
