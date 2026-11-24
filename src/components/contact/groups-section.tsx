@@ -1,8 +1,9 @@
-import Image from "next/image"
-import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import groupPhoto from "@/assets/images/contact/group.png?img"
 import { Highlight } from "@/components/collabora/section"
+import { Image } from "@/components/image"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { Button } from "@/components/ui/button"
 
 export function GroupsSection() {
@@ -30,7 +31,7 @@ export function GroupsSection() {
       </div>
 
       <Image
-        src="/contact-group.png"
+        src={groupPhoto}
         alt="Foto di gruppo della community PoliNetwork"
         width={512}
         height={246}

@@ -1,30 +1,19 @@
-import { notFound } from "next/navigation"
+import { notFound } from "@tanstack/react-router"
 import AccordionList from "@/components/accordion-list"
 import { COURSE_GUIDES } from "@/components/guides/constants"
 import { EMPTY_STATE } from "@/components/layout/page"
 import { getLevel, getSchool } from "@/components/wizard/constants"
 import { WizardShell } from "@/components/wizard/wizard-shell"
-import { getVisibleGroups } from "@/queries/groups"
-import { courseFacetsForLevel, humanizeSlug } from "@/utils/labels"
+import { humanizeSlug } from "@/utils/labels"
 import { createStepHref } from "@/utils/step-href"
 
 const stepHref = createStepHref("/guide/corso")
 
-export async function GuidesResult({
-  school: schoolSlug,
-  level,
-  course,
-}: {
-  school: string
-  level: string
-  course: string
-}) {
+export function GuidesResult({ school: schoolSlug, level, course }: { school: string; level: string; course: string }) {
   const school = getSchool(schoolSlug)
   const currentLevel = getLevel(schoolSlug, level)
-  if (!school || !currentLevel) notFound()
-
-  const groups = await getVisibleGroups()
-  if (!courseFacetsForLevel(groups, schoolSlug, level).has(course)) notFound()
+  // The route's loader has already answered 404 for an unknown school, level or course
+  if (!school || !currentLevel) throw notFound()
 
   const courseName = humanizeSlug(course)
 

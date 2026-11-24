@@ -1,12 +1,11 @@
-"use client"
 import { useAsyncDebouncer } from "@tanstack/react-pacer"
-import Link from "next/link"
 import { useEffect, useState } from "react"
 import { FaWhatsapp } from "react-icons/fa"
 import { FiSearch } from "react-icons/fi"
 import { LiaTelegramPlane } from "react-icons/lia"
+import { Link } from "@/components/link"
 import { Input } from "@/components/ui/input"
-import { searchGroups } from "@/queries/groups"
+import { searchGroupsFn } from "@/queries/functions"
 import type { ApiOutput } from "@/types"
 import { Glass } from "../glass"
 import { Spinner } from "../spinner"
@@ -25,7 +24,7 @@ export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => v
 
   const debouncedSearch = useAsyncDebouncer(
     async (searchTerm: string) => {
-      const res = await searchGroups(searchTerm, 20)
+      const res = await searchGroupsFn({ data: { query: searchTerm, limit: 20 } })
       setResults(res)
     },
     {

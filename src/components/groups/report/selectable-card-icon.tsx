@@ -1,5 +1,6 @@
 import { CardIcon } from "@/components/card-icon"
 import type { GradientIconType } from "@/components/gradient-icon"
+import type { ImageSource } from "@/components/image"
 
 export function SelectableCardIcon({
   title,
@@ -7,7 +8,7 @@ export function SelectableCardIcon({
   onClick,
 }: {
   title: string
-  icon: GradientIconType | string
+  icon: GradientIconType | ImageSource
   onClick: () => void
 }) {
   return (

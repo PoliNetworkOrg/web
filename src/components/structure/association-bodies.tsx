@@ -1,5 +1,3 @@
-"use client"
-
 import { Accordion } from "@/components/accordion-association/accordion"
 import { AccordionContent } from "@/components/accordion-association/accordion-content"
 import { AccordionItem } from "@/components/accordion-association/accordion-item"

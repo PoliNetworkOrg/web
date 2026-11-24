@@ -1,12 +1,12 @@
-import Image from "next/image"
-import Link from "next/link"
 import type { ReactNode } from "react"
 import { FiArrowUpRight, FiFacebook, FiGithub, FiInstagram, FiLinkedin, FiMessageSquare } from "react-icons/fi"
-import discord from "@/assets/icons/discord.svg"
-import telegram from "@/assets/icons/telegram.svg"
+import discord from "@/assets/icons/discord.svg?img"
+import telegram from "@/assets/icons/telegram.svg?img"
 import { CardMultipleIcons } from "@/components/card-multiple-icons"
 import { Glass } from "@/components/glass"
+import { Image } from "@/components/image"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -157,7 +157,8 @@ export function Footer() {
 
         {/* slate-600 rather than text-secondary (slate-500, 4.3:1 on the page background) so the small print passes AA */}
         <div className="typo-body-small md:typo-body-medium mx-auto mt-10 flex max-w-6xl flex-col items-center gap-1 text-slate-600 sm:flex-row sm:justify-between md:mt-12">
-          <p>© PoliNetwork APS 2016–{new Date().getFullYear()}</p>
+          {/* The server's year and the visitor's can differ for a few hours around New Year: either is fine */}
+          <p suppressHydrationWarning>© PoliNetwork APS 2016–{new Date().getFullYear()}</p>
           <p lang="en">All rights reserved</p>
         </div>
       </Glass>

@@ -1,5 +1,3 @@
-"use client"
-
 import { type ReactNode, useRef, useState } from "react"
 import { FiAlertCircle, FiCheckCircle, FiLink } from "react-icons/fi"
 import { ButtonIcon } from "@/components/button-icon"
@@ -17,7 +15,7 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { reportGroupLink } from "@/queries/groups"
+import { reportGroupLinkFn } from "@/queries/functions"
 import type { BrokenGroupLinkReportInput, MissingGroupLinkReportInput } from "@/queries/types"
 
 type View = "problem" | "broken" | "missing" | "confirmation" | "done"
@@ -73,7 +71,7 @@ export function ReportFinderDialog({
     const requestId = ++requestIdRef.current
 
     setStatus("submitting")
-    const result = await reportGroupLink(input)
+    const result = await reportGroupLinkFn({ data: input })
     if (requestId !== requestIdRef.current) return // dialog was reset/closed meanwhile
 
     inFlightRef.current = false

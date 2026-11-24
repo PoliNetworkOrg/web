@@ -1,13 +1,13 @@
-import type { StaticImageData } from "next/image"
 import { FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
-import telegram from "@/assets/icons/telegram-gradient.svg"
-import ale from "@/assets/images/storia/ale-he.jpg"
-import alessandro from "@/assets/images/storia/alessandro-gabbini.jpg"
-import elia from "@/assets/images/storia/elia-falzoni.jpg"
-import elisabeta from "@/assets/images/storia/elisabeta-hoxhaj.jpg"
-import gabriele from "@/assets/images/storia/gabriele-vigano.jpg"
-import lorenzo from "@/assets/images/storia/lorenzo-corallo.jpg"
-import tommaso from "@/assets/images/storia/tommaso-morganti.jpg"
+import telegram from "@/assets/icons/telegram-gradient.svg?img"
+import ale from "@/assets/images/storia/ale-he.jpg?img"
+import alessandro from "@/assets/images/storia/alessandro-gabbini.jpg?img"
+import elia from "@/assets/images/storia/elia-falzoni.jpg?img"
+import elisabeta from "@/assets/images/storia/elisabeta-hoxhaj.jpg?img"
+import gabriele from "@/assets/images/storia/gabriele-vigano.jpg?img"
+import lorenzo from "@/assets/images/storia/lorenzo-corallo.jpg?img"
+import tommaso from "@/assets/images/storia/tommaso-morganti.jpg?img"
+import type { StaticImage } from "@/components/image"
 
 // Contenuti del design Figma “La nostra storia”, nodo 5368:5885.
 export const milestones = [
@@ -77,7 +77,7 @@ export const chapters = [
 export type BoardMember = {
   name: string
   role: string
-  image: StaticImageData
+  image: StaticImage
   crop: string
   /** The member's LinkedIn profile: when set, the portrait links to it */
   linkedin?: string

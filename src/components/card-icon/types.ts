@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import type { GradientIconType } from "@/components/gradient-icon"
+import type { ImageSource } from "@/components/image"
 
 export type CardSize = "compact" | "xs" | "sm" | "md" | "lg" | "inline" | "inline-sm"
 export type CardBreakpoint = "base" | "sm" | "md" | "lg"
@@ -18,7 +19,7 @@ export type ResponsiveCardSize = CardSize | ResponsiveCardSizeConfig
 
 export type SharedCardProps = {
   title: string
-  icon: GradientIconType | string
+  icon: GradientIconType | ImageSource
   size?: ResponsiveCardSize
   align?: CardAlign
   href?: string

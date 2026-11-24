@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react"
-import line from "@/assets/shapes/looper-line.webp"
+import line from "@/assets/shapes/looper-line.webp?img"
 import { cn } from "@/lib/utils"
 
 /**

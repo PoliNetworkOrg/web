@@ -1,5 +1,3 @@
-"use client"
-
 import { cn } from "@/lib/utils"
 import { TabsList } from "./tabs-list"
 import { TabsTrigger } from "./tabs-trigger"

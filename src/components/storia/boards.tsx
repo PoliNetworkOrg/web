@@ -1,5 +1,3 @@
-"use client"
-
 import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { Roster } from "@/components/people/roster"

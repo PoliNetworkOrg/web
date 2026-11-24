@@ -1,5 +1,3 @@
-"use client"
-
 import { type AnimationPlaybackControls, animate, useReducedMotion } from "motion/react"
 import { useEffect, useRef } from "react"
 import TabsNavigation from "@/components/tabs"

@@ -1,6 +1,3 @@
-"use client"
-
-import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import {
   FiArrowLeft,
@@ -17,6 +14,7 @@ import {
 } from "react-icons/fi"
 import type { DocumentProps } from "react-pdf"
 import { Document, Page, pdfjs } from "react-pdf"
+import { Link } from "@/components/link"
 import "react-pdf/dist/Page/AnnotationLayer.css"
 import "react-pdf/dist/Page/TextLayer.css"
 import { Glass } from "@/components/glass"
@@ -212,7 +210,6 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
               aria-pressed={fit === "width"}
               onClick={() => changeFit("width")}
             >
-              {/* biome-ignore lint/performance/noImgElement: Local 24px Figma SVG icon. */}
               <img src="/icons/pdf/fit-width.svg" alt="" />
             </Button>
             <Button
@@ -224,7 +221,6 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
               aria-pressed={fit === "height"}
               onClick={() => changeFit("height")}
             >
-              {/* biome-ignore lint/performance/noImgElement: Local 24px Figma SVG icon. */}
               <img src="/icons/pdf/fit-height.svg" alt="" />
             </Button>
           </fieldset>

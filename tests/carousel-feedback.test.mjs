@@ -1,12 +1,25 @@
 import assert from "node:assert/strict"
 import { readFileSync } from "node:fs"
-import { createRequire } from "node:module"
 import { runInNewContext } from "node:vm"
 import test from "node:test"
 
-const require = createRequire(import.meta.url)
-const { transform, loadBindings } = require("next/dist/build/swc")
-await loadBindings()
+import { transformWithOxc } from "vite"
+
+/** Compiles a component for `mount`: TypeScript and JSX away, then its imports and exports as CommonJS. */
+async function compile(file) {
+  const source = readFileSync(new URL(file, import.meta.url), "utf8")
+  const { code } = await transformWithOxc(source, file, { lang: "tsx", jsx: { runtime: "classic" }, target: "es2022" })
+  const names = (list) => list.replace(/\s+as\s+/g, ": ")
+  return code
+    .replace(/^import\s+(\w+)\s*,\s*\{([^}]*)\}\s*from\s*"([^"]+)";?/gm, (_, name, list, id) =>
+      `const ${name} = require("${id}").default; const {${names(list)}} = require("${id}");`)
+    .replace(/^import\s+\*\s+as\s+(\w+)\s+from\s*"([^"]+)";?/gm, (_, name, id) => `const ${name} = require("${id}");`)
+    .replace(/^import\s+\{([^}]*)\}\s*from\s*"([^"]+)";?/gm, (_, list, id) => `const {${names(list)}} = require("${id}");`)
+    .replace(/^import\s+(\w+)\s+from\s*"([^"]+)";?/gm, (_, name, id) => `const ${name} = require("${id}").default;`)
+    .replace(/^export\s+(?:async\s+)?function\s+(\w+)/gm, (match, name) => `exports.${name} = ${name};\n${match.replace(/^export\s+/, "")}`)
+    .replace(/^export\s+const\s+(\w+)\s*=/gm, "const $1 = exports.$1 =")
+    .replace(/^export\s+\{([^}]*)\};?/gm, (_, list) => `Object.assign(exports, {${list}});`)
+}
 
 // Run the real component handlers/effects with deterministic hooks and browser APIs.
 async function mount(file, name, props = {}) {
@@ -53,10 +66,7 @@ async function mount(file, name, props = {}) {
     off(event, fn) { events.get(event)?.delete(fn) },
   }
   const emit = (event) => { for (const fn of [...(events.get(event) ?? [])]) fn() }
-  const { code } = await transform(readFileSync(new URL(file, import.meta.url), "utf8"), {
-    filename: file, jsc: { parser: { syntax: "typescript", tsx: true },
-      transform: { react: { runtime: "classic" } }, target: "es2022" }, module: { type: "commonjs" },
-  })
+  const code = await compile(file)
   const exports = {}
   runInNewContext(code, {
     exports, React: react,

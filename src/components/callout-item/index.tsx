@@ -1,7 +1,5 @@
-"use client"
-
-import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import { Link } from "@/components/link"
 import { Button } from "@/components/ui/button"
 import { Item, ItemActions, ItemContent, ItemInner, ItemTitle } from "@/components/ui/item"
 import { cn } from "@/lib/utils"

@@ -1,13 +1,11 @@
-"use client"
-
-import { usePathname } from "next/navigation"
+import { useLocation } from "@tanstack/react-router"
 import { FiFlag } from "react-icons/fi"
 import { ButtonIcon } from "@/components/button-icon"
 import { ReportFinderDialog } from "@/components/groups/report/finder-dialog"
 import { missingLinkTargetFromPath } from "@/utils/missing-link-target"
 
 export function ReportFab() {
-  const missingLinkTarget = missingLinkTargetFromPath(usePathname())
+  const missingLinkTarget = missingLinkTargetFromPath(useLocation({ select: (location) => location.pathname }))
 
   return (
     <ReportFinderDialog

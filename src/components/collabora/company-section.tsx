@@ -1,4 +1,4 @@
-import companyImage from "@/assets/images/collabora_company.jpg"
+import companyImage from "@/assets/images/collabora_company.jpg?img"
 import { PhotoShapes } from "@/components/shapes"
 import { PhotoSection } from "./photo-section"
 import { Highlight } from "./section"

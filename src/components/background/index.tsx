@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Shape } from "@/components/shapes"
 import { cn } from "@/lib/utils"

@@ -1,6 +1,4 @@
-"use client"
-
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useNavigate, useSearch } from "@tanstack/react-router"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const ALL = "all"
@@ -34,24 +32,25 @@ function FilterSelect({ label, value, options, onChange }: FilterSelectProps) {
 }
 
 export function CourseFilters({ campuses, languages }: { campuses: FilterOption[]; languages: FilterOption[] }) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const navigate = useNavigate()
+  const search: { campus?: unknown; lang?: unknown } = useSearch({ strict: false })
+  const current = (value: unknown) => (value === undefined || value === "" ? ALL : String(value))
 
-  const update = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (value === ALL) params.delete(key)
-    else params.set(key, value)
-    const query = params.toString()
-    router.replace(query ? `${pathname}?${query}` : pathname)
-  }
+  // The filters live in the URL, so a filtered list can be shared and survives a reload
+  const update = (key: "campus" | "lang", value: string) =>
+    navigate({
+      to: ".",
+      search: (current) => ({ ...current, [key]: value === ALL ? undefined : value }),
+      replace: true,
+      resetScroll: false,
+    })
 
   return (
     <div className="flex flex-wrap gap-3">
       <div className="min-w-32 flex-1 md:w-56 md:flex-none">
         <FilterSelect
           label="Tutti i Campus"
-          value={searchParams.get("campus") ?? ALL}
+          value={current(search.campus)}
           options={campuses}
           onChange={(value) => update("campus", value)}
         />
@@ -59,7 +58,7 @@ export function CourseFilters({ campuses, languages }: { campuses: FilterOption[
       <div className="min-w-32 flex-1 md:w-56 md:flex-none">
         <FilterSelect
           label="Tutte le lingue"
-          value={searchParams.get("lang") ?? ALL}
+          value={current(search.lang)}
           options={languages}
           onChange={(value) => update("lang", value)}
         />

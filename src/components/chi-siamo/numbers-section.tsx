@@ -1,5 +1,3 @@
-"use client"
-
 import { animate, useInView, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 import { FiBook, FiBookOpen, FiHeadphones, FiSend, FiUser, FiUsers } from "react-icons/fi"

@@ -1,5 +1,5 @@
-import Link from "next/link"
 import { FiNavigation } from "react-icons/fi"
+import { Link } from "@/components/link"
 import { Button } from "../ui/button"
 import { GroupSearch } from "./group-search"
 

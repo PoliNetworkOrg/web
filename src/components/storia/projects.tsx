@@ -1,26 +1,23 @@
-import Link from "next/link"
 import { FiArrowRight, FiArrowUpRight } from "react-icons/fi"
 import { CardCaption } from "@/components/card-caption"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { PeekCarousel } from "@/components/peek-carousel"
 import { ProjectCard } from "@/components/projects/project-card"
 import type { Project } from "@/components/projects/resources"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { getAllProjects } from "@/queries/projects"
 import { Devices } from "./devices"
 
-/** The four tools shown here, matched by name against the projects from the backend */
+/** The four tools shown here; `fetchHistoryProjects` matches each by name against the projects from the backend */
 const FEATURED = [
   {
-    match: /graduatori/i,
     title: "Graduatorie",
     description: "Per consultare le graduatorie degli anni precedenti.",
   },
-  { match: /\btol\b/i, title: "TOL", description: "Per esercitarsi con prove e simulazioni del TOL." },
-  { match: /aule/i, title: "PoliAule", description: "Per trovare un’aula libera in cui studiare." },
+  { title: "TOL", description: "Per esercitarsi con prove e simulazioni del TOL." },
+  { title: "PoliAule", description: "Per trovare un’aula libera in cui studiare." },
   {
-    match: /webeep/i,
     title: "WeBeep Sync",
     description: "Per rendere più semplice l’accesso ai file dei corsi.",
   },
@@ -54,15 +51,11 @@ function FeaturedCard({ item }: { item: Featured }) {
   return "project" in item ? <ProjectCard project={item.project} /> : <FallbackCard {...item} />
 }
 
-export async function HistoryProjects() {
-  // Deprecated projects are left out, like on the home page; a project matched once isn't shown twice
-  const projects = (await getAllProjects()).filter((project) => project.category !== "deprecated")
-  const used = new Set<Project["id"]>()
-  const featured: Featured[] = FEATURED.map(({ match, title, description }) => {
-    const project = projects.find((candidate) => !used.has(candidate.id) && match.test(candidate.title))
-    if (!project) return { title, description }
-    used.add(project.id)
-    return { project }
+/** `projects`: for each of `FEATURED`, in order, its project from the backend or `null` */
+export function HistoryProjects({ projects }: { projects: (Project | null)[] }) {
+  const featured: Featured[] = FEATURED.map((fallback, index) => {
+    const project = projects[index]
+    return project ? { project } : fallback
   })
   const key = (item: Featured) => ("project" in item ? String(item.project.id) : item.title)
 

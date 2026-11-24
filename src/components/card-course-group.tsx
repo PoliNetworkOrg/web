@@ -1,5 +1,3 @@
-"use client"
-
 import { cva, type VariantProps } from "class-variance-authority"
 import type { IconType } from "react-icons"
 import { FaWhatsapp } from "react-icons/fa"

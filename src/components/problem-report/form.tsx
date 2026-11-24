@@ -1,18 +1,21 @@
-"use client"
-
-import Link from "next/link"
-import { useActionState } from "react"
+import { startTransition, useActionState } from "react"
 import { FiCheck, FiSend } from "react-icons/fi"
-import { submitProblemReport } from "@/app/segnala-problema/actions"
 import { Glass } from "@/components/glass"
+import { Link } from "@/components/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import type { ReportState } from "./schema"
+import { submitProblemReportFn } from "./submit"
 
-const initialState: ReportState = { status: "idle" }
-
-export function ProblemReportForm() {
-  const [state, action, pending] = useActionState(submitProblemReport, initialState)
+/**
+ * `submitted`: the outcome of a submission made without JavaScript, which the server handled before rendering the page
+ * (`idle` when the page was simply opened). With JavaScript the form is sent from here and the page stays where it is.
+ */
+export function ProblemReportForm({ submitted }: { submitted: ReportState }) {
+  const [state, submit, pending] = useActionState(
+    (_previous: ReportState, formData: FormData) => submitProblemReportFn({ data: formData }),
+    submitted
+  )
   if (state.status === "success")
     return (
       <Glass
@@ -34,8 +37,18 @@ export function ProblemReportForm() {
   return (
     <Glass className="mx-auto w-full max-w-2xl rounded-rectangles p-6 sm:p-10">
       {/* Uncontrolled fields: after a submission without JavaScript the server renders them from state.values. They are
-          read-only while sending, because a failed action resets them to the values it received. */}
-      <form action={action} className="flex flex-col gap-6" aria-label="Segnalazione di un problema">
+          read-only while sending, so what is sent is what the person sees. */}
+      {/* `method` and no URL: until the script loads, or without it, the browser posts the form to this page */}
+      <form
+        method="post"
+        onSubmit={(event) => {
+          event.preventDefault()
+          const data = new FormData(event.currentTarget)
+          startTransition(() => submit(data))
+        }}
+        className="flex flex-col gap-6"
+        aria-label="Segnalazione di un problema"
+      >
         <div className="flex flex-col gap-2">
           <label htmlFor="report-email" className="typo-title-medium">
             La tua email

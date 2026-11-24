@@ -9,7 +9,7 @@ const backend = "data:text/javascript," + encodeURIComponent(
 )
 registerHooks({
   resolve(specifier, context, nextResolve) {
-    if (specifier === "@/lib/backend") return { url: backend, shortCircuit: true }
+    if (specifier === "@/lib/backend.server") return { url: backend, shortCircuit: true }
     if (specifier.startsWith("@/")) {
       return { url: new URL(`../src/${specifier.slice(2)}.ts`, import.meta.url).href, shortCircuit: true }
     }
@@ -23,8 +23,8 @@ registerHooks({
   },
 })
 
-const { getDocumentCatalog, findDocument } = await import("../src/queries/documents.ts")
-const { GET } = await import("../src/app/documenti/file/[slug]/route.ts")
+const { getDocumentCatalog, findDocument } = await import("../src/queries/documents.server.ts")
+const { serveDocumentFile } = await import("../src/queries/document-file.server.ts")
 const { getActiveCategory, getCategoryAnchor, getCategoryHeadingId, getPdfPixelRatio } = await import("../src/components/documents/utils.ts")
 const category = (slug = "statuto") => [{
   slug: "associazione", title: "Associazione", description: "Documenti ufficiali",
@@ -37,7 +37,7 @@ function backendReturns(catalog) {
 }
 
 function requestFile(slug, query = "") {
-  return GET(new Request(`https://example.org/documenti/file/${slug}${query}`), { params: Promise.resolve({ slug }) })
+  return serveDocumentFile(new Request(`https://example.org/documenti/file/${slug}${query}`), slug)
 }
 
 test("only the documents published from admin are listed", async () => {
@@ -121,9 +121,7 @@ test("a client that disconnects cancels the upstream download", async (t) => {
     return new Response("%PDF")
   })
   const client = new AbortController()
-  await GET(new Request("https://example.org/documenti/file/statuto", { signal: client.signal }), {
-    params: Promise.resolve({ slug: "statuto" }),
-  })
+  await serveDocumentFile(new Request("https://example.org/documenti/file/statuto", { signal: client.signal }), "statuto")
   client.abort()
   assert.equal(signal.aborted, true)
 })

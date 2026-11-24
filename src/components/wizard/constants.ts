@@ -1,5 +1,10 @@
 import { FiAward, FiBook, FiBox, FiLayers } from "react-icons/fi"
+import architettura from "@/assets/icons/schools/architettura.png?img"
+import civile from "@/assets/icons/schools/civile.png?img"
+import design from "@/assets/icons/schools/design.png?img"
+import ingegneria from "@/assets/icons/schools/ingegneria.png?img"
 import type { GradientIconType } from "@/components/gradient-icon"
+import type { StaticImage } from "@/components/image"
 import type { Level, School } from "@/components/wizard/types"
 
 export const SCHOOLS: School[] = [
@@ -9,11 +14,11 @@ export const SCHOOLS: School[] = [
   { slug: "design", name: "Scuola di Design" },
 ]
 
-export const SCHOOL_ICONS: Record<string, GradientIconType | string> = {
-  "ingegneria-industriale-informazione": "/icons/ingegneria.png",
-  auic: "/icons/architettura.png",
-  "ingegneria-civile-ambientale-territoriale": "/icons/civile.png",
-  design: "/icons/design.png",
+export const SCHOOL_ICONS: Record<string, GradientIconType | StaticImage> = {
+  "ingegneria-industriale-informazione": ingegneria,
+  auic: architettura,
+  "ingegneria-civile-ambientale-territoriale": civile,
+  design,
 }
 
 export const DEFAULT_SCHOOL_ICON: GradientIconType = FiBox

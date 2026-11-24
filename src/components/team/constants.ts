@@ -14,7 +14,7 @@ import {
   FiTrendingUp,
   FiUsers,
 } from "react-icons/fi"
-import communication from "@/assets/icons/team/communication.svg"
+import communication from "@/assets/icons/team/communication.svg?img"
 import type { CardIconProps } from "@/components/card-icon/types"
 
 export type Team = {

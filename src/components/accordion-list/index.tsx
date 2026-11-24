@@ -1,5 +1,3 @@
-"use client"
-
 import { MotionConfig } from "motion/react"
 import { useState } from "react"
 import { Accordion } from "./accordion"

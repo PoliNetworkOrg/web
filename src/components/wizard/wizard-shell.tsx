@@ -1,6 +1,4 @@
-"use client"
-
-import { useRouter } from "next/navigation"
+import { useRouter } from "@tanstack/react-router"
 import type { ReactNode } from "react"
 import { FiArrowLeft, FiX } from "react-icons/fi"
 import { ButtonIcon } from "@/components/button-icon"
@@ -41,7 +39,7 @@ export function WizardShell({
           iconClassName="size-5"
           className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
           aria-label="Indietro"
-          onClick={() => (backHref ? router.replace(backHref) : router.back())}
+          onClick={() => (backHref ? router.navigate({ href: backHref, replace: true }) : router.history.back())}
         />
 
         <ol className="flex min-w-0 flex-1 items-end justify-between gap-1 md:gap-4">
@@ -68,7 +66,7 @@ export function WizardShell({
           iconClassName="size-5"
           className="md:rounded-full md:bg-white/60 md:backdrop-blur-none"
           aria-label="Chiudi"
-          onClick={() => router.push(closeHref)}
+          onClick={() => router.navigate({ href: closeHref })}
         />
       </div>
 

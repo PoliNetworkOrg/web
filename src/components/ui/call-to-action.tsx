@@ -1,5 +1,5 @@
-import Link from "next/link"
 import type { IconType } from "react-icons"
+import { Link } from "@/components/link"
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "./card"
 
 export function CallToAction({

@@ -1,10 +1,10 @@
-import Image, { type StaticImageData } from "next/image"
 import { FiImage } from "react-icons/fi"
 import { Glass } from "@/components/glass"
+import { Image, type StaticImage } from "@/components/image"
 import { CONTAINER } from "@/components/layout/page"
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from "@/components/ui/carousel"
 
-type Photo = { image?: StaticImageData; alt: string }
+type Photo = { image?: StaticImage; alt: string }
 
 // TODO: the photos of events and collaborations. Until each `image` is set, its slide shows a placeholder
 const photos: Photo[] = [

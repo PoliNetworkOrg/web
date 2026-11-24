@@ -1,11 +1,9 @@
-"use client"
-
-import Link from "next/link"
 import { Fragment } from "react"
 import { FiArrowUpRight, FiBookOpen, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { MATERIALS_URL } from "@/components/header/constants"
 import { CONTAINER } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { useActivationToast } from "@/components/ui/activation-toast"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"

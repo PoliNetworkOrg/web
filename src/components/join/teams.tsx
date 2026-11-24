@@ -1,7 +1,7 @@
-import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
 import { Highlight } from "@/components/collabora/section"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
+import { Link } from "@/components/link"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { JoinCards } from "./cards"

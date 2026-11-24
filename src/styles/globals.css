@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 @import "./typography.css";
 @import "./figma.css";
 @import "./sidebar.css";

@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { getActiveCategory, getCategoryAnchor } from "./utils"

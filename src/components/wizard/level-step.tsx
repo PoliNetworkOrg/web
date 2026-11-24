@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { notFound } from "next/navigation"
+import { notFound } from "@tanstack/react-router"
 import { CardPathSelection } from "@/components/card-path-selection"
+import { Link } from "@/components/link"
 import { getLevelsForSchool, getSchool } from "@/components/wizard/constants"
 import { WizardShell } from "@/components/wizard/wizard-shell"
 import { cn } from "@/lib/utils"
@@ -16,7 +16,8 @@ export function LevelStep({
   stepHref: StepHrefBuilder
 }) {
   const school = getSchool(schoolSlug)
-  if (!school) notFound()
+  // The route's loader has already answered 404 for an unknown school
+  if (!school) throw notFound()
 
   const levels = getLevelsForSchool(schoolSlug)
 

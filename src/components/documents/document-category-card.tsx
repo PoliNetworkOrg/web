@@ -1,6 +1,6 @@
-import Link from "next/link"
 import { FiDownload, FiEye, FiFile } from "react-icons/fi"
 import { Glass } from "@/components/glass"
+import { Link } from "@/components/link"
 import { Button } from "@/components/ui/button"
 import type { DocumentCategory } from "./types"
 import {
