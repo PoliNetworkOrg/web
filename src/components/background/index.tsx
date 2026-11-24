@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils"
 import { hasFooter } from "@/utils/footer-routes"
 import { useRoutePathname } from "@/utils/use-route-pathname"
 import { animateScene } from "./animate"
-import { LOOPER_ASPECT, Looper } from "./looper"
 import { figmaScene, type SceneShape, sceneSegment } from "./scene"
 
 /** Rendered on the server, before the page height can be measured */
@@ -46,6 +45,7 @@ export function Background() {
  */
 function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean; shared: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const [segments, setSegments] = useState(INITIAL_SEGMENTS)
   // Pages composed in Figma keep their layout; the others get a generated segment per screen of page
   const shapes = figmaScene(pathname) ?? Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat()
@@ -92,14 +92,15 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
   // a layout effect, so the first frame is applied before the new page is painted
   useLayoutEffect(() => {
     const el = ref.current
-    if (!el) return
+    const canvas = canvasRef.current
+    if (!el || !canvas) return
 
     const preference = matchMedia("(prefers-reduced-motion: reduce)")
     let stop: (() => void) | undefined
 
     const syncMotion = () => {
       stop?.()
-      stop = preference.matches ? undefined : animateScene(el, () => shapesRef.current)
+      stop = animateScene(el, canvas, () => shapesRef.current, { still: preference.matches })
     }
 
     syncMotion()
@@ -111,22 +112,38 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
   }, [])
 
   return (
-    <div
-      ref={ref}
-      aria-hidden
-      data-scene={pathname}
-      data-footer={footer ? undefined : "none"}
-      className={cn(
-        "shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip",
-        fadeIn && "animate-fade-in [animation-duration:0.6s]"
-      )}
-      // The 3D glass captured the page as the scene started to fade in, still transparent
-      onAnimationEnd={(event) => fadeIn && event.target === event.currentTarget && recaptureGlass()}
-    >
-      {shapes.map((shape) => (
-        <SceneItem key={shape.id} shape={shape} />
-      ))}
-    </div>
+    <>
+      <div
+        ref={ref}
+        aria-hidden
+        data-scene={pathname}
+        data-footer={footer ? undefined : "none"}
+        className={cn(
+          "shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip",
+          fadeIn && "animate-fade-in [animation-duration:0.6s]"
+        )}
+        // The 3D glass captured the page as the scene started to fade in, still transparent
+        onAnimationEnd={(event) => fadeIn && event.target === event.currentTarget && recaptureGlass()}
+      >
+        {shapes.map((shape) => (
+          <SceneItem key={shape.id} shape={shape} />
+        ))}
+      </div>
+      {/*
+       * The loopers, drawn by `animateScene` over the blobs. A `glass-layer` of @polinetwork/glass: the 3D glass
+       * can't see into a canvas in its capture of the page, so it takes the canvas itself on every frame. It fades in
+       * with the scene it belongs to.
+       */}
+      <canvas
+        ref={canvasRef}
+        aria-hidden
+        glass-layer=""
+        className={cn(
+          "-z-10 pointer-events-none absolute top-0 left-0 will-change-transform",
+          fadeIn && "animate-fade-in [animation-duration:0.6s]"
+        )}
+      />
+    </>
   )
 }
 
@@ -140,27 +157,17 @@ function SceneItem({ shape }: { shape: SceneShape }) {
       )}
       style={shape.box}
     >
-      <div className="size-full">
-        {shape.variant === "looper" ? (
-          // drawn in its own aspect ratio, then stretched like the Figma instance and rotated
-          <Looper
-            className="absolute top-1/2 left-0 w-full"
-            style={{
-              aspectRatio: 1 / LOOPER_ASPECT,
-              translate: "0 -50%",
-              rotate: `${shape.rotate}deg`,
-              scale: shape.stretch ? `1 ${shape.stretch}` : undefined,
-            }}
-          />
-        ) : (
+      {/* loopers are drawn on the scene's canvas, in this box; blobs move on their own, as a layer of the glass */}
+      {shape.variant !== "looper" && (
+        <div className="size-full" glass-layer="">
           <Shape
             variant={shape.variant}
             src={shape.image}
             className="size-full"
             style={{ rotate: `${shape.rotate}deg` }}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
