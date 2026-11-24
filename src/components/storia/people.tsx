@@ -1,24 +1,35 @@
+import Link from "next/link"
 import AccordionList from "@/components/accordion-list"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { CourseAdmins } from "@/components/people/course-admins"
 import { InOfficeBadge } from "@/components/people/in-office-badge"
 import { Roster } from "@/components/people/roster"
 import { TermList } from "@/components/people/term-list"
-import { type Area, arbiters, areas, courseAdmins, currentTerm, formatPeriod, founders, guarantors } from "@/lib/people"
+import { type Area, arbiters, areas, courseAdmins, formatPeriod, founders, guarantors } from "@/lib/people"
 
-/** Departments still running come first; within each area the people in office are the last row */
+/** Today's teams first, then the areas that ended; within each the people in office are the last row */
 function Areas({ items }: { items: Area[] }) {
-  const sorted = [
-    ...items.filter((area) => currentTerm(area.terms)),
-    ...items.filter((area) => !currentTerm(area.terms)),
-  ]
+  const sorted = [...items.filter((area) => area.teamId), ...items.filter((area) => !area.teamId)]
   return (
     <ul className="grid gap-x-12 gap-y-10 lg:grid-cols-2">
       {sorted.map((area) => (
         <li key={area.name} className="flex min-w-0 flex-col gap-4">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h4 className="typo-title-large text-text-primary">{area.name}</h4>
-            {!currentTerm(area.terms) && <span className="typo-body-medium text-text-secondary">Area conclusa</span>}
+          <div className="flex flex-col gap-1">
+            <h4 className="typo-title-large text-text-primary">
+              {area.teamId ? (
+                <Link
+                  href={`/team#${area.teamId}`}
+                  className="underline-offset-4 hover:text-blue-secondary hover:underline"
+                >
+                  {area.name}
+                </Link>
+              ) : (
+                area.name
+              )}
+            </h4>
+            <p className="typo-body-medium text-text-secondary">
+              {area.teamId ? `Prima: ${area.formerNames?.join(", poi ") ?? ""}` : (area.note ?? "Area conclusa")}
+            </p>
           </div>
           <TermList terms={area.terms} />
         </li>
@@ -71,7 +82,7 @@ export function HistoricalPeople() {
           },
           {
             value: "dipartimenti",
-            trigger: "Deleghe e dipartimenti, dal 2016",
+            trigger: "Dalle deleghe ai team, dal 2016",
             content: <Areas items={areas} />,
           },
           {

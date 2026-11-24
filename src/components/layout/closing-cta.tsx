@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 export function ClosingCta({ title, lead, action }: { title: ReactNode; lead: ReactNode; action: ReactNode }) {
   return (
     <section className={cn(CONTAINER, "flex flex-col items-center gap-8 py-10 text-center md:py-16")}>
-      <h2 className={cn(SECTION_TITLE_TYPE, "text-gradient-blue max-w-200")}>{title}</h2>
+      <h2 className={cn(SECTION_TITLE_TYPE, "max-w-200 text-gradient-blue")}>{title}</h2>
       <p className={cn(SECTION_LEAD, "max-w-200 text-balance")}>{lead}</p>
       {action}
     </section>

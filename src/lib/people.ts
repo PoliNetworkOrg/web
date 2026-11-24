@@ -23,7 +23,16 @@ export type Term = {
   people: Holder[]
 }
 
-export type Area = { name: string; terms: Term[] }
+export type Area = {
+  name: string
+  terms: Term[]
+  /** The team on /team this area became, for the areas still running */
+  teamId?: string
+  /** What the area was called before it became a team */
+  formerNames?: string[]
+  /** How an area without a team ended, when we know */
+  note?: string
+}
 
 const MONTHS = [
   "gennaio",
@@ -160,32 +169,21 @@ export const arbiters: Term[] = [
 ]
 
 /* -------------------------------------------------------------------------------------------------------------- */
-/* Deleghe e dipartimenti                                                                                          */
+/* Deleghe, dipartimenti e team                                                                                   */
 /* -------------------------------------------------------------------------------------------------------------- */
 
 const DELEGATE = "Delegato"
+const HEAD = "Capo dipartimento"
 
 /**
- * Ogni area con chi l'ha seguita: prima le deleghe, poi i capi dipartimento da dicembre 2024. Le aree senza un mandato
- * in carica sono concluse o confluite altrove; il sito precedente non dice dove, quindi restano separate.
+ * Ogni area con chi l'ha seguita: prima le deleghe, poi i dipartimenti (da dicembre 2024), oggi confluiti nei quattro
+ * team di /team. Le aree senza `teamId` sono concluse; quelle di cui non sappiamo dove siano confluite restano a sé.
  */
 export const areas: Area[] = [
   {
-    name: "Gestione interna",
-    terms: [
-      { from: "2023-04", to: "2024-12", people: [{ name: "Alice Carosi", role: DELEGATE }] },
-      {
-        from: "2024-12",
-        current: true,
-        people: [
-          { name: "Hui He (Ale)", role: "Capo dipartimento" },
-          { name: "Elisabeta Hoxhaj", role: "Vice" },
-        ],
-      },
-    ],
-  },
-  {
-    name: "Gestione progetti innovativi e supporto tecnico (IT)",
+    name: "Team IT",
+    teamId: "it",
+    formerNames: ["Gestione progetti innovativi e supporto tecnico (IT)"],
     terms: [
       { from: "2020-09", to: "2020-09", people: [{ name: "Federico Armellini", role: DELEGATE }] },
       { from: "2020-09", to: "2021-10", people: [{ name: "Elia Maggioni", role: DELEGATE }] },
@@ -195,29 +193,49 @@ export const areas: Area[] = [
         from: "2024-12",
         current: true,
         people: [
-          { name: "Lorenzo Corallo", role: "Capo dipartimento" },
+          { name: "Lorenzo Corallo", role: HEAD },
           { name: "Tommaso Morganti", role: "Vice" },
         ],
       },
     ],
   },
   {
-    name: "Relazioni istituzionali",
+    name: "Design & Marketing",
+    teamId: "design-marketing",
+    formerNames: ["Gestione social", "Social media management e marketing"],
     terms: [
-      { from: "2023-04", to: "2024-04", people: [{ name: "Elia Maggioni", role: DELEGATE }] },
-      { from: "2024-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: DELEGATE }] },
+      { from: "2022-09", to: "2023-04", people: [{ name: "Giulia La Ferla", role: DELEGATE }] },
+      { from: "2023-04", to: "2024-12", people: [{ name: "Giorgia Nanni", role: DELEGATE }] },
       {
         from: "2024-12",
         current: true,
         people: [
-          { name: "Elisabeta Hoxhaj", role: "Capo dipartimento" },
-          { name: "Elia Falzoni", role: "Vice" },
+          { name: "Giulia Messina", role: HEAD },
+          { name: "Giorgia Nanni", role: "Vice" },
         ],
       },
     ],
   },
   {
-    name: "Eventi e partnership",
+    name: "Team HR",
+    teamId: "hr",
+    formerNames: ["Gestione interna"],
+    terms: [
+      { from: "2023-04", to: "2024-12", people: [{ name: "Alice Carosi", role: DELEGATE }] },
+      {
+        from: "2024-12",
+        current: true,
+        people: [
+          { name: "Hui He (Ale)", role: HEAD },
+          { name: "Elisabeta Hoxhaj", role: "Vice" },
+        ],
+      },
+    ],
+  },
+  {
+    name: "Team Events & Partnership",
+    teamId: "events-partnership",
+    formerNames: ["Eventi e partnership"],
     terms: [
       { from: "2016-08", to: "2018-08", people: [{ name: "Carlo Giovani", role: DELEGATE }] },
       {
@@ -235,7 +253,7 @@ export const areas: Area[] = [
         from: "2024-12",
         current: true,
         people: [
-          { name: "Gabriele Viganò", role: "Capo dipartimento" },
+          { name: "Gabriele Viganò", role: HEAD },
           { name: "Giorgia Nanni", role: "Vice" },
           { name: "Chiara Maiutto", role: "Vice" },
         ],
@@ -243,15 +261,17 @@ export const areas: Area[] = [
     ],
   },
   {
-    name: "Social media management e marketing",
+    // Il sito precedente non dice in quale team sia confluito
+    name: "Relazioni istituzionali",
+    note: "Dipartimento fino al passaggio ai quattro team",
     terms: [
-      { from: "2023-04", to: "2024-12", people: [{ name: "Giorgia Nanni", role: DELEGATE }] },
+      { from: "2023-04", to: "2024-04", people: [{ name: "Elia Maggioni", role: DELEGATE }] },
+      { from: "2024-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: DELEGATE }] },
       {
         from: "2024-12",
-        current: true,
         people: [
-          { name: "Giulia Messina", role: "Capo dipartimento" },
-          { name: "Giorgia Nanni", role: "Vice" },
+          { name: "Elisabeta Hoxhaj", role: HEAD },
+          { name: "Elia Falzoni", role: "Vice" },
         ],
       },
     ],
@@ -273,11 +293,12 @@ export const areas: Area[] = [
       { from: "2021-06", to: "2022-02", people: [{ name: "Fabrizio Vasconi", role: DELEGATE }] },
     ],
   },
-  {
-    name: "Gestione social",
-    terms: [{ from: "2022-09", to: "2023-04", people: [{ name: "Giulia La Ferla", role: DELEGATE }] }],
-  },
 ]
+
+/** Who leads a team on /team today, from the area it grew out of */
+export function teamLeads(teamId: string) {
+  return currentTerm(areas.find((area) => area.teamId === teamId)?.terms ?? [])?.people ?? []
+}
 
 /* -------------------------------------------------------------------------------------------------------------- */
 /* Capi admin dei corsi                                                                                            */

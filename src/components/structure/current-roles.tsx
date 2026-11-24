@@ -6,22 +6,32 @@ import { arbiters, areas, currentTerm, formatPeriod, type Term } from "@/lib/peo
 
 /** Who holds each office today, read from the same register as the history page */
 const offices = [
-  { name: "Collegio dei Probiviri", term: currentTerm(arbiters) },
-  ...areas.map((area) => ({ name: area.name, term: currentTerm(area.terms) })),
-].filter((office): office is { name: string; term: Term } => Boolean(office.term))
+  { name: "Collegio dei Probiviri", term: currentTerm(arbiters), href: undefined },
+  ...areas.map((area) => ({
+    name: area.name,
+    term: currentTerm(area.terms),
+    href: area.teamId && `/team#${area.teamId}`,
+  })),
+].filter((office): office is { name: string; term: Term; href: string | undefined } => Boolean(office.term))
 
 export function CurrentRoles() {
   return (
     <div className="flex flex-col items-center gap-8">
       <ul className="grid w-full gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {offices.map(({ name, term }) => {
+        {offices.map(({ name, term, href }) => {
           const period = formatPeriod(term)
           return (
             <li key={name} className="flex">
               <Card className="h-auto w-full gap-5 border-white/50 p-6">
                 <CardHeader className="gap-1">
                   <CardTitle gradient={false} className="typo-title-large text-balance">
-                    {name}
+                    {href ? (
+                      <Link href={href} className="underline-offset-4 hover:text-blue-secondary hover:underline">
+                        {name}
+                      </Link>
+                    ) : (
+                      name
+                    )}
                   </CardTitle>
                   {period && <p className="typo-body-medium text-text-secondary">{period}</p>}
                 </CardHeader>

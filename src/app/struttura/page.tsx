@@ -33,7 +33,7 @@ export default function StructurePage() {
       </section>
       <section aria-labelledby="incarichi-title" className={SECTION}>
         <h2 id="incarichi-title" className={titleClass}>
-          Probiviri e capi dipartimento
+          Probiviri e responsabili dei team
         </h2>
         <CurrentRoles />
       </section>
