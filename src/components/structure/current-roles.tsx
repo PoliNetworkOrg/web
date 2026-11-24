@@ -5,6 +5,7 @@ import { LuBookUser, LuCodeXml, LuHandshake, LuPencilRuler, LuScale } from "reac
 import { CardCaption } from "@/components/card-caption"
 import { Button } from "@/components/ui/button"
 import { arbiters, areas, currentTerm, type Holder } from "@/lib/people"
+import { cn } from "@/lib/utils"
 
 /** The teams' icons, as in the organisation chart */
 const teamIcons: Record<string, IconType> = {
@@ -48,9 +49,16 @@ export function CurrentRoles() {
   return (
     <div className="flex flex-col items-center gap-8">
       {/* Five cards: three then two, the second row centred */}
-      <ul className="flex w-full flex-wrap justify-center gap-6">
-        {offices.map((office) => (
-          <li key={office.name} className="flex w-full md:w-[calc((100%-24px)/2)] xl:w-[calc((100%-48px)/3)]">
+      <ul className="grid w-full auto-rows-fr grid-cols-1 gap-6 md:grid-cols-4 xl:grid-cols-6">
+        {offices.map((office, index) => (
+          <li
+            key={office.name}
+            className={cn(
+              "flex min-w-0 md:col-span-2",
+              index === 3 && "xl:col-start-2",
+              index === 4 && "md:col-start-2 xl:col-start-4"
+            )}
+          >
             <CardCaption
               title={office.name}
               icon={office.icon}
