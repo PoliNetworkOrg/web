@@ -24,3 +24,15 @@
     --bg-footer: 0px;
   }
 }
+
+/*
+  In the dark theme the blobs glow the deep blue of the logo, tinted by a filter on each image (see `Shape`), painted
+  once into the layer the animation moves rather than on every frame; the loopers' white lines, which barely show on
+  the light page, are dimmed so they don't take over a dark one. All unset in the light theme. The filters were tuned
+  on screen: Chrome doesn't apply them in sRGB, so they can't be worked out on paper.
+*/
+.dark {
+  --blob-tint-blue: hue-rotate(10deg) saturate(1.6) brightness(0.75);
+  --blob-tint-teal: hue-rotate(30deg) saturate(1.6) brightness(0.7);
+  --looper-opacity: 0.45;
+}

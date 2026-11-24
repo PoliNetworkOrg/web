@@ -29,7 +29,7 @@ export function WizardFrame({ depth, children }: { depth: number; children: Reac
   return (
     <main className={`${PAGE_HERO_TOP} flex min-h-svh w-full min-w-0 flex-col items-center px-6 pb-50 md:pb-52`}>
       {/* Anchored to the top, not centred: centred, it would also move while changing height */}
-      <Glass className="mx-auto w-full max-w-7xl border-0 bg-transparent p-0 backdrop-blur-none md:rounded-rectangles md:border md:border-white/50 md:bg-background-blur md:backdrop-blur-md">
+      <Glass className="mx-auto w-full max-w-7xl border-0 bg-transparent p-0 backdrop-blur-none md:rounded-rectangles md:border md:border-edge/50 md:bg-background-blur md:backdrop-blur-md">
         {/* The animated box clips the new step while it grows to its height */}
         <div
           className="overflow-hidden transition-[height] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"

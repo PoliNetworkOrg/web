@@ -16,7 +16,7 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
   const headingId = getCategoryHeadingId(category.id)
   return (
     <section id={anchor} aria-labelledby={headingId} className="scroll-mt-36">
-      <Glass className="grid min-w-0 gap-8 hyphens-auto break-words rounded-rectangles border-white/50 bg-background-blur p-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-14">
+      <Glass className="grid min-w-0 gap-8 hyphens-auto break-words rounded-rectangles border-edge/50 bg-background-blur p-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-14">
         <div className="flex min-w-0 flex-col gap-3">
           <h2 id={headingId} className="typo-headline-medium sm:typo-display-small text-text-primary">
             {category.title}

@@ -42,6 +42,16 @@
   }
 }
 
+/*
+  Icons drawn as images in Figma's accent blue (#1074B9): the dark theme lifts them to the light blue of its logo
+  (tuned on screen, like the blobs' tints in background.css)
+*/
+@utility image-icon {
+  @variant dark {
+    filter: hue-rotate(12deg) saturate(0.6) brightness(1.6);
+  }
+}
+
 @media (max-width: 767px) {
   /* max-md */
   .scroll-fade-x {

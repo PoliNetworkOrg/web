@@ -128,7 +128,7 @@ export function ProblemSection() {
                       <motion.div
                         animate={reduceMotion ? { y: 0 } : { y: [0, -3, 0] }}
                         transition={{ duration: 4 + i * 0.7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                        className="flex items-center gap-4 rounded-rectangles border border-white/50 bg-background-blur px-5 py-4 backdrop-blur-md"
+                        className="flex items-center gap-4 rounded-rectangles border border-edge/50 bg-background-blur px-5 py-4 backdrop-blur-md"
                       >
                         <GradientIcon icon={question.icon} className="size-6 shrink-0" />
                         <span className="typo-body-medium sm:typo-body-large text-pretty">{question.text}</span>

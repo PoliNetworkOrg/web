@@ -39,7 +39,7 @@ export function Continuation() {
                   className="mx-2 h-1 flex-1 sm:mx-3"
                 />
               )}
-              <Glass className="typo-title-medium sm:typo-title-large flex h-14 min-w-16 items-center justify-center rounded-rectangles border-white bg-white/70 px-3 py-0 text-blue-secondary sm:h-18 sm:min-w-20">
+              <Glass className="typo-title-medium sm:typo-title-large flex h-14 min-w-16 items-center justify-center rounded-rectangles border-edge bg-surface/70 px-3 py-0 text-blue-secondary sm:h-18 sm:min-w-20">
                 {year}
               </Glass>
             </li>

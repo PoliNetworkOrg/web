@@ -11,7 +11,7 @@ const teamNames = new Intl.ListFormat("it").format(teamLeads.map((lead) => lead.
 const CHART_LABEL = `Il Direttivo coordina i Capi admin e i Team. I Capi admin coordinano gli Admin. I Team sono guidati dai team lead ${teamNames}, con i rispettivi membri.`
 
 // Nodes are not links, so they have no hover state
-const TILE = "rounded-rectangles border-white/50 bg-background-blur text-text-primary"
+const TILE = "rounded-rectangles border-edge/50 bg-background-blur text-text-primary"
 /** The chart's lines: 4px and rounded in the site's light blue, like the timelines. No arrows */
 const LINE = "rounded-full bg-blue-primary/25"
 
@@ -155,7 +155,7 @@ export function OrganizationChart() {
             "flex w-full max-w-[63.5rem] flex-col items-center gap-5 p-6 text-center sm:flex-row sm:items-center sm:gap-8 sm:p-8 sm:text-start"
           )}
         >
-          <Glass className="flex size-20 shrink-0 items-center justify-center rounded-full border-white bg-white/70 p-0">
+          <Glass className="flex size-20 shrink-0 items-center justify-center rounded-full border-edge bg-surface/70 p-0">
             <GradientIcon icon={FiUsers} className="size-10" />
           </Glass>
           <div className="flex min-w-0 flex-col gap-2">

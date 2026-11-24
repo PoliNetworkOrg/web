@@ -28,7 +28,7 @@ export function TermList({ terms, className }: { terms: Term[]; className?: stri
                 "mt-1 size-4 rounded-full",
                 term.current
                   ? "bg-linear-to-b from-blue-secondary to-blue-primary"
-                  : "border-4 border-blue-primary/25 bg-white/70"
+                  : "border-4 border-blue-primary/25 bg-surface/70"
               )}
             />
             <div className="flex min-w-0 flex-col gap-2">

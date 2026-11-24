@@ -31,6 +31,15 @@ export type ShapeProps = {
 }
 
 /**
+ * Adds the theme's tint to a blob's filter (see background.css): the tints are only set in the dark theme, and an
+ * unset `var()` with an empty fallback drops out, leaving the light theme's images without a filter.
+ */
+const withBlobTint = (variant: BlobVariant, style?: CSSProperties): CSSProperties => ({
+  ...style,
+  filter: `${style?.filter ?? ""} var(--blob-tint-${variant === "big-teal" ? "teal" : "blue"},)`.trim(),
+})
+
+/**
  * Static decorative shape. The page background is animated and generated in
  * `@/components/background`, this is for decorations inside components.
  */
@@ -43,7 +52,8 @@ export const Shape: React.FC<ShapeProps> = ({ variant, src, className, style }) 
     aria-hidden
     alt=""
     className={cn(className, "-z-10 absolute max-w-none select-none")}
-    style={style}
+    // the looper's white lines suit both themes
+    style={variant === "looper" ? style : withBlobTint(variant, style)}
   />
 )
 

@@ -31,7 +31,7 @@ export function MembershipSection() {
         {membershipSteps.map((step, index) => (
           <li key={step.title} className="flex min-w-0 items-stretch gap-4 md:gap-6">
             <div className="flex shrink-0 flex-col items-center">
-              <Image src={step.icon} alt="" className="size-12 md:size-16" />
+              <Image src={step.icon} alt="" className="image-icon size-12 md:size-16" />
               {index < membershipSteps.length - 1 && (
                 // Fills down toward the next step as it comes into view
                 <FillLine
@@ -57,7 +57,7 @@ export function MembershipSection() {
                   >
                     {step.title}
                     {step.href.startsWith("https:") && (
-                      <Image src={externalLink} alt="" className="ml-2 inline-block size-4 align-baseline" />
+                      <Image src={externalLink} alt="" className="image-icon ml-2 inline-block size-4 align-baseline" />
                     )}
                   </a>
                 ) : (

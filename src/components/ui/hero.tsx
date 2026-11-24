@@ -5,16 +5,32 @@ import { cn } from "@/lib/utils"
  * Figma's description fill is a conic gradient (accents/blue-secondary → neutrals/text-primary → blue-secondary)
  * skewed by an affine transform, which CSS `conic-gradient` can't express directly. These stops are the Figma
  * gradient resampled in screen space for the two Figma text boxes (780×64 desktop, 354×112 mobile), centered where
- * Figma centers it (45.23% 50%).
+ * Figma centers it (45.23% 50%). Each stop mixes the two theme colors, so the gradient follows the theme:
+ * `DESCRIPTION_MIX` is the share of blue-secondary at each stop (the rest is text-primary), the same for both boxes.
  */
-const DESCRIPTION_GRADIENT_DESKTOP =
-  "conic-gradient(at 45.23% 50%, #012241 0deg, #012444 19.3deg, #01294b 46.4deg, #012d51 60.6deg, #013157 68.6deg, #01365e 73.7deg, #013a64 77.2deg, #013f6b 80deg, #014371 82.1deg, #004878 84deg, #004c7f 85.6deg, #005185 87.1deg, #00558c 88.5deg, #005a92 90deg, #005e98 91.4deg, #00639f 92.9deg, #0067a5 94.5deg, #0067a5 96.4deg, #00639f 98.6deg, #005f99 101.3deg, #005b94 104.9deg, #00578e 110.1deg, #005389 118.3deg, #004f83 132.9deg, #004c7e 160.7deg, #004878 199.3deg, #004472 226.4deg, #01406d 240.6deg, #013c67 248.6deg, #013862 253.7deg, #01345c 257.2deg, #013157 260deg, #012d51 262.1deg, #01294b 264deg, #012646 265.6deg, #012240 267.1deg, #011e3b 268.5deg, #011a35 270deg, #021630 271.4deg, #02122a 272.9deg, #020e24 274.5deg, #020b1f 276.4deg, #020719 278.6deg, #02091d 281.3deg, #020e23 284.9deg, #02122a 290.1deg, #021731 298.3deg, #011b37 312.9deg, #01203e 340.7deg, #012241 360deg)"
-const DESCRIPTION_GRADIENT_MOBILE =
-  "conic-gradient(at 45.23% 50%, #012241 0deg, #012444 5.2deg, #01294b 15.2deg, #012d51 24.7deg, #013157 33.5deg, #01365e 41.5deg, #013a64 48.9deg, #013f6b 55.7deg, #014371 62deg, #004878 67.9deg, #004c7f 73.5deg, #005185 79deg, #00558c 84.4deg, #005a92 89.8deg, #005e98 95.3deg, #00639f 101deg, #0067a5 107deg, #0067a5 113.3deg, #00639f 120.2deg, #005f99 127.7deg, #005b94 135.8deg, #00578e 144.7deg, #005389 154.3deg, #004f83 164.4deg, #004c7e 174.8deg, #004878 185.2deg, #004472 195.2deg, #01406d 204.7deg, #013c67 213.5deg, #013862 221.5deg, #01345c 228.9deg, #013157 235.7deg, #012d51 242deg, #01294b 247.9deg, #012646 253.5deg, #012240 259deg, #011e3b 264.4deg, #011a35 269.8deg, #021630 275.3deg, #02122a 281deg, #020e24 287deg, #020b1f 293.3deg, #020719 300.2deg, #02091d 307.7deg, #020e23 315.8deg, #02122a 324.7deg, #021731 334.3deg, #011b37 344.4deg, #01203e 354.8deg, #012241 360deg)"
+const DESCRIPTION_MIX = [
+  28, 31, 36, 40, 44, 49, 53, 58, 63, 68, 73, 77, 82, 86, 91, 96, 100, 100, 96, 92, 88, 83, 80, 75, 72, 68, 64, 60, 56,
+  52, 48, 44, 40, 36, 32, 28, 24, 20, 16, 12, 8, 4, 0, 3, 7, 12, 17, 21, 26, 28,
+]
+const DESCRIPTION_ANGLES_DESKTOP = [
+  0, 19.3, 46.4, 60.6, 68.6, 73.7, 77.2, 80, 82.1, 84, 85.6, 87.1, 88.5, 90, 91.4, 92.9, 94.5, 96.4, 98.6, 101.3, 104.9,
+  110.1, 118.3, 132.9, 160.7, 199.3, 226.4, 240.6, 248.6, 253.7, 257.2, 260, 262.1, 264, 265.6, 267.1, 268.5, 270,
+  271.4, 272.9, 274.5, 276.4, 278.6, 281.3, 284.9, 290.1, 298.3, 312.9, 340.7, 360,
+]
+const DESCRIPTION_ANGLES_MOBILE = [
+  0, 5.2, 15.2, 24.7, 33.5, 41.5, 48.9, 55.7, 62, 67.9, 73.5, 79, 84.4, 89.8, 95.3, 101, 107, 113.3, 120.2, 127.7,
+  135.8, 144.7, 154.3, 164.4, 174.8, 185.2, 195.2, 204.7, 213.5, 221.5, 228.9, 235.7, 242, 247.9, 253.5, 259, 264.4,
+  269.8, 275.3, 281, 287, 293.3, 300.2, 307.7, 315.8, 324.7, 334.3, 344.4, 354.8, 360,
+]
+
+const descriptionGradient = (angles: number[]) =>
+  `conic-gradient(at 45.23% 50%, ${DESCRIPTION_MIX.map(
+    (mix, i) => `color-mix(in srgb, var(--color-blue-secondary) ${mix}%, var(--color-text-primary)) ${angles[i]}deg`
+  ).join(", ")})`
 
 const descriptionGradientStyle = {
-  "--hero-gradient-mobile": DESCRIPTION_GRADIENT_MOBILE,
-  "--hero-gradient-desktop": DESCRIPTION_GRADIENT_DESKTOP,
+  "--hero-gradient-mobile": descriptionGradient(DESCRIPTION_ANGLES_MOBILE),
+  "--hero-gradient-desktop": descriptionGradient(DESCRIPTION_ANGLES_DESKTOP),
 } as CSSProperties
 
 function longestWord(text: string) {

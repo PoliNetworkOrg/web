@@ -28,7 +28,7 @@ export function DetailsStep({
       </DialogHeader>
       <label className="flex flex-col gap-2" htmlFor="missing-link-details">
         <span className="typo-body-medium text-text-primary">Descrivi il gruppo o il link mancante</span>
-        <Glass className="border-white/50 bg-background-blur p-0">
+        <Glass className="border-edge/50 bg-background-blur p-0">
           <textarea
             id="missing-link-details"
             className="typo-body-medium min-h-28 w-full resize-y bg-transparent p-4 text-text-primary outline-none placeholder:text-text-secondary"

@@ -25,7 +25,7 @@ export function PhotoSlider() {
           {photos.map((photo, index) => (
             // One photo on phones, two on tablets, three from desktop
             <CarouselItem key={`${photo.alt}-${index}`} className="basis-[85%] pl-6 sm:basis-1/2 xl:basis-1/3">
-              <Glass className="relative aspect-[4/3] overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0">
+              <Glass className="relative aspect-[4/3] overflow-hidden rounded-rectangles border-edge/50 bg-background-blur p-0">
                 {photo.image ? (
                   <Image
                     src={photo.image}

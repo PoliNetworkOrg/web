@@ -23,7 +23,7 @@ export function TabsList({ className, children, ...props }: React.ComponentProps
     <div className="w-full sm:flex sm:justify-center">
       <Glass
         className={cn(
-          "scroll-fade-x w-full overflow-hidden rounded-3xl border-white/50 bg-background-blur px-0 py-2.5 text-card-foreground sm:w-fit",
+          "scroll-fade-x w-full overflow-hidden rounded-3xl border-edge/50 bg-background-blur px-0 py-2.5 text-card-foreground sm:w-fit",
           className
         )}
       >

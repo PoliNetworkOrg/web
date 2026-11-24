@@ -30,7 +30,7 @@ function GroupSection({ title, groups: merged }: { title: string; groups: Merged
     <section className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-4">
         <h2 className="typo-title-large md:typo-headline-small text-text-primary">{title}</h2>
-        <p className="typo-label-medium shrink-0 rounded-full border border-white/50 bg-background-blur px-3 py-1 text-text-secondary">
+        <p className="typo-label-medium shrink-0 rounded-full border border-edge/50 bg-background-blur px-3 py-1 text-text-secondary">
           {merged.length} {merged.length === 1 ? "gruppo" : "gruppi"}
         </p>
       </div>

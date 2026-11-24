@@ -22,7 +22,7 @@ export function FirstQuestion() {
     <MotionConfig reducedMotion="user">
       <Glass
         aria-hidden
-        className="flex w-full max-w-110 flex-col gap-3 rounded-rectangles border-white/50 bg-background-blur p-5 sm:p-6"
+        className="flex w-full max-w-110 flex-col gap-3 rounded-rectangles border-edge/50 bg-background-blur p-5 sm:p-6"
       >
         <motion.ol
           className="flex flex-col gap-3"
@@ -39,7 +39,7 @@ export function FirstQuestion() {
               className={cn(
                 "typo-body-medium sm:typo-body-large w-fit max-w-[85%] text-pretty rounded-2xl px-4 py-2.5",
                 message.from === "them"
-                  ? "origin-bottom-left rounded-bl-sm border border-white/60 bg-white/70 text-text-primary"
+                  ? "origin-bottom-left rounded-bl-sm border border-edge/60 bg-surface/70 text-text-primary"
                   : "origin-bottom-right self-end rounded-br-sm bg-blue-secondary text-text-accent-darkbg"
               )}
             >
@@ -49,7 +49,7 @@ export function FirstQuestion() {
           <motion.li
             variants={{ hidden: { opacity: 0, y: 8 }, shown: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.5, ease: EASE_OUT }}
-            className="typo-label-large mt-2 flex items-center gap-2 self-center rounded-full border border-white/60 bg-white/60 py-1.5 pr-4 pl-2 text-blue-secondary"
+            className="typo-label-large mt-2 flex items-center gap-2 self-center rounded-full border border-edge/60 bg-surface/60 py-1.5 pr-4 pl-2 text-blue-secondary"
           >
             <Image src={telegram} alt="" width={20} height={20} className="size-5" />
             2016 · Nasce il primo gruppo

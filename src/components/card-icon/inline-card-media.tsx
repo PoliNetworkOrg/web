@@ -18,7 +18,7 @@ export function InlineCardMedia({ icon, size }: { icon: GradientIconType | Image
           src={icon}
           width={24}
           height={24}
-          className={cn(getIconSizeClasses("inline"), "object-contain")}
+          className={cn(getIconSizeClasses("inline"), "image-icon object-contain")}
         />
       </div>
     )

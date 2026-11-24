@@ -296,7 +296,7 @@ function CarouselDots({ className, ...props }: React.ComponentProps<"div">) {
           onClick={() => api?.scrollTo(index)}
           className="group after:-inset-y-2 relative grid size-4 shrink-0 place-items-center rounded-full outline-none after:absolute after:inset-x-0 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-offset-2"
         >
-          <span className="group-hover:glass-glow size-4 rounded-full border border-slate-500 bg-background-blur group-aria-[current=true]:border-blue-primary group-aria-[current=true]:bg-blue-primary motion-safe:scale-75 motion-safe:transition-transform motion-safe:group-aria-[current=true]:scale-100 motion-reduce:size-3 motion-reduce:group-aria-[current=true]:size-4" />
+          <span className="group-hover:glass-glow size-4 rounded-full border border-text-secondary bg-background-blur group-aria-[current=true]:border-blue-primary group-aria-[current=true]:bg-blue-primary motion-safe:scale-75 motion-safe:transition-transform motion-safe:group-aria-[current=true]:scale-100 motion-reduce:size-3 motion-reduce:group-aria-[current=true]:size-4" />
         </button>
       ))}
     </div>

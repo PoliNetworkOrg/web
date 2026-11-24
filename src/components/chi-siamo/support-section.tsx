@@ -21,7 +21,7 @@ export function SupportSection() {
         <Shape variant="big-teal" className="-top-16 right-[8%] size-110" />
         <Shape variant="small-blue" className="bottom-0 left-[6%] size-80" />
       </div>
-      <Glass className="relative grid gap-10 rounded-rectangles border-white/60 bg-background-blur p-6 backdrop-blur-xl sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-14">
+      <Glass className="relative grid gap-10 rounded-rectangles border-edge/60 bg-background-blur p-6 backdrop-blur-xl sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-14">
         <div className="relative flex min-w-0 flex-col gap-6">
           <h2 className={SECTION_TITLE}>Sostieni PoliNetwork</h2>
           <p className="typo-body-large max-w-140 text-pretty">
@@ -50,7 +50,7 @@ export function SupportSection() {
           </p>
           <h3 className="typo-headline-medium text-balance">Il tuo 5x1000 può fare la differenza</h3>
           <CopyTaxCode value={TAX_CODE} />
-          <p className="typo-body-medium text-pretty text-slate-600">
+          <p className="typo-body-medium text-pretty text-text-muted">
             Non costa nulla e non sostituisce l’8x1000 o il 2x1000: puoi sceglierli tutti.
           </p>
         </div>

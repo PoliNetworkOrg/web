@@ -42,6 +42,7 @@ const twMerge = extendTailwindMerge({
           bg: [
             "background",
             "background-blur",
+            "surface",
             "button-primary",
             "button-tertiary",
             "red",
@@ -58,9 +59,18 @@ const twMerge = extendTailwindMerge({
       // custom text colors from figma
       "text-color": [
         {
-          text: ["text-primary", "text-secondary", "text-accent-darkbg", "text-accent-lightbg", "card-foreground"],
+          text: [
+            "text-primary",
+            "text-secondary",
+            "text-muted",
+            "text-accent-darkbg",
+            "text-accent-lightbg",
+            "logo",
+            "card-foreground",
+          ],
         },
       ],
+      "border-color": [{ border: ["edge", "grey"] }],
     },
   },
 })

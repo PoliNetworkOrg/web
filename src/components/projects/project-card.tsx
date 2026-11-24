@@ -19,7 +19,7 @@ export function ProjectCard({ project }: { project: Project }) {
       footer={
         <span className="typo-label-large flex items-center gap-3 pt-3">
           {details && (
-            <span className="flex items-center gap-2 text-slate-600">
+            <span className="flex items-center gap-2 text-text-muted">
               <details.icon aria-hidden className="size-4 shrink-0" />
               {details.title}
             </span>

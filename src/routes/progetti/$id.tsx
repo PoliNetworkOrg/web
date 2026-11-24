@@ -48,7 +48,7 @@ function ProjectPage() {
         </Link>
         <Glass
           className={cn(
-            "grid items-center gap-8 rounded-rectangles border-white/50 bg-background-blur p-6 text-center sm:p-12 md:gap-12 md:text-start",
+            "grid items-center gap-8 rounded-rectangles border-edge/50 bg-background-blur p-6 text-center sm:p-12 md:gap-12 md:text-start",
             project.logo && "md:grid-cols-[auto_minmax(0,1fr)]"
           )}
         >
@@ -99,7 +99,7 @@ function ProjectPage() {
                 <li key={`${resource.kind}-${resource.href}`} className="min-w-0">
                   <Card
                     className={cn(
-                      "h-full w-full gap-6 border-white/50 p-6 md:p-8",
+                      "h-full w-full gap-6 border-edge/50 p-6 md:p-8",
                       resources.length === 1 && "md:flex-row md:items-center md:justify-between md:gap-8"
                     )}
                   >
