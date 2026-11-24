@@ -33,6 +33,8 @@ const questions = [
 const SLOTS = ["self-start", "self-end sm:mr-8", "self-start sm:ml-16", "self-end"] as const
 /** A bubble is replaced every this many ms, one slot after the other */
 const SWAP_EVERY = 2200
+/** The first bubbles pop in one after the other, like messages arriving in a chat, this many seconds apart */
+const ENTRANCE_STAGGER = 0.15
 
 export function ProblemSection() {
   const ref = useRef<HTMLDivElement>(null)
@@ -40,6 +42,12 @@ export function ProblemSection() {
   const reduceMotion = useReducedMotion()
   // The question shown in each slot, as indices into `questions`
   const [shown, setShown] = useState<number[]>(() => SLOTS.map((_, i) => i))
+  // False until the section is first seen: the bubbles then pop in, instead of already being there
+  const [entered, setEntered] = useState(false)
+
+  useEffect(() => {
+    if (inView) setEntered(true)
+  }, [inView])
 
   useEffect(() => {
     // Cycles only while visible, and not at all with reduced motion: the first questions stay put
@@ -78,28 +86,37 @@ export function ProblemSection() {
         <div ref={ref} aria-hidden className="flex w-full max-w-4xl flex-col gap-3">
           {SLOTS.map((slot, i) => {
             const question = questions[shown[i] ?? i] ?? questions[0]
+            // The first question of each slot waits for the ones above it; the later ones swap in at once
+            const delay = shown[i] === i ? i * ENTRANCE_STAGGER : 0
             return (
               // A fixed-height slot: a question wrapping onto two lines doesn't push the others
               <div key={slot} className={cn("flex h-18 max-w-full items-center sm:h-16", slot)}>
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={question.text}
-                    initial={{ opacity: 0, scale: 0.85, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    transition={{ type: "spring", bounce: 0.35, duration: 0.6 }}
-                    className="max-w-full"
-                  >
-                    {/* Each bubble bobs gently, out of step with the others */}
+                <AnimatePresence mode="wait">
+                  {(entered || reduceMotion) && (
                     <motion.div
-                      animate={{ y: [0, -6, 0] }}
-                      transition={{ duration: 4 + i * 0.7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                      className="flex items-center gap-4 rounded-rectangles border border-white/50 bg-background-blur px-5 py-4 backdrop-blur-md"
+                      key={question.text}
+                      initial={{ opacity: 0, scale: 0.85, y: 10 }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        transition: { type: "spring", bounce: 0.35, duration: 0.5, delay },
+                      }}
+                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                      transition={{ type: "spring", bounce: 0.35, duration: 0.5 }}
+                      className="max-w-full"
                     >
-                      <GradientIcon icon={question.icon} className="size-6 shrink-0" />
-                      <span className="typo-body-medium sm:typo-body-large text-pretty">{question.text}</span>
+                      {/* Each bubble bobs gently, out of step with the others */}
+                      <motion.div
+                        animate={{ y: [0, -6, 0] }}
+                        transition={{ duration: 4 + i * 0.7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                        className="flex items-center gap-4 rounded-rectangles border border-white/50 bg-background-blur px-5 py-4 backdrop-blur-md"
+                      >
+                        <GradientIcon icon={question.icon} className="size-6 shrink-0" />
+                        <span className="typo-body-medium sm:typo-body-large text-pretty">{question.text}</span>
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
+                  )}
                 </AnimatePresence>
               </div>
             )
