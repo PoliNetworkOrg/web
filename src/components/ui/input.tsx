@@ -20,7 +20,7 @@ function Input({ icon, className, containerClassName, ...inputProps }: InputProp
           icon ? "px-6 py-0" : "px-4 py-0",
           // The input drops its own outline: the field brightens instead, like the site's other glass on hover. A blue
           // ring showed on every click, since a text field is always :focus-visible
-          "transition-colors duration-200 focus-within:border-white focus-within:bg-white/70",
+          "transition-colors duration-200 focus-within:border-edge focus-within:bg-surface/70",
           "rounded-buttonsM",
           "bg-background-blur",
           containerClassName

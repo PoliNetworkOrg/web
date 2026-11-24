@@ -44,7 +44,7 @@ function byPerson(course: Area) {
 function CourseCard({ course }: { course: Area }) {
   const rows = byPerson(course)
   return (
-    <li className="flex flex-col gap-3 rounded-2xl border border-white/70 bg-white/45 p-4 sm:p-5">
+    <li className="flex flex-col gap-3 rounded-2xl border border-edge/70 bg-surface/45 p-4 sm:p-5">
       <h4 className="typo-title-medium text-balance text-text-primary">{course.name}</h4>
       <ol
         className={cn(
@@ -59,7 +59,7 @@ function CourseCard({ course }: { course: Area }) {
             key={`${row.name}:${row.period}`}
             className="relative grid grid-cols-[0.75rem_minmax(0,1fr)_auto] items-start gap-x-3"
           >
-            <span aria-hidden className="mt-1.5 size-3 rounded-full border-[3px] border-blue-primary/35 bg-white" />
+            <span aria-hidden className="mt-1.5 size-3 rounded-full border-[3px] border-blue-primary/35 bg-surface" />
             <span className="typo-body-medium text-pretty text-text-primary">{row.name}</span>
             <span className="typo-body-medium whitespace-nowrap text-text-secondary tabular-nums">{row.period}</span>
           </li>

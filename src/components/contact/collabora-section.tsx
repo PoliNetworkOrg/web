@@ -51,7 +51,7 @@ export function CollaboraSection() {
           >
             <Image src={partner.image} alt="" fill sizes="(min-width: 1024px) 380px, 68vw" className="object-cover" />
             <Glass
-              className={`typo-label-large absolute left-3 rounded-full border-white/60 bg-white/70 px-3 py-1.5 text-blue-secondary sm:left-4 ${partner.labelClassName}`}
+              className={`typo-label-large absolute left-3 rounded-full border-edge/60 bg-surface/70 px-3 py-1.5 text-blue-secondary sm:left-4 ${partner.labelClassName}`}
             >
               {partner.label}
             </Glass>

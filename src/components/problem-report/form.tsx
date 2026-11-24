@@ -111,7 +111,7 @@ export function ProblemReportForm({ submitted }: { submitted: ReportState }) {
             placeholder="In quale pagina succede? Cosa stavi facendo e cosa ti aspettavi? Se puoi, indica anche dispositivo e browser."
             aria-invalid={!!state.errors?.description}
             aria-describedby="report-description-help report-description-error"
-            className="w-full resize-y rounded-rectangles border border-white/50 bg-background-blur p-4 text-base text-text-primary outline-offset-2 placeholder:text-text-secondary focus-visible:outline-2 focus-visible:outline-blue-secondary"
+            className="w-full resize-y rounded-rectangles border border-edge/50 bg-background-blur p-4 text-base text-text-primary outline-offset-2 placeholder:text-text-secondary focus-visible:outline-2 focus-visible:outline-blue-secondary"
           />
           <p id="report-description-help" className="typo-body-medium text-text-secondary">
             Da 20 a 5000 caratteri. Non inserire password o altri dati riservati.
