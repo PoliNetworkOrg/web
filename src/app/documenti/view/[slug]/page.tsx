@@ -26,7 +26,8 @@ export default async function DocumentViewerPage({ params }: Props) {
   if (!document) notFound()
 
   return (
-    <main className={`${CONTAINER} pt-40 pb-6 sm:pb-10`}>
+    // On phones the viewer takes nearly the whole screen: 12px gutters and less room above, so the page is readable
+    <main className={`${CONTAINER} pt-28 pb-6 max-sm:px-3 sm:pt-40 sm:pb-10`}>
       <PdfViewerLoader document={document} />
     </main>
   )
