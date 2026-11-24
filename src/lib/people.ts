@@ -5,6 +5,8 @@
  * Trascritto dal sito precedente: https://polinetwork.org/it/learnmore/about_us/ (in carica) e
  * https://polinetwork.org/it/learnmore/about_us/history/ (storico). Le date mancanti restano vuote, non stimate.
  * Quando cambia un incarico: chiudi il mandato in carica con `to`, togli `current` e aggiungi il nuovo in fondo.
+ * I team lead vanno ad anni accademici: a ogni nuovo anno (o cambio a metà anno) aggiungi un mandato con
+ * `academicYear`, spostando `current` sull'ultimo.
  */
 
 /** Anno e mese, "AAAA-MM" */
@@ -19,6 +21,8 @@ export type Term = {
   to?: Month
   /** Il sito precedente riporta solo il mese di nomina, senza fine */
   appointedOnly?: boolean
+  /** Anno accademico del mandato, "2026/27": per i team, che cambiano ad annate */
+  academicYear?: `${number}/${number}`
   current?: boolean
   people: Holder[]
 }
@@ -58,17 +62,25 @@ function capitalize(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
-/** "Marzo – giugno 2023", "Ottobre 2019 – aprile 2021", "Da dicembre 2024", "Nomina: settembre 2022" */
+/** "Marzo – giugno 2023", "Ottobre 2019 – aprile 2021", "Da dicembre 2024", "Nomina: settembre 2022", "Anno accademico 2026/27" */
 export function formatPeriod({
   from,
   to,
   appointedOnly,
-  current,
-}: Pick<Term, "from" | "to" | "appointedOnly" | "current">) {
+  academicYear,
+}: Pick<Term, "from" | "to" | "appointedOnly" | "academicYear">) {
+  if (academicYear) {
+    const year = `Anno accademico ${academicYear}`
+    if (!from) return year
+    const start = monthName(from)
+    return to
+      ? `${year}, fino a ${monthName(to).month} ${monthName(to).year}`
+      : `${year}, da ${start.month} ${start.year}`
+  }
   if (!from) return ""
   const start = monthName(from)
   if (appointedOnly) return `Nomina: ${start.month} ${start.year}`
-  if (!to) return current ? `Da ${start.month} ${start.year}` : `${capitalize(start.month)} ${start.year}`
+  if (!to) return `Da ${start.month} ${start.year}`
   const end = monthName(to)
   if (from === to) return `${capitalize(start.month)} ${start.year}`
   if (start.year === end.year) return `${capitalize(start.month)} – ${end.month} ${end.year}`
@@ -191,10 +203,18 @@ export const areas: Area[] = [
       { from: "2023-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: DELEGATE }] },
       {
         from: "2024-12",
-        current: true,
         people: [
           { name: "Lorenzo Corallo", role: HEAD },
           { name: "Tommaso Morganti", role: "Vice" },
+        ],
+      },
+      {
+        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
+        academicYear: "2026/27",
+        current: true,
+        people: [
+          { name: "Lorenzo Corallo", role: "Team lead" },
+          { name: "Tommaso Morganti", role: "Team lead" },
         ],
       },
     ],
@@ -208,11 +228,16 @@ export const areas: Area[] = [
       { from: "2023-04", to: "2024-12", people: [{ name: "Giorgia Nanni", role: DELEGATE }] },
       {
         from: "2024-12",
-        current: true,
         people: [
           { name: "Giulia Messina", role: HEAD },
           { name: "Giorgia Nanni", role: "Vice" },
         ],
+      },
+      {
+        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
+        academicYear: "2026/27",
+        current: true,
+        people: [{ name: "Raffaele Tiziano Andolina", role: "Team lead" }],
       },
     ],
   },
@@ -224,11 +249,16 @@ export const areas: Area[] = [
       { from: "2023-04", to: "2024-12", people: [{ name: "Alice Carosi", role: DELEGATE }] },
       {
         from: "2024-12",
-        current: true,
         people: [
           { name: "Hui He (Ale)", role: HEAD },
           { name: "Elisabeta Hoxhaj", role: "Vice" },
         ],
+      },
+      {
+        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
+        academicYear: "2026/27",
+        current: true,
+        people: [{ name: "Matteo Zenti", role: "Team lead" }],
       },
     ],
   },
@@ -251,11 +281,19 @@ export const areas: Area[] = [
       { from: "2023-04", to: "2024-12", people: [{ name: "Diego Aldarese", role: DELEGATE }] },
       {
         from: "2024-12",
-        current: true,
         people: [
           { name: "Gabriele Viganò", role: HEAD },
           { name: "Giorgia Nanni", role: "Vice" },
           { name: "Chiara Maiutto", role: "Vice" },
+        ],
+      },
+      {
+        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
+        academicYear: "2026/27",
+        current: true,
+        people: [
+          { name: "Gabriele Viganò", role: "Team lead" },
+          { name: "Lucia Capuano", role: "Team lead" },
         ],
       },
     ],
