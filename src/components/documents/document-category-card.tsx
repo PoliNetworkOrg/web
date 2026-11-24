@@ -30,8 +30,9 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
           {category.documents.map((document) => (
             <li
               key={document.slug}
-              // Figma: title above the actions on phones, one row from sm; 8px padding and 16px between the icons
-              className="flex flex-col gap-3 border-grey border-b p-2 sm:flex-row sm:items-center sm:justify-between"
+              // Figma: title above the actions on phones, one row from sm; 8px padding and 16px between the icons. On phones
+              // the last row has no line under it: the card's edge closes the list
+              className="flex flex-col gap-3 border-grey border-b p-2 max-sm:last:border-b-0 sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="flex min-w-0 items-start gap-6">
                 <FiFile aria-hidden="true" className="size-6 shrink-0 text-text-primary" />

@@ -33,14 +33,15 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
     const element = viewport.current
     if (!element) return
     const observer = new ResizeObserver(([entry]) => {
-      if (entry) setWidth(Math.max(1, entry.contentRect.width - 32))
+      // Minus the padding around the page: 8px a side on phones, 16px from sm (see the Document's className)
+      if (entry) setWidth(Math.max(1, entry.contentRect.width - (entry.contentRect.width < 576 ? 16 : 32)))
     })
     observer.observe(element)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <Glass className="flex h-[calc(100svh-184px)] min-h-120 flex-col gap-4 rounded-rectangles border-white/50 bg-background-blur p-3 sm:h-[calc(100svh-200px)] sm:p-6">
+    <Glass className="flex h-[calc(100svh-136px)] min-h-120 flex-col gap-4 rounded-rectangles border-white/50 bg-background-blur p-2 sm:h-[calc(100svh-200px)] sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex min-w-0 flex-1 basis-full items-center gap-3 sm:basis-auto">
           <Button asChild variant="glass" size="icon-lg" className="size-11">
@@ -136,7 +137,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
                 Impossibile visualizzare il PDF. Puoi scaricarlo con il pulsante in alto.
               </p>
             }
-            className="flex min-w-full justify-start p-4"
+            className="flex min-w-full justify-start p-2 sm:p-4"
           >
             <Page
               pageNumber={page}
