@@ -2,6 +2,7 @@ import Image from "next/image"
 import type { ReactNode } from "react"
 import { FiCheck, FiClipboard, FiClock, FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
 import telegram from "@/assets/icons/telegram-gradient.svg"
+import { FillLine } from "@/components/fill-line"
 import { Glass } from "@/components/glass"
 import { GradientIcon, type GradientIconType } from "@/components/gradient-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
@@ -27,8 +28,7 @@ function IconTile({ icon, className }: { icon: GradientIconType | string; classN
   )
 }
 
-/** The timelines' line: 4px, rounded, in the site's light blue. */
-const LINE = "rounded-full bg-blue-primary/25"
+/** The timelines' lines are 4px `FillLine`s, light blue until they fill with blue from start to end. */
 
 export function Timeline() {
   return (
@@ -48,12 +48,12 @@ export function Timeline() {
             className="relative flex items-start gap-4 lg:flex-col lg:items-center lg:text-center"
           >
             {index < milestones.length - 1 && (
-              <span
-                aria-hidden
-                className={cn(
-                  LINE,
-                  "-bottom-10 absolute top-21 left-10 w-1 lg:top-10 lg:bottom-auto lg:left-[calc(50%+2.625rem)] lg:h-1 lg:w-[calc(100%-3.75rem)]"
-                )}
+              // Fills toward the next milestone, one line after the other across the row
+              <FillLine
+                direction="down-then-across"
+                step={index}
+                steps={milestones.length - 1}
+                className="-bottom-10 absolute top-21 left-10 w-1 lg:top-10 lg:bottom-auto lg:left-[calc(50%+2.625rem)] lg:h-1 lg:w-[calc(100%-3.75rem)]"
               />
             )}
             <IconTile icon={milestone.icon} className="size-21" />
@@ -84,32 +84,35 @@ function VisualCard({ children, className }: { children: ReactNode; className?: 
   )
 }
 
-/** A short line between two steps: the timelines use lines, never arrows. */
-function Joint({ className }: { className?: string }) {
-  return <span aria-hidden className={cn("h-1 w-4 shrink-0 sm:w-6", LINE, className)} />
-}
-
 /** A left-to-right sequence of steps, joined by lines. A step shows an icon or a figure, both on a glass tile. */
 function Steps({ items }: { items: { label: string; icon?: GradientIconType | string; value?: string }[] }) {
   return (
-    <ol className="flex w-full items-start">
+    // Down on phones, each label beside its tile (four ~55px columns would break the words); across from sm. On phones
+    // the tiles are all 56px wide, figures included, so the labels line up
+    <ol className="flex w-full flex-col gap-6 sm:flex-row sm:items-start sm:gap-0">
       {items.map((item, index) => (
-        <li key={item.label} className="flex min-w-0 flex-1 items-start">
-          {index > 0 && <Joint className="mt-5.5 sm:mt-7" />}
-          <div className="flex min-w-0 flex-1 flex-col items-center gap-2 px-1 text-center">
-            {item.icon ? (
-              <IconTile icon={item.icon} className="size-12 sm:size-15" />
-            ) : (
-              <Glass className="typo-title-large sm:typo-headline-small flex h-12 min-w-12 items-center justify-center rounded-rectangles border-white/50 bg-white/60 px-3 py-0 text-blue-secondary sm:h-15 sm:min-w-15">
-                {item.value}
-              </Glass>
-            )}
-            {/* The columns are ~70px on phones: long words ("rappresentanti") could run into the next label.
-                max-w-full keeps the label inside its centered column, so the word can hyphenate or break */}
-            <span className="typo-body-small sm:typo-body-medium max-w-full hyphens-auto text-balance break-words">
-              {item.label}
-            </span>
-          </div>
+        <li key={item.label} className="relative flex min-w-0 items-center gap-4 sm:flex-1 sm:flex-col sm:gap-2">
+          {index > 0 && (
+            // From the previous tile to this one, between them rather than taking room from the labels: down the
+            // tiles' middle on phones, across their middle from sm
+            <FillLine
+              direction="down-then-across-sm"
+              step={index - 1}
+              steps={items.length - 1}
+              className="absolute bottom-[calc(100%+0.25rem)] left-[calc(1.75rem-2px)] h-4 w-1 sm:top-7 sm:right-[calc(50%+2.5rem)] sm:bottom-auto sm:left-[calc(-50%+2.5rem)] sm:h-1 sm:w-auto"
+            />
+          )}
+          {item.icon ? (
+            <IconTile icon={item.icon} className="size-14 sm:size-15" />
+          ) : (
+            <Glass className="typo-title-large sm:typo-headline-small flex size-14 shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-white/60 px-3 py-0 text-blue-secondary sm:h-15 sm:w-auto sm:min-w-15">
+              {item.value}
+            </Glass>
+          )}
+          {/* max-w-full keeps a long word ("rappresentanti") inside its column, where it can hyphenate */}
+          <span className="typo-body-medium min-w-0 max-w-full hyphens-auto text-pretty break-words sm:px-1 sm:text-center">
+            {item.label}
+          </span>
         </li>
       ))}
     </ol>
@@ -130,7 +133,7 @@ function BeforeAfter({ before, after }: { before: { title: string; items: string
           </ul>
         </div>
       ))}
-      <span aria-hidden className={cn("col-start-2 row-start-1 h-full w-1", LINE)} />
+      <FillLine direction="down" className="col-start-2 row-start-1 h-full w-1" />
     </div>
   )
 }
@@ -203,7 +206,7 @@ export function Chapters() {
           >
             {/* The line runs down from this chapter's number to the next one's */}
             {index < chapters.length - 1 && (
-              <span aria-hidden className={cn(LINE, "absolute top-16 bottom-2 left-[calc(1.75rem-2px)] w-1")} />
+              <FillLine direction="down" className="absolute top-16 bottom-2 left-[calc(1.75rem-2px)] w-1" />
             )}
             {/* The chapter's number in a round glass badge, sitting on the line */}
             <Glass

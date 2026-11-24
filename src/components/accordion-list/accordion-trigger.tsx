@@ -9,14 +9,14 @@ export function AccordionTrigger({
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
   return (
-    <AccordionPrimitive.Header className="flex">
+    <AccordionPrimitive.Header className="relative flex">
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
           "flex w-full items-center justify-between gap-4 p-6 text-left",
           "typo-title-medium text-blue-secondary outline-none transition-colors duration-200",
-          // The header is the only clickable part: it alone reacts to hover and keyboard focus
-          "hover:bg-white/70 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
+          // The header is the only clickable part; its hover lights up the whole card (see AccordionItem)
+          "focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
           // The chevron nudges toward where the answer opens
           "[&[data-state=closed]:hover>svg]:translate-x-1",
           "[&[data-state=open]>svg]:rotate-90",

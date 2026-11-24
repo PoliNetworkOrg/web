@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { FaqsTabs } from "@/components/faqs/faqs-tabs"
-import { CONTAINER, PAGE_HERO_TOP, PAGE_MAIN } from "@/components/layout/page"
+import { CONTAINER, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
 import { cn } from "@/lib/utils"
 import { getAllFaqs } from "@/queries/faqs"
@@ -17,9 +17,11 @@ export default async function FAQsPage() {
 
   return (
     <main className={PAGE_MAIN}>
-      {/* The tabs belong to the hero, so they follow it without the usual break after the hero */}
-      <section className={cn(CONTAINER, PAGE_HERO_TOP, "flex flex-col gap-16 md:gap-24")}>
+      {/* The same break after the hero as on the other pages (Associazioni, Team…) */}
+      <section className={cn(CONTAINER, PAGE_HERO)}>
         <Hero title="FAQ" description="Risposte chiare per vivere al meglio la community" />
+      </section>
+      <section aria-label="Domande frequenti" className={CONTAINER}>
         <FaqsTabs categories={categories} />
       </section>
     </main>

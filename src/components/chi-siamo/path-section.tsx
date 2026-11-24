@@ -109,7 +109,7 @@ export function PathSection() {
                     <GradientIcon icon={step.icon} className="size-14" />
                   </Glass>
                   {index === active && (
-                    // The student walking the path: it moves from step to step and bobs as it walks
+                    // The student walking the path: it moves from step to step, and stays still on each one
                     // Each lap has its own layoutId: the walker reappears on the first step instead of walking back
                     <motion.span
                       layoutId={`walker-${lap}`}
@@ -117,12 +117,7 @@ export function PathSection() {
                       className="-top-3 -right-3 absolute flex size-9 items-center justify-center rounded-full bg-blue-secondary text-text-accent-darkbg shadow-md"
                       transition={{ duration: 0.7, ease: EASE_OUT }}
                     >
-                      <motion.span
-                        animate={{ y: [0, -2, 0] }}
-                        transition={{ duration: 0.45, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                      >
-                        <FaPersonWalking className="size-4.5" />
-                      </motion.span>
+                      <FaPersonWalking className="size-4.5" />
                     </motion.span>
                   )}
                 </div>

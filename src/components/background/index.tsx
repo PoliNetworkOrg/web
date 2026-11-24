@@ -38,10 +38,14 @@ const session: { navigated: boolean } = { navigated: false }
 export function Background() {
   const pathname = useRoutePathname()
   const key = sceneKey(pathname)
-  return <Scene key={key} pathname={key} footer={hasFooter(pathname)} />
+  return <Scene key={key} pathname={key} footer={hasFooter(pathname)} shared={SHARED_SCENES.includes(key)} />
 }
 
-function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
+/**
+ * `shared`: the scene of a flow (see `SHARED_SCENES`). Its Figma shapes are spread over the content as tall as it was
+ * when the flow opened, not as it is now, so moving to a taller or shorter step doesn't move them.
+ */
+function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean; shared: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const [segments, setSegments] = useState(INITIAL_SEGMENTS)
   // Pages composed in Figma keep their layout; the others get a generated segment per screen of page
@@ -62,11 +66,17 @@ function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
     const el = ref.current
     const page = el?.parentElement
     if (!el || !page) return
+    // the width the content height was frozen at: a resized window lays the page out again, so it is measured again
+    let frozenWidth: number | undefined
     const measure = () => {
       // the region from the top of the footer to the end of the page, which Figma's footer shapes are spread over
       const footerEl = page.querySelector<HTMLElement>(":scope > footer")
       if (footerEl) el.style.setProperty("--bg-footer", `${el.offsetHeight - footerEl.offsetTop}px`)
       else el.style.removeProperty("--bg-footer")
+      if (shared && frozenWidth !== el.offsetWidth) {
+        frozenWidth = el.offsetWidth
+        el.style.setProperty("--bg-content", `${footerEl ? footerEl.offsetTop : el.offsetHeight}px`)
+      }
       const segment = Number.parseFloat(getComputedStyle(el).getPropertyValue("--bg-segment"))
       setSegments(Math.max(1, Math.ceil(el.offsetHeight / segment)))
     }
@@ -76,7 +86,7 @@ function Scene({ pathname, footer }: { pathname: string; footer: boolean }) {
     const footerEl = page.querySelector(":scope > footer")
     if (footerEl) observer.observe(footerEl)
     return () => observer.disconnect()
-  }, [])
+  }, [shared])
 
   // a layout effect, so the first frame is applied before the new page is painted
   useLayoutEffect(() => {

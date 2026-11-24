@@ -202,7 +202,8 @@ const round = (n: number) => Number(n.toFixed(5))
  * in Figma), the others over the footer. `--bg-footer` is the height of the footer, measured by the scene.
  */
 function pageY(y: number, { height, footer }: FigmaFrame) {
-  if (y <= footer || footer >= height) return `(100% - var(--bg-footer)) * ${round(y / footer)}`
+  // `--bg-content` is set by the scenes shared by a flow, so its shapes stay put while the steps change height
+  if (y <= footer || footer >= height) return `(var(--bg-content, 100% - var(--bg-footer))) * ${round(y / footer)}`
   return `100% - var(--bg-footer) * ${round(1 - (y - footer) / (height - footer))}`
 }
 

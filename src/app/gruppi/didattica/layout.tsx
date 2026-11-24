@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { WizardFrame } from "@/components/wizard/wizard-frame"
 
-/** school / level / course is the results page, outside the card */
+/** Every step, the groups of the course (school / level / course) included, is shown in the same card */
 export default function DidatticaLayout({ children }: { children: ReactNode }) {
-  return <WizardFrame depth={3}>{children}</WizardFrame>
+  return <WizardFrame depth={4}>{children}</WizardFrame>
 }

@@ -112,7 +112,7 @@ export function AssociationsList({ associations }: { associations: Association[]
     <AccordionList
       items={items}
       defaultValue={items[0]?.value}
-      triggerClassName="transition-[background-color,padding] data-[state=open]:pb-3"
+      triggerClassName="transition-[padding] data-[state=open]:pb-3"
       contentClassName="sm:pl-22"
     />
   )

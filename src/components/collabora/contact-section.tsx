@@ -2,6 +2,7 @@ import { Fragment } from "react"
 import favoriteIcon from "@/assets/icons/collabora/favorite.svg"
 import mailIcon from "@/assets/icons/collabora/mail.svg"
 import promptSuggestionIcon from "@/assets/icons/collabora/prompt-suggestion.svg"
+import { FillLine } from "@/components/fill-line"
 import { CONTAINER, SECTION_TITLE } from "@/components/layout/page"
 import { cn } from "@/lib/utils"
 import { InfoCard, type InfoCardData } from "./info-card"
@@ -40,7 +41,7 @@ const cards: InfoCardData[] = [
   },
 ]
 
-/** Figma's connectors between the steps; vertical while the cards are stacked. */
+/** Figma's connectors between the steps, vertical while the cards are stacked: they fill one after the other. */
 const connectorClassNames = [
   "from-[#51a2ff] to-[#0069a8]", // Vector 4
   "from-[#0069a8] to-[#74d4ff]", // Vector 5
@@ -62,12 +63,12 @@ export function ContactSection() {
               className="w-full md:w-104.25 md:shrink-0 lg:w-auto lg:min-w-0 lg:flex-1 lg:max-3xl:p-6"
             />
             {index < connectorClassNames.length && (
-              <div
-                aria-hidden
-                className={cn(
-                  "h-10 w-1 shrink-0 bg-linear-to-b md:max-lg:ml-51.5 lg:h-1 lg:w-10 lg:self-center lg:bg-linear-to-r",
-                  connectorClassNames[index]
-                )}
+              <FillLine
+                direction="down-then-across"
+                step={index}
+                steps={connectorClassNames.length}
+                className="h-10 w-1 shrink-0 md:max-lg:ml-51.5 lg:h-1 lg:w-10 lg:self-center"
+                fillClassName={cn("bg-linear-to-b lg:bg-linear-to-r", connectorClassNames[index])}
               />
             )}
           </Fragment>

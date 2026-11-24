@@ -32,7 +32,7 @@ export function CopyTaxCode({ value, className }: { value: string; className?: s
         type="button"
         onClick={copy}
         className={cn(
-          "group flex w-full flex-col items-start gap-4 rounded-buttonsM border border-white/70 bg-white/60 px-5 py-4 text-left outline-none transition-colors hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-blue-secondary sm:flex-row sm:items-center sm:justify-between",
+          "group flex w-full flex-col items-start gap-4 rounded-buttonsM border border-white/70 bg-white/60 px-6 py-4 text-left outline-none transition-colors hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-blue-secondary sm:flex-row sm:items-center sm:justify-between sm:px-8",
           className
         )}
       >

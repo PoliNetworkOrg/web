@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { WizardFrame } from "@/components/wizard/wizard-frame"
 
-/** school / level / course is the guides of the course, outside the card */
+/** Every step, the guides of the course (school / level / course) included, is shown in the same card */
 export default function CorsoLayout({ children }: { children: ReactNode }) {
-  return <WizardFrame depth={3}>{children}</WizardFrame>
+  return <WizardFrame depth={4}>{children}</WizardFrame>
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Fragment } from "react"
-import { FiArrowUpRight, FiBook, FiBookOpen, FiClipboard, FiFileText, FiUploadCloud } from "react-icons/fi"
+import { FiArrowUpRight, FiBookOpen, FiUploadCloud } from "react-icons/fi"
 import { CardIcon } from "@/components/card-icon"
 import { MATERIALS_URL } from "@/components/header/constants"
 import { CONTAINER } from "@/components/layout/page"
@@ -10,7 +10,6 @@ import { useActivationToast } from "@/components/ui/activation-toast"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { CardCaption } from "../card-caption"
-import { GradientIcon } from "../gradient-icon"
 
 // Upload and per-type archive pages will be activated later.
 const featuredCards = [
@@ -23,16 +22,10 @@ const featuredCards = [
   {
     title: "Visualizza",
     description:
-      "Cerca ciò che ti serve per il tuo prossimo esame. Naviga tra i corsi di studio e trova facilmente appunti, esercizi e dispense condivisi da altri studenti come te.",
+      "Cerca ciò che ti serve per il tuo prossimo esame: dispense, esami e appunti, divisi per corso di studi e condivisi da altri studenti come te.",
     icon: FiBookOpen,
     href: MATERIALS_URL,
   },
-]
-
-const archiveTypes = [
-  { title: "Dispense", icon: FiBook },
-  { title: "Esami", icon: FiFileText },
-  { title: "Appunti", icon: FiClipboard },
 ]
 
 export function Materials() {
@@ -66,40 +59,28 @@ export function Materials() {
         </Button>
       </div>
 
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 pt-6 sm:gap-6 sm:pt-8 xl:col-start-1 xl:row-start-2 xl:max-w-none xl:pt-0">
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-          {featuredCards.map((card) => (
-            <Fragment key={card.title}>
-              <CardCaption
-                title={card.title}
-                caption={card.description}
-                icon={card.icon}
-                href={card.href}
-                onClick={card.href ? undefined : showActivationToast}
-                className="h-auto w-full p-6 xl:hidden"
-              />
-              <CardIcon
-                title={card.title}
-                description={card.description}
-                icon={card.icon}
-                href={card.href}
-                onClick={card.href ? undefined : showActivationToast}
-                size="md"
-                className="hidden h-full xl:block"
-              />
-            </Fragment>
-          ))}
-        </div>
-
-        {/* What the archive holds: an illustration, not three more buttons, so no card surface and no hover */}
-        <ul className="grid grid-cols-3 gap-4 pt-2 sm:gap-6">
-          {archiveTypes.map(({ title, icon }) => (
-            <li key={title} className="flex flex-col items-center gap-2 text-center">
-              <GradientIcon icon={icon} className="size-10 sm:size-14" />
-              <span className="typo-title-medium sm:typo-title-large text-text-primary">{title}</span>
-            </li>
-          ))}
-        </ul>
+      <div className="mx-auto grid w-full max-w-4xl gap-4 pt-6 sm:grid-cols-2 sm:gap-6 sm:pt-8 xl:col-start-1 xl:row-start-2 xl:max-w-none xl:pt-0">
+        {featuredCards.map((card) => (
+          <Fragment key={card.title}>
+            <CardCaption
+              title={card.title}
+              caption={card.description}
+              icon={card.icon}
+              href={card.href}
+              onClick={card.href ? undefined : showActivationToast}
+              className="h-auto w-full p-6 xl:hidden"
+            />
+            <CardIcon
+              title={card.title}
+              description={card.description}
+              icon={card.icon}
+              href={card.href}
+              onClick={card.href ? undefined : showActivationToast}
+              size="md"
+              className="hidden h-full xl:block"
+            />
+          </Fragment>
+        ))}
       </div>
       {activationToast}
     </section>

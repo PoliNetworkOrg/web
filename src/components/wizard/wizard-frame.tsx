@@ -8,8 +8,7 @@ import { PAGE_HERO_TOP } from "@/components/layout/page"
 /**
  * The wizard's card, rendered by the layout of the flow (school → level → course) so it stays mounted while the user
  * moves between steps: it doesn't flash with the page, and when a step is taller or shorter it grows or shrinks
- * smoothly instead of jumping. The results page that follows the last step (`depth` segments below the layout) has its
- * own layout, so the card is left out there.
+ * smoothly instead of jumping. Pages `depth` or more segments below the layout are left out of the card.
  */
 export function WizardFrame({ depth, children }: { depth: number; children: ReactNode }) {
   const framed = useSelectedLayoutSegments().length < depth
