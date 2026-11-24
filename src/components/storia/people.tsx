@@ -54,7 +54,7 @@ export function HistoricalPeople() {
           mandati: chi è in carica oggi è sempre l’ultimo.
         </p>
         <p className="typo-body-large flex flex-wrap items-center gap-x-2 gap-y-1 text-text-secondary">
-          <InOfficeBadge /> segna i mandati in corso. “Nomina” indica le date per cui conosciamo solo l’inizio.
+          <InOfficeBadge /> segna i mandati in corso.
         </p>
       </div>
       <AccordionList

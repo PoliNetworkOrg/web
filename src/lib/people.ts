@@ -21,7 +21,7 @@ export type Term = {
   to?: Month
   /** Il sito precedente riporta solo il mese di nomina, senza fine */
   appointedOnly?: boolean
-  /** Anno accademico del mandato, "2026/27": per i team, che cambiano ad annate */
+  /** Anno accademico del mandato, "2026/27": per i team, che cambiano ad annate. Si mostra "2026 – 2027" */
   academicYear?: `${number}/${number}`
   current?: boolean
   people: Holder[]
@@ -38,53 +38,25 @@ export type Area = {
   note?: string
 }
 
-const MONTHS = [
-  "gennaio",
-  "febbraio",
-  "marzo",
-  "aprile",
-  "maggio",
-  "giugno",
-  "luglio",
-  "agosto",
-  "settembre",
-  "ottobre",
-  "novembre",
-  "dicembre",
-]
+const year = (month: Month) => month.slice(0, 4)
 
-function monthName(month: Month) {
-  const [year = "", m = ""] = month.split("-")
-  return { month: MONTHS[Number(m) - 1] ?? "", year }
-}
-
-function capitalize(text: string) {
-  return text.charAt(0).toUpperCase() + text.slice(1)
-}
-
-/** "Marzo – giugno 2023", "Ottobre 2019 – aprile 2021", "Da dicembre 2024", "Nomina: settembre 2022", "Anno accademico 2026/27" */
+/**
+ * Only years, the same way everywhere: "2016 – 2018", "2023", "2024 – oggi". An academic year "2025/26" reads
+ * "2025 – 2026". Months stay in the data but are not shown.
+ */
 export function formatPeriod({
   from,
   to,
-  appointedOnly,
   academicYear,
-}: Pick<Term, "from" | "to" | "appointedOnly" | "academicYear">) {
+  current,
+}: Pick<Term, "from" | "to" | "academicYear" | "current">) {
   if (academicYear) {
-    const year = `Anno accademico ${academicYear}`
-    if (!from) return year
-    const start = monthName(from)
-    return to
-      ? `${year}, fino a ${monthName(to).month} ${monthName(to).year}`
-      : `${year}, da ${start.month} ${start.year}`
+    const [start = "", end = ""] = academicYear.split("/")
+    return `${start} – ${start.slice(0, 2)}${end}`
   }
   if (!from) return ""
-  const start = monthName(from)
-  if (appointedOnly) return `Nomina: ${start.month} ${start.year}`
-  if (!to) return `Da ${start.month} ${start.year}`
-  const end = monthName(to)
-  if (from === to) return `${capitalize(start.month)} ${start.year}`
-  if (start.year === end.year) return `${capitalize(start.month)} – ${end.month} ${end.year}`
-  return `${capitalize(start.month)} ${start.year} – ${end.month} ${end.year}`
+  if (!to) return current ? `${year(from)} – oggi` : year(from)
+  return year(from) === year(to) ? year(from) : `${year(from)} – ${year(to)}`
 }
 
 export function currentTerm(terms: Term[]) {
@@ -188,6 +160,7 @@ const DELEGATE = "Delegato"
 const HEAD = "Capo dipartimento"
 
 /**
+ * In ordine di pagina: nella griglia a due colonne le storie lunghe stanno accanto (IT ed Events), poi le corte.
  * Ogni area con chi l'ha seguita: prima le deleghe, poi i dipartimenti (da dicembre 2024), oggi confluiti nei quattro
  * team di /team. Le aree senza `teamId` sono concluse; quelle di cui non sappiamo dove siano confluite restano a sé.
  */
@@ -203,6 +176,8 @@ export const areas: Area[] = [
       { from: "2023-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: DELEGATE }] },
       {
         from: "2024-12",
+        // Fino ai team lead del 2025/26: il mese esatto non è noto
+        to: "2025-09",
         people: [
           { name: "Lorenzo Corallo", role: HEAD },
           { name: "Tommaso Morganti", role: "Vice" },
@@ -216,64 +191,12 @@ export const areas: Area[] = [
         ],
       },
       {
-        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
         academicYear: "2026/27",
         current: true,
         people: [
           { name: "Lorenzo Corallo", role: "Team lead" },
           { name: "Bianca Roberta Ianosel", role: "Team lead" },
         ],
-      },
-    ],
-  },
-  {
-    name: "Design & Marketing",
-    teamId: "design-marketing",
-    formerNames: ["Gestione social", "Social media management e marketing"],
-    terms: [
-      { from: "2022-09", to: "2023-04", people: [{ name: "Giulia La Ferla", role: DELEGATE }] },
-      { from: "2023-04", to: "2024-12", people: [{ name: "Giorgia Nanni", role: DELEGATE }] },
-      {
-        from: "2024-12",
-        people: [
-          { name: "Giulia Messina", role: HEAD },
-          { name: "Giorgia Nanni", role: "Vice" },
-        ],
-      },
-      {
-        academicYear: "2025/26",
-        people: [{ name: "Raffaele Tiziano Andolina", role: "Team lead" }],
-      },
-      {
-        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
-        academicYear: "2026/27",
-        current: true,
-        people: [{ name: "Raffaele Tiziano Andolina", role: "Team lead" }],
-      },
-    ],
-  },
-  {
-    name: "Team HR",
-    teamId: "hr",
-    formerNames: ["Gestione interna"],
-    terms: [
-      { from: "2023-04", to: "2024-12", people: [{ name: "Alice Carosi", role: DELEGATE }] },
-      {
-        from: "2024-12",
-        people: [
-          { name: "Hui He (Ale)", role: HEAD },
-          { name: "Elisabeta Hoxhaj", role: "Vice" },
-        ],
-      },
-      {
-        academicYear: "2025/26",
-        people: [{ name: "Matteo Zenti", role: "Team lead" }],
-      },
-      {
-        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
-        academicYear: "2026/27",
-        current: true,
-        people: [{ name: "Secret", role: "Team lead" }],
       },
     ],
   },
@@ -296,6 +219,8 @@ export const areas: Area[] = [
       { from: "2023-04", to: "2024-12", people: [{ name: "Diego Aldarese", role: DELEGATE }] },
       {
         from: "2024-12",
+        // Fino ai team lead del 2025/26: il mese esatto non è noto
+        to: "2025-09",
         people: [
           { name: "Gabriele Viganò", role: HEAD },
           { name: "Giorgia Nanni", role: "Vice" },
@@ -310,7 +235,6 @@ export const areas: Area[] = [
         ],
       },
       {
-        // Team lead dell'anno in corso; per un cambio a metà anno aggiungi un mandato con `from`
         academicYear: "2026/27",
         current: true,
         people: [{ name: "Gabriele Viganò", role: "Team lead" }],
@@ -318,18 +242,55 @@ export const areas: Area[] = [
     ],
   },
   {
-    // Il sito precedente non dice in quale team sia confluito
-    name: "Relazioni istituzionali",
-    note: "Dipartimento fino al passaggio ai quattro team",
+    name: "Design & Marketing",
+    teamId: "design-marketing",
+    formerNames: ["Gestione social", "Social media management e marketing"],
     terms: [
-      { from: "2023-04", to: "2024-04", people: [{ name: "Elia Maggioni", role: DELEGATE }] },
-      { from: "2024-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: DELEGATE }] },
+      { from: "2022-09", to: "2023-04", people: [{ name: "Giulia La Ferla", role: DELEGATE }] },
+      { from: "2023-04", to: "2024-12", people: [{ name: "Giorgia Nanni", role: DELEGATE }] },
       {
         from: "2024-12",
+        // Fino ai team lead del 2025/26: il mese esatto non è noto
+        to: "2025-09",
         people: [
-          { name: "Elisabeta Hoxhaj", role: HEAD },
-          { name: "Elia Falzoni", role: "Vice" },
+          { name: "Giulia Messina", role: HEAD },
+          { name: "Giorgia Nanni", role: "Vice" },
         ],
+      },
+      {
+        academicYear: "2025/26",
+        people: [{ name: "Raffaele Tiziano Andolina", role: "Team lead" }],
+      },
+      {
+        academicYear: "2026/27",
+        current: true,
+        people: [{ name: "Raffaele Tiziano Andolina", role: "Team lead" }],
+      },
+    ],
+  },
+  {
+    name: "Team HR",
+    teamId: "hr",
+    formerNames: ["Gestione interna"],
+    terms: [
+      { from: "2023-04", to: "2024-12", people: [{ name: "Alice Carosi", role: DELEGATE }] },
+      {
+        from: "2024-12",
+        // Fino ai team lead del 2025/26: il mese esatto non è noto
+        to: "2025-09",
+        people: [
+          { name: "Hui He (Ale)", role: HEAD },
+          { name: "Elisabeta Hoxhaj", role: "Vice" },
+        ],
+      },
+      {
+        academicYear: "2025/26",
+        people: [{ name: "Matteo Zenti", role: "Team lead" }],
+      },
+      {
+        academicYear: "2026/27",
+        current: true,
+        people: [{ name: "Secret", role: "Team lead" }],
       },
     ],
   },
@@ -341,6 +302,24 @@ export const areas: Area[] = [
       { from: "2019-10", to: "2021-04", people: [{ name: "Peru Larrabeiti", role: DELEGATE }] },
       { from: "2021-06", to: "2022-06", people: [{ name: "Raif Muhammad", role: DELEGATE }] },
       { from: "2022-09", to: "2023-04", people: [{ name: "Raif Muhammad", role: DELEGATE }] },
+    ],
+  },
+  {
+    // Il sito precedente non dice in quale team sia confluito
+    name: "Relazioni istituzionali",
+    note: "Dipartimento fino al passaggio ai quattro team",
+    terms: [
+      { from: "2023-04", to: "2024-04", people: [{ name: "Elia Maggioni", role: DELEGATE }] },
+      { from: "2024-04", to: "2024-12", people: [{ name: "Tommaso Morganti", role: DELEGATE }] },
+      {
+        from: "2024-12",
+        // Fino ai team lead del 2025/26: il mese esatto non è noto
+        to: "2025-09",
+        people: [
+          { name: "Elisabeta Hoxhaj", role: HEAD },
+          { name: "Elia Falzoni", role: "Vice" },
+        ],
+      },
     ],
   },
   {
