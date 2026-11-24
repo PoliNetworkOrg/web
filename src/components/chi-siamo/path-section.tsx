@@ -1,8 +1,7 @@
 "use client"
 
 import { MotionConfig, motion, useInView, useReducedMotion } from "motion/react"
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
-import { FaPersonWalking } from "react-icons/fa6"
+import { useEffect, useRef, useState } from "react"
 import { FiBook, FiClipboard, FiFileText, FiGift, FiUser, FiUserCheck } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { GradientIcon } from "@/components/gradient-icon"
@@ -19,86 +18,21 @@ const steps = [
 ] as const
 
 const LAST = steps.length - 1
-/** How long the walker stays on each step, and on the last one before starting over (ms) */
+/** Time between highlighted steps, and the pause at the end (ms). */
 const STEP_EVERY = 1200
 const HOLD_AT_END = 3000
-type Position = { x: number; y: number }
-
-function Walker({ path, active }: { path: React.RefObject<HTMLOListElement | null>; active: number }) {
-  const [route, setRoute] = useState<Position[] | null>(null)
-
-  useLayoutEffect(() => {
-    const list = path.current
-    if (!list) return
-    const measure = () => {
-      const tiles = [...list.querySelectorAll<HTMLElement>("[data-path-tile]")]
-      const current = tiles[active]
-      const previous = tiles[Math.max(0, active - 1)]
-      if (!current || !previous) return
-      const root = list.getBoundingClientRect()
-      const target = current.getBoundingClientRect()
-      const source = previous.getBoundingClientRect()
-      const across = matchMedia("(min-width: 64rem)").matches
-      // Feet sit on the connector; the only arc is the hop over the next tile.
-      const landing = across
-        ? { x: target.right - root.left + 4, y: target.top - root.top + 6 }
-        : { x: target.left - root.left + 24, y: target.bottom - root.top + 4 }
-      if (active === 0) {
-        setRoute([landing])
-        return
-      }
-      setRoute(
-        across
-          ? [
-              { x: source.right - root.left + 4, y: landing.y },
-              { x: target.left - root.left - 36, y: landing.y },
-              { x: target.left - root.left + 24, y: landing.y - 60 },
-              landing,
-            ]
-          : [
-              { x: landing.x, y: source.bottom - root.top + 4 },
-              { x: landing.x, y: target.top - root.top - 36 },
-              { x: landing.x + 60, y: target.top - root.top + 24 },
-              landing,
-            ]
-      )
-    }
-    measure()
-    // A responsive layout change places the walker on its current tile, without a flight across the page.
-    const observer = new ResizeObserver(measure)
-    observer.observe(list)
-    return () => observer.disconnect()
-  }, [active, path])
-
-  if (!route) return null
-  return (
-    <motion.span
-      aria-hidden
-      initial={false}
-      animate={{ x: route.map((point) => point.x), y: route.map((point) => point.y) }}
-      transition={{ duration: route.length === 1 ? 0 : 1, times: [0, 0.55, 0.78, 1], ease: "linear" }}
-      className="pointer-events-none absolute top-0 left-0 z-10 flex size-9 items-center justify-center rounded-full bg-blue-secondary text-text-accent-darkbg shadow-md"
-    >
-      <motion.span animate={{ rotate: [-6, 6, -6] }} transition={{ duration: 0.28, repeat: Infinity, ease: "linear" }}>
-        <FaPersonWalking className="size-4.5" />
-      </motion.span>
-    </motion.span>
-  )
-}
-
 const EASE_OUT = [0.22, 1, 0.36, 1] as const
 
 export function PathSection() {
   const ref = useRef<HTMLOListElement>(null)
   const inView = useInView(ref, { amount: 0.4 })
   const reduceMotion = useReducedMotion()
-  // The step the walker is on (-1: not started) and the lap, which restarts it from the first step without walking back
+  // The highlighted step (-1: not started).
   const [active, setActive] = useState(-1)
-  const [lap, setLap] = useState(0)
 
   useEffect(() => {
     if (!inView) return
-    // Reduced motion: the path is shown complete, with no walking
+    // Reduced motion: show the complete path.
     if (reduceMotion) {
       setActive(LAST)
       return
@@ -109,16 +43,13 @@ export function PathSection() {
       if (step < LAST) {
         step++
       } else {
-        // Back to the start for a new lap
         step = 0
-        setLap((n) => n + 1)
       }
       setActive(step)
-      // The last step holds longer: the walker has reached the finish line
+      // Hold the final step longer before restarting.
       timer = setTimeout(advance, step === LAST ? HOLD_AT_END : STEP_EVERY)
     }
-    // Every time the section comes into view the walk starts again from the first step, in a new lap
-    setLap((n) => n + 1)
+    // Start highlighting the steps when the section enters the viewport.
     setActive(0)
     timer = setTimeout(advance, STEP_EVERY)
     return () => clearTimeout(timer)
@@ -146,7 +77,7 @@ export function PathSection() {
                   className="relative flex items-start gap-4 lg:flex-col lg:items-center lg:text-center"
                 >
                   {index < LAST && (
-                    // The line to the next step: down on phones, across from lg. It fills as the walker moves on
+                    // The line to the next step: down on phones, across from lg.
                     <span
                       aria-hidden
                       className="-bottom-10 absolute top-21 left-10 w-1 overflow-hidden rounded-full bg-blue-primary/25 lg:top-10 lg:bottom-auto lg:left-[calc(50%+2.625rem)] lg:h-1 lg:w-[calc(100%-3.75rem)]"
@@ -163,7 +94,7 @@ export function PathSection() {
                       />
                     </span>
                   )}
-                  <div data-path-tile className="relative shrink-0">
+                  <div className="relative shrink-0">
                     <Glass
                       className={cn(
                         "flex size-21 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0 transition-[background-color,border-color,scale] duration-500 motion-reduce:transition-none",
@@ -184,7 +115,6 @@ export function PathSection() {
               )
             })}
           </ol>
-          {active >= 0 && !reduceMotion && <Walker key={lap} path={ref} active={active} />}
         </div>
       </MotionConfig>
     </section>

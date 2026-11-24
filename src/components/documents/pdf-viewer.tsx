@@ -65,6 +65,8 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   const pageWidth = Math.max(1, baseWidth * zoom)
   const scale = pageSize ? pageWidth / pageSize.width : 1
   const controlClass = "size-11 lg:size-14"
+  const groupedControlClass =
+    "rounded-none bg-transparent backdrop-blur-none hover:bg-white/30 focus-visible:ring-inset"
 
   useEffect(() => {
     const element = viewport.current
@@ -186,12 +188,12 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           <fieldset
             aria-label="Adattamento della pagina"
             disabled={!ready}
-            className="hidden items-center rounded-buttonsL bg-background-blur sm:flex"
+            className="hidden items-center overflow-hidden rounded-full bg-background-blur sm:flex"
           >
             <Button
               variant="glass"
               size="icon-lg"
-              className={cn(controlClass, "bg-transparent aria-pressed:bg-background-blur")}
+              className={cn(controlClass, groupedControlClass, "aria-pressed:bg-white/40")}
               title="Dimensione reale"
               aria-label="Dimensione reale"
               aria-pressed={fit === "actual"}
@@ -205,7 +207,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             <Button
               variant="glass"
               size="icon-lg"
-              className={cn(controlClass, "bg-transparent aria-pressed:bg-background-blur")}
+              className={cn(controlClass, groupedControlClass, "aria-pressed:bg-white/40")}
               title="Adatta alla larghezza"
               aria-label="Adatta alla larghezza"
               aria-pressed={fit === "width"}
@@ -217,7 +219,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             <Button
               variant="glass"
               size="icon-lg"
-              className={cn(controlClass, "bg-transparent aria-pressed:bg-background-blur")}
+              className={cn(controlClass, groupedControlClass, "aria-pressed:bg-white/40")}
               title="Adatta alla pagina"
               aria-label="Adatta alla pagina"
               aria-pressed={fit === "height"}
@@ -230,12 +232,12 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
           <fieldset
             aria-label="Zoom"
             disabled={!ready}
-            className="flex items-center rounded-buttonsL bg-background-blur"
+            className="flex items-center overflow-hidden rounded-full bg-background-blur"
           >
             <Button
               variant="glass"
               size="icon-lg"
-              className={cn(controlClass, "bg-transparent")}
+              className={cn(controlClass, groupedControlClass)}
               aria-label="Aumenta zoom"
               disabled={zoom >= 3}
               onClick={() => {
@@ -247,7 +249,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             </Button>
             <Button
               variant="glass"
-              className="size-11 rounded-full bg-transparent p-0 tabular-nums lg:size-14"
+              className={cn("h-11 min-w-11 px-2 tabular-nums lg:h-14 lg:min-w-14", groupedControlClass)}
               aria-label="Ripristina lo zoom"
               onClick={() => {
                 setZoom(1)
@@ -259,7 +261,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             <Button
               variant="glass"
               size="icon-lg"
-              className={cn(controlClass, "bg-transparent")}
+              className={cn(controlClass, groupedControlClass)}
               aria-label="Riduci zoom"
               disabled={zoom <= 0.25}
               onClick={() => {
