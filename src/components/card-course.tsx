@@ -19,7 +19,7 @@ export function CardCourse({
 }) {
   return (
     // Always rendered inside a link or button: the row itself is the hover target
-    <Card className="typo-body-large flex h-fit w-full flex-row items-center gap-2 px-5 py-3.75 font-normal leading-6 tracking-[0.03125rem] transition-colors hover:bg-white/70 sm:gap-0 [[data-course-option]:focus-visible_&]:bg-white/70">
+    <Card className="typo-body-large hover:glass-glow [[data-course-option]:focus-visible_&]:glass-glow flex h-fit w-full flex-row items-center gap-2 px-5 py-3.75 font-normal leading-6 tracking-[0.03125rem] transition-colors sm:gap-0">
       <div className="flex min-w-0 flex-1 flex-col gap-1 sm:contents">
         {/* Two lines on phones: truncated to one, long names (e.g. Ingegneria dei Materiali e delle Nanotecnologie) lost their key word */}
         <CardContent className="line-clamp-2 min-w-0 sm:flex-1 sm:truncate">{courseName}</CardContent>

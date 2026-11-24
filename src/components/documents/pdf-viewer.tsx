@@ -65,8 +65,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   const pageWidth = Math.max(1, baseWidth * zoom)
   const scale = pageSize ? pageWidth / pageSize.width : 1
   const controlClass = "size-11 lg:size-14"
-  const groupedControlClass =
-    "rounded-none bg-transparent backdrop-blur-none hover:bg-white/30 focus-visible:ring-inset"
+  const groupedControlClass = "rounded-none bg-transparent backdrop-blur-none hover:glass-glow focus-visible:ring-inset"
 
   useEffect(() => {
     const element = viewport.current

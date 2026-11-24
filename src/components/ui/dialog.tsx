@@ -66,7 +66,7 @@ function DialogHeaderIconSlot({ className, ...props }: React.ComponentProps<"but
     <button
       type="button"
       className={cn(
-        "press-feedback size-6 shrink-0 rounded-full p-1 text-text-secondary outline-none hover:bg-white/60 hover:text-text-primary focus-visible:ring-2 focus-visible:ring-blue-secondary",
+        "press-feedback hover:glass-glow size-6 shrink-0 rounded-full p-1 text-text-secondary outline-none hover:text-text-primary focus-visible:ring-2 focus-visible:ring-blue-secondary",
         className
       )}
       {...props}

@@ -14,7 +14,7 @@ export function AccordionTrigger({
         data-slot="accordion-trigger"
         className={cn(
           // Same padding open or closed: the name doesn't jump when the item expands
-          "flex w-full cursor-pointer items-center justify-between gap-3 p-4 text-left outline-none sm:gap-4 sm:p-5 md:px-8 md:py-6",
+          "hover:glass-glow focus-visible:glass-glow flex w-full cursor-pointer items-center justify-between gap-3 rounded-3xl p-4 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset sm:gap-4 sm:p-5 md:px-8 md:py-6",
           "typo-headline-extrasmall sm:typo-title-large md:typo-headline-medium",
           "[&[data-state=open]>svg]:rotate-180",
           className

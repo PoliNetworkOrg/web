@@ -69,7 +69,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="flex size-9 items-center justify-center rounded-full outline-none transition-colors hover:bg-white/70 focus-visible:ring-2 focus-visible:ring-blue-secondary sm:size-10"
+                className="hover:glass-glow flex size-9 items-center justify-center rounded-full outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-secondary sm:size-10"
               >
                 {icon}
               </a>
@@ -139,7 +139,7 @@ export function Footer() {
           </div>
 
           {/* A lighter tile, not a second glass layer inside the panel; as wide as its content at every size */}
-          <div className="relative flex w-fit flex-col items-center gap-1 self-start justify-self-center rounded-rectangles border border-white/70 bg-white/40 px-5 py-4 transition-colors hover:bg-white/70 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:col-span-2 sm:flex-row sm:gap-8 sm:px-8 sm:text-left md:col-span-1 md:col-start-1 md:row-start-2 md:flex-col md:items-start md:gap-1 md:justify-self-start lg:col-span-6 lg:flex-row lg:items-center lg:gap-8">
+          <div className="hover:glass-glow relative flex w-fit flex-col items-center gap-1 self-start justify-self-center rounded-rectangles border border-white/70 bg-white/40 px-5 py-4 transition-colors has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-blue-secondary sm:col-span-2 sm:flex-row sm:gap-8 sm:px-8 sm:text-left md:col-span-1 md:col-start-1 md:row-start-2 md:flex-col md:items-start md:gap-1 md:justify-self-start lg:col-span-6 lg:flex-row lg:items-center lg:gap-8">
             <p className="typo-headline-large sm:typo-display-small bg-linear-to-b from-blue-secondary to-blue-primary bg-clip-text text-transparent">
               5x1000
             </p>

@@ -10,7 +10,7 @@ export const FLOW_COLUMN = cn(CONTAINER, "min-w-0 max-w-5xl")
 export const FLOW_MAIN = `${FLOW_COLUMN} ${PAGE_HERO_TOP} flex min-h-svh flex-col gap-12 pb-32 md:gap-16`
 
 const iconLinkClass =
-  "grid size-10 shrink-0 place-items-center rounded-full bg-white/60 outline-none transition-colors hover:bg-white focus-visible:ring-2 focus-visible:ring-blue-secondary"
+  "grid size-10 shrink-0 place-items-center rounded-full bg-white/60 outline-none transition-colors hover:glass-glow focus-visible:ring-2 focus-visible:ring-blue-secondary"
 
 /**
  * Back button, centred title and optional close button. A three-column grid keeps a long course name from running

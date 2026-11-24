@@ -15,7 +15,7 @@ const PLATFORM_ICON = { tg: LiaTelegramPlane, wa: FaWhatsapp }
 const PLATFORM_LABEL = { tg: "Telegram", wa: "WhatsApp" }
 
 const resultClass =
-  "block w-full text-start outline-none transition-colors hover:bg-white/50 focus-visible:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset"
+  "block w-full text-start outline-none transition-colors hover:glass-glow focus-visible:glass-glow focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset"
 
 export type SearchGroup = ApiOutput["groups"]["search"]["search"]["groups"][number] & { link: string }
 

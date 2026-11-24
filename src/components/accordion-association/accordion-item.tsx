@@ -10,8 +10,6 @@ export function AccordionItem({ className, children, ...props }: React.Component
       <Glass
         className={cn(
           "relative overflow-hidden rounded-3xl border-white/50 bg-background-blur p-0 text-card-foreground transition-colors",
-          // The header is the clickable part: it brightens on hover and rings the item on keyboard focus
-          "has-[[data-slot=accordion-trigger]:focus-visible]:ring-2 has-[[data-slot=accordion-trigger]:focus-visible]:ring-blue-secondary hover:has-[[data-slot=accordion-trigger]:hover]:border-white hover:has-[[data-slot=accordion-trigger]:hover]:bg-white/50",
           className
         )}
       >
