@@ -48,12 +48,7 @@ export function isActiveHref(pathname: string, href: string) {
   return href.startsWith("/") && (pathname === href || pathname.startsWith(`${href}/`))
 }
 
-/** Light azure behind a hovered or focused item: visible on the white glass of the header. */
-export const HOVER_FILL_CLASS = "bg-sky-500/12 shadow-[inset_0_0_0_1px_rgb(14_165_233/0.16)]"
-
-/**
- * Solid azure behind the current page (or its section). Sky 600–700 keeps white text above 4.5:1;
- * the inset highlight and the tinted drop shadow give it a little depth on the glass.
- */
-export const ACTIVE_FILL_CLASS =
-  "bg-linear-to-b from-sky-600 to-sky-700 shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_6px_16px_-6px_rgb(3_105_161/0.55)]"
+export function getCurrentLocation(pathname: string, href: string) {
+  if (!isActiveHref(pathname, href)) return undefined
+  return pathname === href ? "page" : "location"
+}

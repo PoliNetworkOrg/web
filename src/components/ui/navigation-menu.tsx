@@ -46,7 +46,7 @@ const navigationMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-text-primary press-feedback outline-none hover:bg-grey focus:bg-grey focus-visible:ring-[3px] focus-visible:ring-text-primary/50 focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-grey/50 data-[state=open]:hover:bg-grey data-[state=open]:focus:bg-grey"
 )
 
-interface NavigationMenuTriggerProps extends React.ComponentProps<typeof NavigationMenuPrimitive.Trigger> {
+interface NavigationMenuTriggerProps extends React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> {
   hideChevron?: boolean
 }
 

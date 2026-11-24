@@ -6,8 +6,11 @@ import { FiMenu, FiX } from "react-icons/fi"
 import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
 import { useRoutePathname } from "@/utils/use-route-pathname"
-import { ACTIVE_FILL_CLASS, headerMenuItems, isActiveHref } from "./constants"
+import { getCurrentLocation, headerMenuItems, isActiveHref } from "./constants"
+import styles from "./header.module.css"
 import { Logo } from "./logo"
+
+const rowClass = cn(styles.row, "typo-body-large flex min-h-11 items-center justify-between gap-2 rounded-lg ps-4 pe-2")
 
 export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const pathname = useRoutePathname()
@@ -41,13 +44,13 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
     <Glass
       ref={panelRef}
       className={cn(
-        "fixed inset-x-6 top-(--nav-top) z-20 box-border rounded-[36px] px-6 py-5",
+        "fixed inset-x-6 top-(--nav-top) z-20 box-border rounded-rectangles border-white/80 bg-white/70 px-5 py-3",
         // The Figma frame is a full device screen, so its 56px offset includes the status bar, while the
         // browser viewport already starts below it. Keep a small gap that grows toward the desktop's 40px,
         // and fall back to the safe-area inset when the page is drawn under the status bar.
         "[--nav-top:max(1rem,env(safe-area-inset-top))] sm:[--nav-top:max(1.5rem,env(safe-area-inset-top))] md:[--nav-top:max(2rem,env(safe-area-inset-top))]",
         // Open, the panel covers the page: a stronger blur keeps the titles underneath from competing with the links
-        mobileMenuOpen && "backdrop-blur-xl"
+        mobileMenuOpen && "bg-white/95 backdrop-blur-xl"
       )}
       // Following any link, the current page and the logo included, closes the menu; so does tabbing out of it
       onClick={(event) => (event.target as HTMLElement).closest("a") && close()}
@@ -63,7 +66,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
               if (!mobileMenuOpen && navRef.current) navRef.current.scrollTop = 0
               setOpenOn(mobileMenuOpen ? null : pathname)
             }}
-            className="press-feedback group -m-2 ml-auto grid size-11 place-items-center rounded-full text-text-primary outline-none hover:bg-white/50 focus-visible:ring-2 focus-visible:ring-blue-secondary"
+            className="press-feedback group -me-2 ml-auto grid size-11 place-items-center rounded-lg text-slate-700 outline-none hover:text-blue-secondary focus-visible:ring-2 focus-visible:ring-blue-secondary aria-expanded:text-blue-secondary"
             aria-label={mobileMenuOpen ? "Chiudi il menu" : "Apri il menu"}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
@@ -88,37 +91,51 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
             ref={navRef}
             id="mobile-menu"
             aria-label="Menu principale"
-            // -mx-3 px-3: room for the rows' highlight, which the scroll container would otherwise clip
-            className="-mx-3 max-h-[calc(100dvh-var(--nav-top)*2-5rem)] min-h-0 overflow-y-auto overscroll-contain px-3"
+            className="max-h-[calc(100dvh-var(--nav-top)*2-4.5rem)] min-h-0 divide-y divide-slate-200 overflow-y-auto overscroll-contain"
           >
-            {headerMenuItems.map((item) => (
-              <div key={item.title} className="mt-5">
-                <p className="typo-title-medium text-text-secondary">{item.title}</p>
-                {"menu" in item && item.menu && (
-                  <ul className="mt-1 flex flex-col">
+            {headerMenuItems.map((item) => {
+              if (!("menu" in item)) {
+                return (
+                  <div key={item.title} className="py-2">
+                    <Link href={item.href} className={rowClass} aria-current={getCurrentLocation(pathname, item.href)}>
+                      {item.title}
+                    </Link>
+                  </div>
+                )
+              }
+
+              const current = item.menu.some((subItem) => isActiveHref(pathname, subItem.href))
+              return (
+                <div key={item.title} className="py-3">
+                  <p
+                    aria-current={current ? "location" : undefined}
+                    className={cn(
+                      styles.section,
+                      "typo-label-medium mb-1 ps-4 text-slate-600 uppercase tracking-widest"
+                    )}
+                  >
+                    {item.title}
+                  </p>
+                  <ul>
                     {item.menu.map((subItem) => {
-                      const active = isActiveHref(pathname, subItem.href)
                       const Icon = subItem.icon
                       return (
                         <li key={subItem.title}>
                           <Link
                             href={subItem.href}
-                            aria-current={active ? "page" : undefined}
-                            className={cn(
-                              "typo-body-large -mx-3 focus-visible:-outline-offset-2 flex min-h-10 items-center justify-between gap-2 rounded-xl px-3 text-text-primary outline-none transition-[background-color,box-shadow] duration-200 ease-(--ease-ui-out) focus-visible:outline-2 focus-visible:outline-sky-600",
-                              active ? cn(ACTIVE_FILL_CLASS, "text-white") : "hover:bg-sky-500/12 active:bg-sky-500/12"
-                            )}
+                            aria-current={getCurrentLocation(pathname, subItem.href)}
+                            className={rowClass}
                           >
                             {subItem.title}
-                            <Icon size={18} className={active ? "text-white" : "text-text-secondary"} aria-hidden />
+                            <Icon className="size-4" aria-hidden />
                           </Link>
                         </li>
                       )
                     })}
                   </ul>
-                )}
-              </div>
-            ))}
+                </div>
+              )
+            })}
           </nav>
         </div>
       )}
