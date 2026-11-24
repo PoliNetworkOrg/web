@@ -2,7 +2,6 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import type * as React from "react"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import { cn } from "@/lib/utils"
-import { Glass } from "../glass"
 
 function Select(props: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />
@@ -33,25 +32,25 @@ function SelectTrigger({
   const paddingClass = size === "sm" ? "px-4 py-2" : "px-5 py-2.5"
 
   return (
-    <SelectPrimitive.Trigger data-slot="select-trigger" data-size={size} asChild {...props}>
-      <Glass
-        className={cn(
-          "group inline-flex items-center justify-center gap-1.5",
-          paddingClass,
-          "rounded-buttonsM",
-          "border border-white/50 bg-background-blur",
-          // A clear hover and open state, like the accordions and course rows: the bare glass gave no feedback
-          "outline-none transition-colors duration-200 hover:border-white hover:bg-white/70 focus-visible:ring-2 focus-visible:ring-blue-secondary data-[state=open]:bg-white/70",
-          "typo-body-medium text-text-primary",
-          "disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-      >
-        {children}
-        <SelectPrimitive.Icon asChild>
-          <FiChevronDown className="h-4 w-4 text-text-primary transition-transform duration-300 group-data-[state=open]:rotate-180" />
-        </SelectPrimitive.Icon>
-      </Glass>
+    <SelectPrimitive.Trigger
+      data-slot="select-trigger"
+      data-size={size}
+      className={cn(
+        "press-feedback group inline-flex items-center justify-center gap-1.5 backdrop-blur-md",
+        paddingClass,
+        "rounded-buttonsM",
+        "border border-white/50 bg-background-blur hover:border-white hover:bg-white/70 data-[state=open]:bg-white/70",
+        "outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
+        "typo-body-medium text-text-primary",
+        "disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      {...props}
+    >
+      {children}
+      <SelectPrimitive.Icon asChild>
+        <FiChevronDown className="h-4 w-4 shrink-0 text-text-primary group-data-[state=open]:rotate-180 motion-safe:transition-transform" />
+      </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   )
 }
@@ -70,12 +69,7 @@ function SelectContent({
         data-slot="select-content"
         sideOffset={sideOffset}
         className={cn(
-          "data-[state=closed]:animate-out data-[state=open]:animate-in",
-          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-          "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
-          "data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2",
-
+          "animate-popover motion-safe:data-[side=top]:[--enter-offset:4px]",
           "relative z-50 max-h-(--radix-select-content-available-height)",
           "origin-(--radix-select-content-transform-origin) overflow-y-auto overflow-x-hidden",
           "rounded-rectangles border border-white/40",
@@ -123,7 +117,7 @@ function SelectItem({ className, children, ...props }: React.ComponentProps<type
         "typo-body-medium text-text-primary",
         "outline-none",
         "data-disabled:pointer-events-none data-disabled:opacity-50",
-        "data-highlighted:bg-blue-tertiary/10",
+        "data-highlighted:bg-blue-tertiary/40 data-[state=checked]:font-semibold",
         className
       )}
       {...props}

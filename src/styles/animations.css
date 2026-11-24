@@ -1,3 +1,101 @@
+:root {
+  --ease-ui-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-ui-in: cubic-bezier(0.4, 0, 1, 1);
+}
+
+@keyframes ui-enter {
+  from {
+    opacity: var(--enter-opacity, 0);
+    transform: translateY(var(--enter-offset, 0px)) scale(var(--enter-scale, 1));
+  }
+}
+
+@keyframes ui-exit {
+  to {
+    opacity: 0;
+    transform: translateY(var(--exit-offset, 0px)) scale(var(--exit-scale, 1));
+  }
+}
+
+@utility animate-hero-enter {
+  --enter-opacity: 0.65;
+  --enter-offset: 10px;
+  animation: ui-enter 420ms var(--ease-ui-out) backwards;
+}
+
+@utility animate-content-enter {
+  --enter-opacity: 0.7;
+  animation: ui-enter 200ms var(--ease-ui-out);
+
+  @media (prefers-reduced-motion: no-preference) {
+    --enter-offset: 6px;
+  }
+}
+
+@utility animate-popover {
+  @media (prefers-reduced-motion: no-preference) {
+    --enter-scale: 0.98;
+    --enter-offset: -4px;
+    --exit-scale: 0.99;
+    --exit-offset: -2px;
+  }
+
+  &[data-state="open"] {
+    animation: ui-enter 180ms var(--ease-ui-out);
+  }
+
+  &[data-state="closed"] {
+    animation: ui-exit 100ms var(--ease-ui-in) both;
+    pointer-events: none;
+  }
+}
+
+@utility press-feedback {
+  transition:
+    background-color 140ms var(--ease-ui-out),
+    color 140ms var(--ease-ui-out),
+    scale 140ms var(--ease-ui-out);
+
+  @media (prefers-reduced-motion: no-preference) {
+    &:active:not(:disabled):not([aria-disabled="true"]) {
+      scale: 0.97;
+    }
+  }
+}
+
+@layer components {
+  .mobile-menu-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      grid-template-rows 180ms var(--ease-ui-out),
+      opacity 120ms var(--ease-ui-out),
+      visibility 0s 180ms;
+  }
+
+  .mobile-menu-panel[data-state="open"] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+    transition-duration: 240ms, 160ms, 0s;
+    transition-delay: 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu-panel,
+    .mobile-menu-panel[data-state="open"] {
+      transition: none;
+    }
+  }
+}
+
+:is(a, button):focus-visible .card-hover-background,
+[data-slot="card"]:has(:focus-visible) .card-hover-background {
+  opacity: 1;
+}
+
 @keyframes accordion-down {
   from {
     height: 0;
@@ -21,11 +119,19 @@
 }
 
 @utility animate-accordion-down {
-  animation: accordion-down 0.2s ease-out;
+  animation: accordion-down 200ms var(--ease-ui-out);
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: ui-enter 120ms var(--ease-ui-out);
+  }
 }
 
 @utility animate-accordion-up {
-  animation: accordion-up 0.2s ease-out;
+  animation: accordion-up 150ms var(--ease-ui-in) both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 /*

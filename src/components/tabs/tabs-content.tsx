@@ -11,7 +11,11 @@ export function TabsContent({ className, children, ...props }: React.ComponentPr
   const switched = useTabsState()?.switched ?? false
 
   return (
-    <TabsPrimitive.Content data-slot="tabs-content" className={cn("flex-1 outline-none", className)} {...props}>
+    <TabsPrimitive.Content
+      data-slot="tabs-content"
+      className={cn("flex-1 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary", className)}
+      {...props}
+    >
       {/* Radix mounts the panel when its tab is picked: it rises in, while the first panel shows as is */}
       <motion.div
         initial={switched ? { opacity: 0, y: 12 } : false}

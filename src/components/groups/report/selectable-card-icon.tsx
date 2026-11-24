@@ -13,7 +13,7 @@ export function SelectableCardIcon({
   return (
     <button
       type="button"
-      className="rounded-rectangles text-left focus-visible:ring-2 focus-visible:ring-blue-primary"
+      className="press-feedback rounded-rectangles text-left focus-visible:ring-2 focus-visible:ring-blue-primary"
       onClick={onClick}
     >
       <CardIcon title={title} icon={icon} size="xs" hoverEffect className="h-full min-h-30" />

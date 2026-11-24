@@ -22,7 +22,7 @@ export function AccordionTrigger({
         {...props}
       >
         {children}
-        <FiChevronDown className="pointer-events-none size-6 shrink-0 text-blue-secondary transition-transform duration-200" />
+        <FiChevronDown className="pointer-events-none size-6 shrink-0 text-blue-secondary ease-(--ease-ui-out) motion-safe:transition-transform" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )

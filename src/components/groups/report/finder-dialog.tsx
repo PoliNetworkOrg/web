@@ -53,8 +53,14 @@ export function ReportFinderDialog({
   function handleOpenChange(next: boolean) {
     setOpen(next)
     if (!next) {
-      reset()
-    } else if (selectedReport && selectedGroupName) {
+      // Keep the current screen in place while Radix plays the exit animation.
+      requestIdRef.current++
+      inFlightRef.current = false
+      return
+    }
+
+    reset()
+    if (selectedReport && selectedGroupName) {
       setReport(selectedReport)
       setGroupName(selectedGroupName)
       setView("confirmation")

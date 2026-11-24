@@ -38,7 +38,7 @@ export function LevelStep({
               href={stepHref({ school: schoolSlug, level: level.slug })}
               className={cn(
                 // Pressed, the card shrinks a little like the site's other clickable cards
-                "block rounded-rectangles outline-none transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-blue-secondary active:scale-[0.98]",
+                "press-feedback block rounded-rectangles outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
                 isLastOdd && "md:col-span-2"
               )}
             >

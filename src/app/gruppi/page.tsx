@@ -31,7 +31,9 @@ export default function Home() {
     <main className="w-full">
       <div className={`${PAGE_HERO_TOP} flex min-h-svh flex-col items-center gap-16 px-6 pb-32 md:gap-20`}>
         <div className="flex w-full flex-col items-center gap-5 text-center">
-          <h1 className="typo-display-fluid-extralarge w-fit py-4 text-gradient-grey md:py-10">Gruppi</h1>
+          <h1 className="typo-display-fluid-extralarge w-fit py-4 text-gradient-grey motion-safe:animate-hero-enter md:py-10">
+            Gruppi
+          </h1>
           <GroupSearch />
         </div>
 

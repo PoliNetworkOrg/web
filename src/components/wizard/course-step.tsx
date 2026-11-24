@@ -86,7 +86,8 @@ export async function CourseStep({
             <Link
               key={course}
               href={stepHref({ school: schoolSlug, level, course })}
-              className="block rounded-rectangles outline-none transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-blue-secondary active:scale-[0.99]"
+              data-course-option
+              className="press-feedback block rounded-rectangles outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary"
             >
               <CardCourse
                 courseName={humanizeSlug(course)}
