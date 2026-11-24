@@ -35,7 +35,7 @@ export function Introduction() {
         </div>
       </div>
       {/* A round glass bubble around the logo, so it doesn't float on its own */}
-      <Glass className="hidden size-72 items-center justify-center justify-self-center rounded-full border-white/50 bg-background-blur p-0 xl:flex">
+      <Glass className="hidden size-72 items-center justify-center justify-self-center rounded-full p-0 xl:flex">
         <Image src={networkLogo} alt="" sizes="224px" className="h-auto w-56" />
       </Glass>
     </section>
