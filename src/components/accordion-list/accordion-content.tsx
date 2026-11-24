@@ -26,7 +26,7 @@ export function AccordionContent({
           closed: { height: 0, opacity: 0, transition: { duration: 0.25, ease: EASE_OUT } },
         }}
         inert={!open}
-        className="overflow-hidden"
+        className="relative overflow-hidden"
       >
         {/* Answers stop at a readable line length (~70 characters) however wide the list is */}
         <motion.div
