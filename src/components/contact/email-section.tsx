@@ -5,13 +5,14 @@ import { PeekCarousel } from "../peek-carousel"
 
 const contactCards: ContactCardData[] = [
   {
-    title: "Informazioni Generali",
-    description: "Per qualsiasi domanda su PoliNetwork, sui nostri strumenti o servizi.",
-    email: "info@polinetwork.org",
+    title: "Team IT",
+    description: "Per segnalare problemi tecnici o proporre progetti IT e miglioramenti ai nostri strumenti e servizi.",
+    email: "it@polinetwork.org",
   },
   {
     title: "Consiglio Direttivo",
-    description: "Per richieste formali, segnalazioni di problemi o questioni che non rientrano nelle altre categorie.",
+    description:
+      "Per richieste formali, domande sull’associazione e questioni che non rientrano nelle altre categorie.",
     email: "direttivo@polinetwork.org",
   },
   {
@@ -43,10 +44,10 @@ export function EmailSection() {
       <p className={SECTION_LEAD}>
         Qui sotto trovi a chi scrivere in base al tipo di richiesta: per tutto il resto,{" "}
         <a
-          href="mailto:info@polinetwork.org"
+          href="mailto:direttivo@polinetwork.org"
           className="rounded-sm text-blue-secondary decoration-1 underline-offset-4 outline-none transition-colors duration-200 hover:text-blue-primary hover:underline focus-visible:underline focus-visible:ring-2 focus-visible:ring-blue-secondary"
         >
-          info@polinetwork.org
+          direttivo@polinetwork.org
         </a>
         .
       </p>

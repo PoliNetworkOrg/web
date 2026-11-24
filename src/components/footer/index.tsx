@@ -29,7 +29,7 @@ const legal = [
 
 const emails = [
   { label: "Per collaborazioni ed eventi", email: "events@polinetwork.org" },
-  { label: "Per domande e richieste", email: "info@polinetwork.org" },
+  { label: "Per domande e richieste", email: "direttivo@polinetwork.org" },
 ]
 
 const HEADING = "typo-headline-extrasmall text-text-primary"
