@@ -3,6 +3,11 @@
 .shape-scene {
   /* the shapes of pages drawn in Figma are sized in `cqw`, as their frames are as wide as the screen */
   container-type: inline-size;
+  /*
+   * Never the browser's scroll anchor. The shapes are placed at a fraction of the page height, so they move whenever
+   * the content grows: anchored to one of them, Chromium scrolled the page down by itself as an accordion opened.
+   */
+  overflow-anchor: none;
   /* scales shapes with the screen, ≈1px on the 1440-1728px wide Figma frames */
   --bg-unit: clamp(0.5px, 0.064vw, 1.1px);
   /* height of the slices of page the background is generated in */
