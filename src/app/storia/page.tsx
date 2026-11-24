@@ -4,6 +4,7 @@ import { Boards } from "@/components/storia/boards"
 import { Continuation } from "@/components/storia/continuation"
 import { FirstQuestion } from "@/components/storia/first-question"
 import { HistoryHero } from "@/components/storia/hero"
+import { HistoricalPeople } from "@/components/storia/people"
 import { HistoryProjects } from "@/components/storia/projects"
 import { Chapters, Timeline } from "@/components/storia/timeline"
 import { cn } from "@/lib/utils"
@@ -24,7 +25,7 @@ export default function HistoryPage() {
 
       {/* The story's start, with the question it began from told as a chat beside it from xl */}
       <section className={`${CONTAINER} grid items-center gap-12 xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] xl:gap-16`}>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col items-center gap-4 text-center xl:items-start xl:text-left">
           <h2 className={cn(SECTION_TITLE, "max-w-200")}>Una domanda semplice, una grande idea</h2>
           <div className={cn(SECTION_LEAD, "flex max-w-180 flex-col gap-5")}>
             <p>
@@ -45,6 +46,7 @@ export default function HistoryPage() {
       <Timeline />
       <Chapters />
       <Boards />
+      <HistoricalPeople />
       <HistoryProjects />
       <Continuation />
     </main>
