@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { FiArrowUpRight } from "react-icons/fi"
+import { FillLine } from "@/components/fill-line"
 import { Glass } from "@/components/glass"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
@@ -7,7 +8,7 @@ import { cn } from "@/lib/utils"
 
 const years = ["2016", "2022", "Oggi"] as const
 
-// The years on the same line as the other timelines: glass tiles on a 4px line, filled up to today. The next chapter
+// The years on the same line as the other timelines: glass tiles on a 4px line that fills up to today. The next chapter
 // is an open, dashed tile at the end of a dashed stretch: it hasn't been written yet.
 export function Continuation() {
   return (
@@ -30,7 +31,9 @@ export function Continuation() {
         <ol className="flex w-full max-w-130 items-center" aria-label="Dal primo gruppo al prossimo capitolo">
           {years.map((year, index) => (
             <li key={year} className={cn("flex items-center", index > 0 && "flex-1")}>
-              {index > 0 && <span aria-hidden className="mx-2 h-1 flex-1 rounded-full bg-blue-primary sm:mx-3" />}
+              {index > 0 && (
+                <FillLine direction="across" delay={(index - 1) * 0.5} className="mx-2 h-1 flex-1 sm:mx-3" />
+              )}
               <Glass className="typo-title-medium sm:typo-title-large flex h-14 min-w-16 items-center justify-center rounded-rectangles border-white bg-white/70 px-3 py-0 text-blue-secondary sm:h-18 sm:min-w-20">
                 {year}
               </Glass>

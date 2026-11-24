@@ -129,6 +129,6 @@ export const boardMembers: BoardMember[] = [
   },
 ]
 
-// Numbered in order, with no dates. The mockup only has portraits for the current one, the last.
-export const boardTerms = ["Direttivo 1", "Direttivo 2", "Direttivo 3", "Direttivo 4", "Direttivo 5"] as const
-export const CURRENT_BOARD = boardTerms[boardTerms.length - 1]
+// Numbered in order, with no dates. The portraits above are the board in office, Direttivo 3
+export const boardTerms = ["Direttivo 1", "Direttivo 2", "Direttivo 3", "Direttivo 4"] as const
+export const CURRENT_BOARD: (typeof boardTerms)[number] = "Direttivo 3"
