@@ -204,7 +204,7 @@ const round = (n: number) => Number(n.toFixed(5))
 function pageY(y: number, { height, footer }: FigmaFrame) {
   // `--bg-content` is set by the scenes shared by a flow, so its shapes stay put while the steps change height
   if (y <= footer || footer >= height) return `(var(--bg-content, 100% - var(--bg-footer))) * ${round(y / footer)}`
-  return `100% - var(--bg-footer) * ${round(1 - (y - footer) / (height - footer))}`
+  return `var(--bg-page, 100%) - var(--bg-footer) * ${round(1 - (y - footer) / (height - footer))}`
 }
 
 /** The shapes of a Figma frame, placed on the page and sized like the frame (as wide as the screen) */

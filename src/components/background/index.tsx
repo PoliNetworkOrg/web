@@ -73,9 +73,10 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
       const footerEl = page.querySelector<HTMLElement>(":scope > footer")
       if (footerEl) el.style.setProperty("--bg-footer", `${el.offsetHeight - footerEl.offsetTop}px`)
       else el.style.removeProperty("--bg-footer")
-      if (shared && frozenWidth !== el.offsetWidth) {
+      if ((shared || pathname === "/storia") && frozenWidth !== el.offsetWidth) {
         frozenWidth = el.offsetWidth
         el.style.setProperty("--bg-content", `${footerEl ? footerEl.offsetTop : el.offsetHeight}px`)
+        if (pathname === "/storia") el.style.setProperty("--bg-page", `${el.offsetHeight}px`)
       }
       const segment = Number.parseFloat(getComputedStyle(el).getPropertyValue("--bg-segment"))
       setSegments(Math.max(1, Math.ceil(el.offsetHeight / segment)))
@@ -86,7 +87,7 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
     const footerEl = page.querySelector(":scope > footer")
     if (footerEl) observer.observe(footerEl)
     return () => observer.disconnect()
-  }, [shared])
+  }, [shared, pathname])
 
   // a layout effect, so the first frame is applied before the new page is painted
   useLayoutEffect(() => {

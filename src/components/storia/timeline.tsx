@@ -2,7 +2,7 @@ import Image from "next/image"
 import type { ReactNode } from "react"
 import { FiCheck, FiClipboard, FiClock, FiUser, FiUserCheck, FiUsers } from "react-icons/fi"
 import telegram from "@/assets/icons/telegram-gradient.svg"
-import { FillLine } from "@/components/fill-line"
+import { FillLine, ScrollFillLine } from "@/components/fill-line"
 import { Glass } from "@/components/glass"
 import { GradientIcon, type GradientIconType } from "@/components/gradient-icon"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
@@ -206,7 +206,7 @@ export function Chapters() {
           >
             {/* The line runs down from this chapter's number to the next one's */}
             {index < chapters.length - 1 && (
-              <FillLine direction="down" className="absolute top-16 bottom-2 left-[calc(1.75rem-2px)] w-1" />
+              <ScrollFillLine className="absolute top-16 bottom-2 left-[calc(1.75rem-2px)] w-1" />
             )}
             {/* The chapter's number in a round glass badge, sitting on the line */}
             <Glass

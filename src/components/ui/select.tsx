@@ -39,7 +39,7 @@ function SelectTrigger({
         "press-feedback group inline-flex items-center justify-center gap-1.5 backdrop-blur-md",
         paddingClass,
         "rounded-buttonsM",
-        "border border-white/50 bg-background-blur hover:border-white hover:bg-white/70 data-[state=open]:bg-white/70",
+        "hover:glass-glow border border-white/50 bg-background-blur hover:border-white data-[state=open]:bg-white/70",
         "outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
         "typo-body-medium text-text-primary",
         "disabled:cursor-not-allowed disabled:opacity-50",

@@ -63,7 +63,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
               if (!mobileMenuOpen && navRef.current) navRef.current.scrollTop = 0
               setOpenOn(mobileMenuOpen ? null : pathname)
             }}
-            className="press-feedback group -m-2 ml-auto grid size-11 place-items-center rounded-full text-text-primary outline-none hover:bg-white/50 focus-visible:ring-2 focus-visible:ring-blue-secondary"
+            className="press-feedback group -m-2 hover:glass-glow ml-auto grid size-11 place-items-center rounded-full text-text-primary outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary"
             aria-label={mobileMenuOpen ? "Chiudi il menu" : "Apri il menu"}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
@@ -104,7 +104,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                             href={subItem.href}
                             aria-current={active ? "page" : undefined}
                             className={cn(
-                              "typo-body-large flex min-h-10 items-center justify-between gap-2 rounded-md text-text-primary decoration-1 decoration-blue-secondary underline-offset-4 outline-none transition-colors hover:bg-white/50 hover:underline focus-visible:bg-white/50 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
+                              "typo-body-large hover:glass-glow focus-visible:glass-glow flex min-h-10 items-center justify-between gap-2 rounded-md text-text-primary decoration-1 decoration-blue-secondary underline-offset-4 outline-none transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
                               active && "underline"
                             )}
                           >

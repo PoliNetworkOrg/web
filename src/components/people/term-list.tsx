@@ -1,4 +1,4 @@
-import { FillLine } from "@/components/fill-line"
+import { ScrollFillLine } from "@/components/fill-line"
 import { formatPeriod, type Term } from "@/lib/people"
 import { cn } from "@/lib/utils"
 
@@ -20,12 +20,7 @@ export function TermList({ terms, className }: { terms: Term[]; className?: stri
             {index < terms.length - 1 && (
               // Down to the next node, through the gap between the rows; the lines fill one after the other, as in the
               // site's other timelines
-              <FillLine
-                direction="down"
-                step={index}
-                steps={terms.length - 1}
-                className="-bottom-6 absolute top-5 left-1.5 w-1"
-              />
+              <ScrollFillLine className="-bottom-6 absolute top-5 left-1.5 w-1" />
             )}
             <span
               aria-hidden

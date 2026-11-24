@@ -33,9 +33,9 @@ export function SupportSection() {
           <ol className="flex flex-col gap-4">
             {steps.map((step, index) => (
               // Just the number, in the site's blue, like the other numbered steps: no filled circle
-              <li key={step} className="flex items-baseline gap-4">
-                <span className="typo-title-large w-4 shrink-0 text-blue-secondary tabular-nums">{index + 1}</span>
-                <p className="typo-body-large text-pretty">{step}</p>
+              <li key={step} className="typo-body-large grid grid-cols-[1.25rem_minmax(0,1fr)] items-baseline gap-3">
+                <span className="text-right font-medium text-blue-secondary tabular-nums">{index + 1}</span>
+                <p className="text-pretty">{step}</p>
               </li>
             ))}
           </ol>

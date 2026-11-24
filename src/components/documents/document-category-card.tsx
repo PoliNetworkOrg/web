@@ -50,7 +50,7 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
                   asChild
                   variant="glass"
                   size="icon-lg"
-                  className="size-10 bg-transparent backdrop-blur-none hover:bg-blue-tertiary/30"
+                  className="hover:glass-glow size-10 bg-transparent backdrop-blur-none"
                 >
                   <Link href={getDocumentViewerHref(document)} aria-label={`Visualizza ${document.title}`}>
                     <FiEye aria-hidden="true" className="size-6" />
@@ -60,7 +60,7 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
                   asChild
                   variant="glass"
                   size="icon-lg"
-                  className="size-10 bg-transparent backdrop-blur-none hover:bg-blue-tertiary/30"
+                  className="hover:glass-glow size-10 bg-transparent backdrop-blur-none"
                 >
                   <a
                     href={getDocumentFileHref(document)}

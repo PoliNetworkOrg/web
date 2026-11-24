@@ -12,7 +12,14 @@ registerHooks({
   },
 })
 
-const { fillAt } = await import("../src/utils/fill-loop.ts")
+const { fillAt, fillOnceAt } = await import("../src/utils/fill-loop.ts")
+
+test("a one-time sequence starts empty and never resets after completion", () => {
+  const once = (seconds) => [0, 1, 2].map((step) => fillOnceAt(seconds, step))
+  assert.deepEqual(once(0), [0, 0, 0])
+  assert.deepEqual(once(1.5), [1, 0.5, 0])
+  assert.deepEqual(once(1000), [1, 1, 1])
+})
 
 // A timeline of three lines: each fills in 1s, then it holds 1.5s and empties in 0.5s, so the loop is 5s long
 const lines = (seconds) => [0, 1, 2].map((step) => fillAt(seconds, step, 3))

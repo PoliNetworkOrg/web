@@ -3,6 +3,15 @@
   --ease-ui-in: cubic-bezier(0.4, 0, 1, 1);
 }
 
+@utility glass-glow {
+  background-color: color-mix(in oklab, var(--color-blue-tertiary) 30%, transparent);
+  background-image: radial-gradient(
+    ellipse at 50% 100%,
+    color-mix(in oklab, var(--color-blue-primary) 45%, transparent),
+    transparent 80%
+  );
+}
+
 @keyframes ui-enter {
   from {
     opacity: var(--enter-opacity, 0);
