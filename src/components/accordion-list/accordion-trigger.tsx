@@ -18,14 +18,14 @@ export function AccordionTrigger({
           // The header is the only clickable part; its hover lights up the whole card (see AccordionItem)
           "focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
           // The chevron nudges toward where the answer opens
-          "[&[data-state=closed]:hover>svg]:translate-x-1",
+          "motion-safe:[&[data-state=closed]:hover>svg]:translate-x-1",
           "[&[data-state=open]>svg]:rotate-90",
           className
         )}
         {...props}
       >
         {children}
-        <FiChevronRight className="pointer-events-none size-6 shrink-0 text-blue-secondary transition-transform duration-300 ease-out" />
+        <FiChevronRight className="pointer-events-none size-6 shrink-0 text-blue-secondary transition-transform duration-[280ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] motion-reduce:transition-none" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )

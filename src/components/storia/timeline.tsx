@@ -41,7 +41,7 @@ export function Timeline() {
       </div>
 
       {/* Nodes on a line, as on /chi-siamo: down on phones, across from lg */}
-      <ol className="grid gap-10 lg:grid-cols-4 lg:gap-6">
+      <ol className="mx-auto grid w-full max-w-105 gap-10 lg:mx-0 lg:max-w-none lg:grid-cols-4 lg:gap-6">
         {milestones.map((milestone, index) => (
           <li
             key={milestone.year}

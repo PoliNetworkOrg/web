@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { CONTAINER, PAGE_HERO, PAGE_MAIN, SECTION_TITLE } from "@/components/layout/page"
 import { AssociationBodies } from "@/components/structure/association-bodies"
 import { BoardGallery } from "@/components/structure/board-gallery"
+import { CurrentRoles } from "@/components/structure/current-roles"
 import { LegalStatus } from "@/components/structure/legal-status"
 import { OrganizationChart } from "@/components/structure/organization-chart"
 import { Participation } from "@/components/structure/participation"
@@ -29,6 +30,12 @@ export default function StructurePage() {
           Il Direttivo in carica
         </h2>
         <BoardGallery />
+      </section>
+      <section aria-labelledby="incarichi-title" className={SECTION}>
+        <h2 id="incarichi-title" className={titleClass}>
+          Probiviri e responsabili dei team
+        </h2>
+        <CurrentRoles />
       </section>
       <section aria-labelledby="associazione-title" className={SECTION}>
         <h2 id="associazione-title" className={titleClass}>
