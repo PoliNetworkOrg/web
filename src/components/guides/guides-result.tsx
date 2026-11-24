@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation"
 import AccordionList from "@/components/accordion-list"
 import { COURSE_GUIDES } from "@/components/guides/constants"
-import { FLOW_MAIN, FlowHeader } from "@/components/layout/flow-header"
 import { EMPTY_STATE } from "@/components/layout/page"
 import { getLevel, getSchool } from "@/components/wizard/constants"
+import { WizardShell } from "@/components/wizard/wizard-shell"
 import { getVisibleGroups } from "@/queries/groups"
 import { courseFacetsForLevel, humanizeSlug } from "@/utils/labels"
 import { createStepHref } from "@/utils/step-href"
@@ -30,21 +30,21 @@ export async function GuidesResult({
 
   const guides = COURSE_GUIDES[course] ?? []
 
+  // The last step of the wizard: shown in its card, with every step done
   return (
-    <main className={FLOW_MAIN}>
-      <FlowHeader
-        title={courseName}
-        subtitle={`Laurea ${currentLevel.name}`}
-        backHref={stepHref({ school: schoolSlug, level })}
-        replaceBack
-        closeHref="/guide"
-      />
-
+    <WizardShell
+      activeStep={3}
+      title={courseName}
+      caption={`Laurea ${currentLevel.name}`}
+      captionPosition="above"
+      backHref={stepHref({ school: schoolSlug, level })}
+      closeHref="/guide"
+    >
       {guides.length > 0 ? (
         <AccordionList items={guides} />
       ) : (
         <p className={EMPTY_STATE}>Nessuna guida disponibile al momento per questo corso.</p>
       )}
-    </main>
+    </WizardShell>
   )
 }

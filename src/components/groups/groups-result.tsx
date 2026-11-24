@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation"
 import { CardCourseGroup } from "@/components/card-course-group"
-import { FLOW_MAIN, FlowHeader } from "@/components/layout/flow-header"
 import { EMPTY_STATE } from "@/components/layout/page"
 import { getLevel, getSchool } from "@/components/wizard/constants"
+import { WizardShell } from "@/components/wizard/wizard-shell"
 import { getVisibleGroups } from "@/queries/groups"
 import type { VisibleGroup } from "@/queries/types"
 import {
@@ -107,37 +107,39 @@ export async function GroupsResult({
     ...mergedGeneralCourseGroups.map((group) => ({ group, secondary: true })),
   ]
 
+  // The last step of the wizard: shown in its card, with every step done
   return (
-    <main className={FLOW_MAIN}>
-      <FlowHeader
-        title={courseName}
-        subtitle={`Laurea ${currentLevel.name}`}
-        backHref={stepHref({ school: schoolSlug, level })}
-        replaceBack
-        closeHref="/gruppi"
-      />
+    <WizardShell
+      activeStep={3}
+      title={courseName}
+      caption={`Laurea ${currentLevel.name}`}
+      captionPosition="above"
+      backHref={stepHref({ school: schoolSlug, level })}
+      closeHref="/gruppi"
+    >
+      <div className="flex flex-col gap-12 md:gap-16">
+        {/* The site, school, level and course groups */}
+        {generalGroups.length > 0 && (
+          <section aria-labelledby="gruppi-generali" className="grid gap-3 lg:grid-cols-2 lg:gap-4">
+            <h2 id="gruppi-generali" className="sr-only">
+              Gruppi generali
+            </h2>
+            {generalGroups.map(({ group, secondary }) => (
+              <GroupCard key={group.key} group={group} secondary={secondary} />
+            ))}
+          </section>
+        )}
 
-      {/* The site, school, level and course groups */}
-      {generalGroups.length > 0 && (
-        <section aria-labelledby="gruppi-generali" className="grid gap-3 lg:grid-cols-2 lg:gap-4">
-          <h2 id="gruppi-generali" className="sr-only">
-            Gruppi generali
-          </h2>
-          {generalGroups.map(({ group, secondary }) => (
-            <GroupCard key={group.key} group={group} secondary={secondary} />
-          ))}
-        </section>
-      )}
+        {cohorts.map((cohort) => (
+          <GroupSection
+            key={cohort}
+            title={`Gruppi ${cohortLabelText(cohort)}`}
+            groups={groupsByCohort.get(cohort) ?? []}
+          />
+        ))}
 
-      {cohorts.map((cohort) => (
-        <GroupSection
-          key={cohort}
-          title={`Gruppi ${cohortLabelText(cohort)}`}
-          groups={groupsByCohort.get(cohort) ?? []}
-        />
-      ))}
-
-      {!hasAnyGroup && <p className={EMPTY_STATE}>Nessun gruppo disponibile al momento per questo corso.</p>}
-    </main>
+        {!hasAnyGroup && <p className={EMPTY_STATE}>Nessun gruppo disponibile al momento per questo corso.</p>}
+      </div>
+    </WizardShell>
   )
 }
