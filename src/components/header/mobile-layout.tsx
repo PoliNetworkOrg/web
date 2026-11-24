@@ -104,12 +104,12 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                             href={subItem.href}
                             aria-current={active ? "page" : undefined}
                             className={cn(
-                              "typo-body-large flex min-h-10 items-center justify-between gap-2 rounded-md text-text-primary decoration-1 decoration-blue-secondary underline-offset-4 outline-none transition-colors hover:bg-white/50 hover:underline focus-visible:bg-white/50 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
-                              active && "underline"
+                              "typo-body-large -mx-3 flex min-h-10 items-center justify-between gap-2 rounded-xl px-3 text-text-primary outline-none transition-colors duration-200 ease-(--ease-ui-out) hover:bg-white/60 focus-visible:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
+                              active && "bg-blue-tertiary/35 text-blue-secondary hover:bg-blue-tertiary/50"
                             )}
                           >
                             {subItem.title}
-                            <Icon size={18} className="text-text-secondary" aria-hidden />
+                            <Icon size={18} className={active ? "text-current" : "text-text-secondary"} aria-hidden />
                           </Link>
                         </li>
                       )

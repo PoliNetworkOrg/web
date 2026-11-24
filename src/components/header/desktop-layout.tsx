@@ -19,10 +19,17 @@ import { Logo } from "./logo"
 export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const pathname = useRoutePathname()
   const removeDefaultHoverEffectClass = "hover:bg-transparent focus:bg-transparent bg-transparent!"
-  const customHoverEffectClass =
-    "hover:underline decoration-1 decoration-blue-secondary focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-blue-secondary"
-  // The current page, and the section that contains it, keep the hover underline
-  const activeClass = "underline decoration-1 decoration-blue-secondary underline-offset-4"
+  // A soft pill grows in behind the label on hover. It is drawn on ::before with a
+  // negative inset, so it can bleed past the tight label without shifting the layout.
+  const pillClass =
+    "relative isolate rounded-full outline-none focus-visible:ring-0 before:absolute before:-inset-x-3.5 before:-inset-y-1.5 before:-z-10 before:rounded-full before:bg-white/70 before:opacity-0 before:shadow-[inset_0_0_0_1px_rgb(255_255_255/0.8)] before:transition-[opacity,scale,background-color] before:duration-200 before:ease-(--ease-ui-out) motion-safe:before:scale-90 hover:before:opacity-100 hover:before:scale-100 data-[state=open]:before:opacity-100 data-[state=open]:before:scale-100 focus-visible:before:opacity-100 focus-visible:before:scale-100 focus-visible:before:ring-2 focus-visible:before:ring-blue-secondary"
+  // The section that contains the current page keeps an azure pill
+  const activePillClass =
+    "text-blue-secondary! before:opacity-100 before:scale-100 before:bg-blue-tertiary/35 before:shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--color-blue-tertiary)_70%,transparent)] hover:before:bg-blue-tertiary/50"
+  // Submenu rows already have padding: a plain background is enough
+  const rowClass =
+    "rounded-2xl outline-none transition-colors duration-200 ease-(--ease-ui-out) hover:bg-white/70! focus-visible:bg-white/70! focus-visible:ring-2 focus-visible:ring-blue-secondary"
+  const activeRowClass = "bg-blue-tertiary/35! text-blue-secondary! hover:bg-blue-tertiary/50!"
 
   return (
     <div className="fixed inset-x-6 top-10 z-20 mx-auto box-border max-w-261.25 rounded-full">
@@ -50,8 +57,8 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                       className={cn(
                         "typo-body-medium group h-fit p-0 font-red-hat text-text-primary [&_.lucide-chevron-down]:hidden",
                         removeDefaultHoverEffectClass,
-                        customHoverEffectClass,
-                        item.menu.some((subItem) => isActiveHref(pathname, subItem.href)) && activeClass
+                        pillClass,
+                        item.menu.some((subItem) => isActiveHref(pathname, subItem.href)) && activePillClass
                       )}
                       hideChevron
                       onPointerEnter={(e) => e.preventDefault()}
@@ -59,11 +66,11 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                       onPointerMove={(e) => e.preventDefault()}
                     >
                       <div className="flex flex-col gap-1">
-                        <span className="typo-body-medium font-red-hat text-text-primary">{item.title}</span>
+                        <span className="typo-body-medium font-red-hat text-current">{item.title}</span>
                       </div>
                       <FiChevronDown
                         size={16}
-                        className="relative top-px ml-1 text-text-primary ease-(--ease-ui-out) group-data-[state=open]:rotate-180 motion-safe:transition-transform"
+                        className="relative top-px ml-1 text-current ease-(--ease-ui-out) group-data-[state=open]:rotate-180 motion-safe:transition-transform"
                       />
                     </NavigationMenuTrigger>
 
@@ -83,15 +90,13 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                                   className={cn(
                                     "flex shrink-0 flex-row flex-nowrap items-center justify-between gap-6 px-3 py-2",
                                     removeDefaultHoverEffectClass,
-                                    customHoverEffectClass,
-                                    active && activeClass
+                                    rowClass,
+                                    active && activeRowClass
                                   )}
                                 >
                                   <Link href={subItem.href}>
-                                    <span className="typo-body-medium font-red-hat text-text-primary">
-                                      {subItem.title}
-                                    </span>
-                                    <Icon size={20} className="text-text-primary" aria-hidden />
+                                    <span className="typo-body-medium font-red-hat text-current">{subItem.title}</span>
+                                    <Icon size={20} className="text-current" aria-hidden />
                                   </Link>
                                 </NavigationMenuLink>
                               </li>
@@ -108,8 +113,8 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                       className={cn(
                         "typo-body-medium font-red-hat text-text-primary",
                         removeDefaultHoverEffectClass,
-                        customHoverEffectClass,
-                        isActiveHref(pathname, item.href) && activeClass
+                        pillClass,
+                        isActiveHref(pathname, item.href) && activePillClass
                       )}
                     >
                       {item.title}
