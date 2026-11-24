@@ -6,7 +6,7 @@ export function CardHoverBackground({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-0 transition-opacity duration-300 group-hover/card:opacity-100",
+        "card-hover-background pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-0 transition-opacity duration-200 ease-(--ease-ui-out) group-hover/card:opacity-100",
         className
       )}
     >

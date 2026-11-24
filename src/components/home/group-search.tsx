@@ -14,6 +14,9 @@ import { Spinner } from "../spinner"
 const PLATFORM_ICON = { tg: LiaTelegramPlane, wa: FaWhatsapp }
 const PLATFORM_LABEL = { tg: "Telegram", wa: "WhatsApp" }
 
+const resultClass =
+  "block w-full text-start outline-none transition-colors hover:bg-white/50 focus-visible:bg-white/60 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset"
+
 export type SearchGroup = ApiOutput["groups"]["search"]["search"]["groups"][number] & { link: string }
 
 export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => void }) {
@@ -52,7 +55,7 @@ export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => v
       />
 
       {query && (
-        <Glass className="absolute top-15 z-20 grid w-full overflow-hidden rounded-xl p-0">
+        <Glass className="absolute top-15 z-20 grid w-full animate-content-enter overflow-hidden rounded-xl p-0">
           <div className="max-h-70 overflow-y-auto">
             {results && results.count > 0 ? (
               results?.groups
@@ -60,7 +63,7 @@ export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => v
                 .map((g) => {
                   const Icon = PLATFORM_ICON[g.type]
                   const content = (
-                    <div className="flex items-center justify-start gap-3 px-4 py-3 text-start hover:bg-background-blur">
+                    <div className="flex items-center justify-start gap-3 px-4 py-3 text-start">
                       <div
                         role="img"
                         aria-label={PLATFORM_LABEL[g.type]}
@@ -76,13 +79,13 @@ export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => v
                     <button
                       key={`${g.type}:${g.telegramId}`}
                       type="button"
-                      className="w-full"
+                      className={resultClass}
                       onClick={() => onSelect(g)}
                     >
                       {content}
                     </button>
                   ) : (
-                    <Link key={`${g.type}:${g.telegramId}`} href={g.link} target="_blank">
+                    <Link key={`${g.type}:${g.telegramId}`} href={g.link} target="_blank" className={resultClass}>
                       {content}
                     </Link>
                   )

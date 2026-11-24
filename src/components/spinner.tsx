@@ -6,7 +6,7 @@ export function Spinner({ className }: React.HtmlHTMLAttributes<SVGElement>) {
     <div role="status">
       <svg
         aria-hidden="true"
-        className={cn("h-8 w-8 animate-spin fill-white text-accent", className)}
+        className={cn("h-8 w-8 fill-white text-accent motion-safe:animate-spin", className)}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

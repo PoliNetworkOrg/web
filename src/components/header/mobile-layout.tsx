@@ -1,6 +1,5 @@
 "use client"
 
-import { AnimatePresence, MotionConfig, motion } from "motion/react"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
@@ -15,6 +14,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const [openOn, setOpenOn] = useState<string | null>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const toggleRef = useRef<HTMLButtonElement>(null)
+  const navRef = useRef<HTMLElement>(null)
   // Tied to the page it was opened on, so any navigation closes it: this component persists across pages
   const mobileMenuOpen = !logoOnly && openOn === pathname
   const close = () => setOpenOn(null)
@@ -59,65 +59,68 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
           <button
             ref={toggleRef}
             type="button"
-            onClick={() => setOpenOn(mobileMenuOpen ? null : pathname)}
-            className="-m-2 ml-auto rounded-full p-2 outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary"
+            onClick={() => {
+              if (!mobileMenuOpen && navRef.current) navRef.current.scrollTop = 0
+              setOpenOn(mobileMenuOpen ? null : pathname)
+            }}
+            className="press-feedback group -m-2 ml-auto grid size-11 place-items-center rounded-full text-text-primary outline-none hover:bg-white/50 focus-visible:ring-2 focus-visible:ring-blue-secondary"
             aria-label={mobileMenuOpen ? "Chiudi il menu" : "Apri il menu"}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
           >
-            {mobileMenuOpen ? (
-              <FiX size={24} className="text-text-primary" />
-            ) : (
-              <FiMenu size={24} className="text-text-primary" />
-            )}
+            <FiMenu
+              size={24}
+              aria-hidden
+              className="motion-safe:group-aria-expanded:-rotate-45 col-start-1 row-start-1 transition-opacity group-aria-expanded:opacity-0 motion-safe:transition-[opacity,rotate]"
+            />
+            <FiX
+              size={24}
+              aria-hidden
+              className="col-start-1 row-start-1 opacity-0 transition-opacity group-aria-expanded:opacity-100 motion-safe:rotate-45 motion-safe:transition-[opacity,rotate] motion-safe:group-aria-expanded:rotate-0"
+            />
           </button>
         )}
       </div>
 
-      {/* The panel unfolds to the menu's height and folds back; with reduced motion it only fades */}
-      <MotionConfig reducedMotion="user">
-        <AnimatePresence initial={false}>
-          {mobileMenuOpen && (
-            <motion.nav
-              id="mobile-menu"
-              aria-label="Menu principale"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
-              exit={{ height: 0, opacity: 0, transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } }}
-              className="max-h-[calc(100dvh-var(--nav-top)*2-4.5rem)] overflow-y-auto overscroll-contain pb-1"
-            >
-              {headerMenuItems.map((item) => (
-                <div key={item.title} className="mt-5">
-                  <p className="typo-title-medium text-text-secondary">{item.title}</p>
-                  {"menu" in item && item.menu && (
-                    <ul className="mt-1 flex flex-col">
-                      {item.menu.map((subItem) => {
-                        const active = isActiveHref(pathname, subItem.href)
-                        const Icon = subItem.icon
-                        return (
-                          <li key={subItem.title}>
-                            <Link
-                              href={subItem.href}
-                              aria-current={active ? "page" : undefined}
-                              className={cn(
-                                "typo-body-large flex min-h-10 items-center justify-between gap-2 rounded-md text-text-primary decoration-1 decoration-blue-secondary underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-blue-secondary",
-                                active && "underline"
-                              )}
-                            >
-                              {subItem.title}
-                              <Icon size={18} className="text-text-secondary" aria-hidden />
-                            </Link>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  )}
-                </div>
-              ))}
-            </motion.nav>
-          )}
-        </AnimatePresence>
-      </MotionConfig>
+      {!logoOnly && (
+        <div className="mobile-menu-panel" data-state={mobileMenuOpen ? "open" : "closed"} inert={!mobileMenuOpen}>
+          <nav
+            ref={navRef}
+            id="mobile-menu"
+            aria-label="Menu principale"
+            className="max-h-[calc(100dvh-var(--nav-top)*2-5rem)] min-h-0 overflow-y-auto overscroll-contain"
+          >
+            {headerMenuItems.map((item) => (
+              <div key={item.title} className="mt-5">
+                <p className="typo-title-medium text-text-secondary">{item.title}</p>
+                {"menu" in item && item.menu && (
+                  <ul className="mt-1 flex flex-col">
+                    {item.menu.map((subItem) => {
+                      const active = isActiveHref(pathname, subItem.href)
+                      const Icon = subItem.icon
+                      return (
+                        <li key={subItem.title}>
+                          <Link
+                            href={subItem.href}
+                            aria-current={active ? "page" : undefined}
+                            className={cn(
+                              "typo-body-large flex min-h-10 items-center justify-between gap-2 rounded-md text-text-primary decoration-1 decoration-blue-secondary underline-offset-4 outline-none transition-colors hover:bg-white/50 hover:underline focus-visible:bg-white/50 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
+                              active && "underline"
+                            )}
+                          >
+                            {subItem.title}
+                            <Icon size={18} className="text-text-secondary" aria-hidden />
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+      )}
     </Glass>
   )
 }

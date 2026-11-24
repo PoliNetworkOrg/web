@@ -15,8 +15,8 @@ export function TabsTrigger({ className, children, ...props }: React.ComponentPr
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "typo-label-large relative isolate flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-transparent px-3 py-1.5",
-        "outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset hover:data-[state=inactive]:bg-white/60",
+        "press-feedback typo-label-large relative isolate flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-transparent px-3 py-1.5",
+        "outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset focus-visible:data-[state=inactive]:bg-white/60 hover:data-[state=inactive]:bg-white/60",
         // Without the shared state (outside `Tabs`) the active tab keeps a static fill
         !tabs && "data-[state=active]:bg-blue-tertiary",
         className

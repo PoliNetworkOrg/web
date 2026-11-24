@@ -66,6 +66,7 @@ function Carousel({
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
+      breakpoints: { ...opts?.breakpoints, "(prefers-reduced-motion: reduce)": { duration: 0 } },
       axis: orientation === "horizontal" ? "x" : "y",
     },
     plugins
@@ -295,14 +296,10 @@ function CarouselDots({ className, ...props }: React.ComponentProps<"div">) {
           aria-label={`Vai alla slide ${index + 1}`}
           aria-current={selectedIndex === index}
           onClick={() => api?.scrollTo(index)}
-          // Figma "slider dots": 16px current dot, 12px others, 6px apart. The pseudo-element enlarges the hit area.
-          className={cn(
-            "after:-inset-1.5 relative shrink-0 rounded-full border backdrop-blur-md transition-[width,height] after:absolute after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
-            selectedIndex === index
-              ? "size-4 border-blue-primary bg-blue-primary"
-              : "size-3 border-slate-500 bg-background-blur"
-          )}
-        />
+          className="group after:-inset-y-2 relative grid size-4 shrink-0 place-items-center rounded-full outline-none after:absolute after:inset-x-0 focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-offset-2"
+        >
+          <span className="size-4 rounded-full border border-slate-500 bg-background-blur group-hover:bg-white/80 group-aria-[current=true]:border-blue-primary group-aria-[current=true]:bg-blue-primary motion-safe:scale-75 motion-safe:transition-transform motion-safe:group-aria-[current=true]:scale-100 motion-reduce:size-3 motion-reduce:group-aria-[current=true]:size-4" />
+        </button>
       ))}
     </div>
   )

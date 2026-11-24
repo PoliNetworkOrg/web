@@ -47,6 +47,7 @@ export function CardIcon(props: CardIconProps) {
         aria-label={onClick && !href ? title : undefined}
         className={cn(
           "group/card relative flex h-full w-full flex-col text-left outline-none",
+          (href || onClick) && "press-feedback",
           getCardPaddingClasses(size, isDescriptionCard)
         )}
       >

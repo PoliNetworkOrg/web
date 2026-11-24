@@ -25,7 +25,7 @@ function DialogOverlay({ className, ...props }: React.ComponentProps<typeof Dial
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/40 backdrop-blur-sm data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "fixed inset-0 z-50 animate-popover bg-black/40 backdrop-blur-sm [--enter-offset:0px] [--enter-scale:1] [--exit-offset:0px] [--exit-scale:1]",
         className
       )}
       {...props}
@@ -41,7 +41,7 @@ function DialogContent({ className, children, ...props }: React.ComponentProps<t
         <DialogPrimitive.Content
           data-slot="dialog-content"
           className={cn(
-            "-translate-x-1/2 -translate-y-1/2 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100svh-2rem)] w-[calc(100%-2rem)] max-w-md flex-col gap-5 overflow-y-auto overscroll-contain rounded-[1.25rem] bg-white p-6 shadow-lg focus-visible:ring-2 focus-visible:ring-blue-primary data-[state=closed]:animate-out data-[state=open]:animate-in",
+            "-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100svh-2rem)] w-[calc(100%-2rem)] max-w-md animate-popover flex-col gap-5 overflow-y-auto overscroll-contain rounded-[1.25rem] bg-white p-6 shadow-lg focus-visible:ring-2 focus-visible:ring-blue-primary motion-safe:[--enter-offset:8px] motion-safe:[--exit-offset:4px]",
             className
           )}
           {...props}
@@ -66,7 +66,7 @@ function DialogHeaderIconSlot({ className, ...props }: React.ComponentProps<"but
     <button
       type="button"
       className={cn(
-        "size-6 shrink-0 rounded-full p-1 text-text-secondary transition-colors hover:bg-white/60 hover:text-text-primary",
+        "press-feedback size-6 shrink-0 rounded-full p-1 text-text-secondary outline-none hover:bg-white/60 hover:text-text-primary focus-visible:ring-2 focus-visible:ring-blue-secondary",
         className
       )}
       {...props}

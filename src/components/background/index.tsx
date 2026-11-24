@@ -91,8 +91,22 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
   // a layout effect, so the first frame is applied before the new page is painted
   useLayoutEffect(() => {
     const el = ref.current
-    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    return animateScene(el, () => shapesRef.current)
+    if (!el) return
+
+    const preference = matchMedia("(prefers-reduced-motion: reduce)")
+    let stop: (() => void) | undefined
+
+    const syncMotion = () => {
+      stop?.()
+      stop = preference.matches ? undefined : animateScene(el, () => shapesRef.current)
+    }
+
+    syncMotion()
+    preference.addEventListener("change", syncMotion)
+    return () => {
+      preference.removeEventListener("change", syncMotion)
+      stop?.()
+    }
   }, [])
 
   return (

@@ -63,7 +63,7 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                       </div>
                       <FiChevronDown
                         size={16}
-                        className="relative top-px ml-1 text-text-primary transition duration-300 group-data-[state=open]:rotate-180"
+                        className="relative top-px ml-1 text-text-primary ease-(--ease-ui-out) group-data-[state=open]:rotate-180 motion-safe:transition-transform"
                       />
                     </NavigationMenuTrigger>
 

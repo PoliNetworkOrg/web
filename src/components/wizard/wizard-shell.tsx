@@ -72,7 +72,7 @@ export function WizardShell({
         />
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col gap-6 md:gap-10">
+      <div key={activeStep} className="flex min-h-0 flex-1 animate-content-enter flex-col gap-6 md:gap-10">
         <div className="flex shrink-0 flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col items-center gap-2.5 text-center md:items-start md:text-left">
             {captionPosition === "above" && caption && (

@@ -29,7 +29,8 @@ export function CourseStep({
               <button
                 key={course}
                 type="button"
-                className="rounded-rectangles text-left focus-visible:ring-2 focus-visible:ring-blue-primary"
+                data-course-option
+                className="press-feedback rounded-rectangles text-left focus-visible:ring-2 focus-visible:ring-blue-primary"
                 onClick={() => onSelectCourse(course)}
               >
                 <CardCourse courseName={humanizeSlug(course)} />

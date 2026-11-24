@@ -35,7 +35,7 @@ export function Hero({
   return (
     <div className={cn("flex flex-col items-center gap-6", className)}>
       {/* The page's h1: the header logo is not a heading. The gradient is drawn per line (box-decoration-clone) */}
-      <h1 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center sm:pt-2 sm:pb-0">
+      <h1 className="typo-display-large sm:typo-display-extralarge w-full self-stretch text-balance py-4 text-center motion-safe:animate-hero-enter sm:pt-2 sm:pb-0">
         {/* Capped so the longest word fits the width, since a word can't wrap (DM Sans is about 0.55em per letter) */}
         <span
           className="bg-linear-to-b from-text-primary to-83% to-[#6e6e6e] box-decoration-clone bg-clip-text text-[min(3.5625rem,calc((100vw-3rem)/var(--hero-fit)))] text-transparent sm:text-[min(7.5rem,calc((100vw-5rem)/var(--hero-fit)))]"
@@ -48,6 +48,7 @@ export function Hero({
         // One style on every page: Figma's gradient, balanced so a two-line description doesn't leave a lone word
         className={cn(
           "typo-title-large sm:typo-headline-small bg-(image:--hero-gradient-mobile) sm:bg-(image:--hero-gradient-desktop) max-w-195 text-balance bg-clip-text text-center text-transparent",
+          "[animation-delay:45ms] motion-safe:animate-hero-enter",
           descriptionClassName
         )}
         style={descriptionGradientStyle}

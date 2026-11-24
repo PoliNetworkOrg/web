@@ -1,4 +1,3 @@
-import { lineAngle } from "./looper"
 import type { SceneShape } from "./scene"
 
 /** Shapes further than this (px) from the viewport are not updated */
@@ -76,8 +75,10 @@ export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) 
         // tight when entering the viewport, wide when leaving it
         const spread = shape.spread * (2 * smoothstep(progress) - 1) + shape.fan * wave(t, shape.periodFan, shape.phase)
         const lines = motion.firstElementChild?.children ?? []
+        const middle = (lines.length - 1) / 2
         for (let j = 0; j < lines.length; j++) {
-          ;(lines[j] as HTMLElement).style.transform = `rotate(${lineAngle(j, spread * intro)}deg)`
+          // The static fan already supplies its base rotation via CSS transform.
+          ;(lines[j] as HTMLElement).style.rotate = `${(j - middle) * spread * intro}deg`
         }
       }
     }
@@ -85,5 +86,17 @@ export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) 
 
   let frame = 0
   tick(start)
-  return () => cancelAnimationFrame(frame)
+  return () => {
+    cancelAnimationFrame(frame)
+    const boxes = scene.children as HTMLCollectionOf<HTMLElement>
+    for (const box of boxes) {
+      const motion = box.firstElementChild as HTMLElement | null
+      if (!motion) continue
+      motion.style.removeProperty("transform")
+      motion.style.removeProperty("will-change")
+      const lines = motion.firstElementChild?.children as HTMLCollectionOf<HTMLElement> | undefined
+      if (!lines) continue
+      for (const line of lines) line.style.removeProperty("rotate")
+    }
+  }
 }
