@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useGlassRecapture } from "@/components/glass"
 import { Shape } from "@/components/shapes"
 import { cn } from "@/lib/utils"
 import { hasFooter } from "@/utils/footer-routes"
@@ -50,6 +51,7 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
   const shapes = figmaScene(pathname) ?? Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat()
   const shapesRef = useRef(shapes)
   const [fadeIn] = useState(() => session.navigated)
+  const recaptureGlass = useGlassRecapture()
 
   useEffect(() => {
     session.navigated = true
@@ -118,6 +120,8 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
         "shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip",
         fadeIn && "animate-fade-in [animation-duration:0.6s]"
       )}
+      // The 3D glass captured the page as the scene started to fade in, still transparent
+      onAnimationEnd={(event) => fadeIn && event.target === event.currentTarget && recaptureGlass()}
     >
       {shapes.map((shape) => (
         <SceneItem key={shape.id} shape={shape} />

@@ -48,7 +48,7 @@ function ProjectPage() {
         </Link>
         <Glass
           className={cn(
-            "grid items-center gap-8 rounded-rectangles border-white/50 bg-background-blur p-6 text-center sm:p-12 md:gap-12 md:text-start",
+            "grid items-center gap-8 rounded-rectangles p-6 text-center sm:p-12 md:gap-12 md:text-start",
             project.logo && "md:grid-cols-[auto_minmax(0,1fr)]"
           )}
         >

@@ -55,7 +55,7 @@ function FooterLink({ href, children, className }: { href: string; children: Rea
 export function Footer() {
   return (
     <footer className={cn(CONTAINER, "pt-8 pb-6 md:pt-12 md:pb-8")}>
-      <Glass className="rounded-[32px] border-white/60 bg-background-blur px-4 py-8 backdrop-blur-xl sm:rounded-[36px] sm:px-10 sm:py-10 md:rounded-[48px] md:px-14 md:py-12">
+      <Glass className="rounded-[32px] px-4 py-8 sm:rounded-[36px] sm:px-10 sm:py-10 md:rounded-[48px] md:px-14 md:py-12">
         <div className="flex flex-col items-center gap-6">
           <h2 lang="en" className={cn(SECTION_TITLE, "text-center")}>
             Keep in touch!

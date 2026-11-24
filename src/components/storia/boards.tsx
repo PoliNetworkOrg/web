@@ -49,7 +49,7 @@ export function Boards() {
                 </div>
               </div>
             ) : (
-              <Glass className="flex flex-col gap-6 rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-8">
+              <Glass className="flex flex-col gap-6 rounded-rectangles p-6 sm:p-8">
                 <div className="flex flex-col gap-2">
                   <h3 className="typo-headline-small">{board.title}</h3>
                   <p className="typo-body-large text-text-secondary">{formatPeriod(board)}</p>

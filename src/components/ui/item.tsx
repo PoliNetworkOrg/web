@@ -3,13 +3,7 @@ import { Glass } from "@/components/glass"
 import { cn } from "@/lib/utils"
 
 function Item({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <Glass
-      data-slot="item"
-      className={cn("rounded-4xl border-white/50 bg-background-blur p-0 text-card-foreground", className)}
-      {...props}
-    />
-  )
+  return <Glass data-slot="item" className={cn("rounded-4xl p-0 text-card-foreground", className)} {...props} />
 }
 
 function ItemInner({ className, ...props }: React.ComponentProps<"div">) {

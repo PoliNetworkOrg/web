@@ -12,13 +12,7 @@ import { chapters, milestones } from "./constants"
 /** The glass icon tile of the timelines, the same as the steps of "Il tuo percorso" on /chi-siamo. */
 function IconTile({ icon, className }: { icon: GradientIconType | string; className?: string }) {
   return (
-    <Glass
-      aria-hidden
-      className={cn(
-        "flex shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-0",
-        className
-      )}
-    >
+    <Glass aria-hidden className={cn("flex shrink-0 items-center justify-center rounded-rectangles p-0", className)}>
       {typeof icon === "string" ? (
         <Image src={icon} alt="" width={56} height={56} className="size-2/3" />
       ) : (
@@ -73,12 +67,7 @@ export function Timeline() {
 /** The card beside each chapter: the same glass as the site's other cards. */
 function VisualCard({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <Glass
-      className={cn(
-        "flex w-full max-w-130 items-center justify-center rounded-rectangles border-white/50 bg-background-blur p-6 sm:p-8",
-        className
-      )}
-    >
+    <Glass className={cn("flex w-full max-w-130 items-center justify-center rounded-rectangles p-6 sm:p-8", className)}>
       {children}
     </Glass>
   )
@@ -105,7 +94,7 @@ function Steps({ items }: { items: { label: string; icon?: GradientIconType | st
           {item.icon ? (
             <IconTile icon={item.icon} className="size-14 sm:size-15" />
           ) : (
-            <Glass className="typo-title-large sm:typo-headline-small flex size-14 shrink-0 items-center justify-center rounded-rectangles border-white/50 bg-white/60 px-3 py-0 text-blue-secondary sm:h-15 sm:w-auto sm:min-w-15">
+            <Glass className="typo-title-large sm:typo-headline-small flex size-14 shrink-0 items-center justify-center rounded-rectangles bg-white/60 px-3 py-0 text-blue-secondary sm:h-15 sm:w-auto sm:min-w-15">
               {item.value}
             </Glass>
           )}

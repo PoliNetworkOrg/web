@@ -1,5 +1,5 @@
 import { FiChevronDown } from "react-icons/fi"
-import { Glass } from "@/components/glass"
+import { FloatingGlass, GLASS_LAYER } from "@/components/glass"
 import { Link } from "@/components/link"
 import {
   NavigationMenu,
@@ -23,8 +23,10 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const activeClass = "underline decoration-1 decoration-blue-secondary underline-offset-4"
 
   return (
-    <div className="fixed inset-x-6 top-10 z-20 mx-auto box-border max-w-261.25 rounded-full">
-      <Glass className="pointer-events-none absolute inset-0 rounded-full" />
+    // Out of the capture of the page, which the glass bends: the links are next to the glass, not in it, so they
+    // aren't left out with it, and the glass showed them again, bent up at its top edge
+    <div glass-ignore="" className="fixed inset-x-6 top-10 z-20 mx-auto box-border max-w-261.25 rounded-full">
+      <FloatingGlass layer={GLASS_LAYER.chrome} className="pointer-events-none absolute inset-0 rounded-full" />
 
       <NavigationMenu
         viewport={false}
@@ -66,9 +68,11 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                     </NavigationMenuTrigger>
 
                     <NavigationMenuContent className="-translate-x-1/2 overflow-visible! group/menu left-1/2 mt-8.5! rounded-none! border-none bg-transparent p-0 shadow-none! data-[state=closed]:animate-menu-out! data-[state=open]:animate-menu-in! data-[state=closed]:bg-transparent data-[state=open]:bg-transparent">
-                      {/* Stronger blur than the header pill: the panel opens over the page titles */}
                       {/* Same rounding as the site's other glass panels (tabs, accordions), not Glass's default */}
-                      <Glass className="w-fit text-nowrap rounded-3xl border-white/50 p-3 backdrop-blur-xl group-data-[state=closed]/menu:animate-fade-out group-data-[state=open]/menu:animate-fade-in">
+                      <FloatingGlass
+                        layer={GLASS_LAYER.chrome}
+                        className="w-fit text-nowrap rounded-3xl p-3 group-data-[state=closed]/menu:animate-fade-out group-data-[state=open]/menu:animate-fade-in"
+                      >
                         <ul className="flex flex-col gap-1">
                           {item.menu.map((subItem) => {
                             const Icon = subItem.icon
@@ -96,7 +100,7 @@ export const DesktopLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                             )
                           })}
                         </ul>
-                      </Glass>
+                      </FloatingGlass>
                     </NavigationMenuContent>
                   </>
                 ) : (

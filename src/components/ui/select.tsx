@@ -2,6 +2,7 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import type * as React from "react"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import { cn } from "@/lib/utils"
+import { FloatingGlass, GLASS_LAYER, Glass } from "../glass"
 
 function Select(props: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />
@@ -36,10 +37,9 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "press-feedback group inline-flex items-center justify-center gap-1.5 backdrop-blur-md",
+        "press-feedback group relative isolate inline-flex items-center justify-center gap-1.5",
         paddingClass,
         "rounded-buttonsM",
-        "hover:glass-glow border border-white/50 bg-background-blur hover:border-white data-[state=open]:bg-white/70",
         "outline-none focus-visible:ring-2 focus-visible:ring-blue-secondary",
         "typo-body-medium text-text-primary",
         "disabled:cursor-not-allowed disabled:opacity-50",
@@ -47,6 +47,13 @@ function SelectTrigger({
       )}
       {...props}
     >
+      {/* The glass is a layer behind the label, not the trigger itself: Radix gives its trigger a ref, which would
+          replace the glass's own */}
+      <Glass className="-z-1 pointer-events-none absolute inset-0 rounded-[inherit] p-0">
+        {/* A clear hover and open state, like the accordions and course rows: the bare glass gave no feedback. Over the
+            glass's tint, under the label */}
+        <span className="group-hover:glass-glow absolute inset-0 rounded-[inherit] transition-colors duration-200 group-data-[state=open]:bg-white/60" />
+      </Glass>
       {children}
       <SelectPrimitive.Icon asChild>
         <FiChevronDown className="h-4 w-4 shrink-0 text-text-primary group-data-[state=open]:rotate-180 motion-safe:transition-transform" />
@@ -70,10 +77,8 @@ function SelectContent({
         sideOffset={sideOffset}
         className={cn(
           "animate-popover motion-safe:data-[side=top]:[--enter-offset:4px]",
-          "relative z-50 max-h-(--radix-select-content-available-height)",
-          "origin-(--radix-select-content-transform-origin) overflow-y-auto overflow-x-hidden",
-          "rounded-rectangles border border-white/40",
-          "bg-background-blur shadow-lg backdrop-blur-xl",
+          "relative z-50 flex max-h-(--radix-select-content-available-height) flex-col",
+          "origin-(--radix-select-content-transform-origin)",
           "text-text-primary",
           className
         )}
@@ -81,17 +86,24 @@ function SelectContent({
         align={align}
         {...props}
       >
-        <SelectScrollUpButton />
-        <SelectPrimitive.Viewport
-          className={cn(
-            // il menu matcha la larghezza del trigger
-            "p-1",
-            position === "popper" && "h-(--radix-select-trigger-height) w-(--radix-select-trigger-width) scroll-my-1"
-          )}
-        >
-          {children}
-        </SelectPrimitive.Viewport>
-        <SelectScrollDownButton />
+        {/* Opens over the page and the header: 3D glass, on the layer above the header's */}
+        <FloatingGlass layer={GLASS_LAYER.overlay} className="flex min-h-0 flex-1 flex-col rounded-rectangles">
+          {/* Clips the list to the corners, inside the glass: a clipped glass would lose its shadow */}
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[inherit]">
+            <SelectScrollUpButton />
+            <SelectPrimitive.Viewport
+              className={cn(
+                // il menu matcha la larghezza del trigger
+                "p-1",
+                position === "popper" &&
+                  "h-(--radix-select-trigger-height) w-(--radix-select-trigger-width) scroll-my-1"
+              )}
+            >
+              {children}
+            </SelectPrimitive.Viewport>
+            <SelectScrollDownButton />
+          </div>
+        </FloatingGlass>
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
   )

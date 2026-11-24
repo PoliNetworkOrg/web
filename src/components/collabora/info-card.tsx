@@ -39,10 +39,10 @@ export function InfoCard({
   const { title, description, mobileDescription, icon, iconClassName, descriptionClassName, href } = card
 
   return (
-    // Glass draws a 1px border inside the Figma box: padding is 1px less than in Figma (25px / 40px)
+    // The glass's stroke is drawn over the box, not as a border, so the padding is Figma's (25px / 40px)
     <Glass
       className={cn(
-        "rounded-rectangles border-white/50 bg-background-blur p-6 md:p-9.75",
+        "rounded-rectangles p-6.25 md:p-10",
         href &&
           "group/card relative overflow-hidden has-[>a:focus-visible]:ring-2 has-[>a:focus-visible]:ring-blue-secondary",
         className

@@ -11,7 +11,7 @@ const teamNames = new Intl.ListFormat("it").format(teamLeads.map((lead) => lead.
 const CHART_LABEL = `Il Direttivo coordina i Capi admin e i Team. I Capi admin coordinano gli Admin. I Team sono guidati dai team lead ${teamNames}, con i rispettivi membri.`
 
 // Nodes are not links, so they have no hover state
-const TILE = "rounded-rectangles border-white/50 bg-background-blur text-text-primary"
+const TILE = "rounded-rectangles text-text-primary"
 /** The chart's lines: 4px and rounded in the site's light blue, like the timelines. No arrows */
 const LINE = "rounded-full bg-blue-primary/25"
 

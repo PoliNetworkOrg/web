@@ -7,7 +7,7 @@ import { Link } from "@/components/link"
 import { Input } from "@/components/ui/input"
 import { searchGroupsFn } from "@/queries/functions"
 import type { ApiOutput } from "@/types"
-import { Glass } from "../glass"
+import { FloatingGlass, GLASS_LAYER } from "../glass"
 import { Spinner } from "../spinner"
 
 const PLATFORM_ICON = { tg: LiaTelegramPlane, wa: FaWhatsapp }
@@ -54,8 +54,12 @@ export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => v
       />
 
       {query && (
-        <Glass className="absolute top-15 z-20 grid w-full animate-content-enter overflow-hidden rounded-xl p-0">
-          <div className="max-h-70 overflow-y-auto">
+        <FloatingGlass
+          layer={GLASS_LAYER.page}
+          className="absolute top-15 z-20 grid w-full animate-content-enter rounded-xl"
+        >
+          {/* The list clips the rows, not the glass: a clipped glass would lose its shadow */}
+          <div className="max-h-70 overflow-y-auto rounded-[inherit]">
             {results && results.count > 0 ? (
               results?.groups
                 .filter((g): g is SearchGroup => !!g.link)
@@ -99,7 +103,7 @@ export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => v
               </div>
             )}
           </div>
-        </Glass>
+        </FloatingGlass>
       )}
     </div>
   )

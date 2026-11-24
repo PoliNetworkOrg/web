@@ -9,12 +9,7 @@ export function CardSplit({ textPrimary, textSecondary, textSecondarySmall, acti
   const hasSecondaryContent = Boolean(textSecondary || textSecondarySmall)
 
   return (
-    <Glass
-      className={cn(
-        "inline-flex w-fit overflow-hidden rounded-rectangles border-white/50 bg-background-blur p-0 text-card-foreground",
-        className
-      )}
-    >
+    <Glass className={cn("inline-flex w-fit overflow-hidden rounded-rectangles p-0 text-card-foreground", className)}>
       <div className="flex flex-col items-center gap-6 px-10 py-6 sm:flex-row sm:items-center sm:gap-10 sm:py-5">
         <div className="flex flex-col items-center gap-3 text-center sm:grid sm:grid-cols-[auto_auto] sm:items-center sm:gap-10 sm:text-left">
           {textPrimary ? <CardSplitPrimaryContent text={textPrimary} /> : null}

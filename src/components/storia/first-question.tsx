@@ -20,10 +20,7 @@ const EASE_OUT = [0.22, 1, 0.36, 1] as const
 export function FirstQuestion() {
   return (
     <MotionConfig reducedMotion="user">
-      <Glass
-        aria-hidden
-        className="flex w-full max-w-110 flex-col gap-3 rounded-rectangles border-white/50 bg-background-blur p-5 sm:p-6"
-      >
+      <Glass aria-hidden className="flex w-full max-w-110 flex-col gap-3 rounded-rectangles p-5 sm:p-6">
         <motion.ol
           className="flex flex-col gap-3"
           initial="hidden"
