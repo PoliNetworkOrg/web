@@ -6,6 +6,10 @@ The association listing accepts the optional `extraLinks` field from the reviewe
 
 The backend may add `programmes` and `campuses` (each `{ slug, nameIt, nameEn }`), `crossProgramme` and approved public `contacts` (`function`, `label`, `email`, optional `name` and `phone`). `src/lib/association-registry.ts` validates each field on its own: an absent field (current backend, or the published SDK types) or a malformed one is dropped, never the association. The page offers "Tutti i corsi" and "Tutte le sedi" filters only when some association lists them; options come from the published associations. Filters live in the URL (`?corso=…&sede=…`) and are applied on the server; an unknown value is ignored. A cross-programme association matches every programme; an association that lists nothing for a filtered dimension does not match it. Programmes, campuses and public contacts appear under the description.
 
+## Upcoming events
+
+`getUpcomingEvents` (`src/queries/associations.server.ts`) calls `web.associations.getUpcomingEvents`, which the published SDK does not type yet, through an untyped view of the same client; `src/lib/association-events.ts` validates each event and drops malformed ones. With a backend that lacks the procedure the call fails, the page logs it and shows no events section. The section "Prossimi eventi" lists approved events soonest first (times in Europe/Rome); each links to `/associazioni?associazione=<id>#associazione-<id>`, which opens and scrolls to that association.
+
 `pnpm test` runs the Node tests in `tests/` (parsing and filters included).
 
 The public page links representatives to `/dashboard/associations` on `ADMIN_URL` (default `https://admin.polinetwork.org`). Registration, representative approvals, private evidence and draft content belong to the backend/admin portal; this website receives only the approved public version.

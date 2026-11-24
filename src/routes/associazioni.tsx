@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { AssociationFilters } from "@/components/associations/association-filters"
 import { AssociationsList } from "@/components/associations/associations-list"
+import { UpcomingEvents } from "@/components/associations/upcoming-events"
 import { CONTAINER, EMPTY_STATE, PAGE_HERO, PAGE_MAIN } from "@/components/layout/page"
 import { Hero } from "@/components/ui/hero"
 import { pageMeta } from "@/lib/seo"
@@ -27,13 +28,25 @@ export const Route = createFileRoute("/associazioni")({
 })
 
 function AssociationsPage() {
-  const { total, shown, options, portalUrl } = Route.useLoaderData()
+  const { total, shown, options, events, portalUrl } = Route.useLoaderData()
+  const { associazione }: { associazione?: unknown } = Route.useSearch()
 
   return (
     <main className={PAGE_MAIN}>
       <section className={`${CONTAINER} ${PAGE_HERO}`}>
         <Hero title="Associazioni" description="Scopri le associazioni studentesche del Politecnico" />
       </section>
+
+      {events.length > 0 && (
+        <section aria-labelledby="prossimi-eventi" className={CONTAINER}>
+          <div className="mx-auto mb-12 w-full max-w-300">
+            <h2 id="prossimi-eventi" className="typo-headline-small mb-6">
+              Prossimi eventi
+            </h2>
+            <UpcomingEvents events={events} />
+          </div>
+        </section>
+      )}
 
       {/* Figma's list column: 1200px at 1728 */}
       <section aria-label="Elenco delle associazioni" className={CONTAINER}>
@@ -48,7 +61,7 @@ function AssociationsPage() {
               Nessuna associazione corrisponde ai filtri. Le associazioni trasversali compaiono per ogni corso.
             </p>
           ) : (
-            <AssociationsList associations={shown} />
+            <AssociationsList associations={shown} openId={single(associazione)} />
           )}
           <p className="mt-10 text-center">
             Rappresenti un’associazione?{" "}

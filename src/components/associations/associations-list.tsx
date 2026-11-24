@@ -132,7 +132,8 @@ function AssociationDetails({ association }: { association: Association }) {
   )
 }
 
-export function AssociationsList({ associations }: { associations: Association[] }) {
+/** `openId`: the association to open (a link from an event); the first one otherwise. */
+export function AssociationsList({ associations, openId }: { associations: Association[]; openId?: string }) {
   if (associations.length === 0) {
     // The query returns an empty list on backend errors too, so the message covers both cases
     return <p className={EMPTY_STATE}>Le associazioni non sono disponibili al momento. Riprova più tardi.</p>
@@ -159,6 +160,8 @@ export function AssociationsList({ associations }: { associations: Association[]
 
     return {
       value: String(association.id),
+      // A link from an event opens it and scrolls to it
+      id: `associazione-${association.id}`,
       trigger: (
         <span className="flex min-w-0 items-center gap-3 sm:gap-4">
           {/* No placeholder logo: an association without one gets its initials */}
@@ -178,13 +181,15 @@ export function AssociationsList({ associations }: { associations: Association[]
     }
   })
 
+  const open = items.find((item) => item.value === openId) ?? items[0]
+
   return (
     // The same accordion as the FAQs. Open, the header loses some bottom padding: the logo is taller than the name,
     // so the full padding left the text far below it. From sm the text lines up with the name:
     // padding (24) + logo (48) + gap (16)
     <AccordionList
       items={items}
-      defaultValue={items[0]?.value}
+      defaultValue={open?.value}
       triggerClassName="transition-[padding] data-[state=open]:pb-3"
       contentClassName="sm:pl-22"
     />

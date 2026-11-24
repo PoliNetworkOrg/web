@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start"
 import { z } from "zod"
 import type { Project } from "@/components/projects/resources"
+import { formatEventStart } from "@/lib/association-events"
 import { filterOptions, matchesFilters } from "@/lib/association-registry"
 import type { GroupLinkReportInput } from "@/queries/types"
 import {
@@ -15,7 +16,7 @@ import {
 } from "@/utils/labels"
 import { mergeGroupsByTitle } from "@/utils/merge-groups"
 import { getAcknowledgements } from "./acknowledgements.server"
-import { associationPortalUrl, getAllAssociations } from "./associations.server"
+import { associationPortalUrl, getAllAssociations, getUpcomingEvents } from "./associations.server"
 import { findDocument, getDocumentCatalog } from "./documents.server"
 import { getAllFaqs } from "./faqs.server"
 import { getFreshmanContent } from "./freshman.server"
@@ -57,14 +58,14 @@ export const fetchProject = createServerFn()
 
 export const fetchFaqs = createServerFn().handler(() => getAllFaqs())
 /**
- * The associations that match the page's filters, the filters' options, and the address of the portal where their
- * representatives manage them. `total` counts every association, so the page tells "none published" from "none
- * matching the filters".
+ * The associations that match the page's filters, the filters' options, the upcoming events, and the address of the
+ * portal where their representatives manage them. `total` counts every association, so the page tells "none published"
+ * from "none matching the filters".
  */
 export const fetchAssociationsPage = createServerFn()
   .validator(z.object({ programme: z.string().optional(), campus: z.string().optional() }))
   .handler(async ({ data }) => {
-    const associations = await getAllAssociations()
+    const [associations, events] = await Promise.all([getAllAssociations(), getUpcomingEvents()])
     const options = filterOptions(associations)
     // A filter whose option no longer exists (an old link) is ignored rather than emptying the list.
     const filters = {
@@ -75,6 +76,7 @@ export const fetchAssociationsPage = createServerFn()
       total: associations.length,
       shown: associations.filter((association) => matchesFilters(association, filters)),
       options,
+      events: events.map((event) => ({ ...event, startsAtText: formatEventStart(event.startsAt) })),
       portalUrl: associationPortalUrl(),
     }
   })
