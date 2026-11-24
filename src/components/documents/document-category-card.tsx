@@ -11,13 +11,6 @@ import {
   getDocumentViewerHref,
 } from "./utils"
 
-// Dates are plain YYYY-MM-DD (UTC midnight): format them in UTC so no server timezone shifts the day
-const dateFormat = new Intl.DateTimeFormat("it-IT", { dateStyle: "long", timeZone: "UTC" })
-
-function formatDate(date: string) {
-  return dateFormat.format(new Date(date))
-}
-
 export function DocumentCategoryCard({ category }: { category: DocumentCategory }) {
   const anchor = getCategoryAnchor(category.id)
   const headingId = getCategoryHeadingId(category.id)
@@ -28,7 +21,10 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
           <h2 id={headingId} className="typo-headline-medium sm:typo-display-small text-text-primary">
             {category.title}
           </h2>
-          <p className="typo-body-large max-w-65 text-text-secondary">{category.description}</p>
+          {/* Like the documents' descriptions, it is left out when admin leaves it empty */}
+          {category.description.trim() && (
+            <p className="typo-body-large max-w-65 text-text-secondary">{category.description}</p>
+          )}
         </div>
         <ul className="flex min-w-0 flex-col gap-2.5">
           {category.documents.map((document) => (
@@ -39,15 +35,11 @@ export function DocumentCategoryCard({ category }: { category: DocumentCategory 
             >
               <div className="flex min-w-0 items-start gap-6">
                 <FiFile aria-hidden="true" className="size-6 shrink-0 text-text-primary" />
+                {/* Title and, when admin wrote one, the description: never the version or the upload date */}
                 <div className="min-w-0">
                   <p className="typo-body-large text-text-primary">{document.title}</p>
-                  {document.description && (
+                  {document.description?.trim() && (
                     <p className="typo-body-medium text-text-secondary">{document.description}</p>
-                  )}
-                  {document.version && document.date && (
-                    <p className="typo-body-small text-text-secondary">
-                      Versione {document.version} · aggiornato il {formatDate(document.date)}
-                    </p>
                   )}
                 </div>
               </div>
