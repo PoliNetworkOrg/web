@@ -7,7 +7,7 @@ import redHatText from "@/assets/fonts/red-hat-text-latin.woff2?url"
 import { Background } from "@/components/background"
 import { ConditionalFooter } from "@/components/conditional-footer"
 import { Footer } from "@/components/footer"
-import { GlassRoot } from "@/components/glass"
+import { GlassRoot, useGlassRecapture } from "@/components/glass"
 import { Header } from "@/components/header/header"
 import { NotFound } from "@/components/not-found"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -126,6 +126,7 @@ function PageTransition({ children }: { children: ReactNode }) {
  */
 function FadeIn({ children }: { children: ReactNode }) {
   const animate = session.navigated
+  const recaptureGlass = useGlassRecapture()
   useEffect(() => {
     session.navigated = true
   }, [])
@@ -133,6 +134,8 @@ function FadeIn({ children }: { children: ReactNode }) {
   return (
     <motion.div
       initial={animate ? { opacity: 0 } : false}
+      // The 3D glass captured the page as it started to fade in, still transparent
+      onAnimationComplete={animate ? recaptureGlass : undefined}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       // The root layout centres its children in a column: the wrapper takes their place in it

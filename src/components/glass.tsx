@@ -1,5 +1,5 @@
 import { type GlassProps, GlassProvider, glassColors, glassPresets, Glass as LiquidGlass } from "@polinetwork/glass"
-import type { ComponentProps, CSSProperties, ReactNode } from "react"
+import { type ComponentProps, type CSSProperties, createContext, type ReactNode, useContext, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useRoutePathname } from "@/utils/use-route-pathname"
 
@@ -95,8 +95,21 @@ export function FloatingGlass({
   )
 }
 
+const RecaptureContext = createContext<() => void>(() => {})
+
+/**
+ * Captures the page again once it looks as it will stay. A navigation is captured as soon as the new page is rendered,
+ * but a page (or background) that fades in is still transparent then: what fades in calls this when it is done.
+ */
+export const useGlassRecapture = () => useContext(RecaptureContext)
+
 /** Captures the page for the 3D glass, again on every navigation: the page under the header is a new one */
 export function GlassRoot({ children }: { children: ReactNode }) {
   const pathname = useRoutePathname()
-  return <GlassProvider deps={[pathname]}>{children}</GlassProvider>
+  const [settled, setSettled] = useState(0)
+  return (
+    <RecaptureContext value={() => setSettled((count) => count + 1)}>
+      <GlassProvider deps={[pathname, settled]}>{children}</GlassProvider>
+    </RecaptureContext>
+  )
 }
