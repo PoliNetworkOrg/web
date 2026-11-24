@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { ReactNode } from "react"
-import { FiArrowUpRight, FiFacebook, FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi"
+import { FiArrowUpRight, FiFacebook, FiGithub, FiInstagram, FiLinkedin, FiMessageSquare } from "react-icons/fi"
 import discord from "@/assets/icons/discord.svg"
 import telegram from "@/assets/icons/telegram.svg"
 import { CardMultipleIcons } from "@/components/card-multiple-icons"
@@ -130,10 +130,10 @@ export function Footer() {
             <div className="flex flex-col items-center gap-4 md:items-start">
               <h3 className={HEADING}>Qualche problema?</h3>
               <Button variant="tertiary" size="lg" className="mt-auto" asChild>
-                <a href="https://github.com/PoliNetworkOrg/web/issues/new" target="_blank" rel="noopener noreferrer">
-                  <FiGithub />
+                <Link href="/segnala-problema">
+                  <FiMessageSquare aria-hidden="true" />
                   Segnalalo
-                </a>
+                </Link>
               </Button>
             </div>
           </div>

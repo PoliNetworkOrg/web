@@ -69,3 +69,16 @@ export const trpc = createTRPCClient<AppRouter>({
     }),
   ],
 })
+
+/** Sends through the backend using the website's service identity. */
+export async function sendProblemReport(report: { email: string; subject: string; description: string }) {
+  const token = await requireTokens().getToken()
+  const response = await fetch(`${env.BACKEND_URL}/internal/website/problem-reports`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify(report),
+    cache: "no-store",
+    signal: AbortSignal.timeout(30_000),
+  })
+  return response.status
+}
