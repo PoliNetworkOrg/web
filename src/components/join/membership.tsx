@@ -2,6 +2,7 @@ import Image from "next/image"
 import externalLink from "@/assets/icons/join/external-link.svg"
 import membersPhoto from "@/assets/images/join/members.webp"
 import { Highlight } from "@/components/collabora/section"
+import { FillLine } from "@/components/fill-line"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { PhotoShapes } from "@/components/shapes"
 import { cn } from "@/lib/utils"
@@ -32,9 +33,11 @@ export function MembershipSection() {
             <div className="flex shrink-0 flex-col items-center">
               <Image src={step.icon} alt="" className="size-12 md:size-16" />
               {index < membershipSteps.length - 1 && (
-                <span
-                  aria-hidden
-                  className="my-2 min-h-6 w-1 flex-1 rounded-full bg-linear-to-b from-blue-secondary to-blue-primary"
+                // Fills down toward the next step as it comes into view
+                <FillLine
+                  direction="down"
+                  className="my-2 min-h-6 w-1 flex-1"
+                  fillClassName="bg-linear-to-b from-blue-secondary to-blue-primary"
                 />
               )}
             </div>

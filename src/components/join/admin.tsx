@@ -1,16 +1,12 @@
-import Image from "next/image"
 import { FiMail } from "react-icons/fi"
-import connectorFirst from "@/assets/icons/join/connector-first.svg"
-import connectorSecond from "@/assets/icons/join/connector-second.svg"
 import { InfoCard } from "@/components/collabora/info-card"
 import { Highlight } from "@/components/collabora/section"
+import { FillLine } from "@/components/fill-line"
 import { CONTAINER, SECTION_LEAD, SECTION_TITLE } from "@/components/layout/page"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { JoinCards } from "./cards"
 import { adminApplicationEmail, adminCards, adminSteps } from "./constants"
-
-const connectors = [connectorFirst, connectorSecond]
 
 export function AdminSection() {
   return (
@@ -46,12 +42,13 @@ export function AdminSection() {
                 className="h-full md:p-8"
                 titleClassName="md:typo-title-large md:whitespace-normal text-balance"
               />
-              {index < connectors.length && (
-                <Image
-                  src={connectors[index]}
-                  alt=""
-                  aria-hidden
-                  className="-translate-y-1/2 absolute top-1/2 left-full hidden h-1 w-15 max-w-none lg:block"
+              {index < adminSteps.length - 1 && (
+                // The line to the next card from lg, filling with blue one after the other
+                <FillLine
+                  direction="across"
+                  delay={index * 0.5}
+                  className="-translate-y-1/2 absolute top-1/2 left-full hidden h-1 w-15 lg:block"
+                  fillClassName="bg-linear-to-r from-blue-secondary to-blue-primary"
                 />
               )}
             </li>
