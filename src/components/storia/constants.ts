@@ -83,49 +83,56 @@ export type BoardMember = {
   linkedin?: string
 }
 
-// A `linkedin` URL makes the portrait link to the profile: add one only once it's confirmed with the person
+// Each portrait links to linkedin.com/in/name-surname; when someone's profile has another address, use theirs
 export const boardMembers: BoardMember[] = [
   {
     name: "Elisabeta Hoxhaj",
     role: "Presidente",
     image: elisabeta,
     crop: "-top-[6.05%] left-[-3.77%] h-[131.91%] w-[103.59%]",
+    linkedin: "https://www.linkedin.com/in/elisabeta-hoxhaj",
   },
   {
     name: "Alessandro Gabbini",
     role: "Vicepresidente",
     image: alessandro,
     crop: "-top-[10.85%] left-[-0.16%] h-[127.91%] w-full",
+    linkedin: "https://www.linkedin.com/in/alessandro-gabbini",
   },
   {
     name: "Gabriele Viganò",
     role: "Tesoriere",
     image: gabriele,
     crop: "-top-[8.21%] left-[0.2%] h-[127.48%] w-[99.66%]",
+    linkedin: "https://www.linkedin.com/in/gabriele-vigano",
   },
   {
     name: "Lorenzo Corallo",
     role: "Segretario",
     image: lorenzo,
     crop: "-top-[8.82%] left-[-0.03%] h-[127.91%] w-full",
+    linkedin: "https://www.linkedin.com/in/lorenzo-corallo",
   },
   {
     name: "Elia Falzoni",
     role: "",
     image: elia,
     crop: "-top-[6.96%] left-0 h-[127.34%] w-full",
+    linkedin: "https://www.linkedin.com/in/elia-falzoni",
   },
   {
     name: "Ale He",
     role: "",
     image: ale,
     crop: "-top-[8.01%] left-[0.22%] h-[127.06%] w-[99.78%]",
+    linkedin: "https://www.linkedin.com/in/ale-he",
   },
   {
     name: "Tommaso Morganti",
     role: "",
     image: tommaso,
     crop: "-top-[5.9%] left-0 h-[127.34%] w-full",
+    linkedin: "https://www.linkedin.com/in/tommaso-morganti",
   },
 ]
 
