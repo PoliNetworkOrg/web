@@ -13,6 +13,8 @@ const config = {
   reactCompiler: true,
   experimental: {
     turbopackRustReactCompiler: true,
+    // One build worker: the default (one per core) only adds memory at this number of static pages.
+    cpus: 1,
   },
   // The pages were renamed in Italian: the old English URLs (shared links, bookmarks) go to the new ones
   async redirects() {
