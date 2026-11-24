@@ -50,6 +50,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   const [searching, setSearching] = useState(false)
   const [searchError, setSearchError] = useState(false)
   const searchRun = useRef(0)
+  const fitToggle = useRef<HTMLButtonElement>(null)
   const viewport = useRef<HTMLElement>(null)
   const fileHref = getDocumentFileHref(document)
   const pageCount = pdf?.numPages ?? 0
@@ -98,6 +99,16 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
     setZoom(1)
     setPageError(false)
     viewport.current?.scrollTo(0, 0)
+  }
+
+  function closeSearch() {
+    searchRun.current += 1
+    setSearchOpen(false)
+    setQuery("")
+    setSearched("")
+    setMatches([])
+    setSearching(false)
+    setSearchError(false)
   }
 
   async function search() {
@@ -158,6 +169,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
         </div>
         <div className="order-3 col-span-3 flex w-full items-center justify-between gap-1 sm:order-none sm:w-auto sm:justify-start sm:gap-2 lg:gap-4">
           <Button
+            ref={fitToggle}
             variant="glass"
             size="icon-lg"
             className="size-11 sm:hidden"
@@ -166,7 +178,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             aria-controls="pdf-fit-options"
             onClick={() => {
               setFitOpen(!fitOpen)
-              setSearchOpen(false)
+              if (searchOpen) closeSearch()
             }}
           >
             <FiSliders aria-hidden="true" className="size-5" />
@@ -277,15 +289,9 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             aria-expanded={searchOpen}
             aria-controls="pdf-search-form"
             onClick={() => {
-              setSearchOpen(!searchOpen)
               setFitOpen(false)
-              if (searchOpen) {
-                searchRun.current += 1
-                setQuery("")
-                setSearched("")
-                setMatches([])
-                setSearching(false)
-              }
+              if (searchOpen) closeSearch()
+              else setSearchOpen(true)
             }}
           >
             <FiSearch aria-hidden="true" className="size-5" />
@@ -313,6 +319,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
                 onClick={() => {
                   changeFit(value)
                   setFitOpen(false)
+                  fitToggle.current?.focus()
                 }}
               >
                 {label}
