@@ -1,6 +1,7 @@
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import type * as React from "react"
 import { FiChevronRight } from "react-icons/fi"
+import { CardHoverBackground } from "@/components/card-icon/hover-background"
 import { cn } from "@/lib/utils"
 
 export function AccordionTrigger({
@@ -9,13 +10,14 @@ export function AccordionTrigger({
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
   return (
-    <AccordionPrimitive.Header className="relative flex">
+    <AccordionPrimitive.Header className="group/accordion-header relative flex overflow-hidden rounded-3xl">
+      <CardHoverBackground className="group-hover/accordion-header:opacity-100" />
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "flex w-full items-center justify-between gap-4 rounded-3xl p-6 text-left",
+          "relative z-10 flex w-full items-center justify-between gap-4 rounded-3xl p-6 text-left",
           "typo-title-medium text-blue-secondary outline-none transition-colors duration-200",
-          "hover:glass-glow focus-visible:glass-glow focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
+          "focus-visible:glass-glow focus-visible:ring-2 focus-visible:ring-blue-secondary focus-visible:ring-inset",
           // The chevron nudges toward where the answer opens
           "motion-safe:[&[data-state=closed]:hover>svg]:translate-x-1",
           "[&[data-state=open]>svg]:rotate-90",
