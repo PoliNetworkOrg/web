@@ -10,7 +10,7 @@ import { getCurrentLocation, headerMenuItems, isActiveHref } from "./constants"
 import styles from "./header.module.css"
 import { Logo } from "./logo"
 
-const rowClass = cn(styles.row, "typo-body-large flex min-h-11 items-center justify-between gap-2 rounded-lg ps-4 pe-2")
+const rowClass = cn(styles.item, "typo-body-large flex min-h-11 items-center justify-between gap-2 rounded-lg px-3")
 
 export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
   const pathname = useRoutePathname()
@@ -44,13 +44,13 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
     <Glass
       ref={panelRef}
       className={cn(
-        "fixed inset-x-6 top-(--nav-top) z-20 box-border rounded-rectangles border-white/80 bg-white/70 px-5 py-3",
+        "fixed inset-x-6 top-(--nav-top) z-20 box-border rounded-[35px] border-white/75 bg-white/75 px-6 py-3",
         // The Figma frame is a full device screen, so its 56px offset includes the status bar, while the
         // browser viewport already starts below it. Keep a small gap that grows toward the desktop's 40px,
         // and fall back to the safe-area inset when the page is drawn under the status bar.
         "[--nav-top:max(1rem,env(safe-area-inset-top))] sm:[--nav-top:max(1.5rem,env(safe-area-inset-top))] md:[--nav-top:max(2rem,env(safe-area-inset-top))]",
         // Open, the panel covers the page: a stronger blur keeps the titles underneath from competing with the links
-        mobileMenuOpen && "bg-white/95 backdrop-blur-xl"
+        mobileMenuOpen && "bg-white/90 backdrop-blur-xl"
       )}
       // Following any link, the current page and the logo included, closes the menu; so does tabbing out of it
       onClick={(event) => (event.target as HTMLElement).closest("a") && close()}
@@ -109,10 +109,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                 <div key={item.title} className="py-3">
                   <p
                     aria-current={current ? "location" : undefined}
-                    className={cn(
-                      styles.section,
-                      "typo-label-medium mb-1 ps-4 text-slate-600 uppercase tracking-widest"
-                    )}
+                    className={cn(styles.section, "typo-title-small mb-1 px-3 text-slate-600")}
                   >
                     {item.title}
                   </p>
@@ -127,7 +124,7 @@ export const MobileLayout = ({ logoOnly = false }: { logoOnly?: boolean }) => {
                             className={rowClass}
                           >
                             {subItem.title}
-                            <Icon className="size-4" aria-hidden />
+                            {Icon && <Icon className="size-4" aria-hidden />}
                           </Link>
                         </li>
                       )

@@ -1,7 +1,7 @@
 export type HeaderSubmenuItem = {
   title: string
   href: string
-  icon: React.ElementType
+  icon?: React.ElementType
 }
 
 export type HeaderMenuItem =

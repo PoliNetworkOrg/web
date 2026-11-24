@@ -1,106 +1,55 @@
-.category,
-.row {
-  background: transparent;
-  box-shadow: none;
-  position: relative;
-  transition: color 140ms var(--ease-ui-out);
-}
-
-.category {
-  color: var(--color-slate-700);
-  font-weight: 500;
-  scale: none;
-}
-
-.row {
+.item {
   color: var(--color-slate-800);
 }
 
-.category svg,
-.row svg {
-  color: inherit;
-  flex-shrink: 0;
+.item[aria-current] {
+  color: var(--figma-blue-secondary);
+  font-weight: 600;
 }
 
-.category svg {
-  opacity: 0.65;
+.item[aria-expanded="true"] {
+  color: var(--figma-blue-secondary);
 }
 
-.category[aria-current],
-.category[data-state="open"],
-.category:focus-visible,
-.row[aria-current],
-.row:focus-visible,
-.row:active,
+.item:active {
+  background-color: color-mix(in oklab, var(--figma-blue-secondary) 9%, transparent);
+  color: var(--figma-blue-secondary);
+}
+
+.item[aria-expanded="true"] svg {
+  rotate: 180deg;
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--figma-blue-secondary);
+  outline-offset: -2px;
+}
+
+@media (hover: hover) {
+  .item:hover {
+    background-color: color-mix(in oklab, var(--figma-blue-secondary) 9%, transparent);
+    color: var(--figma-blue-secondary);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .item:not(:focus-visible) {
+    transition:
+      background-color 120ms var(--ease-ui-out),
+      color 120ms var(--ease-ui-out);
+  }
+}
+
 .section[aria-current] {
   color: var(--figma-blue-secondary);
 }
 
-.category[aria-current],
-.row[aria-current] {
-  font-weight: 600;
+.viewport[data-state="open"] {
+  animation: reveal 140ms var(--ease-ui-out);
 }
 
-.category[aria-current]::before,
-.row[aria-current]::before {
-  position: absolute;
-  inset-inline-start: 0.35rem;
-  inset-block-start: 50%;
-  translate: 0 -50%;
-  background: currentColor;
-  content: "";
-  pointer-events: none;
-}
-
-.category[aria-current]::before {
-  inline-size: 0.3rem;
-  block-size: 0.3rem;
-  border-radius: 50%;
-}
-
-.row[aria-current]::before {
-  inline-size: 2px;
-  block-size: 1rem;
-  border-radius: 1px;
-}
-
-.category:focus-visible,
-.row:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: -2px;
-  transition: none;
-}
-
-@media (hover: hover) {
-  .category:hover,
-  .row:hover {
-    color: var(--figma-blue-secondary);
+@keyframes reveal {
+  from {
+    opacity: 0;
   }
-
-  .category:hover svg {
-    opacity: 1;
-  }
-
-  .row:hover {
-    background: var(--color-sky-50);
-  }
-}
-
-.category[data-state="open"] svg,
-.category:focus-visible svg {
-  opacity: 1;
-}
-
-.dropdown {
-  inset-inline-start: 50%;
-  translate: -50%;
-  inline-size: max-content;
-  min-inline-size: 13.5rem;
-  margin-block-start: 1.35rem;
-  padding: 0;
-  overflow: visible;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
 }

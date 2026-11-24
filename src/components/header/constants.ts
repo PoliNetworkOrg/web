@@ -1,4 +1,4 @@
-import { FiArrowUpRight, FiChevronRight } from "react-icons/fi"
+import { FiArrowUpRight } from "react-icons/fi"
 import type { HeaderMenuItem } from "./types"
 
 /** The materials archive, on the old site. */
@@ -7,38 +7,37 @@ export const headerMenuItems: HeaderMenuItem[] = [
   {
     title: "Risorse",
     menu: [
-      { title: "Progetti", href: "/progetti", icon: FiChevronRight },
-      // Leaves the site: ↗ instead of ›, as in the rest of the site
+      { title: "Progetti", href: "/progetti" },
       { title: "Appunti", href: MATERIALS_URL, icon: FiArrowUpRight },
-      { title: "Guide", href: "/guide", icon: FiChevronRight },
-      { title: "Documenti", href: "/documenti", icon: FiChevronRight },
-      { title: "FAQ", href: "/faq", icon: FiChevronRight },
+      { title: "Guide", href: "/guide" },
+      { title: "Documenti", href: "/documenti" },
+      { title: "FAQ", href: "/faq" },
     ],
   },
   {
     title: "Comunità",
     menu: [
-      { title: "Gruppi", href: "/gruppi", icon: FiChevronRight },
-      { title: "Matricole", href: "/matricole", icon: FiChevronRight },
-      { title: "Associazioni", href: "/associazioni", icon: FiChevronRight },
+      { title: "Gruppi", href: "/gruppi" },
+      { title: "Matricole", href: "/matricole" },
+      { title: "Associazioni", href: "/associazioni" },
     ],
   },
   {
     title: "Chi siamo",
     menu: [
-      { title: "Su di noi", href: "/chi-siamo", icon: FiChevronRight },
-      { title: "La nostra storia", href: "/storia", icon: FiChevronRight },
-      { title: "Ringraziamenti", href: "/ringraziamenti", icon: FiChevronRight },
+      { title: "Su di noi", href: "/chi-siamo" },
+      { title: "La nostra storia", href: "/storia" },
+      { title: "Ringraziamenti", href: "/ringraziamenti" },
     ],
   },
   {
     title: "Collabora",
     menu: [
-      { title: "Struttura", href: "/struttura", icon: FiChevronRight },
-      { title: "I team", href: "/team", icon: FiChevronRight },
-      { title: "Unisciti a noi", href: "/unisciti", icon: FiChevronRight },
-      { title: "Collabora", href: "/collabora", icon: FiChevronRight },
-      { title: "Contatti", href: "/contatti", icon: FiChevronRight },
+      { title: "Struttura", href: "/struttura" },
+      { title: "I team", href: "/team" },
+      { title: "Unisciti a noi", href: "/unisciti" },
+      { title: "Collabora", href: "/collabora" },
+      { title: "Contatti", href: "/contatti" },
     ],
   },
 ]
