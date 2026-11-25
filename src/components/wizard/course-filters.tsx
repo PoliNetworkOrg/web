@@ -1,7 +1,7 @@
 import { useNavigate, useSearch } from "@tanstack/react-router"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-const ALL = "all"
+export const ALL = "all"
 
 export type FilterOption = { value: string; label: string }
 
@@ -12,7 +12,7 @@ type FilterSelectProps = {
   onChange: (value: string) => void
 }
 
-function FilterSelect({ label, value, options, onChange }: FilterSelectProps) {
+export function FilterSelect({ label, value, options, onChange }: FilterSelectProps) {
   return (
     <Select value={value} onValueChange={onChange}>
       {/* larghezza fissa dal wrapper: testo a sinistra, freccia attaccata al bordo destro */}

@@ -5,9 +5,10 @@ import AccordionList from "@/components/accordion-list"
 import { Image } from "@/components/image"
 import { EMPTY_STATE } from "@/components/layout/page"
 import { isHttpUrl, platformName, withVisibleLabels } from "@/lib/association-links"
+import { CONTACT_FUNCTION_LABELS } from "@/lib/association-registry"
 import type { fetchAssociationsPage } from "@/queries/functions"
 
-type Association = Awaited<ReturnType<typeof fetchAssociationsPage>>["associations"][number]
+type Association = Awaited<ReturnType<typeof fetchAssociationsPage>>["shown"][number]
 type AssociationLinks = Association["links"]
 
 const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: IconType; mailto?: boolean }[] = [
@@ -88,7 +89,51 @@ function AssociationLinksList({ links }: { links: AssociationLink[] }) {
   )
 }
 
-export function AssociationsList({ associations }: { associations: Association[] }) {
+function AssociationDetails({ association }: { association: Association }) {
+  const tags = [
+    ...(association.crossProgramme ? ["Tutti i corsi"] : (association.programmes ?? []).map((p) => p.nameIt)),
+    ...(association.campuses ?? []).map((c) => c.nameIt),
+  ]
+  const contacts = association.contacts ?? []
+  if (tags.length === 0 && contacts.length === 0) return null
+  return (
+    <div className="flex max-w-3xl flex-col gap-6 pt-6">
+      {tags.length > 0 && (
+        <ul aria-label="Corsi e sedi" className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <li key={tag} className="rounded-full bg-white/60 px-3 py-1 text-sm">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
+      {contacts.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <span className="typo-title-small text-text-primary">Contatti</span>
+          <ul className="flex flex-col gap-1">
+            {contacts.map((contact) => (
+              <li key={`${contact.label}-${contact.email}`}>
+                <span>{contact.label || CONTACT_FUNCTION_LABELS[contact.function]}: </span>
+                <a className="underline underline-offset-4" href={`mailto:${contact.email}`}>
+                  {contact.email}
+                </a>
+                {(contact.name || contact.phone) && (
+                  <span className="text-text-secondary">
+                    {" "}
+                    · {[contact.name, contact.phone].filter(Boolean).join(" · ")}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  )
+}
+
+/** `openId`: the association to open (a link from an event); the first one otherwise. */
+export function AssociationsList({ associations, openId }: { associations: Association[]; openId?: string }) {
   if (associations.length === 0) {
     // The query returns an empty list on backend errors too, so the message covers both cases
     return <p className={EMPTY_STATE}>Le associazioni non sono disponibili al momento. Riprova più tardi.</p>
@@ -115,6 +160,8 @@ export function AssociationsList({ associations }: { associations: Association[]
 
     return {
       value: String(association.id),
+      // A link from an event opens it and scrolls to it
+      id: `associazione-${association.id}`,
       trigger: (
         <span className="flex min-w-0 items-center gap-3 sm:gap-4">
           {/* No placeholder logo: an association without one gets its initials */}
@@ -126,11 +173,15 @@ export function AssociationsList({ associations }: { associations: Association[]
       content: (
         <>
           {association.descriptionIt && <p>{association.descriptionIt}</p>}
+          {/* Programmes, campuses and public contacts, under the description */}
+          <AssociationDetails association={association} />
           {links.length > 0 && <AssociationLinksList links={links} />}
         </>
       ),
     }
   })
+
+  const open = items.find((item) => item.value === openId) ?? items[0]
 
   return (
     // The same accordion as the FAQs. Open, the header loses some bottom padding: the logo is taller than the name,
@@ -138,7 +189,7 @@ export function AssociationsList({ associations }: { associations: Association[]
     // padding (24) + logo (48) + gap (16)
     <AccordionList
       items={items}
-      defaultValue={items[0]?.value}
+      defaultValue={open?.value}
       triggerClassName="transition-[padding] data-[state=open]:pb-3"
       contentClassName="sm:pl-22"
     />

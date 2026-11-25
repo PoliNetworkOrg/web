@@ -21,7 +21,12 @@ export default function AccordionList({
     <MotionConfig reducedMotion="user">
       <Accordion type="single" collapsible value={value} onValueChange={setValue} className={className}>
         {items.map((item) => (
-          <AccordionItem key={item.value} value={item.value}>
+          <AccordionItem
+            key={item.value}
+            value={item.value}
+            id={item.id}
+            rootClassName={item.id ? "scroll-mt-28" : undefined}
+          >
             <AccordionTrigger className={triggerClassName}>{item.trigger}</AccordionTrigger>
             <AccordionContent open={value === item.value} className={contentClassName}>
               {item.content}

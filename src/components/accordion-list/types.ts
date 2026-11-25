@@ -1,5 +1,7 @@
 export type AccordionListItem = {
   value: string
+  /** Makes the item an anchor (`#id`), scrolled to with room for the header above it */
+  id?: string
   trigger: React.ReactNode
   content: React.ReactNode
 }
