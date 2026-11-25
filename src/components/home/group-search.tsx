@@ -1,4 +1,3 @@
-import { useAsyncDebouncer } from "@tanstack/react-pacer"
 import { useEffect, useState } from "react"
 import { FaWhatsapp } from "react-icons/fa"
 import { FiSearch } from "react-icons/fi"
@@ -20,23 +19,27 @@ export type SearchGroup = ApiOutput["groups"]["search"]["search"]["groups"][numb
 
 export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => void }) {
   const [query, setQuery] = useState("")
-  const [results, setResults] = useState<ApiOutput["groups"]["search"]["search"] | null>(null)
-
-  const debouncedSearch = useAsyncDebouncer(
-    async (searchTerm: string) => {
-      const res = await searchGroupsFn({ data: { query: searchTerm, limit: 20 } })
-      setResults(res)
-    },
-    {
-      wait: 500,
-    },
-    (state) => ({ isLoading: state.isPending || state.isExecuting })
-  )
+  const term = query.trim()
+  const [result, setResult] = useState<{ term: string; groups: SearchGroup[] | null } | null>(null)
+  const current = result?.term === term ? result : null
 
   useEffect(() => {
-    setResults(null)
-    if (query) debouncedSearch.maybeExecute(query)
-  }, [query, debouncedSearch.maybeExecute])
+    if (!term) return
+    const controller = new AbortController()
+    const timer = setTimeout(async () => {
+      try {
+        const response = await searchGroupsFn({ data: { query: term, limit: 20 }, signal: controller.signal })
+        if (!controller.signal.aborted)
+          setResult({ term, groups: response.groups.filter((group): group is SearchGroup => !!group.link) })
+      } catch {
+        if (!controller.signal.aborted) setResult({ term, groups: null })
+      }
+    }, 500)
+    return () => {
+      controller.abort()
+      clearTimeout(timer)
+    }
+  }, [term])
 
   return (
     <div className="relative w-full max-w-lg">
@@ -49,52 +52,53 @@ export function GroupSearch({ onSelect }: { onSelect?: (group: SearchGroup) => v
         className="typo-body-medium"
         value={query}
         onChange={(e) => {
+          if (e.target.value.trim() !== term) setResult(null)
           setQuery(e.target.value)
         }}
       />
 
-      {query && (
+      {term && (
         <Glass className="absolute top-15 z-20 grid w-full animate-content-enter overflow-hidden rounded-xl p-0">
           <div className="max-h-70 overflow-y-auto">
-            {results && results.count > 0 ? (
-              results?.groups
-                .filter((g): g is SearchGroup => !!g.link)
-                .map((g) => {
-                  const Icon = PLATFORM_ICON[g.type]
-                  const content = (
-                    <div className="flex items-center justify-start gap-3 px-4 py-3 text-start">
-                      <div
-                        role="img"
-                        aria-label={PLATFORM_LABEL[g.type]}
-                        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#74D4FF]"
-                      >
-                        <Icon className="size-4.5" />
-                      </div>
-                      {g.title}
-                    </div>
-                  )
-
-                  return onSelect ? (
-                    <button
-                      key={`${g.type}:${g.telegramId}`}
-                      type="button"
-                      className={resultClass}
-                      onClick={() => onSelect(g)}
+            {current?.groups?.length ? (
+              current.groups.map((g) => {
+                const Icon = PLATFORM_ICON[g.type]
+                const content = (
+                  <div className="flex items-center justify-start gap-3 px-4 py-3 text-start">
+                    <div
+                      role="img"
+                      aria-label={PLATFORM_LABEL[g.type]}
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#74D4FF]"
                     >
-                      {content}
-                    </button>
-                  ) : (
-                    <Link key={`${g.type}:${g.telegramId}`} href={g.link} target="_blank" className={resultClass}>
-                      {content}
-                    </Link>
-                  )
-                })
+                      <Icon className="size-4.5" />
+                    </div>
+                    {g.title}
+                  </div>
+                )
+
+                return onSelect ? (
+                  <button
+                    key={`${g.type}:${g.telegramId}`}
+                    type="button"
+                    className={resultClass}
+                    onClick={() => onSelect(g)}
+                  >
+                    {content}
+                  </button>
+                ) : (
+                  <Link key={`${g.type}:${g.telegramId}`} href={g.link} target="_blank" className={resultClass}>
+                    {content}
+                  </Link>
+                )
+              })
             ) : (
               <div className="flex h-12 items-center justify-center px-4">
-                {debouncedSearch.state.isLoading ? (
+                {!current ? (
                   <Spinner className="fill-blue-primary text-blue-primary/20" />
+                ) : current.groups === null ? (
+                  "Ricerca non disponibile. Riprova tra poco."
                 ) : (
-                  "No group found"
+                  "Nessun gruppo trovato"
                 )}
               </div>
             )}

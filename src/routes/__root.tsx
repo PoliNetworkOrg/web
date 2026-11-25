@@ -1,5 +1,4 @@
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router"
-import { MotionConfig, motion } from "motion/react"
 import { type ReactNode, useEffect } from "react"
 import dmSans from "@/assets/fonts/dm-sans-latin.woff2?url"
 import poppins from "@/assets/fonts/poppins-400-latin.woff2?url"
@@ -110,11 +109,7 @@ const session: { navigated: boolean } = { navigated: false }
  */
 function PageTransition({ children }: { children: ReactNode }) {
   const section = useRoutePathname().split("/")[1] ?? ""
-  return (
-    <MotionConfig reducedMotion="user">
-      <FadeIn key={section}>{children}</FadeIn>
-    </MotionConfig>
-  )
+  return <FadeIn key={section}>{children}</FadeIn>
 }
 
 /**
@@ -128,14 +123,12 @@ function FadeIn({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <motion.div
-      initial={animate ? { opacity: 0 } : false}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      // The root layout centres its children in a column: the wrapper takes their place in it
-      className="flex w-full flex-col items-center"
+    <div
+      className={
+        animate ? "flex w-full flex-col items-center motion-safe:animate-fade-in" : "flex w-full flex-col items-center"
+      }
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

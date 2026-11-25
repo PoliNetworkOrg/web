@@ -25,16 +25,34 @@ const smoothstep = (x: number) => {
  * offset and a small rotation. Loopers also open their fan while scrolling
  * past them. Only `transform`s are touched, so nothing is repainted.
  *
- * `scene` children must match the order of `getShapes()`, each being
- * `layout box > motion > content`. The first frame is rendered synchronously,
- * so new shapes never show up out of place.
+ * `scene` children must match the order of `shapes`, each being
+ * `layout box > motion > content`. Observe the untransformed boxes to track viewport proximity.
  */
-export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) {
+export function animateScene(scene: HTMLElement, shapes: SceneShape[]) {
   let scroll = window.scrollY
   let last = performance.now()
   const start = last
   introStart ??= start
   const introFrom = introStart
+
+  const visible = new Map<HTMLElement, SceneShape>()
+  const boxes = Array.from(scene.children) as HTMLElement[]
+  const byBox = new Map(boxes.map((box, index) => [box, shapes[index]]))
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const box = entry.target as HTMLElement
+        const shape = byBox.get(box)
+        if (entry.isIntersecting && shape && entry.boundingClientRect.height > 0) {
+          visible.set(box, shape)
+        } else {
+          visible.delete(box)
+        }
+      }
+    },
+    { rootMargin: `${MARGIN}px` }
+  )
+  for (const box of boxes) observer.observe(box)
 
   const tick = (now: number) => {
     frame = requestAnimationFrame(tick)
@@ -46,22 +64,14 @@ export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) 
     const t = now / 1000
     const intro = smoothstep((now - introFrom) / INTRO)
     const viewport = window.innerHeight
-    const sceneTop = scene.getBoundingClientRect().top + window.scrollY - scroll
-    const boxes = scene.children as HTMLCollectionOf<HTMLElement>
-    // read every position before writing any transform, interleaving them would force a style flush per shape
-    const tops = Array.from(boxes, (box) => sceneTop + box.offsetTop)
-    const heights = Array.from(boxes, (box) => box.offsetHeight)
-
-    for (const [i, shape] of getShapes().entries()) {
-      const motion = boxes[i]?.firstElementChild as HTMLElement | null | undefined
-      const top = tops[i]
-      const height = heights[i]
-      if (!motion || top === undefined || height === undefined) break
-
-      const visible = top < viewport + MARGIN && top + height > -MARGIN
-      // promote only what's on screen: these are huge, and Firefox ignores will-change over a memory budget
-      motion.style.willChange = visible ? "transform" : ""
-      if (!visible) continue
+    const scrollOffset = window.scrollY - scroll
+    // Read only nearby layout boxes, before updating any of their animated children.
+    const positions = Array.from(visible, ([box, shape]) => ({ box, shape, rect: box.getBoundingClientRect() }))
+    for (const { box, shape, rect } of positions) {
+      const motion = box.firstElementChild as HTMLElement | null
+      if (!motion) continue
+      const top = rect.top + scrollOffset
+      const height = rect.height
       // 0 when the shape enters from the bottom of the viewport, 1 when it leaves from the top
       const progress = Math.min(1, Math.max(0, (viewport - top) / (viewport + height)))
 
@@ -87,13 +97,13 @@ export function animateScene(scene: HTMLElement, getShapes: () => SceneShape[]) 
   let frame = 0
   tick(start)
   return () => {
+    observer.disconnect()
     cancelAnimationFrame(frame)
     const boxes = scene.children as HTMLCollectionOf<HTMLElement>
     for (const box of boxes) {
       const motion = box.firstElementChild as HTMLElement | null
       if (!motion) continue
       motion.style.removeProperty("transform")
-      motion.style.removeProperty("will-change")
       const lines = motion.firstElementChild?.children as HTMLCollectionOf<HTMLElement> | undefined
       if (!lines) continue
       for (const line of lines) line.style.removeProperty("rotate")

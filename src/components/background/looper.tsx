@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react"
+import staticLooper from "@/assets/shapes/looper.svg?img"
 import line from "@/assets/shapes/looper-line.webp?img"
 import { cn } from "@/lib/utils"
 
@@ -48,7 +49,24 @@ export const lineAngle = (i: number, spread: number) => (i - LAST) * 6 + (i - MI
 
 const percent = (value: number) => `${value * 100}%`
 
-export function Looper({ className, style }: { className?: string; style?: CSSProperties }) {
+export function Looper({
+  animated,
+  className,
+  style,
+}: {
+  animated: boolean
+  className?: string
+  style?: CSSProperties
+}) {
+  if (!animated) {
+    return (
+      <div
+        aria-hidden
+        className={cn("bg-contain bg-no-repeat", className)}
+        style={{ ...style, backgroundImage: `url(${staticLooper.src})` }}
+      />
+    )
+  }
   return (
     <div aria-hidden className={cn("relative", className)} style={style}>
       {PIVOTS.map(([x, y], i) => (

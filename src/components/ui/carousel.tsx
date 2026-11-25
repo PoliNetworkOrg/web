@@ -180,18 +180,30 @@ function Carousel({
   }, [])
 
   React.useEffect(() => {
-    if (!api || autoplay === false || reducedMotion || paused || stopped) return
-    const interval = setInterval(() => {
-      // Inactive at this breakpoint (a grid instead) or nothing to scroll: stay put
-      if (api.scrollSnapList().length <= 1) return
-      // Never move the slides under a finger, or the press would read as a drag
-      if (press.current) return
-      // At the end, go back to the first card rather than stopping
-      if (api.canScrollNext()) api.scrollNext()
-      else api.scrollTo(0)
-    }, autoplay)
-    return () => clearInterval(interval)
-  }, [api, autoplay, reducedMotion, paused, stopped])
+    if (!api || autoplay === false || reducedMotion || paused || stopped || scrollSnaps.length < 2) return
+    let interval: ReturnType<typeof setInterval> | undefined
+    let visible = false
+    const sync = () => {
+      clearInterval(interval)
+      if (!visible || document.hidden) return
+      interval = setInterval(() => {
+        if (press.current) return
+        if (api.canScrollNext()) api.scrollNext()
+        else api.scrollTo(0)
+      }, autoplay)
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry?.isIntersecting ?? false
+      sync()
+    })
+    observer.observe(api.rootNode())
+    document.addEventListener("visibilitychange", sync)
+    return () => {
+      clearInterval(interval)
+      observer.disconnect()
+      document.removeEventListener("visibilitychange", sync)
+    }
+  }, [api, autoplay, reducedMotion, paused, stopped, scrollSnaps.length])
 
   return (
     <CarouselContext.Provider

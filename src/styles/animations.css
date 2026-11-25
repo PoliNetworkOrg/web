@@ -72,34 +72,6 @@
   }
 }
 
-@layer components {
-  .mobile-menu-panel {
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: 0;
-    visibility: hidden;
-    transition:
-      grid-template-rows 180ms var(--ease-ui-out),
-      opacity 120ms var(--ease-ui-out),
-      visibility 0s 180ms;
-  }
-
-  .mobile-menu-panel[data-state="open"] {
-    grid-template-rows: 1fr;
-    opacity: 1;
-    visibility: visible;
-    transition-duration: 240ms, 160ms, 0s;
-    transition-delay: 0s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .mobile-menu-panel,
-    .mobile-menu-panel[data-state="open"] {
-      transition: none;
-    }
-  }
-}
-
 :is(a, button):focus-visible .card-hover-background,
 [data-slot="card"]:has(:focus-visible) .card-hover-background {
   opacity: 1;

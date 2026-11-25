@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { Shape } from "@/components/shapes"
 import { cn } from "@/lib/utils"
 import { hasFooter } from "@/utils/footer-routes"
@@ -47,17 +47,17 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
   const ref = useRef<HTMLDivElement>(null)
   const [segments, setSegments] = useState(INITIAL_SEGMENTS)
   // Pages composed in Figma keep their layout; the others get a generated segment per screen of page
-  const shapes = figmaScene(pathname) ?? Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat()
-  const shapesRef = useRef(shapes)
+  const [animated, setAnimated] = useState(false)
+  const fixedShapes = useMemo(() => figmaScene(pathname), [pathname])
+  const shapes = useMemo(
+    () => fixedShapes ?? Array.from({ length: segments }, (_, i) => sceneSegment(pathname, i)).flat(),
+    [fixedShapes, pathname, segments]
+  )
   const [fadeIn] = useState(() => session.navigated)
 
   useEffect(() => {
     session.navigated = true
   }, [])
-
-  useEffect(() => {
-    shapesRef.current = shapes
-  })
 
   // a layout effect, so the shapes are placed by the measured footer before the new page is painted
   useLayoutEffect(() => {
@@ -65,10 +65,10 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
     const page = el?.parentElement
     if (!el || !page) return
     // the width the content height was frozen at: a resized window lays the page out again, so it is measured again
+    const footerEl = footer ? page.querySelector<HTMLElement>(":scope > footer") : null
     let frozenWidth: number | undefined
     const measure = () => {
       // the region from the top of the footer to the end of the page, which Figma's footer shapes are spread over
-      const footerEl = page.querySelector<HTMLElement>(":scope > footer")
       if (footerEl) el.style.setProperty("--bg-footer", `${el.offsetHeight - footerEl.offsetTop}px`)
       else el.style.removeProperty("--bg-footer")
       if ((shared || pathname === "/storia") && frozenWidth !== el.offsetWidth) {
@@ -76,37 +76,32 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
         el.style.setProperty("--bg-content", `${footerEl ? footerEl.offsetTop : el.offsetHeight}px`)
         if (pathname === "/storia") el.style.setProperty("--bg-page", `${el.offsetHeight}px`)
       }
+      if (fixedShapes) return
       const segment = Number.parseFloat(getComputedStyle(el).getPropertyValue("--bg-segment"))
       setSegments(Math.max(1, Math.ceil(el.offsetHeight / segment)))
     }
     measure()
     const observer = new ResizeObserver(measure)
     observer.observe(el)
-    const footerEl = page.querySelector(":scope > footer")
     if (footerEl) observer.observe(footerEl)
     return () => observer.disconnect()
-  }, [shared, pathname])
+  }, [shared, pathname, fixedShapes, footer])
 
-  // a layout effect, so the first frame is applied before the new page is painted
-  useLayoutEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    const preference = matchMedia("(prefers-reduced-motion: reduce)")
-    let stop: (() => void) | undefined
-
-    const syncMotion = () => {
-      stop?.()
-      stop = preference.matches ? undefined : animateScene(el, () => shapesRef.current)
-    }
-
-    syncMotion()
-    preference.addEventListener("change", syncMotion)
+  useEffect(() => {
+    const media = matchMedia("(min-width: 48rem) and (pointer: fine) and (prefers-reduced-motion: no-preference)")
+    const sync = () => setAnimated(media.matches && !document.hidden)
+    sync()
+    media.addEventListener("change", sync)
+    document.addEventListener("visibilitychange", sync)
     return () => {
-      preference.removeEventListener("change", syncMotion)
-      stop?.()
+      media.removeEventListener("change", sync)
+      document.removeEventListener("visibilitychange", sync)
     }
   }, [])
+
+  useLayoutEffect(() => {
+    if (ref.current && animated) return animateScene(ref.current, shapes)
+  }, [animated, shapes])
 
   return (
     <div
@@ -116,17 +111,17 @@ function Scene({ pathname, footer, shared }: { pathname: string; footer: boolean
       data-footer={footer ? undefined : "none"}
       className={cn(
         "shape-scene -z-10 pointer-events-none absolute inset-0 overflow-clip",
-        fadeIn && "animate-fade-in [animation-duration:0.6s]"
+        fadeIn && "[animation-duration:0.6s] motion-safe:animate-fade-in"
       )}
     >
       {shapes.map((shape) => (
-        <SceneItem key={shape.id} shape={shape} />
+        <SceneItem key={shape.id} shape={shape} animated={animated && shape.layout !== "mobile"} />
       ))}
     </div>
   )
 }
 
-function SceneItem({ shape }: { shape: SceneShape }) {
+function SceneItem({ shape, animated }: { shape: SceneShape; animated: boolean }) {
   return (
     <div
       className={cn(
@@ -140,6 +135,7 @@ function SceneItem({ shape }: { shape: SceneShape }) {
         {shape.variant === "looper" ? (
           // drawn in its own aspect ratio, then stretched like the Figma instance and rotated
           <Looper
+            animated={animated}
             className="absolute top-1/2 left-0 w-full"
             style={{
               aspectRatio: 1 / LOOPER_ASPECT,
