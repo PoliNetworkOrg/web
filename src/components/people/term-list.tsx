@@ -1,4 +1,4 @@
-import { ScrollFillLine } from "@/components/fill-line"
+import { RevealFillLine } from "@/components/fill-line"
 import { formatPeriod, type Term } from "@/lib/people"
 import { cn } from "@/lib/utils"
 
@@ -18,9 +18,9 @@ export function TermList({ terms, className }: { terms: Term[]; className?: stri
             className="relative grid grid-cols-[1rem_minmax(0,1fr)] gap-x-4"
           >
             {index < terms.length - 1 && (
-              // Down to the next node, through the gap between the rows; the lines fill one after the other, as in the
-              // site's other timelines
-              <ScrollFillLine className="-bottom-6 absolute top-5 left-1.5 w-1" />
+              // Down to the next node, through the gap between the rows. Each line fills by itself once it is reached,
+              // one after the other, and stays full when scrolling back up
+              <RevealFillLine className="-bottom-6 absolute top-5 left-1.5 w-1" />
             )}
             <span
               aria-hidden
@@ -43,8 +43,8 @@ export function TermList({ terms, className }: { terms: Term[]; className?: stri
                 {[term.title, period].filter(Boolean).join(" · ")}
               </p>
               <ul className="flex flex-wrap gap-x-8 gap-y-2">
-                {term.people.map((person) => (
-                  <li key={`${person.name}:${person.role ?? ""}`} className="flex min-w-0 flex-col">
+                {term.people.map((person, personIndex) => (
+                  <li key={`${personIndex}:${person.name}`} className="flex min-w-0 flex-col">
                     <span className="typo-title-medium text-text-primary">{person.name}</span>
                     {person.role && <span className="typo-body-medium text-text-secondary">{person.role}</span>}
                   </li>
