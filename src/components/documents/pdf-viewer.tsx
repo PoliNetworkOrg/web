@@ -40,6 +40,14 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
   const [failed, setFailed] = useState(false)
   const [pageError, setPageError] = useState(false)
   const [sidebar, setSidebar] = useState(false)
+  const [desktopSidebar, setDesktopSidebar] = useState(false)
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 64rem)")
+    const sync = () => setDesktopSidebar(desktop.matches)
+    sync()
+    desktop.addEventListener("change", sync)
+    return () => desktop.removeEventListener("change", sync)
+  }, [])
   const [fitOpen, setFitOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState("")
@@ -416,6 +424,7 @@ export default function PdfViewer({ document }: { document: DocumentItem }) {
             </Button>
           </div>
           {pdf &&
+            (sidebar || desktopSidebar) &&
             Array.from({ length: pageCount }, (_, index) => index + 1).map((number) => (
               <PdfThumbnail key={number} pdf={pdf} number={number} selected={page === number} onSelect={goToPage} />
             ))}

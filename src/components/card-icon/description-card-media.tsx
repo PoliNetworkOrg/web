@@ -15,7 +15,7 @@ export function DescriptionCardMedia({
   return (
     <div className={cn("relative", getIconSizeClasses(size))}>
       {typeof icon !== "function" ? (
-        <CardMediaImage src={icon} fill sizes="180px" className="object-contain" />
+        <CardMediaImage src={icon} fill sizes="auto, 180px" className="object-contain" />
       ) : (
         <GradientIcon icon={icon} className="h-full w-full" />
       )}

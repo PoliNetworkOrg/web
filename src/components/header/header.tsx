@@ -16,7 +16,7 @@ export function Header() {
   return (
     <header>
       <div className="lg:hidden">
-        <MobileLayout />
+        <MobileLayout key={pathname} />
       </div>
       <div className="max-lg:hidden">
         <DesktopLayout />

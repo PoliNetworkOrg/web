@@ -9,7 +9,7 @@ export function BasicCardMedia({ icon, size }: { icon: GradientIconType | ImageS
   if (typeof icon !== "function") {
     return (
       <div className={cn("relative", getIconSizeClasses(size))}>
-        <CardMediaImage src={icon} fill sizes="180px" className="object-contain" />
+        <CardMediaImage src={icon} fill sizes="auto, 180px" className="object-contain" />
       </div>
     )
   }

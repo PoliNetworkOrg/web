@@ -59,7 +59,8 @@ async function mount(file, name, props = {}) {
     addEventListener: (_event, fn) => listeners.add(fn),
     removeEventListener: (_event, fn) => listeners.delete(fn),
   }
-  const api = { canScrollPrev: () => false, canScrollNext: () => true,
+  let intersection
+  const api = { rootNode: () => ({}), canScrollPrev: () => false, canScrollNext: () => true,
     selectedScrollSnap: () => 0, scrollSnapList: () => [0, 1], scrollProgress: () => progress,
     scrollNext: () => advances++, scrollPrev() {}, scrollTo: () => advances++,
     on(event, fn) { if (!events.has(event)) events.set(event, new Set()); events.get(event).add(fn) },
@@ -83,6 +84,12 @@ async function mount(file, name, props = {}) {
       if (id === "@/lib/utils") return { cn: (...classes) => classes.filter(Boolean).join(" ") }
       throw new Error(`Unexpected import: ${id}`)
     },
+    IntersectionObserver: class {
+      constructor(callback) { intersection = callback }
+      observe() { intersection([{ isIntersecting: true }]) }
+      disconnect() { intersection = null }
+    },
+    document: { hidden: false, addEventListener() {}, removeEventListener() {} },
     window: { matchMedia: () => media },
     navigator: { clipboard: { async writeText() { if (rejectClipboard) throw new Error("denied") } } },
     setInterval: (fn) => { timers.set(++timerId, fn); return timerId },
@@ -111,6 +118,7 @@ async function mount(file, name, props = {}) {
     tick() { for (const fn of [...timers.values()]) fn(); render(); return advances },
     motion(matches) { media.matches = matches; for (const fn of listeners) fn(media); render() },
     // Embla emits `scroll` on every animation frame, whether or not the slides moved
+    visible(value) { intersection?.([{ isIntersecting: value }]) },
     drag() { emit("pointerDown"); progress += 0.1; emit("scroll"); emit("pointerUp"); render() },
     tap() { emit("pointerDown"); emit("scroll"); emit("pointerUp"); render() },
     // Released before the first frame: Embla picks the next slide in `pointerUp`, emitting `select` first
@@ -231,6 +239,17 @@ test("autoplay waits while a finger rests on the slides, then carries on", async
   view.press()
   assert.equal(view.tick(), 0)
   view.release()
+  assert.equal(view.tick(), 1)
+  view.unmount()
+})
+
+
+test("an offscreen carousel releases its timer until it returns to view", async () => {
+  const view = await carousel()
+  view.visible(false)
+  assert.equal(view.timerCount(), 0)
+  assert.equal(view.tick(), 0)
+  view.visible(true)
   assert.equal(view.tick(), 1)
   view.unmount()
 })

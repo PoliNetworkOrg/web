@@ -1,4 +1,4 @@
-import { animate, motion, useAnimationFrame, useInView, useReducedMotion, useScroll } from "motion/react"
+import { animate, motion, useInView, useReducedMotion, useScroll } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { fillOnceAt } from "@/utils/fill-loop"
@@ -41,7 +41,7 @@ export function FillLine({
   const inView = useInView(track)
   const started = useRef<number | null>(null)
 
-  useAnimationFrame(() => {
+  useEffect(() => {
     if (!inView || reduceMotion || !fill.current) return
     const now = performance.now() / 1000
     if (started.current === null) {
@@ -49,8 +49,17 @@ export function FillLine({
       started.current = (list && starts.get(list)) ?? now
       if (list) starts.set(list, started.current)
     }
-    fill.current.style.setProperty("--fill", String(fillOnceAt(now - started.current, step)))
-  })
+    const start = started.current
+    const element = fill.current
+    let frame = 0
+    const update = () => {
+      const progress = fillOnceAt(performance.now() / 1000 - start, step)
+      element.style.setProperty("--fill", String(progress))
+      if (progress < 1) frame = requestAnimationFrame(update)
+    }
+    update()
+    return () => cancelAnimationFrame(frame)
+  }, [inView, reduceMotion, step])
 
   return (
     <span ref={track} aria-hidden className={cn("overflow-hidden rounded-full bg-blue-primary/25", className)}>
