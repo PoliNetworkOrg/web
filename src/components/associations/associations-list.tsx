@@ -4,9 +4,10 @@ import { FiFacebook, FiGlobe, FiInstagram, FiLinkedin, FiMail, FiMusic, FiSend, 
 import AccordionList from "@/components/accordion-list"
 import { Image } from "@/components/image"
 import { EMPTY_STATE } from "@/components/layout/page"
-import type { ApiOutput } from "@/types"
+import { isHttpUrl, platformName, withVisibleLabels } from "@/lib/association-links"
+import type { fetchAssociationsPage } from "@/queries/functions"
 
-type Association = ApiOutput["web"]["associations"]["getAllAssociations"][number]
+type Association = Awaited<ReturnType<typeof fetchAssociationsPage>>["associations"][number]
 type AssociationLinks = Association["links"]
 
 const LINK_CONFIG: { key: keyof AssociationLinks; label: string; icon: IconType; mailto?: boolean }[] = [
@@ -38,7 +39,8 @@ function initials(name: string) {
 
 function AssociationLogo({ name, logo }: Pick<Association, "name" | "logo">) {
   // The name sits right next to the logo, so both are decorative for screen readers
-  if (!logo) {
+  // Reviewed logos must be http(s); anything else falls back to the initials
+  if (!logo || !isHttpUrl(logo)) {
     return (
       <span
         aria-hidden
@@ -51,12 +53,23 @@ function AssociationLogo({ name, logo }: Pick<Association, "name" | "logo">) {
   return <Image src={logo} alt="" width={48} height={48} className={`${LOGO_CLASS} object-contain`} />
 }
 
-function AssociationLinksList({ links }: { links: { label: string; href: string; icon: IconType }[] }) {
+type AssociationLink = {
+  /** The link's accessible name and tooltip */
+  label: string
+  /** Tells apart links with the same label */
+  id?: string
+  /** Shown next to the icon */
+  text?: string
+  href: string
+  icon: IconType
+}
+
+function AssociationLinksList({ links }: { links: AssociationLink[] }) {
   return (
     // 40px targets, pulled left so the first icon lines up with the text
     <ul className="-ml-2 flex flex-wrap gap-1 pt-4">
-      {links.map(({ label, href, icon: Icon }) => (
-        <li key={label}>
+      {links.map(({ label, id, text, href, icon: Icon }) => (
+        <li key={id ?? label}>
           {/* Grey like the site's secondary text, blue on hover like the other links: no circle behind */}
           <a
             href={href}
@@ -64,9 +77,10 @@ function AssociationLinksList({ links }: { links: { label: string; href: string;
             rel="noopener noreferrer"
             aria-label={label}
             title={label}
-            className="flex size-10 items-center justify-center rounded-sm text-text-secondary outline-none transition-colors duration-200 hover:text-blue-secondary focus-visible:ring-2 focus-visible:ring-blue-secondary"
+            className={`flex h-10 items-center justify-center gap-2 rounded-sm text-text-secondary outline-none transition-colors duration-200 hover:text-blue-secondary focus-visible:ring-2 focus-visible:ring-blue-secondary ${text ? "px-3" : "w-10"}`}
           >
-            <Icon aria-hidden className="size-6" />
+            <Icon aria-hidden className="size-6 shrink-0" />
+            {text && <span className="text-sm">{text}</span>}
           </a>
         </li>
       ))}
@@ -81,10 +95,23 @@ export function AssociationsList({ associations }: { associations: Association[]
   }
 
   const items = associations.map((association) => {
-    const links = LINK_CONFIG.filter(({ key }) => association.links[key]).map(({ key, label, icon, mailto }) => {
-      const value = association.links[key] as string
-      return { label, href: mailto ? `mailto:${value}` : value, icon }
-    })
+    const links = association.extraLinks
+      ? [
+          ...(association.links.email
+            ? [{ label: "Email", href: `mailto:${association.links.email}`, icon: FiMail }]
+            : []),
+          ...withVisibleLabels(association.extraLinks).map((link, index) => ({
+            label: link.visibleLabel ? `${platformName(link.platform)}: ${link.label}` : platformName(link.platform),
+            id: `${link.platform}-${index}`,
+            text: link.visibleLabel ? link.label : undefined,
+            href: link.url,
+            icon: LINK_CONFIG.find((config) => config.key === link.platform)?.icon ?? FiGlobe,
+          })),
+        ]
+      : LINK_CONFIG.filter(({ key }) => association.links[key]).map(({ key, label, icon, mailto }) => {
+          const value = association.links[key] as string
+          return { label, href: mailto ? `mailto:${value}` : value, icon }
+        })
 
     return {
       value: String(association.id),
