@@ -35,8 +35,8 @@ const offices = [
 function People({ people }: { people: Holder[] }) {
   return (
     <ul className="flex flex-col gap-3">
-      {people.map((person) => (
-        <li key={person.name} className="flex flex-col">
+      {people.map((person, index) => (
+        <li key={`${index}:${person.name}`} className="flex flex-col">
           <span className="typo-title-medium text-text-primary">{person.name}</span>
           {person.role && <span className="typo-body-medium text-text-secondary">{person.role}</span>}
         </li>
